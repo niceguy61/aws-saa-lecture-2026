@@ -41,7 +41,7 @@ graph TD
 
 ### 인포그래픽
 
-`mermaid
+```mermaid
 graph TD
   A[DOCKERFILE] --> B[Docker Compose]
   A --> C[Bind Mount]
