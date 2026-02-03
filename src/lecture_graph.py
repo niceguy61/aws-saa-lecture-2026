@@ -7,7 +7,8 @@ from src.agents.lecture_agents import (
     ServiceUnderstandingAgent,
     DeepDiveAgent,
     HandsOnLabAgent,
-    QuizAgent
+    QuizAgent,
+    DesignAgent
 )
 from src.agents.validation_agent import LectureValidationAgent, ValidationResult
 from src.agents.evaluator_agent import EvaluatorAgent
@@ -74,6 +75,7 @@ class LectureGenerationWorkflow:
         self.quiz_agent = QuizAgent(model_name)
         self.validation_agent = LectureValidationAgent(model_name)
         self.evaluator_agent = EvaluatorAgent()
+        self.design_agent = DesignAgent()
         
         # Build workflow
         self.workflow = self._build_workflow()
@@ -86,10 +88,11 @@ class LectureGenerationWorkflow:
         HandsOnLab: 7 steps + 1 infographic = 8 sub-steps
         Quiz: 5 questions = 5 sub-steps
         Validation: 1 step
+        Design: 4 files = 4 sub-steps
         Evaluation: 3 sections = 3 sub-steps (if persona set)
         Improvement: 3 sections = 3 sub-steps (if needed)
         """
-        base_steps = 9 + 4 + 8 + 5 + 1  # 27 steps
+        base_steps = 9 + 4 + 8 + 5 + 1 + 4  # 31 steps (added design)
         
         if state.get("persona"):
             base_steps += 3  # evaluation
@@ -127,6 +130,7 @@ class LectureGenerationWorkflow:
         workflow.add_node("generate_hands_on_lab", self._generate_hands_on_lab)
         workflow.add_node("generate_quiz", self._generate_quiz)
         workflow.add_node("validate_lecture", self._validate_lecture)
+        workflow.add_node("design_lecture", self._design_lecture)
         workflow.add_node("evaluate_sections", self._evaluate_sections)
         workflow.add_node("improve_sections", self._improve_sections)
         workflow.add_node("prepare_retry", self._prepare_retry)
@@ -145,9 +149,19 @@ class LectureGenerationWorkflow:
         # Conditional edge from validation
         workflow.add_conditional_edges(
             "validate_lecture",
-            self._should_retry_or_evaluate,
+            self._should_retry_or_design,
             {
                 "retry": "prepare_retry",
+                "design": "design_lecture",
+                "finish": "finalize",
+            }
+        )
+        
+        # After design, evaluate or finish
+        workflow.add_conditional_edges(
+            "design_lecture",
+            self._should_evaluate_or_finish,
+            {
                 "evaluate": "evaluate_sections",
                 "finish": "finalize",
             }
@@ -377,13 +391,21 @@ class LectureGenerationWorkflow:
         
         return state
     
-    def _should_retry_or_evaluate(self, state: LectureState) -> str:
-        """Decide whether to retry, evaluate, or finish"""
+    def _should_retry_or_design(self, state: LectureState) -> str:
+        """Decide whether to retry, apply design, or finish"""
         if state["should_retry"]:
             return "retry"
         
-        # If validation passed and persona is set, evaluate
-        if state["validation_result"].is_valid and state.get("persona"):
+        # If validation passed, apply design improvements
+        if state["validation_result"].is_valid:
+            return "design"
+        
+        return "finish"
+    
+    def _should_evaluate_or_finish(self, state: LectureState) -> str:
+        """Decide whether to evaluate or finish after design"""
+        # If persona is set, evaluate
+        if state.get("persona"):
             return "evaluate"
         
         return "finish"
@@ -567,6 +589,69 @@ class LectureGenerationWorkflow:
                     print(f"🗑️ Deleted: {file_to_delete}")
         
         print()
+        return state
+    
+    def _design_lecture(self, state: LectureState) -> LectureState:
+        """Apply design improvements to all lecture files"""
+        print(f"\n{'='*80}")
+        print("🎨 [Design Agent] Improving readability and formatting...")
+        print(f"{'='*80}\n")
+        
+        state = self._update_progress(state, "디자인 - 가독성 개선 중...", 0)
+        
+        day_dir = state["output_dir"] / f"week{state['week']}" / f"day{state['day']}"
+        
+        # Collect all lecture files
+        lecture_files = {}
+        
+        # Service Understanding
+        su_path = day_dir / "service_understanding.md"
+        if su_path.exists():
+            with open(su_path, 'r', encoding='utf-8') as f:
+                lecture_files["service_understanding.md"] = f.read()
+        
+        state = self._update_progress(state, "디자인 - service_understanding.md 개선 완료", 1)
+        
+        # Deep Dive
+        dd_path = day_dir / "deep_dive.md"
+        if dd_path.exists():
+            with open(dd_path, 'r', encoding='utf-8') as f:
+                lecture_files["deep_dive.md"] = f.read()
+        
+        state = self._update_progress(state, "디자인 - deep_dive.md 개선 완료", 1)
+        
+        # Hands-on steps
+        handson_files = sorted(day_dir.glob("handson_step*.md"))
+        for handson_file in handson_files:
+            with open(handson_file, 'r', encoding='utf-8') as f:
+                lecture_files[handson_file.name] = f.read()
+        
+        # Quiz
+        quiz_path = day_dir / "quiz.md"
+        if quiz_path.exists():
+            with open(quiz_path, 'r', encoding='utf-8') as f:
+                lecture_files["quiz.md"] = f.read()
+        
+        state = self._update_progress(state, "디자인 - quiz.md 개선 완료", 1)
+        
+        # Apply design improvements
+        try:
+            improved_files = self.design_agent.design_lecture(lecture_files)
+            
+            # Save improved files
+            for filename, content in improved_files.items():
+                file_path = day_dir / filename
+                with open(file_path, 'w', encoding='utf-8') as f:
+                    f.write(content)
+                print(f"✓ Improved: {filename}")
+            
+            state = self._update_progress(state, "디자인 - 모든 파일 개선 완료", 1)
+            
+            print(f"\n✅ Design improvements applied to {len(improved_files)} files\n")
+            
+        except Exception as e:
+            print(f"⚠️ Design improvement failed: {e}\n")
+        
         return state
     
     def _finalize(self, state: LectureState) -> LectureState:

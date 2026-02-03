@@ -5,37 +5,31 @@
 <details>
 <summary>배경 정보 보기</summary>
 
-Docker Registry는 Docker 이미지를 저장하고 분배하는 서비스로, 개발자와 운영자들이 컨테이너 이미지를 안전하게 관리하고 배포하는 데 핵심적인 역할을 합니다. 이 서비스는 Docker CLI와 통합되어 이미지의 등록, 검색, 추출 등을 지원하며, DevOps 파이프라인에서 CI/CD 자동화를 가능하게 합니다. 또한, Docker Registry는 이미지의 버전 관리, 암호화, 인증을 통해 보안성을 강화하고 있습니다.
+Docker Registry는 Docker 이미지를 저장하고 분배하는 핵심 서비스로, 개발자와 운영자가 컨테이너 이미지를 공유하고 관리하는 데 사용됩니다. 이미지 버전 관리, 접근 제어, 네트워크 통신 등을 지원하며, 컨테이너화된 애플리케이션 배포 시 필수적인 역할을 합니다. 사용자는 컨테이너 이미지의 생성, 저장, 추출, 배포 등을 통해 DevOps 파이프라인에 통합할 수 있습니다.
 
 ### 인포그래픽
 
-`mermaid
+```mermaid
 graph TD
-  A[DOCKER REGISTRY] --> B[이미지 저장소]
-  A --> C[CLI 통합]
-  A --> D[보안 기능]
-  C --> E[등록/검색/추출]
-  D --> F[버전 관리]
-  D --> G[암호화]
-  D --> H[인증]
-  subgraph DevOps
-    I[CI/CD 자동화] --> J[파이프라인 통합]
-  end
+  A[Docker Registry 역할] --> B[이미지 저장/분배]
+  B --> C[버전 관리]
+  B --> D[접근 제어]
+  C --> E[DevOps 통합]
+  D --> E
+  E --> F[배포 및 운영]
   style A fill:#4CAF50,stroke:#388E3C
   style B fill:#2196F3,stroke:#1976D2
   style C fill:#FFA726,stroke:#FB8C00
-  style D fill:#9C27B0,stroke:#9575CD
-  style F fill:#00BCD4,stroke:#0097A7
-  style G fill:#FF5722,stroke:#EF6C00
-  style H fill:#E91E63,stroke:#D81B60
-  style I fill:#81D4FA,stroke:#4FC3F7
-  style J fill:#80DEEA,stroke:#43A047
+  style D fill:#FF5722,stroke:#E64A19
+  style E fill:#9C27B0,stroke:#7E34B0
+  style F fill:#673AB7,stroke:#4A144A
 ```
 
+
 **참고 이미지**:
-- [이미지 보기](https://docs.docker.com/registry/images/registry-architecture.png)
-- [이미지 보기](https://docs.docker.com/engine/reference/commandline/cli/#docker-cli-commands)
-- [이미지 보기](https://docs.docker.com/registry/recipes/auth/#using-http-basic-authentication)
+- [이미지 보기](https://docs.docker.com/registry/introduction/)
+- [이미지 보기](https://docs.docker.com/engine/reference/commandline/docker/)
+- [이미지 보기](https://docs.docker.com/compose/reference/build/)
 
 </details>
 
@@ -44,31 +38,24 @@ graph TD
 <details>
 <summary>핵심 개념 보기</summary>
 
-- Docker Registry는 Docker 이미지를 저장소로 관리하는 서비스
-- Docker CLI와의 통합을 통해 이미지의 등록 및 추출이 가능
-- 인증 및 암호화 기능으로 보안을 강화
+- Docker Registry: 컨테이너 이미지를 저장하고 관리하는 저장소
+- Bind Mount: 호스트 파일 시스템을 컨테이너 내부로 마운트하는 기능
+- Port Mapping: 호스트와 컨테이너 간 네트워크 포트 연결
 
 ### 인포그래픽
 
-`mermaid
+```mermaid
 graph TD
-  A[Docker Registry] --> B[Docker CLI 통합]
-  A --> C[보안 기능]
-  B --> D[이미지 등록]
-  B --> E[이미지 추출]
-  C --> F[인증]
-  C --> G[암호화]
+  A[Docker Registry] --> B[Bind Mount]
+  A --> C[Port Mapping]
+  B -->|호스트 파일 시스템 마운트| D[컨테이너 파일 시스템]
+  C -->|포트 연결| E[호스트 네트워크]
   style A fill:#4CAF50,stroke:#388E3C
   style B fill:#2196F3,stroke:#1976D2
   style C fill:#FF9800,stroke:#FB8C00
-  style D fill:#FFA726,stroke:#FB8C00
-  style E fill:#FF8A65,stroke:#D50000
-  style F fill:#9C27B0,stroke:#8E24AA
-  style G fill:#673AB7,stroke:#4A144E
+  style D fill:#FFEB3B,stroke:#FDD833
+  style E fill:#9C27B0,stroke:#8E24AA
 ```
-
-**참고 이미지**:
-- [이미지 보기](https://docs.example.com/image1.png)
 
 </details>
 
@@ -78,13 +65,13 @@ graph TD
 <summary>장단점 보기</summary>
 
 **장점**:
-- 이미지의 버전 관리 및 분배를 효율화
-- Docker CLI와의 원활한 통합
-- 보안 강화를 위한 인증 및 암호화 지원
+-  centralized 이미지 저장소로 팀 내 공유 및 관리 효율성 향상
+- 버전 관리 및 롤백 기능으로 배포 안정성 확보
+- HTTPS 및 인증 기능으로 보안성 강화
 
 **단점**:
-- 대규모 이미지 저장소 운영 시 복잡도 증가
-- 기본적인 설정에서 보안 취약점 발생 가능성
+- 대규모 이미지 저장소 시 네트워크 대역폭 및 스토리지 요구 사양 증가
+- 외부 네트워크 의존성이 높아 내부 네트워크 환경에서 제한적
 
 </details>
 
@@ -93,9 +80,9 @@ graph TD
 <details>
 <summary>사용 사례 보기</summary>
 
-1. CI/CD 파이프라인에서 자동화된 이미지 배포
-2. 멀티 클라우드 환경에서 이미지 공유 및 관리
-3. 컨테이너 오케스트레이션 도구와의 통합
+1. 기업 내부 이미지 레지스터로 사내 도커 이미지 공유
+2. 오픈소스 이미지 공유를 위한 Docker Hub 연동
+3. CI/CD 파이프라인에서 자동 빌드 이미지 저장 및 배포
 
 </details>
 
@@ -105,13 +92,13 @@ graph TD
 <summary>연관 서비스 보기</summary>
 
 - Docker Engine
+- Docker Hub
 - Kubernetes
-- Harbor
-- AWS ECR
 
 </details>
 
 ## 6. 공식 문서 링크
 
 - [Docker Registry 공식 문서](https://docs.docker.com/registry/)
+- [Docker Registry GitHub 저장소](https://github.com/docker/distribution)
 

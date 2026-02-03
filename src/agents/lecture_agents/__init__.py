@@ -18,6 +18,7 @@ from .service_understanding import ServiceUnderstandingAgent
 from .deep_dive import DeepDiveAgent
 from .hands_on_lab import HandsOnLabAgent
 from .quiz import QuizAgent
+from .design import DesignAgent
 
 __all__ = [
     # Models
@@ -35,4 +36,5 @@ __all__ = [
     "DeepDiveAgent",
     "HandsOnLabAgent",
     "QuizAgent",
+    "DesignAgent",
 ]
