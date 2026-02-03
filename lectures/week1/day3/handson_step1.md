@@ -21,7 +21,7 @@
 
 ### 실습 흐름도
 
-`mermaid
+```mermaid
 graph TD
   A[DOCKER 이미지 생성 및 실시간 개발 환경 구성] --> B[단계1: Dockerfile 생성]
   B --> C[단계2: Docker 이미지 빌드]
@@ -39,7 +39,6 @@ graph TD
   style G fill:#FF5722,stroke:#E64A19
   style H fill:#607D8B,stroke:#455A64
 ```
-
 **참고 이미지**:
 - [이미지 보기](https://docs.docker.com/develop/develop-images/dockerfile-best-practices/)
 - [이미지 보기](https://docs.docker.com/compose/compose-file/compose-file-v3/)
@@ -80,7 +79,7 @@ docker-compose.yml 파일 생성
 <details>
 <summary>명령어 보기</summary>
 
-```bash
+`````bash
 #!/bin/sh
 FROM node:24-alpine
 WORKDIR /app
@@ -89,7 +88,6 @@ RUN npm install
 EXPOSE 3000
 CMD ["sh", "-c", "npm install && npm run dev"]
 ```
-
 </details>
 
 **예상 출력**:

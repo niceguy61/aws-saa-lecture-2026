@@ -16,7 +16,6 @@ graph TD
   G --> H[로그 확인: docker logs]
   H --> I[정상 실행 여부 확인]
 ```
-
 **참고 이미지**:
 - [이미지 보기](https://docs.example.com/dockerfile-structure.png)
 - [이미지 보기](https://docs.example.com/bind-mount-example.png)
@@ -108,7 +107,6 @@ graph TD
   E --> F
   F --> G[서비스 재시작]
 ```
-
 **참고 이미지**:
 - [이미지 보기](https://docs.example.com/image1.png)
 - [이미지 보기](https://docs.example.com/ssh-mount.png)

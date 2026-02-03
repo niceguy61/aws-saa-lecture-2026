@@ -1,12 +1,10 @@
 """ChromaDB vector store management"""
 import chromadb
 from chromadb.config import Settings
-from langchain_openai import OpenAIEmbeddings
 from langchain_ollama import OllamaEmbeddings
 from langchain_community.vectorstores import Chroma
 from src.config import (
     CHROMA_URL, COLLECTIONS, 
-    EMBEDDING_PROVIDER, OPENAI_API_KEY,
     OLLAMA_BASE_URL, OLLAMA_EMBEDDING_MODEL
 )
 
@@ -20,14 +18,11 @@ class VectorStoreManager:
             port=int(CHROMA_URL.split(":")[-1])
         )
         
-        # Initialize embeddings based on provider
-        if EMBEDDING_PROVIDER == "openai":
-            self.embeddings = OpenAIEmbeddings(openai_api_key=OPENAI_API_KEY)
-        else:  # ollama
-            self.embeddings = OllamaEmbeddings(
-                base_url=OLLAMA_BASE_URL,
-                model=OLLAMA_EMBEDDING_MODEL
-            )
+        # Initialize Ollama embeddings
+        self.embeddings = OllamaEmbeddings(
+            base_url=OLLAMA_BASE_URL,
+            model=OLLAMA_EMBEDDING_MODEL
+        )
         
         self.collections = {}
         

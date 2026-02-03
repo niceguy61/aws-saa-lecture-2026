@@ -21,7 +21,6 @@ graph TD
   style D fill:#FF5722,stroke:#E64A19
   style E fill:#9C27B0,stroke:#7B1FA2
 ```
-
 **참고 이미지**:
 - [이미지 보기](https://docs.docker.com/engine/reference/builder/images/dockerfile-structure.png)
 - [이미지 보기](https://docs.docker.com/engine/reference/commandline/run/docker-run-mount.png)
@@ -59,7 +58,6 @@ graph TD
   style G fill:#009688,stroke:#00796B
   style H fill:#795548,stroke:#6D4C41
 ```
-
 **참고 이미지**:
 - [이미지 보기](https://docs.example.com/image1.png)
 - [이미지 보기](https://docs.example.com/image2.png)

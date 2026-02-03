@@ -8,6 +8,8 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent))
 
 from src.lecture_generator import LectureGenerator
+from src.lecture_graph import create_lecture_workflow
+from src.config import DEFAULT_PERSONA, AVAILABLE_PERSONAS
 
 
 # 커리큘럼 매핑 (Week, Day -> Topic, Services, Collections)
@@ -137,6 +139,28 @@ def main():
         action="store_true",
         help="List available curriculum mappings"
     )
+    parser.add_argument(
+        "--max-retries",
+        type=int,
+        default=2,
+        help="Maximum number of retries if validation fails (default: 2)"
+    )
+    parser.add_argument(
+        "--skip-validation",
+        action="store_true",
+        help="Skip validation step (not recommended)"
+    )
+    parser.add_argument(
+        "--use-langgraph",
+        action="store_true",
+        help="Use LangGraph workflow with validation loop (recommended)"
+    )
+    parser.add_argument(
+        "--persona",
+        type=str,
+        choices=AVAILABLE_PERSONAS,
+        help=f"Target persona for content evaluation (optional, defaults to DEFAULT_PERSONA from .env: {DEFAULT_PERSONA or 'None'})"
+    )
     
     args = parser.parse_args()
     
@@ -181,36 +205,81 @@ def main():
     print(f"   Topic: {topic}")
     print(f"   Services: {', '.join(services)}")
     print(f"   Collections: {', '.join(collections) if collections else 'None'}")
+    
+    # Determine which persona to use
+    persona_to_use = args.persona if args.persona else DEFAULT_PERSONA
+    if persona_to_use:
+        source = "CLI argument" if args.persona else ".env DEFAULT_PERSONA"
+        print(f"   Persona: {persona_to_use} (from {source})")
+    else:
+        print(f"   Persona: None (evaluation disabled)")
     print()
     
     # Generate lecture
-    generator = LectureGenerator()
-    
-    try:
-        # Generate lecture (now returns saved_files dict directly)
-        saved_files = generator.generate_daily_lecture(
-            week=args.week,
-            day=args.day,
-            topic=topic,
-            services=services,
-            collections=collections
-        )
+    if args.use_langgraph:
+        print("🚀 Using LangGraph workflow with validation loop\n")
+        workflow = create_lecture_workflow()
         
-        print("\n" + "="*80)
-        print("✅ SUCCESS!")
-        print("="*80)
-        print(f"\n📚 Generated lecture for Week {args.week}, Day {args.day}")
-        print(f"📖 Topic: {curriculum['topic']}")
-        print(f"\n📂 Files saved:")
-        for file_type, file_path in saved_files.items():
-            print(f"  - {file_type}: {file_path}")
-        print()
+        try:
+            max_retries = 0 if args.skip_validation else args.max_retries
+            
+            saved_files = workflow.generate_lecture(
+                week=args.week,
+                day=args.day,
+                topic=topic,
+                services=services,
+                collections=collections,
+                max_retries=max_retries,
+                persona=persona_to_use  # Use determined persona (CLI arg or DEFAULT_PERSONA)
+            )
+            
+            print("\n" + "="*80)
+            print("✅ SUCCESS!")
+            print("="*80)
+            print(f"\n📚 Generated lecture for Week {args.week}, Day {args.day}")
+            print(f"📖 Topic: {curriculum['topic']}")
+            print(f"\n📂 Files saved:")
+            for file_type, file_path in saved_files.items():
+                print(f"  - {file_type}: {file_path}")
+            print()
+            
+        except Exception as e:
+            print(f"\n❌ Failed to generate lecture: {e}")
+            import traceback
+            traceback.print_exc()
+            sys.exit(1)
+    else:
+        print("📝 Using traditional retry loop\n")
+        generator = LectureGenerator()
         
-    except Exception as e:
-        print(f"\n❌ Failed to generate lecture: {e}")
-        import traceback
-        traceback.print_exc()
-        sys.exit(1)
+        try:
+            # Generate lecture (now returns saved_files dict directly)
+            max_retries = 0 if args.skip_validation else args.max_retries
+            
+            saved_files = generator.generate_daily_lecture(
+                week=args.week,
+                day=args.day,
+                topic=topic,
+                services=services,
+                collections=collections,
+                max_retries=max_retries
+            )
+            
+            print("\n" + "="*80)
+            print("✅ SUCCESS!")
+            print("="*80)
+            print(f"\n📚 Generated lecture for Week {args.week}, Day {args.day}")
+            print(f"📖 Topic: {curriculum['topic']}")
+            print(f"\n📂 Files saved:")
+            for file_type, file_path in saved_files.items():
+                print(f"  - {file_type}: {file_path}")
+            print()
+            
+        except Exception as e:
+            print(f"\n❌ Failed to generate lecture: {e}")
+            import traceback
+            traceback.print_exc()
+            sys.exit(1)
 
 
 if __name__ == "__main__":

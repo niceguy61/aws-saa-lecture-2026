@@ -1,9 +1,7 @@
 """Base agent class with RAG capabilities"""
-from langchain_openai import ChatOpenAI
-from langchain_community.llms import Ollama
-from langchain_core.messages import SystemMessage, HumanMessage
+from langchain_ollama import ChatOllama
+from langchain_core.messages import SystemMessage, HumanMessage, AIMessage
 from src.config import (
-    LLM_PROVIDER, OPENAI_API_KEY, OPENAI_MODEL, 
     OLLAMA_BASE_URL, OLLAMA_MODEL, AGENT_TEMPERATURE
 )
 from src.vectorstore import VectorStoreManager
@@ -18,19 +16,12 @@ class BaseAgent:
         self.collection_name = collection_name
         self.system_prompt = system_prompt
         
-        # Initialize LLM based on provider
-        if LLM_PROVIDER == "openai":
-            self.llm = ChatOpenAI(
-                api_key=OPENAI_API_KEY,
-                model=OPENAI_MODEL,
-                temperature=AGENT_TEMPERATURE
-            )
-        else:  # ollama
-            self.llm = Ollama(
-                base_url=OLLAMA_BASE_URL,
-                model=OLLAMA_MODEL,
-                temperature=AGENT_TEMPERATURE
-            )
+        # Initialize Ollama LLM
+        self.llm = ChatOllama(
+            base_url=OLLAMA_BASE_URL,
+            model=OLLAMA_MODEL,
+            temperature=AGENT_TEMPERATURE
+        )
         
         self.vectorstore = VectorStoreManager()
     
@@ -47,21 +38,14 @@ class BaseAgent:
         retrieved_docs = self.retrieve_context(user_query)
         context = "\n\n".join(retrieved_docs)
         
-        # Build prompt with context
-        full_prompt = f"{self.system_prompt}\n\nContext:\n{context}\n\nQuery: {user_query}"
+        # Build messages with context
+        messages = [
+            SystemMessage(content=self.system_prompt),
+            HumanMessage(content=f"Context:\n{context}\n\nQuery: {user_query}")
+        ]
         
-        # Generate response
-        if LLM_PROVIDER == "openai":
-            messages = [
-                SystemMessage(content=self.system_prompt),
-                HumanMessage(content=f"Context:\n{context}\n\nQuery: {user_query}")
-            ]
-            response = self.llm.invoke(messages)
-        else:  # ollama
-            response_text = self.llm.invoke(full_prompt)
-            # Create a message-like object for consistency
-            from langchain_core.messages import AIMessage
-            response = AIMessage(content=response_text)
+        # Generate response using Ollama
+        response = self.llm.invoke(messages)
         
         return {
             "messages": [response],

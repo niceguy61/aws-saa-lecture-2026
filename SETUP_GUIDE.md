@@ -46,6 +46,7 @@ python src/ingest_official_docs.py --service kubernetes
 python src/ingest_official_docs.py --service terraform
 python src/ingest_official_docs.py --service istio
 python src/ingest_official_docs.py --service argocd
+python src/ingest_official_docs.py --service aws
 ```
 
 ## 4. 데이터 확인
