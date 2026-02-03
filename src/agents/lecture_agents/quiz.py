@@ -80,12 +80,15 @@ class QuizAgent:
 
 반드시 다음 규칙을 따르세요:
 1. 모든 내용은 한글로 작성
-2. 최소 {min_questions}개의 질문
-3. 각 질문은 4개의 선택지
+2. 최소 {min_questions}개의 질문 (더 많이 생성 권장)
+3. 각 질문은 정확히 4개의 선택지
 4. 모든 질문에 상세한 설명 포함
 5. 다양한 유형 (지식, 시나리오, 명령어, 비교)
 
-CRITICAL: questions는 반드시 배열(array)이어야 합니다. 객체가 아닙니다!
+CRITICAL: 
+- questions는 반드시 배열(array)이어야 합니다!
+- 최소 {min_questions}개 이상 생성하세요!
+- 각 질문은 question, choices, answer, explanation 필드 필수!
 
 JSON 형식으로 응답하세요."""),
             ("user", """서비스: {service_name}
@@ -93,25 +96,48 @@ JSON 형식으로 응답하세요."""),
 RAG 컨텍스트:
 {rag_context}
 
-다음 JSON 스키마로 정확히 응답하세요. questions는 배열입니다:
+다음 JSON 스키마로 정확히 응답하세요:
+
 {{
   "questions": [
     {{
-      "question": "질문 내용 (한글)",
-      "choices": ["A) 선택지1", "B) 선택지2", "C) 선택지3", "D) 선택지4"],
+      "question": "Dockerfile에서 COPY와 ADD 명령어의 차이점은 무엇인가요?",
+      "choices": [
+        "A) COPY는 로컬 파일만, ADD는 URL도 가능",
+        "B) 차이 없음",
+        "C) ADD가 더 빠름",
+        "D) COPY가 더 안전함"
+      ],
       "answer": "A",
-      "explanation": "상세한 설명 (한글)"
+      "explanation": "COPY는 로컬 파일 시스템의 파일만 복사할 수 있지만, ADD는 URL에서 파일을 다운로드하거나 tar 파일을 자동으로 압축 해제할 수 있습니다. 하지만 보안상 COPY 사용이 권장됩니다."
     }},
     {{
-      "question": "질문 내용 2 (한글)",
-      "choices": ["A) 선택지1", "B) 선택지2", "C) 선택지3", "D) 선택지4"],
+      "question": "다음 중 Docker 이미지 크기를 줄이는 방법이 아닌 것은?",
+      "choices": [
+        "A) 멀티 스테이지 빌드 사용",
+        "B) Alpine 베이스 이미지 사용",
+        "C) 모든 RUN 명령을 하나로 합치기",
+        "D) 모든 파일을 한 번에 COPY"
+      ],
+      "answer": "D",
+      "explanation": "모든 파일을 한 번에 COPY하면 불필요한 파일까지 포함되어 이미지 크기가 커집니다. .dockerignore를 사용하여 필요한 파일만 복사해야 합니다."
+    }},
+    {{
+      "question": "컨테이너가 exit code 137로 종료되었습니다. 가장 가능성 높은 원인은?",
+      "choices": [
+        "A) 애플리케이션 버그",
+        "B) 메모리 부족 (OOM)",
+        "C) 디스크 공간 부족",
+        "D) 네트워크 오류"
+      ],
       "answer": "B",
-      "explanation": "상세한 설명 (한글)"
+      "explanation": "Exit code 137은 SIGKILL(128+9)을 의미하며, 일반적으로 메모리 부족으로 시스템이 컨테이너를 강제 종료했을 때 발생합니다."
     }}
   ]
 }}
 
-최소 """ + str(min_questions) + """개의 질문을 배열 형태로 생성하세요.""")
+위 예시처럼 최소 """ + str(min_questions) + """개 이상의 질문을 배열 형태로 생성하세요.
+각 질문은 question, choices(4개), answer, explanation을 모두 포함해야 합니다.""")
         ])
         
         chain = prompt | self.llm

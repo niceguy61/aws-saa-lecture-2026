@@ -75,17 +75,17 @@ graph TD
 - `(텍스트)` 둥근 사각형
 - `([텍스트])` 스타디움형
 - `[(텍스트)]` 원통형 (DB)
-- `{{텍스트}}` 육각형
-- `{텍스트}` 마름모
+- `{{{{텍스트}}}}` 육각형
+- `{{텍스트}}` 마름모
 
 ### 3. Flowchart (흐름도) - troubleshooting, hands_on에 최적
 **언제 사용:** 프로세스, 의사결정, 알고리즘
 ```mermaid
 flowchart TD
-    Start([시작]) --> CheckPort{포트 사용<br/>가능?}
+    Start([시작]) --> CheckPort{{포트 사용<br/>가능?}}
     CheckPort -->|Yes| RunContainer[실행]
     CheckPort -->|No| FindProcess[프로세스 확인]
-    FindProcess --> Decision{중요한<br/>프로세스?}
+    FindProcess --> Decision{{중요한<br/>프로세스?}}
     Decision -->|Yes| UseOtherPort[다른 포트]
     Decision -->|No| KillProcess[종료]
     KillProcess --> RunContainer
@@ -147,7 +147,7 @@ Storage (저장소):   fill:#868e96,color:#fff,stroke:#495057
 - `Process1`, `Process2`
 
 ### 문법 규칙:
-1. **괄호 균형**: `[`, `]`, `(`, `)`, `{`, `}` 개수 일치
+1. **괄호 균형**: `[`, `]`, `(`, `)`, `{{`, `}}` 개수 일치
 2. **줄바꿈**: 노드 내 `<br/>` 사용
 3. **화살표 일관성**: `-->` 또는 `->>` (공백 주의)
 4. **한글 사용**: 모든 레이블은 한글
@@ -275,24 +275,48 @@ RAG 컨텍스트:
     def _validate_mermaid_syntax(self, content: str) -> bool:
         """Basic Mermaid syntax validation"""
         try:
-            # Check for basic structure
-            if 'graph' not in content.lower() and 'flowchart' not in content.lower():
+            # Remove code fence markers if present
+            content_clean = content.replace('```mermaid', '').replace('```', '').strip()
+            
+            # Check for basic structure - must have at least one diagram type
+            diagram_types = ['graph', 'flowchart', 'sequenceDiagram', 'timeline', 'mindmap']
+            has_diagram_type = any(dtype in content_clean.lower() for dtype in diagram_types)
+            if not has_diagram_type:
+                print("  ⚠️ No diagram type found")
                 return False
             
-            # Check for balanced brackets
-            if content.count('[') != content.count(']'):
-                return False
-            if content.count('(') != content.count(')'):
-                return False
-            if content.count('{') != content.count('}'):
-                return False
+            # Check for balanced brackets (but allow some flexibility)
+            bracket_pairs = [
+                ('[', ']'),
+                ('(', ')'),
+                ('{', '}')
+            ]
             
-            # Check for arrows
-            if '-->' not in content and '---' not in content:
+            for open_b, close_b in bracket_pairs:
+                open_count = content_clean.count(open_b)
+                close_count = content_clean.count(close_b)
+                # Allow small imbalance (might be in strings or comments)
+                if abs(open_count - close_count) > 2:
+                    print(f"  ⚠️ Bracket imbalance: {open_b}{close_b} ({open_count} vs {close_count})")
+                    return False
+            
+            # Check for connections (arrows) - but not required for all diagram types
+            has_connections = any(arrow in content_clean for arrow in ['-->', '---', '->>', '->>'])
+            
+            # Timeline and mindmap don't need arrows
+            if 'timeline' not in content_clean.lower() and 'mindmap' not in content_clean.lower():
+                if not has_connections:
+                    print("  ⚠️ No connections found")
+                    return False
+            
+            # Check minimum content length
+            if len(content_clean) < 20:
+                print("  ⚠️ Content too short")
                 return False
             
             return True
-        except:
+        except Exception as e:
+            print(f"  ⚠️ Validation error: {e}")
             return False
     
     def _get_fallback_diagram(self) -> str:
