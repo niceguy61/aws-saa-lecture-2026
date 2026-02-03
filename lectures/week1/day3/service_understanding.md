@@ -11,7 +11,7 @@ Docker Images는 애플리케이션을 실행하기 위한 가상의 운영체�
 
 ### 인포그래픽
 
-`mermaid
+```mermaid
 graph TD
   A[DOCKERFILE 생성] --> B[이미지 빌드]
   B --> C[바인드 마운트 설정]
@@ -26,7 +26,7 @@ graph TD
   style E fill:#ADD8E6,stroke:#000
   style F fill:#98FB98,stroke:#000
   style G fill:#FFFACD,stroke:#000
-`
+```
 
 **참고 이미지**:
 - [이미지 보기](https://docs.docker.com/compose/reference/build/)
