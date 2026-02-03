@@ -160,8 +160,8 @@ class DesignAgent:
         next_title: Optional[str]
     ) -> str:
         """상단 네비게이션 생성"""
-        nav = "---\n\n"
-        nav += f"# 📘 Week {week} - Day {day}\n\n"
+        # YAML front matter 에러 방지: --- 제거
+        nav = f"# 📘 Week {week} - Day {day}\n\n"
         
         # 네비게이션 버튼
         nav += "<div style=\"display: flex; justify-content: space-between; align-items: center; padding: 10px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 10px; color: white;\">\n"
