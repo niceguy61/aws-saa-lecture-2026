@@ -356,6 +356,9 @@ class DesignAgent:
         for filename, content in lecture_files.items():
             print(f"🎨 디자인 개선 중: {filename}")
             
+            # 기존 네비게이션 제거
+            content = self._remove_existing_navigation(content)
+            
             # 파일 타입 판단
             is_quiz = 'quiz' in filename.lower()
             
@@ -385,3 +388,32 @@ class DesignAgent:
             improved_files[filename] = improved_content
         
         return improved_files
+    
+    def _remove_existing_navigation(self, content: str) -> str:
+        """기존 네비게이션 제거"""
+        # 맨 위의 네비게이션 제거 (# 📘 Week 부터 첫 번째 --- 까지)
+        if '# 📘 Week' in content[:500]:
+            # 첫 번째 실제 콘텐츠 헤딩 찾기 (# 서비스 이해, # Deep Dive 등)
+            lines = content.split('\n')
+            start_idx = 0
+            found_nav = False
+            
+            for i, line in enumerate(lines):
+                if '# 📘 Week' in line:
+                    found_nav = True
+                elif found_nav and line.strip().startswith('#') and '📘 Week' not in line:
+                    # 실제 콘텐츠 시작
+                    start_idx = i
+                    break
+            
+            if start_idx > 0:
+                content = '\n'.join(lines[start_idx:])
+        
+        # 하단 네비게이션 제거 (마지막 --- 부터 끝까지)
+        if '<div style="text-align: center; padding: 20px; background: linear-gradient' in content:
+            # 마지막 --- 찾기
+            last_separator_idx = content.rfind('\n\n---\n\n<div style="text-align: center;')
+            if last_separator_idx > 0:
+                content = content[:last_separator_idx]
+        
+        return content.strip() + '\n\n'
