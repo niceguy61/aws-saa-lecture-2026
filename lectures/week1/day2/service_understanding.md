@@ -9,7 +9,7 @@ Docker는 애플리케이션을 포트 매핑, 바인드 마운트, 작업 디�
 
 ### 인포그래픽
 
-`mermaid
+```mermaid
 graph TD
   A[DOCKER 설치 및 구성] --> B[DOCKERFILE 기반 이미지 생성]
   B --> C[포트 매핑: -p 8080:80]
