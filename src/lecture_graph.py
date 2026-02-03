@@ -46,6 +46,8 @@ class LectureState(TypedDict):
     # Evaluation (페르소나 기반)
     evaluation_results: Optional[Dict]  # 섹션별 평가 결과
     needs_persona_improvement: bool  # 페르소나 기반 개선 필요 여부
+    evaluation_iteration: int  # 평가-개선 반복 횟수
+    max_evaluation_iterations: int  # 최대 평가-개선 반복 횟수
     
     # File paths
     saved_files: Dict[str, str]
@@ -89,8 +91,8 @@ class LectureGenerationWorkflow:
         Quiz: 5 questions = 5 sub-steps
         Validation: 1 step
         Design: 4 files = 4 sub-steps
-        Evaluation: 3 sections = 3 sub-steps (if persona set)
-        Improvement: 3 sections = 3 sub-steps (if needed)
+        Evaluation: 3 sections (첫 평가만 포함, 추가 반복은 동적 추가)
+        Improvement: 필요시 동적 추가
         
         Note: HandsOnLab steps are dynamic based on complexity
         """
@@ -98,8 +100,8 @@ class LectureGenerationWorkflow:
         base_steps = 9 + 4 + 8 + 5 + 1 + 4  # 31 steps (Lab is estimated)
         
         if state.get("persona"):
-            base_steps += 3  # evaluation
-            # improvement steps added dynamically if needed
+            base_steps += 3  # 첫 평가만 포함 (3 sections)
+            # 개선 및 추가 평가는 필요시 동적으로 추가됨
         
         return base_steps
     
@@ -180,8 +182,8 @@ class LectureGenerationWorkflow:
             }
         )
         
-        # After improvement, validate again
-        workflow.add_edge("improve_sections", "validate_lecture")
+        # After improvement, re-evaluate (not validate) to check if improvement worked
+        workflow.add_edge("improve_sections", "evaluate_sections")
         
         # Retry loop
         workflow.add_edge("prepare_retry", "generate_service_understanding")
@@ -424,9 +426,20 @@ class LectureGenerationWorkflow:
     
     def _should_improve_or_finish(self, state: LectureState) -> str:
         """Decide whether to improve content or finish"""
-        if state.get("needs_persona_improvement", False):
-            return "improve"
-        return "finish"
+        # Check if improvement is needed
+        if not state.get("needs_persona_improvement", False):
+            return "finish"
+        
+        # Check if we've exceeded max evaluation iterations
+        current_iteration = state.get("evaluation_iteration", 0)
+        max_iterations = state.get("max_evaluation_iterations", 2)
+        
+        if current_iteration >= max_iterations:
+            print(f"\n⚠️ 최대 평가-개선 반복 횟수({max_iterations})에 도달했습니다.")
+            print(f"현재 상태로 강의를 완료합니다.\n")
+            return "finish"
+        
+        return "improve"
     
     def _evaluate_sections(self, state: LectureState) -> LectureState:
         """Evaluate sections based on persona"""
@@ -436,10 +449,16 @@ class LectureGenerationWorkflow:
             state["needs_persona_improvement"] = False
             return state
         
-        state = self._update_progress(state, f"평가 - {persona} 페르소나 기반 평가 중...", 0)
+        # Increment evaluation iteration counter
+        current_iteration = state.get("evaluation_iteration", 0) + 1
+        state["evaluation_iteration"] = current_iteration
+        max_iterations = state.get("max_evaluation_iterations", 2)
+        
+        state = self._update_progress(state, f"평가 - {persona} 페르소나 기반 평가 중... (반복 {current_iteration}/{max_iterations})", 0)
         
         print(f"\n{'='*80}")
         print(f"🎯 Evaluating content for persona: {persona}")
+        print(f"📊 평가-개선 반복: {current_iteration}/{max_iterations}")
         print(f"{'='*80}\n")
         
         evaluation_results = {}
@@ -490,9 +509,14 @@ class LectureGenerationWorkflow:
         state["needs_persona_improvement"] = needs_improvement
         
         if needs_improvement:
-            print(f"⚠️ Content needs improvement for persona: {persona}\n")
-            # Add improvement steps to total
-            state["total_steps"] = state.get("total_steps", 0) + 3
+            print(f"⚠️ Content needs improvement for persona: {persona}")
+            print(f"📊 평가-개선 반복: {current_iteration}/{max_iterations}\n")
+            
+            # 개선이 필요하고 아직 반복 횟수가 남았다면, 다음 사이클의 스텝을 미리 추가
+            if current_iteration < max_iterations:
+                # 개선 3 스텝 + 다음 평가 3 스텝 = 6 스텝 추가
+                state["total_steps"] = state.get("total_steps", 0) + 6
+                print(f"  ℹ️ 다음 평가-개선 사이클을 위해 총 스텝 +6 (현재 총: {state['total_steps']})\n")
         else:
             print(f"✅ Content is appropriate for persona: {persona}\n")
         
@@ -502,11 +526,14 @@ class LectureGenerationWorkflow:
         """Improve sections based on evaluation"""
         persona = state.get("persona")
         evaluation_results = state.get("evaluation_results", {})
+        current_iteration = state.get("evaluation_iteration", 0)
+        max_iterations = state.get("max_evaluation_iterations", 2)
         
-        state = self._update_progress(state, f"개선 - {persona} 페르소나 기반 개선 중...", 0)
+        state = self._update_progress(state, f"개선 - {persona} 페르소나 기반 개선 중... (반복 {current_iteration}/{max_iterations})", 0)
         
         print(f"\n{'='*80}")
         print(f"🔧 Improving content for persona: {persona}")
+        print(f"📊 평가-개선 반복: {current_iteration}/{max_iterations}")
         print(f"{'='*80}\n")
         
         day_dir = state["output_dir"] / f"week{state['week']}" / f"day{state['day']}"
@@ -750,6 +777,8 @@ class LectureGenerationWorkflow:
             "attempt_count": 0,
             "evaluation_results": None,
             "needs_persona_improvement": False,
+            "evaluation_iteration": 0,
+            "max_evaluation_iterations": 2,  # 최대 2번까지 평가-개선 반복
             "saved_files": {},
             "should_retry": False,
             "is_complete": False,
