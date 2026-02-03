@@ -133,7 +133,7 @@ class ServiceUnderstandingAgent:
 - 각 장점마다 구체적 사례와 숫자 포함
 - "왜 장점인가?" 설명 필수
 - Before/After 비교
-- 최소 3개, 권장 5개
+- **최소 3개 필수, 권장 5개**
 
 ❌ 나쁜 예:
 "빠른 속도"
@@ -145,7 +145,7 @@ class ServiceUnderstandingAgent:
 ### disadvantages (단점):
 - 실제 겪은 문제와 해결/우회 방법
 - "언제 주의해야 하나?" 포함
-- 최소 2개, 권장 3-4개
+- **최소 2개 필수, 권장 3-4개**
 
 ✅ 좋은 예:
 "초기 학습 곡선: Dockerfile, Volume, Network 개념 이해하는데 
@@ -155,7 +155,7 @@ class ServiceUnderstandingAgent:
 - 실제 프로젝트 기반
 - 구체적인 회사/서비스 예시 (익명화)
 - "어떤 문제를 어떻게 해결했는지" 스토리
-- 최소 3개, 권장 5개
+- **최소 3개 필수, 권장 5개**
 
 ✅ 좋은 예:
 "스타트업 A사: 개발 환경 통일 문제 해결
@@ -180,9 +180,9 @@ Docker가 '컨테이너 만들기'라면 K8s는 '컨테이너 운영하기'"
 
 구조:
 [
-  {"name": "Docker 시작하기 (공식, 30분) - 초급", "url": "https://..."},
-  {"name": "Dockerfile 작성법 (한글) - 중급", "url": "https://..."},
-  {"name": "Production 배포 가이드 - 고급", "url": "https://..."}
+  {{"name": "Docker 시작하기 (공식, 30분) - 초급", "url": "https://..."}},
+  {{"name": "Dockerfile 작성법 (한글) - 중급", "url": "https://..."}},
+  {{"name": "Production 배포 가이드 - 고급", "url": "https://..."}}
 ]
 
 ## 🎨 톤앤매너
@@ -247,10 +247,10 @@ RAG 컨텍스트:
   ],
   
   "official_links": [
-    {{"name": "Docker 공식 튜토리얼 (영문, 30분) - 초급 추천", "url": "https://docs.docker.com/get-started/"}},
-    {{"name": "44BITS 기술 블로그 - Docker 기초 (한글) - 초급", "url": "https://www.44bits.io/ko/keyword/docker"}},
-    {{"name": "Dockerfile Best Practices (영문) - 중급", "url": "https://docs.docker.com/develop/develop-images/dockerfile_best_practices/"}},
-    {{"name": "Docker Compose 완벽 가이드 (한글) - 중급", "url": "https://docs.docker.com/compose/"}}
+    {{{{"name": "Docker 공식 튜토리얼 (영문, 30분) - 초급 추천", "url": "https://docs.docker.com/get-started/"}}}},
+    {{{{"name": "44BITS 기술 블로그 - Docker 기초 (한글) - 초급", "url": "https://www.44bits.io/ko/keyword/docker"}}}},
+    {{{{"name": "Dockerfile Best Practices (영문) - 중급", "url": "https://docs.docker.com/develop/develop-images/dockerfile_best_practices/"}}}},
+    {{{{"name": "Docker Compose 완벽 가이드 (한글) - 중급", "url": "https://docs.docker.com/compose/"}}}}
   ]
 }}
 
@@ -262,10 +262,12 @@ RAG 컨텍스트:
 - [ ] background에 실제 프로젝트 경험 포함
 - [ ] 구체적 숫자 3개 이상 (시간, 비용, 성능 등)
 - [ ] "~입니다" 정의 스타일 사용 안 함
-- [ ] 각 장점마다 Before/After 있음
-- [ ] 단점에 해결 방법 포함
-- [ ] 사용 사례에 구체적 회사/상황 명시
+- [ ] **advantages 최소 3개 이상** (각 장점마다 Before/After 있음)
+- [ ] **disadvantages 최소 2개 이상** (단점에 해결 방법 포함)
+- [ ] **use_cases 최소 3개 이상** (구체적 회사/상황 명시)
 - [ ] 공식 링크에 난이도 표시
+
+**CRITICAL: advantages 3개 이상, disadvantages 2개 이상, use_cases 3개 이상 필수!**
 
 다음 JSON 스키마로 응답하세요:
 {{
@@ -274,19 +276,23 @@ RAG 컨텍스트:
   "advantages": [
     "장점1: 구체적 효과\\n- Before: ...\\n- After: ...\\n- 효과: ...",
     "장점2: ...",
-    ...
+    "장점3: ...",
+    "... (최소 3개 필수)"
   ],
   "disadvantages": [
     "단점1: 문제 상황\\n- 해결: ...\\n- 팁: ...",
-    ...
+    "단점2: ...",
+    "... (최소 2개 필수)"
   ],
   "use_cases": [
     "회사 A: 상황\\n- 상황: ...\\n- 도입: ...\\n- 결과: ...",
-    ...
+    "회사 B: ...",
+    "회사 C: ...",
+    "... (최소 3개 필수)"
   ],
   "related_services": ["서비스1: 관계 설명", ...],
   "official_links": [
-    {{"name": "링크명 (설명) - 난이도", "url": "https://..."}}
+    {{{{"name": "링크명 (설명) - 난이도", "url": "https://..."}}}}
   ]
 }}""")
     ])

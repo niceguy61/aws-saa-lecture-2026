@@ -2,7 +2,14 @@
 import chromadb
 from chromadb.config import Settings
 from langchain_ollama import OllamaEmbeddings
-from langchain_community.vectorstores import Chroma
+
+# Use new langchain-chroma package to avoid deprecation warning
+try:
+    from langchain_chroma import Chroma
+except ImportError:
+    # Fallback to old import if new package not installed
+    from langchain_community.vectorstores import Chroma
+
 from src.config import (
     CHROMA_URL, COLLECTIONS, 
     OLLAMA_BASE_URL, OLLAMA_EMBEDDING_MODEL
