@@ -114,9 +114,19 @@ class BaseAgent:
                 # Parse JSON
                 try:
                     if hasattr(response, 'content'):
-                        data = json.loads(response.content)
+                        raw_content = response.content
+                        data = json.loads(raw_content)
                     else:
-                        data = json.loads(str(response))
+                        raw_content = str(response)
+                        data = json.loads(raw_content)
+                    
+                    # DEBUG: Log parsed data structure for QuizAgent
+                    if "QuizAgent" in self.name:
+                        self.logger.info(f"🔍 DEBUG: Raw response length: {len(raw_content)}")
+                        self.logger.info(f"🔍 DEBUG: Parsed data keys: {list(data.keys())}")
+                        if "questions" in data:
+                            self.logger.info(f"🔍 DEBUG: Questions type in parsed data: {type(data['questions'])}")
+                            
                 except json.JSONDecodeError as e:
                     self.logger.warning(f"JSON parse error: {e}")
                     if attempt < self.max_retries - 1:

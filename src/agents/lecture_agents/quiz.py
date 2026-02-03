@@ -26,6 +26,17 @@ class QuizAgent:
     def _validate_quiz(self, data: dict, min_questions: int) -> Quiz:
         """Validate and fix quiz data structure"""
         
+        # DEBUG: Log what we received
+        import logging
+        logger = logging.getLogger("QuizAgent")
+        logger.info(f"🔍 DEBUG: Received data type: {type(data)}")
+        logger.info(f"🔍 DEBUG: Data keys: {data.keys() if isinstance(data, dict) else 'NOT A DICT'}")
+        if "questions" in data:
+            logger.info(f"🔍 DEBUG: Questions type: {type(data['questions'])}")
+            logger.info(f"🔍 DEBUG: Questions length: {len(data['questions']) if isinstance(data['questions'], (list, dict)) else 'N/A'}")
+            if isinstance(data['questions'], list) and len(data['questions']) > 0:
+                logger.info(f"🔍 DEBUG: First question sample: {data['questions'][0]}")
+        
         # Validate questions field exists
         if "questions" not in data:
             raise ValueError("Missing required field: questions")
@@ -42,14 +53,37 @@ class QuizAgent:
         
         # Validate each question has required fields
         valid_questions = []
+        invalid_questions = []
         required_question_fields = ["question", "choices", "answer", "explanation"]
         
-        for q in data["questions"]:
-            if isinstance(q, dict) and all(k in q for k in required_question_fields):
-                # Validate choices count
-                if len(q.get("choices", [])) != 4:
-                    raise ValueError(f"Question must have exactly 4 choices, got {len(q.get('choices', []))}")
-                valid_questions.append(q)
+        for i, q in enumerate(data["questions"], 1):
+            if not isinstance(q, dict):
+                invalid_questions.append(f"Question {i}: Not a dict, got {type(q)}")
+                continue
+                
+            missing_fields = [f for f in required_question_fields if f not in q]
+            if missing_fields:
+                invalid_questions.append(f"Question {i}: Missing fields {missing_fields}")
+                continue
+            
+            # Validate choices count
+            choices = q.get("choices", [])
+            if not isinstance(choices, list):
+                invalid_questions.append(f"Question {i}: choices is not a list, got {type(choices)}")
+                continue
+                
+            if len(choices) != 4:
+                invalid_questions.append(f"Question {i}: Must have exactly 4 choices, got {len(choices)}")
+                continue
+                
+            valid_questions.append(q)
+        
+        # Log validation results
+        logger.info(f"✅ Valid questions: {len(valid_questions)}")
+        if invalid_questions:
+            logger.warning(f"⚠️  Invalid questions found:")
+            for inv in invalid_questions:
+                logger.warning(f"   - {inv}")
         
         data["questions"] = valid_questions
         
