@@ -87,9 +87,11 @@ RAG 컨텍스트:
       "troubleshooting": ["문제1: 해결방법", ...]
     }}
   ],
-  "completion_summary": "실습 완료 요약",
-  "next_steps": ["다음 단계1", ...]
+  "completion_summary": "실습을 통해 달성한 내용과 핵심 학습 포인트를 요약합니다. 이 필드는 필수입니다.",
+  "next_steps": ["추가 학습 주제1", "심화 실습2", "관련 문서3"]
 }}
+
+**CRITICAL**: completion_summary와 next_steps는 필수 필드입니다. 반드시 포함하세요!
 
 **중요**: 
 1. 커맨드 기반으로 1개씩 단위로 스텝을 나누세요. 
@@ -157,6 +159,20 @@ RAG 컨텍스트:
                 if len(data["steps"]) < 5:
                     raise ValueError(f"Only {len(data['steps'])} steps generated, need at least 5")
             
+            # Add default values for missing required fields
+            # Use RAG to generate meaningful content instead of generic defaults
+            if "completion_summary" not in data or not data["completion_summary"]:
+                print("⚠️ completion_summary missing, regenerating with RAG...")
+                data["completion_summary"] = self._generate_completion_summary(
+                    service_name, data, rag_context
+                )
+            
+            if "next_steps" not in data or not data["next_steps"]:
+                print("⚠️ next_steps missing, regenerating with RAG...")
+                data["next_steps"] = self._generate_next_steps(
+                    service_name, data, rag_context
+                )
+            
             return HandsOnLab(**data)
             
         except json.JSONDecodeError as e:
@@ -167,6 +183,137 @@ RAG 컨텍스트:
             print(f"❌ Hands-on Lab validation error: {e}")
             print(f"Data structure: {data}")
             raise
+    
+    def _generate_completion_summary(
+        self, 
+        service_name: str, 
+        lab_data: dict, 
+        rag_context: str
+    ) -> str:
+        """RAG 기반으로 completion_summary 생성"""
+        
+        # Extract key information from lab data
+        title = lab_data.get("title", "")
+        purpose = lab_data.get("purpose", "")
+        objectives = lab_data.get("learning_objectives", [])
+        steps_summary = "\n".join([
+            f"- {step.get('title', '')}" 
+            for step in lab_data.get("steps", [])[:5]  # First 5 steps
+        ])
+        
+        prompt = ChatPromptTemplate.from_messages([
+            ("system", """당신은 DevOps 교육 전문가입니다.
+실습 완료 요약(completion_summary)을 작성하세요.
+
+요약에는 다음을 포함해야 합니다:
+1. 실습을 통해 달성한 구체적인 내용
+2. 습득한 핵심 기술과 개념
+3. 실무에서 활용할 수 있는 포인트
+
+2-3문장으로 간결하게 작성하세요. 한글로 작성하세요."""),
+            ("user", """서비스: {service_name}
+
+실습 제목: {title}
+실습 목적: {purpose}
+
+학습 목표:
+{objectives}
+
+주요 실습 단계:
+{steps_summary}
+
+RAG 컨텍스트:
+{rag_context}
+
+위 정보를 바탕으로 실습 완료 요약을 작성하세요. JSON 없이 텍스트만 반환하세요.""")
+        ])
+        
+        chain = prompt | self.llm
+        response = chain.invoke({
+            "service_name": service_name,
+            "title": title,
+            "purpose": purpose,
+            "objectives": "\n".join([f"- {obj}" for obj in objectives]),
+            "steps_summary": steps_summary,
+            "rag_context": rag_context[:2000]
+        })
+        
+        summary = response.content.strip()
+        # Remove JSON formatting if present
+        summary = summary.replace('"', '').replace('{', '').replace('}', '')
+        
+        return summary
+    
+    def _generate_next_steps(
+        self, 
+        service_name: str, 
+        lab_data: dict, 
+        rag_context: str
+    ) -> list:
+        """RAG 기반으로 next_steps 생성"""
+        
+        title = lab_data.get("title", "")
+        purpose = lab_data.get("purpose", "")
+        
+        prompt = ChatPromptTemplate.from_messages([
+            ("system", """당신은 DevOps 교육 전문가입니다.
+실습 후 다음 학습 단계(next_steps)를 제안하세요.
+
+다음 단계는:
+1. 실습 내용을 심화하는 추가 학습
+2. 관련 기술이나 서비스와의 통합
+3. 실무 적용을 위한 고급 주제
+
+3-5개 항목을 제안하세요. 한글로 작성하세요.
+
+JSON 배열 형식으로 응답하세요: ["항목1", "항목2", "항목3"]"""),
+            ("user", """서비스: {service_name}
+
+실습 제목: {title}
+실습 목적: {purpose}
+
+RAG 컨텍스트:
+{rag_context}
+
+위 정보를 바탕으로 다음 학습 단계를 제안하세요.""")
+        ])
+        
+        chain = prompt | self.llm
+        response = chain.invoke({
+            "service_name": service_name,
+            "title": title,
+            "purpose": purpose,
+            "rag_context": rag_context[:2000]
+        })
+        
+        try:
+            # Try to parse as JSON array
+            next_steps = json.loads(response.content)
+            if isinstance(next_steps, list):
+                return next_steps[:5]  # Max 5 items
+        except:
+            pass
+        
+        # Fallback: parse as text lines
+        lines = response.content.strip().split('\n')
+        next_steps = []
+        for line in lines:
+            line = line.strip()
+            # Remove list markers
+            line = line.lstrip('- ').lstrip('* ').lstrip('• ')
+            line = line.lstrip('1234567890. ')
+            if line and len(line) > 10:
+                next_steps.append(line)
+        
+        # Ensure we have at least 3 items
+        if len(next_steps) < 3:
+            next_steps.extend([
+                f"{service_name} 공식 문서를 참고하여 추가 기능 학습",
+                "실습 내용을 바탕으로 개인 프로젝트 구성",
+                "관련 서비스와의 통합 실습"
+            ])
+        
+        return next_steps[:5]  # Max 5 items
     
     def format_step_markdown(
         self, 

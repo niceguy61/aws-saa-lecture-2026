@@ -761,7 +761,7 @@ flowchart TD
 **THE SYSTEM SHALL**:
 - Define clear learning objectives
 - List all prerequisites
-- Create minimum 7 detailed steps
+- Create minimum 5 detailed steps (커맨드 기반, 유연하게 5-15개)
 - Add verification for each step
 - Include troubleshooting tips
 

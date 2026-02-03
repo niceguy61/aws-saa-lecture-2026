@@ -62,7 +62,7 @@ if DEFAULT_PERSONA and DEFAULT_PERSONA not in AVAILABLE_PERSONAS:
 # Minimum requirements for lecture content
 MIN_QUIZ_QUESTIONS = int(os.getenv("MIN_QUIZ_QUESTIONS", "5"))
 MIN_QUIZ_QUESTIONS_MULTI_SERVICE = int(os.getenv("MIN_QUIZ_QUESTIONS_MULTI_SERVICE", "10"))
-MIN_LAB_STEPS = int(os.getenv("MIN_LAB_STEPS", "7"))
+MIN_LAB_STEPS = int(os.getenv("MIN_LAB_STEPS", "5"))  # 커맨드 기반, 유연하게 (5-15개)
 MIN_ADVANTAGES = int(os.getenv("MIN_ADVANTAGES", "3"))
 MIN_DISADVANTAGES = int(os.getenv("MIN_DISADVANTAGES", "2"))
 MIN_USE_CASES = int(os.getenv("MIN_USE_CASES", "3"))
@@ -78,5 +78,5 @@ if MIN_QUIZ_QUESTIONS_MULTI_SERVICE < MIN_QUIZ_QUESTIONS:
     MIN_QUIZ_QUESTIONS_MULTI_SERVICE = MIN_QUIZ_QUESTIONS * 2
 
 if MIN_LAB_STEPS < 1:
-    print(f"⚠️ Warning: MIN_LAB_STEPS must be at least 1, using default: 7")
-    MIN_LAB_STEPS = 7
+    print(f"⚠️ Warning: MIN_LAB_STEPS must be at least 1, using default: 5")
+    MIN_LAB_STEPS = 5
