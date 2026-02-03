@@ -7,7 +7,7 @@
 """
 
 import re
-from typing import Dict, List, Optional
+from typing import Dict, List, Optional, Tuple
 from pathlib import Path
 
 
@@ -51,7 +51,7 @@ class DesignAgent:
         all_files: List[str],
         week: int,
         day: int
-    ) -> tuple[str, str]:
+    ) -> Tuple[str, str]:
         """
         페이지 네비게이션 생성
         
