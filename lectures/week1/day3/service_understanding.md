@@ -9,7 +9,7 @@ Docker Images는 애플리케이션을 실행하기 위한 가상화된 환경�
 
 ### 인포그래픽
 
-`mermaid
+```mermaid
 graph TD
   A[DOCKER 이미지 빌드] --> B[컨테이너 실행]
   B --> C[파일 마운트]
