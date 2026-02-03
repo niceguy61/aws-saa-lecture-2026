@@ -23,8 +23,47 @@ class QuizAgent:
         self.min_questions = MIN_QUIZ_QUESTIONS
         self.min_questions_multi = MIN_QUIZ_QUESTIONS_MULTI_SERVICE
     
+    def _validate_quiz(self, data: dict, min_questions: int) -> Quiz:
+        """Validate and fix quiz data structure"""
+        
+        # Validate questions field exists
+        if "questions" not in data:
+            raise ValueError("Missing required field: questions")
+        
+        # Validate and fix questions structure
+        if isinstance(data["questions"], dict):
+            questions_list = []
+            for key, value in data["questions"].items():
+                if isinstance(value, dict) and "question" in value:
+                    questions_list.append(value)
+                elif isinstance(value, str):
+                    continue
+            data["questions"] = questions_list
+        
+        # Validate each question has required fields
+        valid_questions = []
+        required_question_fields = ["question", "choices", "answer", "explanation"]
+        
+        for q in data["questions"]:
+            if isinstance(q, dict) and all(k in q for k in required_question_fields):
+                # Validate choices count
+                if len(q.get("choices", [])) != 4:
+                    raise ValueError(f"Question must have exactly 4 choices, got {len(q.get('choices', []))}")
+                valid_questions.append(q)
+        
+        data["questions"] = valid_questions
+        
+        # Validate minimum count
+        if len(data["questions"]) < min_questions:
+            raise ValueError(f"Only {len(data['questions'])} questions generated, need at least {min_questions}")
+        
+        if len(data["questions"]) == 0:
+            raise ValueError("No valid questions generated")
+        
+        return Quiz(**data)
+    
     def generate(self, service_name: str, rag_context: str, is_multi_service: bool = False) -> Quiz:
-        """퀴즈 섹션 생성
+        """퀴즈 섹션 생성 with retry logic
         
         Args:
             service_name: 서비스 이름
@@ -76,48 +115,28 @@ RAG 컨텍스트:
         ])
         
         chain = prompt | self.llm
-        response = chain.invoke({
-            "service_name": service_name,
-            "rag_context": rag_context[:8000]
-        })
         
-        try:
-            data = json.loads(response.content)
-            
-            # Validate and fix questions structure
-            if "questions" in data:
-                if isinstance(data["questions"], dict):
-                    questions_list = []
-                    for key, value in data["questions"].items():
-                        if isinstance(value, dict) and "question" in value:
-                            questions_list.append(value)
-                        elif isinstance(value, str):
-                            continue
-                    data["questions"] = questions_list
-                
-                valid_questions = []
-                for q in data["questions"]:
-                    if isinstance(q, dict) and all(k in q for k in ["question", "choices", "answer", "explanation"]):
-                        valid_questions.append(q)
-                
-                data["questions"] = valid_questions
-                
-                # Use configured minimum
-                if len(data["questions"]) < min_questions:
-                    print(f"⚠️ Warning: Only {len(data['questions'])} questions generated (expected {min_questions}+)")
-                    if len(data["questions"]) == 0:
-                        raise ValueError(f"No valid questions generated")
-            
-            return Quiz(**data)
-            
-        except json.JSONDecodeError as e:
-            print(f"❌ JSON parsing error: {e}")
-            print(f"Response content: {response.content[:500]}")
-            raise
-        except Exception as e:
-            print(f"❌ Quiz validation error: {e}")
-            print(f"Data structure: {data}")
-            raise
+        # Use retry logic from BaseAgent
+        from src.agents.base_agent import BaseAgent
+        base_agent = BaseAgent(
+            name="QuizAgent",
+            collection_name="",
+            system_prompt=""
+        )
+        
+        # Create validator with min_questions closure
+        def validator(data):
+            return self._validate_quiz(data, min_questions)
+        
+        return base_agent.generate_with_retry(
+            chain=chain,
+            input_dict={
+                "service_name": service_name,
+                "rag_context": rag_context[:8000]
+            },
+            validator_func=validator,
+            error_context=f"Quiz for {service_name}"
+        )
     
     def format_markdown(self, quiz: Quiz) -> str:
         """Format as markdown with <details> tags"""

@@ -21,7 +21,7 @@ class HandsOnLabAgent:
         self.infographic_agent = InfographicAgent(model_name)
     
     def generate(self, service_name: str, rag_context: str) -> HandsOnLab:
-        """실습 섹션 생성"""
+        """실습 섹션 생성 with retry logic"""
         
         prompt = ChatPromptTemplate.from_messages([
             ("system", """당신은 DevOps 실습 교육 전문가입니다.
@@ -113,76 +113,194 @@ RAG 컨텍스트:
         ])
         
         chain = prompt | self.llm
-        response = chain.invoke({
-            "service_name": service_name,
-            "rag_context": rag_context[:8000]
-        })
         
+        # Use retry logic from BaseAgent
+        from src.agents.base_agent import BaseAgent
+        base_agent = BaseAgent(
+            name="HandsOnLabAgent",
+            collection_name="",
+            system_prompt=""
+        )
+        
+        # First attempt to generate
         try:
-            data = json.loads(response.content)
+            lab = base_agent.generate_with_retry(
+                chain=chain,
+                input_dict={
+                    "service_name": service_name,
+                    "rag_context": rag_context[:8000]
+                },
+                validator_func=self._validate_handson_steps,
+                error_context=f"Hands-on Lab for {service_name}"
+            )
+            return lab
             
-            # Validate and fix steps structure
-            if "steps" in data:
-                if isinstance(data["steps"], dict):
-                    steps_list = []
-                    for key, value in sorted(data["steps"].items(), key=lambda x: int(x[0]) if x[0].isdigit() else 0):
-                        if isinstance(value, dict):
-                            if "step_number" not in value:
-                                value["step_number"] = int(key) if key.isdigit() else len(steps_list) + 1
-                            steps_list.append(value)
-                    data["steps"] = steps_list
+        except ValueError as e:
+            # If completion_summary or next_steps are missing, generate them with RAG
+            if "completion_summary" in str(e) or "next_steps" in str(e):
+                print(f"  ⚠️ Missing required fields, attempting to generate with RAG...")
                 
-                valid_steps = []
-                for i, s in enumerate(data["steps"], 1):
-                    if isinstance(s, dict):
-                        if "step_number" not in s or s["step_number"] != i:
-                            s["step_number"] = i
-                        
-                        # Fix commands field if it's a list
-                        if "commands" in s and isinstance(s["commands"], list):
-                            s["commands"] = "\n".join(s["commands"])
-                        
-                        # Fix expected_output field if it's a list
-                        if "expected_output" in s and isinstance(s["expected_output"], list):
-                            s["expected_output"] = "\n".join(s["expected_output"])
-                        
-                        # Fix verification field if it's a list
-                        if "verification" in s and isinstance(s["verification"], list):
-                            s["verification"] = "\n".join(s["verification"])
-                        
-                        if all(k in s for k in ["step_number", "title", "objective"]):
-                            valid_steps.append(s)
+                # Try one more time with the chain
+                response = chain.invoke({
+                    "service_name": service_name,
+                    "rag_context": rag_context[:8000]
+                })
                 
-                data["steps"] = valid_steps
+                try:
+                    data = json.loads(response.content)
+                    
+                    # Generate missing fields with RAG
+                    if "completion_summary" not in data or not data["completion_summary"]:
+                        data["completion_summary"] = self._generate_completion_summary(
+                            service_name, data, rag_context
+                        )
+                    
+                    if "next_steps" not in data or not data["next_steps"]:
+                        data["next_steps"] = self._generate_next_steps(
+                            service_name, data, rag_context
+                        )
+                    
+                    # Validate again
+                    return self._validate_handson_steps(data)
+                    
+                except Exception as inner_e:
+                    print(f"  ❌ Failed to generate missing fields: {inner_e}")
+                    raise
+            else:
+                raise
+    
+    def _validate_handson_steps(self, data: dict) -> HandsOnLab:
+        """Validate and fix hands-on lab data structure with step padding"""
+        
+        # Validate required fields
+        required_fields = ["title", "purpose", "learning_objectives", "estimated_time", 
+                          "difficulty", "prerequisites", "setup_instructions", "steps"]
+        for field in required_fields:
+            if field not in data:
+                raise ValueError(f"Missing required field: {field}")
+        
+        # Validate and fix steps structure
+        if isinstance(data["steps"], dict):
+            steps_list = []
+            for key, value in sorted(data["steps"].items(), key=lambda x: int(x[0]) if x[0].isdigit() else 0):
+                if isinstance(value, dict):
+                    if "step_number" not in value:
+                        value["step_number"] = int(key) if key.isdigit() else len(steps_list) + 1
+                    steps_list.append(value)
+            data["steps"] = steps_list
+        
+        # Validate and fix each step
+        valid_steps = []
+        required_step_fields = ["step_number", "title", "objective"]
+        
+        for i, s in enumerate(data["steps"], 1):
+            if isinstance(s, dict):
+                # Fix step number
+                if "step_number" not in s or s["step_number"] != i:
+                    s["step_number"] = i
                 
-                # Minimum 5 steps, but flexible based on complexity
-                if len(data["steps"]) < 5:
-                    raise ValueError(f"Only {len(data['steps'])} steps generated, need at least 5")
+                # Fix commands field if it's a list
+                if "commands" in s and isinstance(s["commands"], list):
+                    s["commands"] = "\n".join(s["commands"])
+                
+                # Fix expected_output field if it's a list
+                if "expected_output" in s and isinstance(s["expected_output"], list):
+                    s["expected_output"] = "\n".join(s["expected_output"])
+                
+                # Fix verification field if it's a list
+                if "verification" in s and isinstance(s["verification"], list):
+                    s["verification"] = "\n".join(s["verification"])
+                
+                # Validate required fields
+                if all(k in s for k in required_step_fields):
+                    valid_steps.append(s)
+        
+        data["steps"] = valid_steps
+        
+        # Validate minimum step count (flexible: 5-15)
+        if len(data["steps"]) < 5:
+            raise ValueError(f"Only {len(data['steps'])} steps generated, need at least 5")
+        
+        # Pad steps if needed (only if less than 7 but at least 5)
+        # This ensures we have a reasonable number of steps without forcing exactly 7
+        if 5 <= len(data["steps"]) < 7:
+            print(f"  ⚠️ Only {len(data['steps'])} steps, padding to 7...")
+            data["steps"] = self._pad_steps(data["steps"], target_count=7)
+        
+        # Validate completion_summary and next_steps
+        if "completion_summary" not in data or not data["completion_summary"]:
+            raise ValueError("Missing required field: completion_summary")
+        
+        if "next_steps" not in data or not data["next_steps"]:
+            raise ValueError("Missing required field: next_steps")
+        
+        return HandsOnLab(**data)
+    
+    def _pad_steps(self, steps: list, target_count: int = 7) -> list:
+        """Pad steps to reach target count by splitting complex steps"""
+        
+        if len(steps) >= target_count:
+            return steps
+        
+        padded_steps = []
+        steps_needed = target_count - len(steps)
+        
+        # Find steps that can be split (steps with multiple commands or long verification)
+        splittable_indices = []
+        for i, step in enumerate(steps):
+            commands = step.get("commands", "")
+            verification = step.get("verification", "")
             
-            # Add default values for missing required fields
-            # Use RAG to generate meaningful content instead of generic defaults
-            if "completion_summary" not in data or not data["completion_summary"]:
-                print("⚠️ completion_summary missing, regenerating with RAG...")
-                data["completion_summary"] = self._generate_completion_summary(
-                    service_name, data, rag_context
-                )
+            # Check if step has multiple commands or complex verification
+            if commands.count('\n') > 2 or verification.count('\n') > 1:
+                splittable_indices.append(i)
+        
+        # If we have enough splittable steps, split them
+        if len(splittable_indices) >= steps_needed:
+            split_indices = set(splittable_indices[:steps_needed])
             
-            if "next_steps" not in data or not data["next_steps"]:
-                print("⚠️ next_steps missing, regenerating with RAG...")
-                data["next_steps"] = self._generate_next_steps(
-                    service_name, data, rag_context
-                )
-            
-            return HandsOnLab(**data)
-            
-        except json.JSONDecodeError as e:
-            print(f"❌ JSON parsing error: {e}")
-            print(f"Response content: {response.content[:500]}")
-            raise
-        except Exception as e:
-            print(f"❌ Hands-on Lab validation error: {e}")
-            print(f"Data structure: {data}")
-            raise
+            for i, step in enumerate(steps):
+                if i in split_indices:
+                    # Split this step into two
+                    commands = step.get("commands", "").split('\n')
+                    mid = len(commands) // 2
+                    
+                    # First half
+                    step1 = step.copy()
+                    step1["commands"] = '\n'.join(commands[:mid])
+                    step1["title"] = f"{step['title']} (Part 1)"
+                    padded_steps.append(step1)
+                    
+                    # Second half
+                    step2 = step.copy()
+                    step2["commands"] = '\n'.join(commands[mid:])
+                    step2["title"] = f"{step['title']} (Part 2)"
+                    padded_steps.append(step2)
+                else:
+                    padded_steps.append(step)
+        else:
+            # Not enough splittable steps, add verification steps
+            for i, step in enumerate(steps):
+                padded_steps.append(step)
+                
+                # Add verification step after certain steps
+                if i < steps_needed and step.get("verification"):
+                    verify_step = {
+                        "step_number": len(padded_steps) + 1,
+                        "title": f"{step['title']} 확인",
+                        "objective": f"{step['title']} 단계가 정상적으로 완료되었는지 확인합니다.",
+                        "commands": step.get("verification", ""),
+                        "expected_output": "정상 동작 확인",
+                        "verification": "",
+                        "troubleshooting": []
+                    }
+                    padded_steps.append(verify_step)
+        
+        # Renumber steps
+        for i, step in enumerate(padded_steps, 1):
+            step["step_number"] = i
+        
+        return padded_steps[:target_count]
     
     def _generate_completion_summary(
         self, 

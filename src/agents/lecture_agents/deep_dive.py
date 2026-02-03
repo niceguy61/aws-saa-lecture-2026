@@ -20,8 +20,40 @@ class DeepDiveAgent:
         self.vectorstore = VectorStoreManager()
         self.infographic_agent = InfographicAgent(model_name)
     
+    def _validate_deep_dive(self, data: dict) -> DeepDive:
+        """Validate and fix deep dive data structure"""
+        
+        # Validate scenarios field exists
+        if "scenarios" not in data:
+            raise ValueError("Missing required field: scenarios")
+        
+        # Validate and fix scenarios structure
+        if isinstance(data["scenarios"], dict):
+            scenarios_list = []
+            for key, value in data["scenarios"].items():
+                if isinstance(value, dict) and all(k in value for k in ["title", "description", "root_cause"]):
+                    scenarios_list.append(value)
+            data["scenarios"] = scenarios_list
+        
+        # Validate each scenario has required fields
+        valid_scenarios = []
+        required_scenario_fields = ["title", "description", "root_cause", 
+                                   "diagnosis_steps", "resolution_steps", "verification_steps"]
+        
+        for s in data["scenarios"]:
+            if isinstance(s, dict) and all(k in s for k in required_scenario_fields):
+                valid_scenarios.append(s)
+        
+        data["scenarios"] = valid_scenarios
+        
+        # Validate minimum count
+        if len(data["scenarios"]) < 2:
+            raise ValueError(f"Only {len(data['scenarios'])} scenarios generated, need at least 2")
+        
+        return DeepDive(**data)
+    
     def generate(self, service_name: str, rag_context: str) -> DeepDive:
-        """Deep Dive 섹션 생성"""
+        """Deep Dive 섹션 생성 with retry logic"""
         
         prompt = ChatPromptTemplate.from_messages([
             ("system", """당신은 DevOps 트러블슈팅 전문가입니다.
@@ -68,43 +100,24 @@ RAG 컨텍스트:
         ])
         
         chain = prompt | self.llm
-        response = chain.invoke({
-            "service_name": service_name,
-            "rag_context": rag_context[:8000]
-        })
         
-        try:
-            data = json.loads(response.content)
-            
-            # Validate and fix scenarios structure
-            if "scenarios" in data:
-                if isinstance(data["scenarios"], dict):
-                    scenarios_list = []
-                    for key, value in data["scenarios"].items():
-                        if isinstance(value, dict) and all(k in value for k in ["title", "description", "root_cause"]):
-                            scenarios_list.append(value)
-                    data["scenarios"] = scenarios_list
-                
-                valid_scenarios = []
-                for s in data["scenarios"]:
-                    if isinstance(s, dict) and all(k in s for k in ["title", "description", "root_cause", "diagnosis_steps", "resolution_steps", "verification_steps"]):
-                        valid_scenarios.append(s)
-                
-                data["scenarios"] = valid_scenarios
-                
-                if len(data["scenarios"]) < 2:
-                    raise ValueError(f"Only {len(data['scenarios'])} scenarios generated, need at least 2")
-            
-            return DeepDive(**data)
-            
-        except json.JSONDecodeError as e:
-            print(f"❌ JSON parsing error: {e}")
-            print(f"Response content: {response.content[:500]}")
-            raise
-        except Exception as e:
-            print(f"❌ Deep Dive validation error: {e}")
-            print(f"Data structure: {data}")
-            raise
+        # Use retry logic from BaseAgent
+        from src.agents.base_agent import BaseAgent
+        base_agent = BaseAgent(
+            name="DeepDiveAgent",
+            collection_name="",
+            system_prompt=""
+        )
+        
+        return base_agent.generate_with_retry(
+            chain=chain,
+            input_dict={
+                "service_name": service_name,
+                "rag_context": rag_context[:8000]
+            },
+            validator_func=self._validate_deep_dive,
+            error_context=f"Deep Dive for {service_name}"
+        )
     
     def format_markdown(self, dd: DeepDive, service_name: str, rag_context: str) -> str:
         """Format as markdown with <details> tags and infographics"""

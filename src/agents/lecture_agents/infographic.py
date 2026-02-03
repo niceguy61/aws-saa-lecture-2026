@@ -36,19 +36,131 @@ class InfographicAgent:
         
         prompt = ChatPromptTemplate.from_messages([
             ("system", """당신은 기술 문서 시각화 전문가입니다.
-주어진 내용을 시각적으로 표현하는 다이어그램을 생성하세요.
+주어진 내용을 Mermaid 다이어그램으로 시각화하세요.
 
-반드시 다음 규칙을 따르세요:
-1. Mermaid 다이어그램 사용 (graph, sequence, flowchart 등)
-2. 명확하고 이해하기 쉬운 구조
-3. 한글 레이블 사용
-4. 색상과 스타일로 가독성 향상
-5. RAG 컨텍스트에서 이미지 링크 추출
+## 📊 다이어그램 타입 선택 가이드
 
-**CRITICAL - Mermaid 예약어 금지**:
-- 노드 ID로 'start', 'end', 'default', 'class', 'style' 등 예약어 사용 금지
-- 대신 'Start', 'End', 'Begin', 'Finish', 'Step1', 'Step2' 등 사용
-- 예: start(X) → Start(O), end(X) → End(O)
+### 1. Timeline (시간 흐름) - background에 최적
+**언제 사용:** 역사, 발전 과정, 버전 변화
+```mermaid
+timeline
+    title Docker 발전 역사
+    2013 : Docker 0.1 출시
+         : dotCloud 사내 프로젝트
+    2014 : Docker 1.0 GA
+         : Docker Hub 런칭
+    2015 : 기업 도입 폭발
+         : Kubernetes 등장
+```
+
+### 2. Graph TD/LR (관계도) - concepts에 최적
+**언제 사용:** 시스템 구조, 컴포넌트 관계
+```mermaid
+graph TD
+    Client[클라이언트] -->|HTTP 요청| LB[로드밸런서]
+    LB -->|분산| Server1[서버 1]
+    LB -->|분산| Server2[서버 2]
+    Server1 --> DB[(데이터베이스)]
+    Server2 --> DB
+    
+    classDef primary fill:#667eea,color:#fff,stroke:#764ba2
+    classDef storage fill:#ffd43b,color:#000,stroke:#f59f00
+    Client:::primary
+    LB:::primary
+    DB:::storage
+```
+
+**노드 모양:**
+- `[텍스트]` 사각형
+- `(텍스트)` 둥근 사각형
+- `([텍스트])` 스타디움형
+- `[(텍스트)]` 원통형 (DB)
+- `{{텍스트}}` 육각형
+- `{텍스트}` 마름모
+
+### 3. Flowchart (흐름도) - troubleshooting, hands_on에 최적
+**언제 사용:** 프로세스, 의사결정, 알고리즘
+```mermaid
+flowchart TD
+    Start([시작]) --> CheckPort{포트 사용<br/>가능?}
+    CheckPort -->|Yes| RunContainer[실행]
+    CheckPort -->|No| FindProcess[프로세스 확인]
+    FindProcess --> Decision{중요한<br/>프로세스?}
+    Decision -->|Yes| UseOtherPort[다른 포트]
+    Decision -->|No| KillProcess[종료]
+    KillProcess --> RunContainer
+    
+    style Start fill:#51cf66,color:#fff
+    style CheckPort fill:#ffd43b,color:#000
+```
+
+### 4. Mindmap (마인드맵) - concepts 대안
+**언제 사용:** 개념 분류, 기능 계층
+```mermaid
+mindmap
+  root((Docker<br/>플랫폼))
+    컨테이너
+      격리 환경
+      경량화
+    이미지
+      Layer 구조
+      Registry
+    네트워킹
+      Bridge
+      Host
+```
+
+### 5. Sequence Diagram (시퀀스) - API 흐름
+**언제 사용:** 시스템 간 통신, 상호작용
+```mermaid
+sequenceDiagram
+    actor User as 사용자
+    participant App as 앱
+    participant API as API 서버
+    
+    User->>App: 로그인 요청
+    App->>API: POST /api/login
+    API-->>App: 200 OK
+    App-->>User: 로그인 성공
+```
+
+## 🎨 스타일링
+
+### 색상 팔레트:
+```
+Primary (주요):     fill:#667eea,color:#fff,stroke:#764ba2
+Success (성공):     fill:#51cf66,color:#fff,stroke:#37b24d
+Warning (경고):     fill:#ffd43b,color:#000,stroke:#f59f00
+Error (에러):       fill:#ff6b6b,color:#fff,stroke:#f03e3e
+Storage (저장소):   fill:#868e96,color:#fff,stroke:#495057
+```
+
+## ⚠️ CRITICAL 규칙
+
+### 예약어 금지 (노드 ID):
+❌ 사용 금지: `start`, `end`, `default`, `class`, `style`, `graph`, `subgraph`, `click`, `call`, `classDef`
+
+✅ 대신 사용:
+- `Start`, `End`, `Begin`, `Finish`
+- `Step1`, `Step2`, `Step3`
+- `Check`, `Decision`, `Action`
+- `Process1`, `Process2`
+
+### 문법 규칙:
+1. **괄호 균형**: `[`, `]`, `(`, `)`, `{`, `}` 개수 일치
+2. **줄바꿈**: 노드 내 `<br/>` 사용
+3. **화살표 일관성**: `-->` 또는 `->>` (공백 주의)
+4. **한글 사용**: 모든 레이블은 한글
+5. **간결함**: 노드 5-15개 권장
+
+## 📋 섹션별 추천
+
+| 섹션 | 1순위 | 2순위 | 3순위 |
+|------|-------|-------|-------|
+| background | timeline | flowchart | graph |
+| concepts | graph | mindmap | - |
+| troubleshooting | flowchart | sequence | graph |
+| hands_on | flowchart | graph | sequence |
 
 JSON 형식으로 응답하세요."""),
             ("user", """서비스: {service_name}
@@ -57,25 +169,25 @@ JSON 형식으로 응답하세요."""),
 섹션 내용:
 {context}
 
-RAG 컨텍스트 (이미지 링크 포함):
+RAG 컨텍스트:
 {rag_context}
 
-다음 JSON 스키마로 응답하세요:
+다음 JSON 스키마로 응답:
 {{
   "type": "mermaid",
-  "content": "```mermaid\\ngraph TD\\n  Start[시작] --> Step1[단계1]\\n  Step1 --> End[완료]\\n```",
-  "image_references": ["https://docs.example.com/image1.png", ...]
+  "content": "```mermaid\\ngraph TD\\n  Client[클라이언트] --> Server[서버]\\n  style Client fill:#667eea,color:#fff\\n```",
+  "image_references": []
 }}
 
-**CRITICAL**: 노드 ID는 반드시 대문자로 시작하거나 숫자를 포함하세요 (Start, End, Step1, Step2 등)
+**체크리스트:**
+- [ ] 섹션 타입에 맞는 다이어그램 선택
+- [ ] 노드 ID는 대문자 시작 (Start, Step1...)
+- [ ] 한글 레이블
+- [ ] 스타일 적용 (primary, success...)
+- [ ] 5-15개 노드
+- [ ] caption 작성
 
-섹션 타입별 다이어그램 가이드:
-- background: 역사적 흐름이나 발전 과정 (timeline, flowchart)
-- concepts: 개념 간 관계 (graph, mindmap)
-- troubleshooting: 문제 해결 흐름 (flowchart, sequence)
-- hands_on: 실습 단계 흐름 (flowchart, sequence)
-
-RAG 컨텍스트에서 관련 이미지 URL을 찾아 image_references에 포함하세요.""")
+**금지:** start, end, class, style 등 예약어""")
         ])
         
         chain = prompt | self.llm
@@ -105,67 +217,95 @@ RAG 컨텍스트에서 관련 이미지 URL을 찾아 image_references에 포함
             )
     
     def _fix_mermaid_reserved_keywords(self, content: str) -> str:
-        """Fix Mermaid reserved keywords in diagram content"""
+        """
+        Fix Mermaid reserved keywords with better validation
+        
+        Mermaid reserved keywords that cause parsing errors:
+        - start, end, default, class, style, graph, subgraph, click, call
+        """
         import re
         
-        # Mermaid reserved keywords that cannot be used as node IDs
-        reserved_keywords = {
-            r'\bstart\b': 'Start',
-            r'\bend\b': 'End',
-            r'\bdefault\b': 'Default',
-            r'\bclass\b': 'Class',
-            r'\bstyle\b': 'Style',
-            r'\bgraph\b(?!\s+(TD|LR|TB|BT|RL))': 'Graph',  # Don't replace graph direction
-            r'\bsubgraph\b(?!\s+\w)': 'Subgraph',  # Don't replace subgraph declaration
+        # 1. Extract all node IDs from the diagram
+        node_pattern = r'(\w+)[\[\(\{]'
+        nodes = re.findall(node_pattern, content)
+        
+        # 2. Mermaid reserved keywords
+        reserved = {
+            'start', 'end', 'default', 'class', 'style', 
+            'graph', 'subgraph', 'click', 'call', 'classDef'
         }
         
-        # Fix node IDs (case-insensitive for node IDs only)
-        for pattern, replacement in reserved_keywords.items():
-            # Fix in node definitions: start[label] -> Start[label]
+        # 3. Create replacement mapping
+        replacements = {}
+        for node in set(nodes):
+            if node.lower() in reserved:
+                # Capitalize or add prefix
+                new_node = node.capitalize() if node.islower() else f"Node_{node}"
+                replacements[node] = new_node
+                print(f"  🔧 Replacing reserved keyword: {node} → {new_node}")
+        
+        # 4. Apply replacements (whole word only)
+        for old, new in replacements.items():
+            # Replace in node definitions
             content = re.sub(
-                pattern + r'(\[|\(|\{)',
-                replacement + r'\1',
-                content,
-                flags=re.IGNORECASE
+                rf'\b{old}\b(?=[\[\(\{{])',
+                new,
+                content
             )
-            
-            # Fix in connections: A --> start -> A --> Start
+            # Replace in connections
             content = re.sub(
-                r'-->\s*' + pattern + r'\b',
-                r'--> ' + replacement,
-                content,
-                flags=re.IGNORECASE
+                rf'(?<=-->)\s*\b{old}\b',
+                f' {new}',
+                content
             )
-            
-            # Fix in style/class assignments: start:class -> Start:class
+            # Replace in references
             content = re.sub(
-                pattern + r':',
-                replacement + ':',
-                content,
-                flags=re.IGNORECASE
+                rf'(?<=\s)\b{old}\b(?=\s)',
+                new,
+                content
             )
         
-        # Remove invalid style declarations that use reserved keywords
-        # style start fill:... -> (remove this line)
-        content = re.sub(
-            r'^\s*style\s+(start|end|default|class)\s+.*$',
-            '',
-            content,
-            flags=re.MULTILINE | re.IGNORECASE
-        )
-        
-        # Remove invalid classDef with reserved keywords
-        content = re.sub(
-            r'^\s*classDef\s+(start|end|default|class|style)\s+.*$',
-            '',
-            content,
-            flags=re.MULTILINE | re.IGNORECASE
-        )
-        
-        # Clean up multiple blank lines
-        content = re.sub(r'\n{3,}', '\n\n', content)
+        # 5. Validate Mermaid syntax (basic)
+        if not self._validate_mermaid_syntax(content):
+            print("  ⚠️ Mermaid syntax validation failed, using fallback")
+            return self._get_fallback_diagram()
         
         return content
+    
+    def _validate_mermaid_syntax(self, content: str) -> bool:
+        """Basic Mermaid syntax validation"""
+        try:
+            # Check for basic structure
+            if 'graph' not in content.lower() and 'flowchart' not in content.lower():
+                return False
+            
+            # Check for balanced brackets
+            if content.count('[') != content.count(']'):
+                return False
+            if content.count('(') != content.count(')'):
+                return False
+            if content.count('{') != content.count('}'):
+                return False
+            
+            # Check for arrows
+            if '-->' not in content and '---' not in content:
+                return False
+            
+            return True
+        except:
+            return False
+    
+    def _get_fallback_diagram(self) -> str:
+        """Fallback diagram when generation fails"""
+        return """```mermaid
+graph LR
+    A[시작] --> B[진행]
+    B --> C[완료]
+    
+    style A fill:#e1f5ff
+    style B fill:#fff3e0
+    style C fill:#e8f5e9
+```"""
     
     def format_markdown(self, infographic: Infographic) -> str:
         """Format infographic as markdown"""
