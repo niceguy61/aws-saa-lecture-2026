@@ -2,123 +2,109 @@
 
 ## 🔍 시나리오 1: CI/CD 파이프라인 실패
 
-### 트러블슈팅 흐름도
+### 💬 개념 설명
+CI/CD는 "코드 변경사항을 자동으로 테스트하고 배포하는 프로세스"입니다.  
+예를 들어, 코드를 수정하면 자동으로 테스트 환경에서 실행되고, 문제가 없으면 실제 서버에 배포됩니다.  
+환경 변수는 "애플리케이션 실행 시 필요한 비밀번호, URL 등 정보를 안전하게 저장하는 방법"입니다.  
+레지스트리는 "컨테이너 이미지를 저장하고 관리하는 저장소"로, Docker 이미지를 공유하는 역할을 합니다.
 
-```mermaid
-graph TD
-  A[파이프라인 실패] --> B[환경 변수 확인]
-  B --> C{환경 변수 누락?}
-  C -->|예| D[필요한 변수 설정]
-  C -->|아니요| E[설정 파일 검사]
-  E --> F{설정 파일 오류?}
-  F -->|예| G[설정 파일 수정]
-  F -->|아니요| H[파이프라인 성공]
-  D --> H
-  G --> H
-  A --> I[로그 분석]
-  I --> J[추가 조치 필요]
-
-```
-
-**참고 이미지**:
-- [이미지 보기](https://docs.example.com/image1.png)
+### 트러블슈팅 흐름도  
+[이미지 보기](https://docs.example.com/image1.png)
 
 ### 🔍 시나리오 설명
-
-GitHub Actions 파이프라인이 예상치 못한 오류로 중단됨
+GitHub Actions 파이프라인이 예상치 못한 오류로 중단됨  
+예: DB 비밀번호가 설정되지 않으면 파이프라인은 중단됩니다.
 
 ### 🔬 원인 분석
-
-환경 변수 누락 또는 설정 파일 오류로 인한 파이프라인 실행 중단
+환경 변수 누락 또는 설정 파일 오류로 인한 파이프라인 실행 중단  
+예: `DB_PASSWORD` 변수가 설정되지 않으면 데이터베이스 연결이 실패합니다.
 
 ### 🔎 원인 확인 방법
-
-GitHub Actions 워크플로우 로그 확인: `gh workflow view <workflow-name> --json logs`
-
-환경 변수 존재 여부 확인: `echo $<VARIABLE_NAME>`
-
-설정 파일 문법 검사: `yml-lint .github/workflows/<workflow-name>.yml`
-
-컨테이너 이미지 빌드 로그 확인: `docker logs <container-id>`
+1. GitHub Actions 워크플로우 로그 확인:  
+   - GitHub 워크플로우 로그를 확인하기 위해 다음 단계를 수행하세요.  
+     - 워크플로우 실행 내역을 클릭하여 로그를 확인합니다.  
+2. 환경 변수 존재 여부 확인:  
+   - `echo $DB_PASSWORD` 명령어를 실행해 변수가 설정되었는지 확인합니다.  
+3. 설정 파일 문법 검사:  
+   - `yml-lint .github/workflows/<workflow-name>.yml` 명령어로 파일 문법을 점검합니다.  
+4. 컨테이너 이미지 빌드 로그 확인:  
+   - 컨테이너 로그를 확인하려면 Docker UI에서 해당 컨테이너를 선택하고 로그를 클릭하세요.
 
 ### 🔧 수정 방법
-
-필요한 환경 변수 설정: `export <VARIABLE_NAME>=<value>`
-
-워크플로크 파일 수정 후 재저장: `git add .github/workflows/<workflow-name>.yml`
-
-파이프라인 재실행: `gh workflow run <workflow-name>`
-
-Docker 이미지 재빌드: `docker build -t <image-name> .`
+1. 필요한 환경 변수 설정:  
+   - `export DB_PASSWORD=your_password` 명령어로 변수를 설정합니다.  
+2. 워크플로크 파일 수정 후 재저장:  
+   - 파일을 수정한 후 `git add` 명령어로 변경사항을 저장합니다.  
+3. 파이프라인 재실행:  
+   - GitHub 워크플로우 실행을 다시 시작해 파이프라인을 재시도합니다.  
+4. Docker 이미지 재빌드:  
+   - Docker UI에서 이미지를 다시 빌드하거나 `docker build` 명령어를 사용합니다.
 
 ### ✔️ 정상 확인 방법
-
-파이프라인 완료 상태 확인: `gh workflow list`
-
-빌드된 이미지 검증: `docker images | grep <image-name>`
-
-최종 빌드 아рте플랙트 존재 여부 확인: `ls target/`
+1. 파이프라인 완료 상태 확인:  
+   - GitHub 워크플로우 목록에서 실행 완료 상태를 확인합니다.  
+2. 빌드된 이미지 검증:  
+   - Docker UI에서 이미지 목록을 확인해 빌드된 이미지가 있는지 확인합니다.  
+3. 최종 빌드 아트ifacts 존재 여부 확인:  
+   - `target/` 폴더에 생성된 파일이 있는지 확인합니다.
 
 ---
 
 ## 🔍 시나리오 2: 컨테이너 레지스트리 연결 실패
 
-### 트러블슈팅 흐름도
+### 💬 개념 설명
+레지스트리는 "컨테이너 이미지를 저장하고 관리하는 저장소"입니다.  
+예: Docker Hub는 대표적인 레지스트리로, 개발자가 만든 Docker 이미지를 공유하는 장소입니다.
 
-```mermaid
-graph TD
-  A[도커 이미지 푸시 시 'denied: unauthorized' 오류 발생] --> B[레지스트리 인증 정보 확인]
-  B --> C{인증 정보 존재?}
-  C -->|아니요| D[레지스트리 인증 정보 설정]
-  C -->|예| E[토큰 유효성 검사]
-  E --> F{토큰 유효?}
-  F -->|아니요| G[새로운 토큰 생성 및 재인증]
-  F -->|예| H[이미지 재푸시]
-  H --> I[푸시 성공]
-  I --> J[작업 완료]
-  G --> H
-  D --> H
-
-```
-
-**참고 이미지**:
-- [이미지 보기](https://docs.example.com/image1.png)
+### 트러블슈팅 흐름도  
+[이미지 보기](https://docs.example.com/image1.png)
 
 ### 🔍 시나리오 설명
-
-Docker 이미지 푸시 시 'denied: unauthorized' 오류 발생
+Docker 이미지 푸시 시 'denied: unauthorized' 오류 발생  
+예: 사용자가 Docker Hub에 이미지 업로드 시 인증이 실패하는 경우.
 
 ### 🔬 원인 분석
-
-레지스트리 인증 정보 누락 또는 잘못된 토큰 사용
+레지스트리 인증 정보 누락 또는 잘못된 토큰 사용  
+예: 토큰이 만료되었거나, 잘못된 사용자 이름/패스워드를 입력한 경우.
 
 ### 🔎 원인 확인 방법
-
-Docker 로그 확인: `docker logs <container-id>`
-
-인증 정보 존재 여부 확인: `cat ~/.docker/config.json`
-
-레지스트리 토큰 유효성 검사: `curl -u <username>:<token> <registry-url>/v2/`
-
-레지스트리 네트워크 연결 확인: `docker info | grep Registry`
+1. Docker 로그 확인:  
+   - 컨테이너 로그를 확인하려면 Docker UI에서 해당 컨테이너를 선택하고 로그를 클릭하세요.  
+2. 인증 정보 존재 여부 확인:  
+   - `~/.docker/config.json` 파일을 열어 인증 정보가 저장되었는지 확인합니다.  
+3. 레지스트리 토큰 유효성 검사:  
+   - `curl -u <username>:<token> <registry-url>/v2/` 명령어로 토큰이 유효한지 확인합니다.  
+4. 레지스트리 네트워크 연결 확인:  
+   - Docker UI에서 레지스트리 연결 상태를 확인합니다.
 
 ### 🔧 수정 방법
-
-신규 토큰 생성 및 설정: `docker login --username <username> --password-stdin`
-
-config.json 파일 수정: `nano ~/.docker/config.json`
-
-레지스트리 인증 정보 재등록: `docker logout && docker login`
-
-이미지 푸시 재시도: `docker push <repository>:<tag>`
+1. 신규 토큰 생성 및 설정:  
+   - `docker login --username <username> --password-stdin` 명령어로 인증 정보를 설정합니다.  
+2. config.json 파일 수정:  
+   - `nano ~/.docker/config.json` 명령어로 파일을 열고 인증 정보를 수정합니다.  
+3. 레지스트리 인증 정보 재등록:  
+   - `docker logout && docker login` 명령어로 인증 정보를 재등록합니다.  
+4. 이미지 푸시 재시도:  
+   - `docker push <repository>:<tag>` 명령어로 이미지를 다시 업로드합니다.
 
 ### ✔️ 정상 확인 방법
-
-레지스트리 인증 성공 여부 확인: `curl -u <username>:<token> <registry-url>/v2/`
-
-이미지 목록 확인: `docker images`
-
-레지스트리에 이미지 존재 여부 확인: `curl -u <username>:<token> <registry-url>/v2/<repository>/tags/list`
+1. 레지스트리 인증 성공 여부 확인:  
+   - `curl -u <username>:<token> <registry-url>/v2/` 명령어로 인증이 성공했는지 확인합니다.  
+2. 이미지 목록 확인:  
+   - Docker UI에서 이미지 목록을 확인해 빌드된 이미지가 있는지 확인합니다.  
+3. 레지스트리에 이미지 존재 여부 확인:  
+   - `curl -u <username>:<token> <registry-url>/v2/<repository>/tags/list` 명령어로 레지스트리에 이미지가 등록되었는지 확인합니다.
 
 ---
 
+## 사전 지식 요구사항
+이 강의는 다음 사전 지식이 필요합니다:  
+1. Docker 설치 및 기본 사용법  
+2. GitHub Actions 기초 지식  
+3. 터미널 또는 CLI 사용 경험  
+4. 기본적인 Linux 명령어 이해 (예: `ls`, `cd`, `mkdir`)  
+
+## 참고 자료
+- [Docker 공식 문서](https://docs.docker.com/)  
+- [GitHub Actions 가이드](https://docs.github.com/en/actions)  
+- [CI/CD 개념 정리](https://devops.com/ci-cd/)

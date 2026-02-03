@@ -20,29 +20,23 @@
 
 ```mermaid
 flowchart TD
-  style start fill:#4CAF50,stroke:#388E3C
-  style end fill:#FF5722,stroke:#D84315
+  style Start fill:#4CAF50,stroke:#388E3C
+  style End fill:#FF5722,stroke:#D84315
   style step fill:#2196F3,stroke:#1976D2
-  start --> step1[단계1: 프로젝트 디렉토리 생성]
+  Start[시작] --> step1[단계1: 프로젝트 디렉토리 생성]
   step1 --> step2[단계2: Dockerfile 작성]
   step2 --> step3[단계3: Docker 이미지 빌드]
   step3 --> step4[단계4: AWS EC2 인스턴스 생성]
   step4 --> step5[단계5: 컨테이너 실행 및 포트 공유]
   step5 --> step6[단계6: EC2에서 애플리케이션 테스트]
   step6 --> step7[단계7: 로그 모니터링]
-  step7 --> end
-  classDef start stroke-width:3px
-  classDef end stroke-width:3px
-  classDef step stroke-width:2px
-  start:class start
-  end:class end
-  step1:class step
-  step2:class step
-  step3:class step
-  step4:class step
-  step5:class step
-  step6:class step
-  step7:class step
+  step7 --> End[완료]
+  classDef startClass stroke-width:3px
+  classDef endClass stroke-width:3px
+  classDef stepClass stroke-width:2px
+  class Start startClass
+  class End endClass
+  class step1,step2,step3,step4,step5,step6,step7 stepClass
 
 ```
 

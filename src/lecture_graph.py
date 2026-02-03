@@ -648,7 +648,11 @@ class LectureGenerationWorkflow:
         
         # Apply design improvements
         try:
-            improved_files = self.design_agent.design_lecture(lecture_files)
+            improved_files = self.design_agent.design_lecture(
+                lecture_files,
+                week=state["week"],
+                day=state["day"]
+            )
             
             # Save improved files
             for filename, content in improved_files.items():

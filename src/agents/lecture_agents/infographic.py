@@ -45,6 +45,11 @@ class InfographicAgent:
 4. 색상과 스타일로 가독성 향상
 5. RAG 컨텍스트에서 이미지 링크 추출
 
+**CRITICAL - Mermaid 예약어 금지**:
+- 노드 ID로 'start', 'end', 'default', 'class', 'style' 등 예약어 사용 금지
+- 대신 'Start', 'End', 'Begin', 'Finish', 'Step1', 'Step2' 등 사용
+- 예: start(X) → Start(O), end(X) → End(O)
+
 JSON 형식으로 응답하세요."""),
             ("user", """서비스: {service_name}
 섹션 타입: {section_type}
@@ -58,9 +63,11 @@ RAG 컨텍스트 (이미지 링크 포함):
 다음 JSON 스키마로 응답하세요:
 {{
   "type": "mermaid",
-  "content": "```mermaid\\ngraph TD\\n  A[시작] --> B[단계1]\\n  B --> C[완료]\\n```",
+  "content": "```mermaid\\ngraph TD\\n  Start[시작] --> Step1[단계1]\\n  Step1 --> End[완료]\\n```",
   "image_references": ["https://docs.example.com/image1.png", ...]
 }}
+
+**CRITICAL**: 노드 ID는 반드시 대문자로 시작하거나 숫자를 포함하세요 (Start, End, Step1, Step2 등)
 
 섹션 타입별 다이어그램 가이드:
 - background: 역사적 흐름이나 발전 과정 (timeline, flowchart)
@@ -81,6 +88,11 @@ RAG 컨텍스트에서 관련 이미지 URL을 찾아 image_references에 포함
         
         try:
             data = json.loads(response.content)
+            
+            # Fix Mermaid reserved keywords
+            if data.get("type") == "mermaid" and "content" in data:
+                data["content"] = self._fix_mermaid_reserved_keywords(data["content"])
+            
             return Infographic(**data)
         except Exception as e:
             print(f"❌ Infographic generation error: {e}")
@@ -88,9 +100,72 @@ RAG 컨텍스트에서 관련 이미지 URL을 찾아 image_references에 포함
             # Return default infographic on error
             return Infographic(
                 type="mermaid",
-                content="```mermaid\ngraph LR\n  A[시작] --> B[진행중]\n  B --> C[완료]\n```",
+                content="```mermaid\ngraph LR\n  Start[시작] --> Progress[진행중]\n  Progress --> End[완료]\n```",
                 image_references=None
             )
+    
+    def _fix_mermaid_reserved_keywords(self, content: str) -> str:
+        """Fix Mermaid reserved keywords in diagram content"""
+        import re
+        
+        # Mermaid reserved keywords that cannot be used as node IDs
+        reserved_keywords = {
+            r'\bstart\b': 'Start',
+            r'\bend\b': 'End',
+            r'\bdefault\b': 'Default',
+            r'\bclass\b': 'Class',
+            r'\bstyle\b': 'Style',
+            r'\bgraph\b(?!\s+(TD|LR|TB|BT|RL))': 'Graph',  # Don't replace graph direction
+            r'\bsubgraph\b(?!\s+\w)': 'Subgraph',  # Don't replace subgraph declaration
+        }
+        
+        # Fix node IDs (case-insensitive for node IDs only)
+        for pattern, replacement in reserved_keywords.items():
+            # Fix in node definitions: start[label] -> Start[label]
+            content = re.sub(
+                pattern + r'(\[|\(|\{)',
+                replacement + r'\1',
+                content,
+                flags=re.IGNORECASE
+            )
+            
+            # Fix in connections: A --> start -> A --> Start
+            content = re.sub(
+                r'-->\s*' + pattern + r'\b',
+                r'--> ' + replacement,
+                content,
+                flags=re.IGNORECASE
+            )
+            
+            # Fix in style/class assignments: start:class -> Start:class
+            content = re.sub(
+                pattern + r':',
+                replacement + ':',
+                content,
+                flags=re.IGNORECASE
+            )
+        
+        # Remove invalid style declarations that use reserved keywords
+        # style start fill:... -> (remove this line)
+        content = re.sub(
+            r'^\s*style\s+(start|end|default|class)\s+.*$',
+            '',
+            content,
+            flags=re.MULTILINE | re.IGNORECASE
+        )
+        
+        # Remove invalid classDef with reserved keywords
+        content = re.sub(
+            r'^\s*classDef\s+(start|end|default|class|style)\s+.*$',
+            '',
+            content,
+            flags=re.MULTILINE | re.IGNORECASE
+        )
+        
+        # Clean up multiple blank lines
+        content = re.sub(r'\n{3,}', '\n\n', content)
+        
+        return content
     
     def format_markdown(self, infographic: Infographic) -> str:
         """Format infographic as markdown"""
