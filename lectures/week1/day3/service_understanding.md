@@ -5,65 +5,65 @@
 <details>
 <summary>배경 정보 보기</summary>
 
-Docker Images는 애플리케이션을 실행하기 위한 가상의 운영체제 환경을 패키징한 단위로, Dockerfile을 통해 생성됩니다. 개발 환경에서 npm install 및 npm run dev 명령어로 서버를 실행하며, 바인드 마운트(bind mount)를 통해 호스트 파일 시스템과 컨테이너 간 실시간 동기화가 가능합니다. 또한, package.json 변경 시 Compose가 이미지 재빌드 및 컨테이너 재생성하는 동적 개발 환경을 제공합니다.
-
-</details>
+Docker Images는 애플리케이션을 실행하기 위한 가상화된 환경을 제공하는 컨테이너 기반의 소프트웨어 패키징 기술입니다. Dockerfile을 통해 애플리케이션의 종속성과 설정을 정의하여 이미지로 빌드하고, 이를 통해 일관된 환경에서 애플리케이션을 실행할 수 있습니다. 예를 들어, `node:24-alpine` 이미지를 기반으로 npm 패키지를 설치하고 개발 서버를 실행하는 방식이 사용됩니다. 또한, `--mount` 옵션을 통해 호스트와 컨테이너 간 파일 시스템을 공유하며, `watch` 모드를 활용한 실시간 코드 동기화도 가능합니다.
 
 ### 인포그래픽
 
-```mermaid
+`mermaid
 graph TD
-  A[DOCKERFILE 생성] --> B[이미지 빌드]
-  B --> C[바인드 마운트 설정]
-  C --> D[컨테이너 실행]
-  D --> E[package.json 변경]
-  E --> F[Compose 이미지 재빌드]
-  F --> G[웹 서비스 재생성]
-  style A fill:#FFD700,stroke:#000
-  style B fill:#7FFF00,stroke:#000
-  style C fill:#87CEEB,stroke:#000
-  style D fill:#FFA07A,stroke:#000
-  style E fill:#ADD8E6,stroke:#000
-  style F fill:#98FB98,stroke:#000
-  style G fill:#FFFACD,stroke:#000
+  A[DOCKER 이미지 빌드] --> B[컨테이너 실행]
+  B --> C[파일 마운트]
+  C --> D[실시간 동기화]
+  D --> E[애플리케이션 실행]
+  style A fill:#4CAF50,stroke:#388E3C
+  style B fill:#2196F3,stroke:#1976D2
+  style C fill:#FFA726,stroke:#FB8C00
+  style D fill:#FF5722,stroke:#E64A19
+  style E fill:#9C27B0,stroke:#7B1FA2
 ```
 
 **참고 이미지**:
-- [이미지 보기](https://docs.docker.com/compose/reference/build/)
-- [이미지 보기](https://docs.docker.com/engine/reference/commandline/build/)
-- [이미지 보기](https://docs.docker.com/engine/reference/run/)
-- [이미지 보기](https://docs.docker.com/compose/compose-file/#build)
-- [이미지 보기](https://docs.docker.com/engine/reference/commandline/logs/)
+- [이미지 보기](https://docs.docker.com/engine/reference/builder/images/dockerfile-structure.png)
+- [이미지 보기](https://docs.docker.com/engine/reference/commandline/run/docker-run-mount.png)
+- [이미지 보기](https://docs.docker.com/compose/reference/overview/compose-watch-sync.png)
+
+</details>
 
 ## 2. 핵심 개념
 
 <details>
 <summary>핵심 개념 보기</summary>
 
-- Docker Images: 컨테이너화된 애플리케이션 실행 환경
-- Bind Mounts: 호스트 파일 시스템과 컨테이너 간 파일 동기화
-- Watch Mode: 파일 변경 감지 및 자동 재빌드 기능
-- BuildKit: Docker 이미지 빌드 시스템 및 보안 기능
+- Dockerfile: 이미지 빌드에 사용되는 텍스트 기반 지시어 파일
+- Bind Mount: 호스트 파일 시스템을 컨테이너에 마운트하여 실시간 동기화
+- Watch Mode: 파일 변경 시 자동으로 컨테이너를 재구성하는 기능
+- Docker Compose: 다중 서비스 구성 및 관리에 사용되는 YAML 파일
 
 ### 인포그래픽
 
-```mermaid
+`mermaid
 graph TD
-  A[DOCKER IMAGES] --> B[BIND MOUNTS]
-  A --> C[WATCH MODE]
-  A --> D[BUILDKIT]
-  B -->|호스트-컨테이너 파일 동기화| E[예: --mount type=bind]
-  C -->|파일 변경 감지| F[예: sync+restart]
-  D -->|빌드 시스템/보안| G[예: npm install]
-  H[DOCKERFILE] -->|기반 이미지| A
-  I[DOCKER CLI] -->|명령어| J[예: docker logs]
+  A[DOCKERFILE] --> B[Docker Compose]
+  A --> C[Bind Mount]
+  A --> D[Watch Mode]
+  B --> E[서비스 구성]
+  C --> F[호스트-컨테이너 동기화]
+  D --> G[파일 변경 감지]
+  D --> H[재구성 트리거]
+  style A fill:#4CAF50,stroke:#388E3C
+  style B fill:#2196F3,stroke:#1976D2
+  style C fill:#FF9800,stroke:#FB8C00
+  style D fill:#9C27B0,stroke:#9C27B0
+  style E fill:#FFEB3B,stroke:#FDD833
+  style F fill:#673AB7,stroke:#5E35B1
+  style G fill:#009688,stroke:#00796B
+  style H fill:#795548,stroke:#6D4C41
 ```
 
 **참고 이미지**:
 - [이미지 보기](https://docs.example.com/image1.png)
-- [이미지 보기](https://docs.docker.com/engine/reference/run/#mounts)
-- [이미지 보기](https://docs.docker.com/engine/reference/commandline/buildx/#ssh)
-- [이미지 보기](https://docs.docker.com/compose/reference/build/)
+- [이미지 보기](https://docs.example.com/image2.png)
+- [이미지 보기](https://docs.example.com/image3.png)
 
 </details>
 
@@ -73,13 +73,13 @@ graph TD
 <summary>장단점 보기</summary>
 
 **장점**:
-- 환경 통일성: 개발/생산 환경 차이를 제거해 애플리케이션 일관성 확보
-- 실시간 개발: 바인드 마운트로 코드 수정 시 즉시 반영 가능
-- 확장성: 다양한 언어/프레임워크(예: Node.js, Python)에서 활용 가능
+- 환경 일관성: 개발, 테스트, 배포 환경에서 동일한 설정을 제공
+- 포트ability: 다양한 운영체제에서 동일하게 실행 가능
+- 실시간 동기화: `watch` 모드로 개발 중 코드 변경 즉시 반영
 
 **단점**:
-- 보안 리스크: 바인드 마운트로 호스트 파일 시스템 노출 가능성
-- 성능 오버헤드: 실시간 동기화로 리소스 사용량 증가
+- 학습 곡선: Dockerfile 구조 및 네트워크 설정 이해 필요
+- 보안 리스크: `--mount`로 노출된 파일 시스템이 해킹 위험
 
 </details>
 
@@ -88,9 +88,9 @@ graph TD
 <details>
 <summary>사용 사례 보기</summary>
 
-1. Node.js 개발 환경에서 nodemon을 통한 실시간 서버 재시작
-2. CI/CD 파이프라인에서 requirements.txt 변경 시 자동 이미지 재빌드
-3. Python Flask 애플리케이션과 정적 자산 파일 동기화
+1. React 애플리케이션 개발: `./web` 디렉토리 변경 시 자동 재빌드
+2. Microservices 아키텍처: 각 서비스별 독립 Docker 이미지 배포
+3. CI/CD 파이프라인: GitHub Actions에서 Docker 이미지 자동 빌드 및 배포
 
 </details>
 
@@ -100,14 +100,14 @@ graph TD
 <summary>연관 서비스 보기</summary>
 
 - Docker Compose
-- Docker Buildx
-- Secret Management
+- Kubernetes
+- Dockerfile
+- AWS ECR
 
 </details>
 
 ## 6. 공식 문서 링크
 
-- [Docker Images 공식 문서](https://docs.docker.com/engine/reference/commandline/images/)
-- [Bind Mounts 사용 가이드](https://docs.docker.com/storage/bind-mounts/)
-- [Docker Compose 파일 마운트 설정](https://docs.docker.com/compose/reference/volumes/)
+- [Docker Images 공식 문서](https://docs.docker.com/engine/reference/builder/)
+- [공식 문서](https://docs.docker.com/compose/compose-file/)
 
