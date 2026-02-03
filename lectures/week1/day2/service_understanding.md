@@ -15,7 +15,7 @@ graph TD
   B --> C[포트 매핑: -p 8080:80]
   C --> D[바인드 마운트: --mount type=bind,src=.,target=/app]
   D --> E[워크 디렉토리 설정: -w /app]
-  E --> F[커맨드 실행: sh -c "npm install && npm run dev"]
+  E --> F[커맨드 실행: npm install && npm run dev]
   F --> G[실시간 로그 모니터링: docker logs -f <container-id>]
   G --> H[노드 애플리케이션 실행]
   style A fill:#4CAF50,stroke:#388E3C
