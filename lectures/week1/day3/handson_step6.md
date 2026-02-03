@@ -1,31 +1,16 @@
 # Hands-on Lab - Step 6
 
-## Step 6: docker-compose watch 설정
+## Step 6: 실시간 동기화 검증
 
-**목표**: docker-compose.yml에서 watch 모드 적용
+**목표**: 파일 변경 시 컨테이너 반영 확인
 
 **명령어**:
 <details>
 <summary>명령어 보기</summary>
 
 ```bash
-#!/bin/sh
-cat <<EOF > docker-compose.yml
-version: '3.8'
-services:
-  web:
-    build: .
-    command: npm start
-    volumes:
-      - type: bind
-        source: ./web
-        target: /app/web
-        watch: true
-      - type: bind
-        source: ./proxy/nginx.conf
-        target: /etc/nginx/conf.d/default.conf
-        watch: sync+restart
-EOF
+echo "console.log('test');" >> src/index.js
+docker logs -f dev-container
 ```
 
 </details>
@@ -35,7 +20,7 @@ EOF
 <summary>예상 출력 보기</summary>
 
 ```
-docker-compose.yml 파일 생성 완료
+console.log('test'); 로그 출력
 ```
 
 </details>
@@ -45,7 +30,7 @@ docker-compose.yml 파일 생성 완료
 <summary>확인 방법 보기</summary>
 
 ```bash
-cat docker-compose.yml | grep 'watch'
+docker exec dev-container ls -l /app/src
 ```
 
 </details>
@@ -54,8 +39,8 @@ cat docker-compose.yml | grep 'watch'
 <details>
 <summary>문제 해결 보기</summary>
 
-- 문제: YAML 오류 → 'docker-compose config'로 유효성 검사
-- 문제: 경로 오류 → 'source' 경로 재확인
+- 문제: 파일 변경 감지 실패 → 해결: docker-compose.yml에서 watch: true 확인
+- 문제: 권한 문제 → 해결: docker exec dev-container chown -R app:app /app 명령어로 권한 변경
 
 </details>
 

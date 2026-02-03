@@ -2,14 +2,18 @@
 
 ## 실습 개요
 
-**제목**: Docker 이미지 및 실시간 개발 환경 구성
+**제목**: Docker 이미지 생성 및 실시간 개발 환경 구성
 
-**목적**: Docker 이미지를 생성하고 실시간 코드 변경을 지원하는 개발 환경을 구축하는 실습
+**목적**: Docker 이미지를 생성하고 실시간 코드 변경을 통한 개발 환경을 설정하는 방법을 학습합니다.
 
 **학습 목표**:
-- Dockerfile 작성 및 이미지 빌드
-- bind mount를 통한 실시간 코드 동기화 설정
-- docker-compose watch 모드 적용 방법 이해
+- Dockerfile 작성
+- Docker 이미지 빌드
+- 컨테이너 실행 및 포트 매핑
+- 바인드 마운트 구성
+- watch 모드 설정
+- 실시간 코드 동기화 검증
+- 일반적인 문제 해결
 
 **예상 소요 시간**: 45분
 
@@ -18,30 +22,28 @@
 ### 실습 흐름도
 
 `mermaid
-flowchart TD
-  ST[시작] --> S1[단계1: Dockerfile 구성]
-  S1 --> S2[단계2: 이미지 빌드]
-  S2 --> S3[단계3: 컨테이너 실행]
-  S3 --> S4[단계4: 로그 확인]
-  S4 --> S5[단계5: 실시간 동기화 테스트]
-  S5 --> S6[단계6: docker-compose watch 설정]
-  S6 --> S7[단계7: watch 모드 테스트]
-  S7 --> EN[완료]
-
-  style ST fill:#4CAF50,stroke:#388E3C
-  style EN fill:#4CAF50,stroke:#388E3C
-  style S1 fill:#FF9800,stroke:#FFA726
-  style S2 fill:#FF9800,stroke:#FFA726
-  style S3 fill:#FF9800,stroke:#FFA726
-  style S4 fill:#FF9800,stroke:#FFA726
-  style S5 fill:#FF9800,stroke:#FFA300
-  style S6 fill:#FF9800,stroke:#FFA300
-  style S7 fill:#FF9800,stroke:#FFA300
-`
+graph TD
+  A[DOCKER 이미지 생성 및 실시간 개발 환경 구성] --> B[단계1: Dockerfile 생성]
+  B --> C[단계2: Docker 이미지 빌드]
+  C --> D[단계3: 컨테이너 실행 및 포트 매핑]
+  D --> E[단계4: 실시간 개발 서버 실행]
+  E --> F[단계5: docker-compose watch 모드 설정]
+  F --> G[단계6: 실시간 동기화 검증]
+  G --> H[단계7: 일반적인 문제 해결]
+  style A fill:#4CAF50,stroke:#388E3C
+  style B fill:#2196F3,stroke:#1976D2
+  style C fill:#FF9800,stroke:#FB8C00
+  style D fill:#9C27B0,stroke:#9C27B0
+  style E fill:#795548,stroke:#5D4037
+  style F fill:#00BCD4,stroke:#0097A7
+  style G fill:#FF5722,stroke:#E64A19
+  style H fill:#607D8B,stroke:#455A64
+```
 
 **참고 이미지**:
-- [이미지 보기](https://docs.example.com/docker-compose-watch.png)
-- [이미지 보기](https://docs.example.com/bind-mount-example.png)
+- [이미지 보기](https://docs.docker.com/develop/develop-images/dockerfile-best-practices/)
+- [이미지 보기](https://docs.docker.com/compose/compose-file/compose-file-v3/)
+- [이미지 보기](https://docs.docker.com/engine/reference/commandline/logs/)
 
 
 ## 사전 요구사항
@@ -49,9 +51,9 @@ flowchart TD
 <details>
 <summary>사전 요구사항 보기</summary>
 
-- Docker 및 Docker Compose 설치 확인
-- Node.js 프로젝트 구조 보유
-- Dockerfile 파일 생성
+- Docker Desktop 설치
+- Node.js 프로젝트 파일
+- docker-compose CLI 설치
 
 </details>
 
@@ -60,9 +62,9 @@ flowchart TD
 <details>
 <summary>환경 설정 보기</summary>
 
-프로젝트 디렉토리로 이동: cd myproject
+깃허브에서 프로젝트 클론: git clone https://github.com/yourusername/yourproject.git
 
-package.json 파일에 dev 스크립트 정의 확인
+프로젝트 디렉토리로 이동: cd yourproject
 
 docker-compose.yml 파일 생성
 
@@ -70,7 +72,7 @@ docker-compose.yml 파일 생성
 
 ---
 
-## Step 1: Dockerfile 구성
+## Step 1: Dockerfile 생성
 
 **목표**: node:24-alpine 기반 Dockerfile 작성
 
@@ -114,8 +116,8 @@ ls -l Dockerfile
 <details>
 <summary>문제 해결 보기</summary>
 
-- 문제: npm install 오류 → 'npm install --force'로 패키지 재설치
-- 문제: 경로 오류 → 'WORKDIR' 경로 재확인
+- 문제: Dockerfile 문법 오류 → 해결: docker build --no-cache 명령어로 재빌드
+- 문제: 경로 오류 → 해결: pwd 명령어로 현재 경로 확인
 
 </details>
 

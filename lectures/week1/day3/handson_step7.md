@@ -1,21 +1,16 @@
 # Hands-on Lab - Step 7
 
-## Step 7: watch 모드 테스트
+## Step 7: 일반적인 문제 해결
 
-**목표**: nginx.conf 수정 후 컨테이너 재시작 확인
+**목표**: 서버 오류 및 마운트 문제 해결
 
 **명령어**:
 <details>
 <summary>명령어 보기</summary>
 
 ```bash
-#!/bin/sh
-echo "server {
-  listen 80;
-  location / {
-    proxy_pass http://localhost:3000;
-  }
-}" > proxy/nginx.conf
+docker inspect dev-container | grep Mounts
+docker exec dev-container ls -l /app
 ```
 
 </details>
@@ -25,7 +20,7 @@ echo "server {
 <summary>예상 출력 보기</summary>
 
 ```
-docker logs에서 nginx 재시작 확인
+마운트 경로 및 파일 목록
 ```
 
 </details>
@@ -35,7 +30,7 @@ docker logs에서 nginx 재시작 확인
 <summary>확인 방법 보기</summary>
 
 ```bash
-docker-compose up --build -d && docker logs -f dev-container
+docker stats dev-container
 ```
 
 </details>
@@ -44,8 +39,8 @@ docker-compose up --build -d && docker logs -f dev-container
 <details>
 <summary>문제 해결 보기</summary>
 
-- 문제: 재시작 없음 → 'docker-compose down' 후 재시도
-- 문제: 포트 충돌 → 'docker ps --format "{{.Ports}}"'로 포트 확인
+- 문제: SELinux 오류 → 해결: docker run -d -v $(pwd):/app:z 명령어로 재실행
+- 문제: 네트워크 문제 → 해결: docker network inspect bridge 명령어로 네트워크 상태 확인
 
 </details>
 
@@ -53,10 +48,10 @@ docker-compose up --build -d && docker logs -f dev-container
 
 ## 실습 완료
 
-Docker 이미지 생성 및 실시간 개발 환경이 성공적으로 설정되었습니다. bind mount와 watch 모드를 통해 코드 변경 시 자동 재시작이 가능합니다.
+Docker 이미지 생성 및 실시간 개발 환경이 성공적으로 구성되었습니다. 변경된 코드가 자동으로 컨테이너에 반영되고 로그를 통해 실시간으로 확인할 수 있습니다.
 
 **다음 단계**:
-- Secrets를 사용한 AWS 자격 증명 설정
-- SSH 마운트로 프라이빗 리포지토리 클론
-- 다중 컨테이너 서비스 구성
+- 프로덕션 환경으로 배포
+- CI/CD 파이프라인 설정
+- 다른 프레임워크(예: Flask)로 동일한 방식 적용
 

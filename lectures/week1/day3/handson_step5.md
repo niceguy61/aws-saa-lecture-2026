@@ -1,16 +1,29 @@
 # Hands-on Lab - Step 5
 
-## Step 5: 실시간 동기화 테스트
+## Step 5: docker-compose watch 모드 설정
 
-**목표**: src/index.js 수정 후 컨테이너 반영 확인
+**목표**: 파일 변경 시 실시간 동기화 구현
 
 **명령어**:
 <details>
 <summary>명령어 보기</summary>
 
 ```bash
-#!/bin/sh
-echo "console.log('변경됨');" >> src/index.js
+docker-compose.yml 파일에 다음 추가:
+
+services:
+  web:
+    build:
+      context: .
+    volumes:
+      - type: bind
+        source: ./src
+        target: /app/src
+        watch: true
+      - type: bind
+        source: ./nginx.conf
+        target: /etc/nginx/conf.d/default.conf
+        watch: true
 ```
 
 </details>
@@ -20,7 +33,7 @@ echo "console.log('변경됨');" >> src/index.js
 <summary>예상 출력 보기</summary>
 
 ```
-docker logs에서 변경 사항 반영 확인
+docker-compose.yml 파일 업데이트
 ```
 
 </details>
@@ -30,7 +43,7 @@ docker logs에서 변경 사항 반영 확인
 <summary>확인 방법 보기</summary>
 
 ```bash
-docker logs dev-container | grep '변경됨'
+cat docker-compose.yml | grep watch
 ```
 
 </details>
@@ -39,8 +52,8 @@ docker logs dev-container | grep '변경됨'
 <details>
 <summary>문제 해결 보기</summary>
 
-- 문제: 변경 사항 없음 → 'docker exec dev-container ls /app'로 파일 확인
-- 문제: 파일 손실 → 'docker commit dev-container my-node-app'로 컨테이너 저장
+- 문제: 구성 파일 오류 → 해결: docker-compose config 명령어로 유효성 검사
+- 문제: 동기화 실패 → 해결: docker-compose down && docker-compose up 명령어로 재시작
 
 </details>
 

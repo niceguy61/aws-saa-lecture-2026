@@ -1,16 +1,15 @@
 # Hands-on Lab - Step 2
 
-## Step 2: 이미지 빌드
+## Step 2: Docker 이미지 빌드
 
-**목표**: Dockerfile을 기반으로 이미지 생성
+**목표**: Docker 이미지 생성 및 태그 부여
 
 **명령어**:
 <details>
 <summary>명령어 보기</summary>
 
 ```bash
-#!/bin/sh
-docker build -t my-node-app .
+docker build -t my-node-app:latest .
 ```
 
 </details>
@@ -39,8 +38,8 @@ docker images | grep my-node-app
 <details>
 <summary>문제 해결 보기</summary>
 
-- 문제: 빌드 실패 → 'docker build --no-cache'로 캐시 무시
-- 문제: 권한 오류 → 'USER root' 추가 후 재빌드
+- 문제: 빌드 실패 → 해결: docker build --no-cache --progress plain 명령어로 상세 오류 확인
+- 문제: 권한 오류 → 해결: docker build --privileged 옵션 추가
 
 </details>
 
