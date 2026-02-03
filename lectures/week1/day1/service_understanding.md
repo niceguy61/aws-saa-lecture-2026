@@ -35,7 +35,7 @@ graph TD
 
 ```mermaid
 graph TD
-  A[CI/CD] --> B[인프라스트럭처 애스 코드(IaC)]
+  A[CI/CD] --> B[IaC]
   A --> C[모니터링 & 로깅]
   B --> C
   style A fill:#4CAF50,stroke:#388E3C
