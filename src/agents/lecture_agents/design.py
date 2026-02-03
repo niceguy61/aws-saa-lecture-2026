@@ -390,30 +390,42 @@ class DesignAgent:
         return improved_files
     
     def _remove_existing_navigation(self, content: str) -> str:
-        """기존 네비게이션 제거"""
-        # 맨 위의 네비게이션 제거 (# 📘 Week 부터 첫 번째 --- 까지)
-        if '# 📘 Week' in content[:500]:
-            # 첫 번째 실제 콘텐츠 헤딩 찾기 (# 서비스 이해, # Deep Dive 등)
-            lines = content.split('\n')
-            start_idx = 0
-            found_nav = False
-            
-            for i, line in enumerate(lines):
-                if '# 📘 Week' in line:
-                    found_nav = True
-                elif found_nav and line.strip().startswith('#') and '📘 Week' not in line:
-                    # 실제 콘텐츠 시작
-                    start_idx = i
-                    break
-            
-            if start_idx > 0:
-                content = '\n'.join(lines[start_idx:])
+        """기존 네비게이션 제거 (모든 중복 제거)"""
+        import re
         
-        # 하단 네비게이션 제거 (마지막 --- 부터 끝까지)
-        if '<div style="text-align: center; padding: 20px; background: linear-gradient' in content:
-            # 마지막 --- 찾기
-            last_separator_idx = content.rfind('\n\n---\n\n<div style="text-align: center;')
-            if last_separator_idx > 0:
-                content = content[:last_separator_idx]
+        # 1. 맨 위의 네비게이션 제거 (# 📘 Week 부터 첫 번째 실제 콘텐츠 헤딩까지)
+        # 패턴: # 📘 Week ... <div ...> ... </div> ... ---
+        top_nav_pattern = r'^# 📘 Week.*?</div>\s*---\s*'
+        content = re.sub(top_nav_pattern, '', content, flags=re.DOTALL)
+        
+        # 2. 하단 네비게이션 모두 제거 (여러 개 있을 수 있음)
+        # 패턴: --- ... <div style="text-align: center; padding: 20px ... 끝까지
+        bottom_nav_pattern = r'\n\n---\s*\n\n<div style="text-align: center; padding: 20px;.*?</div>\s*$'
+        while re.search(bottom_nav_pattern, content, flags=re.DOTALL):
+            content = re.sub(bottom_nav_pattern, '', content, flags=re.DOTALL)
+        
+        # 3. 중간의 완료 배너 + 네비게이션 블록 모두 제거
+        # 패턴: --- ... <div style="text-align: center; padding: 20px; background: linear-gradient(135deg, #f093fb ... 다음 섹션까지
+        middle_nav_pattern = r'\n\n---\s*\n\n<div style="text-align: center; padding: 20px; background: linear-gradient\(135deg, #f093fb.*?</div>\s*\n\n<div style="display: flex;.*?</div>\s*\n\n---\s*\n\n<div style="text-align: center; padding: 10px;.*?</div>'
+        while re.search(middle_nav_pattern, content, flags=re.DOTALL):
+            content = re.sub(middle_nav_pattern, '', content, flags=re.DOTALL)
+        
+        # 4. 남은 네비게이션 div 블록 제거
+        nav_div_pattern = r'<div style="display: flex; justify-content: space-between;.*?</div>'
+        content = re.sub(nav_div_pattern, '', content, flags=re.DOTALL)
+        
+        # 5. 완료 배너 div 제거
+        completion_banner_pattern = r'<div style="text-align: center; padding: 20px; background: linear-gradient\(135deg, #f093fb.*?</div>'
+        content = re.sub(completion_banner_pattern, '', content, flags=re.DOTALL)
+        
+        # 6. Tip div 제거
+        tip_pattern = r'<div style="text-align: center; padding: 10px; color: #666;.*?</div>'
+        content = re.sub(tip_pattern, '', content, flags=re.DOTALL)
+        
+        # 7. 연속된 빈 줄 정리
+        content = re.sub(r'\n{3,}', '\n\n', content)
+        
+        # 8. 끝의 --- 제거
+        content = re.sub(r'\n\n---\s*$', '', content)
         
         return content.strip() + '\n\n'
