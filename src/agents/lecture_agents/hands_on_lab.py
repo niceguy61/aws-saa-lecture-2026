@@ -29,11 +29,19 @@ class HandsOnLabAgent:
 
 반드시 다음 규칙을 따르세요:
 1. 모든 내용은 한글로 작성
-2. 최소 7개의 단계
-3. 각 단계는 3-4개 이하의 작업
+2. **커맨드 기반으로 1개씩 단위로 스텝을 나누세요**
+   - 각 스텝은 1개의 주요 명령어 또는 작업을 수행
+   - 예: "디렉토리 생성", "파일 작성", "이미지 빌드", "컨테이너 실행", "확인"
+3. 스텝 개수는 유연하게 (7개 고정이 아님)
+   - 간단한 실습: 5-7개 스텝
+   - 복잡한 실습: 10-15개 스텝
+   - 실제 작업 흐름에 맞춰 자연스럽게 나누기
 4. 각 단계마다 검증 방법 포함
 5. 실제 실행 가능한 명령어
 6. 명령어에는 한글 주석 포함
+7. **CRITICAL: Prerequisites와 Setup Instructions에 공식 문서 링크 필수 포함**
+   - 각 사전 요구사항 항목마다 공식 설치/설정 가이드 링크
+   - 각 환경 설정 단계마다 공식 문서 링크
 
 CRITICAL: steps는 반드시 배열(array)이어야 합니다. 객체가 아닙니다!
 
@@ -50,23 +58,30 @@ RAG 컨텍스트:
   "learning_objectives": ["목표1", "목표2", ...],
   "estimated_time": "45분",
   "difficulty": "Beginner",
-  "prerequisites": ["요구사항1", "요구사항2", ...],
-  "setup_instructions": ["설정1", "설정2", ...],
+  "prerequisites": [
+    "Docker Desktop 24.0+ installed\\n  - 설치 가이드: https://docs.docker.com/desktop/install/",
+    "AWS CLI configured\\n  - 설치: https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html\\n  - 설정: https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-quickstart.html",
+    "기본 지식 (링크 포함)"
+  ],
+  "setup_instructions": [
+    "설정 단계 1 (공식 문서 링크 포함)",
+    "설정 단계 2 (공식 문서 링크 포함)"
+  ],
   "steps": [
     {{
       "step_number": 1,
-      "title": "단계 제목",
+      "title": "단계 제목 (예: 프로젝트 디렉토리 생성)",
       "objective": "이 단계의 목표",
-      "commands": "명령어 (bash 코드)",
+      "commands": "명령어 (bash 코드) - 1개의 주요 명령어",
       "expected_output": "예상 출력",
       "verification": "확인 명령어",
       "troubleshooting": ["문제1: 해결방법", ...]
     }},
     {{
       "step_number": 2,
-      "title": "단계 제목 2",
+      "title": "단계 제목 2 (예: package.json 파일 생성)",
       "objective": "이 단계의 목표 2",
-      "commands": "명령어 (bash 코드)",
+      "commands": "명령어 (bash 코드) - 1개의 주요 명령어",
       "expected_output": "예상 출력",
       "verification": "확인 명령어",
       "troubleshooting": ["문제1: 해결방법", ...]
@@ -76,7 +91,23 @@ RAG 컨텍스트:
   "next_steps": ["다음 단계1", ...]
 }}
 
-최소 7개의 단계를 배열 형태로 생성하세요.""")
+**중요**: 
+1. 커맨드 기반으로 1개씩 단위로 스텝을 나누세요. 
+2. **Prerequisites와 setup_instructions에 반드시 공식 문서 링크를 포함하세요**
+
+예시:
+- Step 1: 디렉토리 생성 (mkdir)
+- Step 2: 파일 생성 (touch 또는 cat)
+- Step 3: Dockerfile 작성 (cat > Dockerfile)
+- Step 4: 이미지 빌드 (docker build)
+- Step 5: 이미지 확인 (docker images)
+- Step 6: 컨테이너 실행 (docker run)
+- Step 7: 컨테이너 상태 확인 (docker ps)
+- Step 8: 애플리케이션 테스트 (curl)
+- Step 9: 로그 확인 (docker logs)
+- Step 10: 정리 (docker stop, docker rm)
+
+스텝 개수는 실습 복잡도에 따라 유연하게 조정하세요.""")
         ])
         
         chain = prompt | self.llm
@@ -122,8 +153,9 @@ RAG 컨텍스트:
                 
                 data["steps"] = valid_steps
                 
-                if len(data["steps"]) < 7:
-                    raise ValueError(f"Only {len(data['steps'])} steps generated, need at least 7")
+                # Minimum 5 steps, but flexible based on complexity
+                if len(data["steps"]) < 5:
+                    raise ValueError(f"Only {len(data['steps'])} steps generated, need at least 5")
             
             return HandsOnLab(**data)
             

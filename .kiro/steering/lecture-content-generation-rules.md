@@ -188,24 +188,34 @@ kubectl describe pod pod-name -n namespace
 - Required accounts (AWS, GitHub, etc.)
 - Required knowledge/skills
 - Required files or resources
+- **공식 문서 기반 설치/설정 가이드 링크** (각 항목마다)
+
+**CRITICAL**: 각 사전 요구사항 항목에는 반드시 공식 문서 링크를 포함해야 합니다.
 
 **Example format**:
 ```markdown
 ### Prerequisites
 - Docker Desktop 24.0+ installed
+  - 설치 가이드: https://docs.docker.com/desktop/install/
 - AWS CLI configured with credentials
+  - 설치 가이드: https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html
+  - 설정 가이드: https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-quickstart.html
 - Basic understanding of containers
+  - 학습 자료: https://docs.docker.com/get-started/
 - GitHub account
+  - 계정 생성: https://github.com/signup
 - 2 GB free disk space
 ```
 
 
 #### 3. Setup Instructions (환경 설정)
 **THE SYSTEM SHALL** provide:
-- Installation guides with links
-- Configuration steps
+- Installation guides with **공식 문서 링크**
+- Configuration steps with **공식 문서 링크**
 - Verification commands
-- Troubleshooting common setup issues
+- Troubleshooting common setup issues with **공식 문서 링크**
+
+**CRITICAL**: 모든 설치 및 설정 단계에는 공식 문서 링크를 포함해야 합니다.
 
 **IF** setup is complex,
 **THEN** create separate setup documentation and link to it.
@@ -213,8 +223,9 @@ kubectl describe pod pod-name -n namespace
 #### 4. Lab Steps (실습 단계)
 
 **CRITICAL REQUIREMENTS**:
-- **Minimum 7 steps** per lab
-- **Maximum 3-4 actions** per step
+- **커맨드 기반으로 1개씩 단위로 스텝을 나누기**
+- **Minimum 5 steps** per lab (유연하게, 복잡도에 따라 5-15개)
+- **1개의 주요 명령어 또는 작업** per step
 - Each step must be clear and focused
 - Each step must have verification
 
@@ -222,13 +233,13 @@ kubectl describe pod pod-name -n namespace
 **THE SYSTEM SHALL** follow this format:
 
 ```markdown
-### Step 1: [Action Description]
+### Step 1: [Action Description - 1개의 명령어/작업]
 
 **Objective**: What this step accomplishes
 
 **Commands**:
 ```bash
-# Command with explanation
+# Command with explanation - 1개의 주요 명령어
 command-to-run --flag value
 ```
 
@@ -254,23 +265,29 @@ verification-command
 - Combine multiple major actions in one step
 - Skip intermediate verification steps
 - Assume implicit knowledge
+- Force exactly 7 steps if not natural
 
 **THE SYSTEM SHALL**:
-- Break complex tasks into atomic steps
+- Break complex tasks into atomic, command-based steps
 - Provide verification after each step
 - Explain WHY each step is necessary
+- Adjust step count based on lab complexity (5-15 steps)
 
 
-**Example of GOOD step breakdown**:
+**Example of GOOD step breakdown** (커맨드 기반):
 ```markdown
-### Step 1: Create Project Directory
-### Step 2: Initialize Git Repository
-### Step 3: Create Dockerfile
-### Step 4: Build Docker Image
-### Step 5: Test Image Locally
-### Step 6: Tag Image for Registry
-### Step 7: Push to Container Registry
-### Step 8: Verify Image in Registry
+### Step 1: 프로젝트 디렉토리 생성 (mkdir)
+### Step 2: package.json 파일 생성 (cat > package.json)
+### Step 3: server.js 파일 생성 (cat > server.js)
+### Step 4: Dockerfile 작성 (cat > Dockerfile)
+### Step 5: Docker 이미지 빌드 (docker build)
+### Step 6: 이미지 확인 (docker images)
+### Step 7: 컨테이너 실행 (docker run)
+### Step 8: 컨테이너 상태 확인 (docker ps)
+### Step 9: 애플리케이션 테스트 (curl)
+### Step 10: 로그 확인 (docker logs)
+### Step 11: 컨테이너 정지 (docker stop)
+### Step 12: 정리 (docker rm)
 ```
 
 **Example of BAD step breakdown** (too much in one step):
@@ -278,6 +295,10 @@ verification-command
 ### Step 1: Create project, initialize git, create Dockerfile, build and push image
 ```
 
+**Step Count Guidelines**:
+- Simple labs (basic commands): 5-7 steps
+- Medium labs (typical workflow): 8-12 steps
+- Complex labs (multi-component): 13-15 steps
 #### 6. Lab Completion (실습 완료)
 **THE SYSTEM SHALL** include:
 - Summary of what was accomplished
@@ -790,10 +811,12 @@ flowchart TD
 - [ ] Lab overview with purpose
 - [ ] Learning objectives stated
 - [ ] Prerequisites clearly listed
+- [ ] **Each prerequisite has official documentation link**
 - [ ] Setup instructions provided
-- [ ] Minimum 7 steps included
+- [ ] **Each setup step has official documentation link**
+- [ ] Minimum 5 steps included (커맨드 기반, 유연하게)
+- [ ] Each step has 1 main command/action
 - [ ] Each step has verification
-- [ ] Maximum 3-4 actions per step
 - [ ] Troubleshooting tips included
 - [ ] Cleanup instructions provided
 
@@ -941,9 +964,13 @@ docker history myapp:latest
 
 ### Prerequisites
 - Docker Desktop 24.0+ 설치
+  - 설치 가이드: https://docs.docker.com/desktop/install/
 - Node.js 18+ 설치 (로컬 테스트용)
+  - 설치 가이드: https://nodejs.org/en/download/
 - Docker Hub 계정
+  - 계정 생성: https://hub.docker.com/signup
 - 텍스트 에디터 (VS Code 권장)
+  - 다운로드: https://code.visualstudio.com/download
 
 
 ### Step 1: 프로젝트 디렉토리 생성
@@ -1325,8 +1352,8 @@ D) 네트워크 속도 향상
 - Skip any mandatory elements
 - Provide outdated information
 - Use untested code examples
-- Create labs with fewer than 7 steps
-- Combine too many actions in one step
+- Create labs with fewer than 5 steps
+- Combine too many actions in one step (should be 1 command per step)
 - Write quizzes without explanations
 
 ### Structure Mistakes
@@ -1342,6 +1369,8 @@ D) 네트워크 속도 향상
 - Create unrealistic lab scenarios
 - Write trivial quiz questions
 - Omit visual elements
+- Create labs with fewer than 5 steps
+- Combine multiple commands in one step without justification
 
 ---
 

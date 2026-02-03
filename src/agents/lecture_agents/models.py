@@ -56,7 +56,7 @@ class HandsOnLab(BaseModel):
     difficulty: str
     prerequisites: List[str]
     setup_instructions: List[str]
-    steps: List[HandsOnStep] = Field(description="최소 7개의 단계")
+    steps: List[HandsOnStep] = Field(description="커맨드 기반으로 1개씩 단위로 나눈 단계 (최소 5개, 유연하게)")
     completion_summary: str
     next_steps: Optional[List[str]] = None
 

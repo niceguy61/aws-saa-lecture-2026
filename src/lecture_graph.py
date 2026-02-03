@@ -85,14 +85,17 @@ class LectureGenerationWorkflow:
         
         ServiceUnderstanding: 9 sub-steps (7 elements + 2 infographics)
         DeepDive: 2 scenarios × 2 sub-steps (scenario + infographic) = 4 sub-steps
-        HandsOnLab: 7 steps + 1 infographic = 8 sub-steps
+        HandsOnLab: 동적 (최소 5개, 평균 8-10개 예상) + 1 infographic
         Quiz: 5 questions = 5 sub-steps
         Validation: 1 step
         Design: 4 files = 4 sub-steps
         Evaluation: 3 sections = 3 sub-steps (if persona set)
         Improvement: 3 sections = 3 sub-steps (if needed)
+        
+        Note: HandsOnLab steps are dynamic based on complexity
         """
-        base_steps = 9 + 4 + 8 + 5 + 1 + 4  # 31 steps (added design)
+        # Base steps: SU(9) + DD(4) + Lab(estimated 8) + Quiz(5) + Validation(1) + Design(4) = 31
+        base_steps = 9 + 4 + 8 + 5 + 1 + 4  # 31 steps (Lab is estimated)
         
         if state.get("persona"):
             base_steps += 3  # evaluation
@@ -305,9 +308,18 @@ class LectureGenerationWorkflow:
         try:
             day_dir = state["output_dir"] / f"week{state['week']}" / f"day{state['day']}"
             
-            # Generate content (7 steps)
+            # Generate content (dynamic steps based on complexity)
             lab = self.lab_agent.generate(state["services"][0], state["rag_context"])
-            state = self._update_progress(state, f"Hands-on Lab - {len(lab.steps)}개 단계 생성 완료", 7)
+            actual_steps = len(lab.steps)
+            
+            # Adjust total_steps if actual steps differ from estimated (8)
+            estimated_steps = 8
+            if actual_steps != estimated_steps:
+                step_diff = actual_steps - estimated_steps
+                state["total_steps"] = state.get("total_steps", 0) + step_diff
+                print(f"  ℹ️ Adjusted total steps: {actual_steps} lab steps (estimated: {estimated_steps})")
+            
+            state = self._update_progress(state, f"Hands-on Lab - {actual_steps}개 단계 생성 완료", actual_steps)
             
             # Save each step (includes 1 infographic in first step)
             step_files = []

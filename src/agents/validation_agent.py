@@ -187,15 +187,15 @@ class LectureValidationAgent:
                     suggestion=f"{filename} 파일을 생성하세요"
                 ))
         
-        # Hands-on Lab 단계 확인 (최소 7개)
+        # Hands-on Lab 단계 확인 (최소 5개, 유연하게)
         lab_steps = list(lecture_dir.glob("handson_step*.md"))
-        if len(lab_steps) < 7:
+        if len(lab_steps) < 5:
             issues.append(ValidationIssue(
                 severity="critical",
                 category="structure",
-                message=f"실습 단계 부족: {len(lab_steps)}개 (최소 7개 필요)",
+                message=f"실습 단계 부족: {len(lab_steps)}개 (최소 5개 필요)",
                 location=str(lecture_dir),
-                suggestion="최소 7개의 실습 단계를 생성하세요"
+                suggestion="최소 5개의 실습 단계를 생성하세요 (커맨드 기반으로 1개씩 단위로 나누기)"
             ))
         
         return issues
