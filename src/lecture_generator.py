@@ -1,6 +1,10 @@
 """Lecture Generator - 독립적인 에이전트 사용"""
+import sys
 from pathlib import Path
 from typing import List, Dict
+
+# Add project root to path
+sys.path.insert(0, str(Path(__file__).parent.parent))
 
 from src.vectorstore import VectorStoreManager
 from src.agents.lecture_agents import (
