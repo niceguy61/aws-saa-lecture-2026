@@ -1,15 +1,17 @@
 # Hands-on Lab - Step 7
 
-## Step 7: 실시간 동기화 테스트
+## Step 7: 핵심 개념 정리 + 다음 실습 준비
 
-**목표**: 코드 변경 시 자동 재빌드 확인
+**목표**: 오늘 사용한 명령을 의미와 함께 정리하고, Day 3(이미지/레이어, Dockerfile)로 연결합니다.
 
 **명령어**:
 <details>
 <summary>명령어 보기</summary>
 
 ```bash
-echo "console.log('Test');" >> src/index.js
+docker --help
+docker run --help | head -n 20
+docker system df
 ```
 
 </details>
@@ -19,7 +21,9 @@ echo "console.log('Test');" >> src/index.js
 <summary>예상 출력 보기</summary>
 
 ```
-브라우저에서 'Test' 로그 출력
+TYPE            TOTAL     ACTIVE    SIZE      RECLAIMABLE
+Images          ...
+Containers      ...
 ```
 
 </details>
@@ -29,7 +33,7 @@ echo "console.log('Test');" >> src/index.js
 <summary>확인 방법 보기</summary>
 
 ```bash
-docker logs -f <container-id> | grep 'Test'
+docker system df
 ```
 
 </details>
@@ -38,8 +42,8 @@ docker logs -f <container-id> | grep 'Test'
 <details>
 <summary>문제 해결 보기</summary>
 
-- 문제: 재빌드 실패 → docker-compose build --no-cache로 재빌드
-- 문제: 파일 동기화 안됨 → 바인드 마운트 경로 재확인
+- 출력이 너무 김 -> 스크롤로 확인하거나 파일로 저장(`docker run --help > help.txt`)
+- `head`가 없음 -> Git Bash/WSL 사용 또는 스크롤로 확인
 
 </details>
 
@@ -47,10 +51,12 @@ docker logs -f <container-id> | grep 'Test'
 
 ## 실습 완료
 
-Docker 개발 환경을 성공적으로 구성했습니다. 포트 매핑, 바인드 마운트, 실시간 코드 동기화 기능을 활용해 애플리케이션을 실행하고 AWS Secret Manager와 연동하는 방법을 익혔습니다. 이 실습을 통해 컨테이너화된 개발 환경의 기초를 다졌습니다.
+- Docker의 기본 루프(pull -> run -> ps/logs/exec -> stop/rm)를 수행했습니다.
+- 포트 매핑으로 컨테이너 서비스를 호스트에 노출하는 방법을 확인했습니다.
+- 데몬 연결/포트 충돌 같은 대표 장애 포인트를 진단하는 절차를 익혔습니다.
 
 **다음 단계**:
-- Docker Compose로 복잡한 환경 구성
-- CI/CD 파이프라인 설정
-- AWS Secrets Manager 실습 가이드: https://docs.aws.amazon.com/secretsmanager/latest/userguide/intro.html
+- Day 3 예고: 이미지/레이어를 이해하고 Dockerfile로 직접 이미지 빌드하기
+- `docker run` 옵션(환경변수, 볼륨, 리소스 제한) 실험(공식: https://docs.docker.com/reference/cli/docker/container/run/)
+- `.dockerignore` 미리 보기(공식: https://docs.docker.com/build/building/context/#dockerignore-files)
 

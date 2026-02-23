@@ -1,15 +1,20 @@
 # Hands-on Lab - Step 5
 
-## Step 5: 로그 확인
+## Step 5: 컨테이너 내부 진입(exec)과 파일 확인
 
-**목표**: 애플리케이션 실행 상태 확인
+**목표**: 컨테이너가 "격리된 프로세스/파일시스템"이라는 감각을 익히고 내부를 점검합니다.
 
 **명령어**:
 <details>
 <summary>명령어 보기</summary>
 
 ```bash
-docker logs -f <container-id>
+docker exec -it web sh
+
+# 컨테이너 안에서 실행
+nginx -v
+ls -la /usr/share/nginx/html | head -n 10
+exit
 ```
 
 </details>
@@ -19,7 +24,7 @@ docker logs -f <container-id>
 <summary>예상 출력 보기</summary>
 
 ```
-nodemon 로그 출력됨
+nginx version: nginx/...
 ```
 
 </details>
@@ -29,7 +34,7 @@ nodemon 로그 출력됨
 <summary>확인 방법 보기</summary>
 
 ```bash
-docker logs <container-id> | tail -n 20
+docker exec web sh -c "ls -la /usr/share/nginx/html | head -n 3"
 ```
 
 </details>
@@ -38,8 +43,8 @@ docker logs <container-id> | tail -n 20
 <details>
 <summary>문제 해결 보기</summary>
 
-- 문제: 로그 없음 → docker ps로 컨테이너 실행 상태 확인
-- 문제: 권한 문제 → --user root 옵션 추가
+- `sh: not found` -> 이미지에 셸이 없을 수 있음(오늘 실습은 `nginx:alpine` 권장)
+- `exec failed` -> 컨테이너가 실행 중인지 확인(`docker ps`)
 
 </details>
 

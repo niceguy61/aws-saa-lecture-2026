@@ -1,17 +1,20 @@
 # Hands-on Lab - Step 7
 
-## Step 7: 이미지 태그 및 ECR 업로드
+## Step 7: 릴리스 단위 만들기 (tag) + 정리
 
-**목표**: 클라우드 저장소에 이미지 배포
+**목표**: 현재 상태를 릴리스 후보로 태깅하고, 다음 단계로 넘어갈 준비를 합니다.
 
 **명령어**:
 <details>
 <summary>명령어 보기</summary>
 
 ```bash
-aws ecr get-login-password --region ap-northeast-2 | docker login --username AWS --password-stdin <AWS_ACCOUNT_ID>.dkr.ecr.ap-northeast-2.amazonaws.com
-docker tag devops-app:latest <AWS_ACCOUNT_ID>.dkr.ecr.ap-northeast-2.amazonaws.com/devops-repo:latest
-docker push <AWS_ACCOUNT_ID>.dkr.ecr.ap-northeast-2.amazonaws.com/devops-repo:latest
+# 태그 생성 (주석 태그 권장)
+git tag -a v0.1.0 -m "Day1 lab checkpoint"
+
+# 태그/커밋 확인
+git tag --list
+git show v0.1.0 --no-patch
 ```
 
 </details>
@@ -21,7 +24,12 @@ docker push <AWS_ACCOUNT_ID>.dkr.ecr.ap-northeast-2.amazonaws.com/devops-repo:la
 <summary>예상 출력 보기</summary>
 
 ```
-Upload complete 상태 표시
+v0.1.0
+tag v0.1.0
+Tagger: Student <student@example.com>
+Date:   ...
+
+Day1 lab checkpoint
 ```
 
 </details>
@@ -31,7 +39,7 @@ Upload complete 상태 표시
 <summary>확인 방법 보기</summary>
 
 ```bash
-aws ecr describe-images --repository-name devops-repo
+git describe --tags --always
 ```
 
 </details>
@@ -40,8 +48,8 @@ aws ecr describe-images --repository-name devops-repo
 <details>
 <summary>문제 해결 보기</summary>
 
-- 문제: 인증 실패 → AWS CLI 구성 재확인
-- 문제: 이미지 업로드 실패 → 네트워크 연결 확인
+- `fatal: not a git repository` -> 작업 디렉토리가 저장소인지 확인(`cd devops-day1-git-lab`)
+- 태그를 잘못 만들었음 -> 삭제: `git tag -d v0.1.0` (공식: https://git-scm.com/docs/git-tag)
 
 </details>
 
@@ -49,10 +57,11 @@ aws ecr describe-images --repository-name devops-repo
 
 ## 실습 완료
 
-Docker를 사용한 애플리케이션 패키징과 AWS ECR을 통한 클라우드 배포 프로세스를 완료했습니다. CI/CD 파이프라인의 기초 개념을 경험했으며, 컨테이너화 및 클라우드 인프라 통합 방법을 습득했습니다.
+- "작게 커밋 -> 공유(브랜치/PR) -> 병합 -> 검증"의 기본 루프를 경험했습니다.
+- 협업에서 자주 터지는 두 가지 이슈(merge conflict, non-fast-forward)를 표준 절차로 해결했습니다.
+- DevOps의 핵심이 도구 하나가 아니라 문화/자동화/측정/공유가 함께 굴러가는 구조라는 점을 확인했습니다.
 
 **다음 단계**:
-- CI/CD 파이프라인 구성 실습 (GitHub Actions)
-- AWS ECS 클러스터에 컨테이너 배포
-- AWS CloudFormation을 활용한 인프라 as Code 실습
-
+- Git 원격(remote) 추가 후 push/pull 실습(공식: https://git-scm.com/docs/git-remote)
+- CI 입문: GitHub Actions로 간단한 lint/test 워크플로우 만들기(공식: https://docs.github.com/actions)
+- Day 2 예고: Docker를 설치하고 첫 컨테이너를 실행하면서 "환경의 재현성"을 체감하기

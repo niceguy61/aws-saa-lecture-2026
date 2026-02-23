@@ -78,6 +78,14 @@ target/
 # Jupyter Notebook
 .ipynb_checkpoints
 
+# ChromaDB embedded mode
+chroma_local/
+# Lecture outputs: keep Week 1 in VCS for review, ignore the rest for now.
+lectures/**
+!lectures/week1/
+!lectures/week1/**
+legacy/
+
 # IPython
 profile_default/
 ipython_config.py

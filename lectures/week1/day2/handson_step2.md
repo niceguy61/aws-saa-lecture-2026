@@ -1,22 +1,15 @@
 # Hands-on Lab - Step 2
 
-## Step 2: Dockerfile 작성
+## Step 2: 첫 컨테이너 실행 (hello-world)
 
-**목표**: node:24-alpine 기반 Dockerfile 생성
+**목표**: "이미지 pull -> 컨테이너 실행 -> 종료" 흐름을 가장 단순한 예제로 확인합니다.
 
 **명령어**:
 <details>
 <summary>명령어 보기</summary>
 
 ```bash
-cat > Dockerfile <<EOF
-FROM node:24-alpine
-WORKDIR /app
-COPY package*.json ./
-RUN npm install
-EXPOSE 3000
-CMD ["sh", "-c", "npm install && npm run dev"]
-EOF
+docker run --rm hello-world
 ```
 
 </details>
@@ -26,7 +19,8 @@ EOF
 <summary>예상 출력 보기</summary>
 
 ```
-Dockerfile 파일 생성됨
+Hello from Docker!
+This message shows that your installation appears to be working correctly.
 ```
 
 </details>
@@ -36,7 +30,7 @@ Dockerfile 파일 생성됨
 <summary>확인 방법 보기</summary>
 
 ```bash
-ls -l Dockerfile
+docker images | head -n 5
 ```
 
 </details>
@@ -45,8 +39,8 @@ ls -l Dockerfile
 <details>
 <summary>문제 해결 보기</summary>
 
-- 문제: 파일 생성 실패 → cat 명령어 사용법 확인
-- 문제: 문법 오류 → nano Dockerfile로 편집
+- 다운로드가 오래 걸림 -> 네트워크 상태 확인 후 재시도, 프록시/미러 검토
+- `head: command not found` -> Git Bash/WSL 사용 또는 `docker images` 출력만 확인
 
 </details>
 

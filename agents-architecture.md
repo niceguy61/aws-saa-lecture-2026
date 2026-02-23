@@ -2,6 +2,20 @@
 
 ## 🤖 Agent 목록 및 역할
 
+## 📚 강의 생성 워크플로우 Agent (`src/lecture_graph.py`)
+
+강의 생성은 EARS 패턴(서비스 이해, Deep Dive, Hands-on Lab, Quiz)에 맞춰 섹션별 Agent가 생성하고, 검증/디자인/페르소나 평가로 품질을 보정합니다.
+
+1. **ServiceUnderstandingAgent**: 서비스 이해 섹션 생성 (인포그래픽 포함)
+2. **DeepDiveAgent**: 트러블슈팅 시나리오 생성 (인포그래픽 포함)
+3. **HandsOnLabAgent**: 실습 단계 생성 (Step 파일 + 인포그래픽)
+4. **QuizAgent**: 퀴즈 생성
+5. **LectureValidationAgent**: 품질 검증 및 재생성 피드백 생성
+6. **DesignAgent**: 가독성/포맷 개선
+7. **EvaluatorAgent**: (선택) 페르소나 기반 난이도 평가 및 개선
+
+---
+
 ### 1. Orchestrator Agent (오케스트레이터)
 **역할**: 사용자 요청을 분석하고 적절한 전문 Agent에게 라우팅
 **책임**:

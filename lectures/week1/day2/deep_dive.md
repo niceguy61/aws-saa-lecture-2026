@@ -1,36 +1,30 @@
 # Deep Dive - 트러블슈팅
 
-## 시나리오 1: npm install 실패 시나리오
+## 시나리오 1: Docker 데몬에 연결할 수 없음
 
 ### 트러블슈팅 흐름도
 
 ```mermaid
 flowchart TD
-  Node_Start[시작] --> CheckMounts{마운트 정상?}
-  CheckMounts -->|Yes| CheckPermissions{권한 정상?}
-  CheckPermissions -->|Yes| VerifyWorkingDir{작업 디렉토리 확인}
-  VerifyWorkingDir --> RunInstall[npm install 실행]
-  RunInstall --> CheckLogs{로그 확인}
-  CheckLogs -->|오류 없음| Success[성공]
-  CheckLogs -->|오류| FixMounts[마운트 수정]
-  CheckLogs --> FixPermissions[권한 수정]
-  FixMounts --> CheckLogs
-  FixPermissions --> CheckLogs
-  CheckMounts -->|No| FixMounts
-  CheckPermissions -->|No| FixPermissions
-  style Node_Start fill:#667eea,color:#fff
-  style Success fill:#51cf66,color:#fff
-  style Error fill:#ff6b6b,color:#fff
-  caption Docker 컨테이너 npm install 오류 해결 흐름도
+  Start([docker ps]) --> Err{연결 에러?}
+  Err -->|No| Done([OK])
+  Err -->|Yes| Desktop[Docker Desktop/Engine 실행 확인]
+  Desktop --> Info[docker info]
+  Info --> Ctx[docker context show]
+  Ctx --> Fix[컨텍스트/데몬 수정]
+  Fix --> Done
 ```
-
 
 ### 시나리오 설명
 
 <details>
 <summary>문제 상황 보기</summary>
 
-Docker 컨테이너가 시작되지 않거나 npm install 단계에서 오류 발생
+- 증상: `docker ps` 같은 명령이 모두 실패
+- 환경: Docker Desktop이 꺼져 있거나, 잘못된 context를 사용하거나, 권한 문제
+- 에러 메시지(예시):
+  - `Cannot connect to the Docker daemon. Is the docker daemon running?`
+  - `error during connect: ...`
 
 </details>
 
@@ -39,7 +33,7 @@ Docker 컨테이너가 시작되지 않거나 npm install 단계에서 오류 �
 <details>
 <summary>원인 분석 보기</summary>
 
-호스트 디렉토리와 컨테이너의 작업 디렉토리 매핑 오류 또는 권한 문제
+Docker CLI는 Docker Daemon에 요청을 보내야 합니다. 데몬이 실행되지 않았거나, CLI가 다른 context(원격/WSL 등)로 설정되어 있으면 연결이 거절됩니다. 일부 환경에서는 사용자 권한 문제로 소켓에 접근하지 못할 수도 있습니다.
 
 </details>
 
@@ -48,15 +42,17 @@ Docker 컨테이너가 시작되지 않거나 npm install 단계에서 오류 �
 <details>
 <summary>진단 단계 보기</summary>
 
-docker ps -a 명령으로 컨테이너 상태 확인
+```bash
+# Step 1: 클라이언트/서버 버전 확인
+docker version
 
-docker logs <container-id>로 로그 확인
+# Step 2: 데몬 상태 확인(상세)
+docker info
 
-docker inspect <container-id>로 바인드 마운트 경로 확인
-
-npm install 명령어가 정상적으로 실행되는지 호스트에서 테스트
-
-컨테이너 내 /app 디렉토리 권한 확인: ls -ld /app
+# Step 3: 현재 context 확인
+docker context ls
+docker context show
+```
 
 </details>
 
@@ -65,15 +61,14 @@ npm install 명령어가 정상적으로 실행되는지 호스트에서 테스�
 <details>
 <summary>해결 단계 보기</summary>
 
-Dockerfile에서 WORKDIR /app 명시하여 작업 디렉토리 설정
+```bash
+# Fix 1: Docker Desktop/Engine을 실행하고, 엔진이 Running 상태인지 확인
 
-docker run --rm -v $(pwd):/app node:24-alpine sh -c "npm install" 명령으로 의존성 설치
+# Fix 2: context가 이상하면 기본값으로 전환
+docker context use default
 
-docker-compose up --build로 이미지 재빌드
-
-docker run --rm -v $(pwd):/app --user $(id -u):$(id -g) node:24-alpine sh -c "npm install" 명령으로 권한 문제 해결
-
-docker-compose down && docker-compose up -d로 컨테이너 재시작
+# Fix 3(리눅스): 권한 문제라면 docker 그룹 관련 공식 문서를 참고
+```
 
 </details>
 
@@ -82,48 +77,38 @@ docker-compose down && docker-compose up -d로 컨테이너 재시작
 <details>
 <summary>검증 단계 보기</summary>
 
-docker logs -f <container-id>로 npm install 로그 확인
-
-npm run dev 명령어가 정상적으로 실행되는지 확인
-
-호스트 파일 변경 후 컨테이너 내 /app 디렉토리 파일 동기화 확인
-
-docker exec -it <container-id> sh로 컨테이너 내 파일 권한 확인
-
-docker ps로 컨테이너 상태 확인
+```bash
+docker ps
+docker run --rm hello-world
+```
 
 </details>
 
 ---
 
-## 시나리오 2: watch 모드 동기화 실패 시나리오
+## 시나리오 2: 포트 바인딩 실패 (address already in use)
 
 ### 트러블슈팅 흐름도
 
 ```mermaid
 flowchart TD
-  DOCKERFILE_CONFIG[DOCKERFILE 설정] --> WATCH_SETTINGS[WATCH 설정]
-  WATCH_SETTINGS --> FILE_CHANGE{파일 변경 감지}
-  FILE_CHANGE -->|경로 매핑 오류| PATH_MAPPING_ERROR[경로 매핑 오류]
-  FILE_CHANGE -->|권한 문제| PERMISSION_ISSUE[컨테이너 권한 문제]
-  FILE_CHANGE -->|성공| SYNC_ACTION[sync 동작]
-  SYNC_ACTION --> CONTAINER_STATUS[컨테이너 상태]
-  CONTAINER_STATUS -->|재시작 필요| REBUILD_TRIGGER[이미지 재빌드]
-  REBUILD_TRIGGER --> CONTAINER_RESTART[컨테이너 재시작]
-  style DOCKERFILE_CONFIG fill:#667eea,color:#fff
-  style WATCH_SETTINGS fill:#667eea,color:#fff
-  style PATH_MAPPING_ERROR fill:#ff6b6b,color:#fff
-  style PERMISSION_ISSUE fill:#ff6b6b,color:#fff
-  style REBUILD_TRIGGER fill:#ffd43b,color:#000
+  Start([docker run -p ...]) --> Fail{bind 실패?}
+  Fail -->|No| Done([OK])
+  Fail -->|Yes| List[docker ps로 포트 사용 확인]
+  List --> Choose[다른 호스트 포트 선택]
+  Choose --> Run[재실행]
+  Run --> Done
 ```
-
 
 ### 시나리오 설명
 
 <details>
 <summary>문제 상황 보기</summary>
 
-Docker Compose watch 설정으로 파일 변경 시 컨테이너가 재시작되지 않음
+- 증상: `docker run -p 80:80 ...` 실행 시 컨테이너가 뜨지 않음
+- 환경: 호스트 포트가 이미 점유됨(브라우저/다른 서비스/이전 컨테이너 등)
+- 에러 메시지(예시):
+  - `bind: address already in use`
 
 </details>
 
@@ -132,7 +117,7 @@ Docker Compose watch 설정으로 파일 변경 시 컨테이너가 재시작되
 <details>
 <summary>원인 분석 보기</summary>
 
-watch 설정의 경로 매핑 오류 또는 파일 변경 감지 로직 결함
+`-p HOST:CONTAINER`는 호스트 포트를 바인딩합니다. 호스트 포트가 이미 사용 중이면 Docker는 바인딩을 할 수 없어 실패합니다. 초반 실습에서 가장 자주 나오는 에러입니다.
 
 </details>
 
@@ -141,15 +126,13 @@ watch 설정의 경로 매핑 오류 또는 파일 변경 감지 로직 결함
 <details>
 <summary>진단 단계 보기</summary>
 
-docker-compose config 명령으로 서비스 설정 검증
+```bash
+# Step 1: 실행 중인 컨테이너가 같은 포트를 쓰는지 확인
+docker ps --format "table {{.Names}}\t{{.Ports}}"
 
-docker-compose logs -f <service-name>로 로그 확인
-
-docker inspect <container-id>로 마운트 경로 확인
-
-docker run --rm -v $(pwd):/app node:24-alpine sh -c "touch /app/test.txt" 명령으로 파일 생성 테스트
-
-docker-compose down && docker-compose up --build로 컨테이너 재시작
+# Step 2(Windows): netstat로 포트 점유 확인(선택)
+# netstat -ano | findstr :80
+```
 
 </details>
 
@@ -158,15 +141,13 @@ docker-compose down && docker-compose up --build로 컨테이너 재시작
 <details>
 <summary>해결 단계 보기</summary>
 
-docker-compose.yml의 watch 설정에서 경로 매핑 확인: path: ./web, target: /app/web
+```bash
+# 해결: 다른 호스트 포트를 사용
+docker run -d --name web -p 8080:80 nginx:alpine
 
-docker-compose.yml에서 action: sync+restart로 설정 변경
-
-docker-compose.yml의 ignore 항목에서 node_modules/ 제외
-
-docker-compose up --build로 이미지 재빌드
-
-docker-compose down && docker-compose up -d로 컨테이너 재시작
+# 또는 기존 컨테이너 정리 후 재실행
+# docker stop web && docker rm web
+```
 
 </details>
 
@@ -175,15 +156,10 @@ docker-compose down && docker-compose up -d로 컨테이너 재시작
 <details>
 <summary>검증 단계 보기</summary>
 
-web 디렉토리 파일 변경 후 docker-compose logs -f로 동기화 로그 확인
-
-docker-compose down && docker-compose up -d로 컨테이너 재시작
-
-npm install 후 package.json 변경 시 이미지 재빌드 확인
-
-docker exec -it <container-id> sh로 파일 변경 여부 확인
-
-docker ps로 컨테이너 상태 확인
+```bash
+docker ps
+curl -I http://localhost:8080
+```
 
 </details>
 

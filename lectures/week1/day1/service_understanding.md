@@ -5,23 +5,36 @@
 <details>
 <summary>배경 정보 보기</summary>
 
-2020년 우리 팀은 마이크로서비스 아키텍처를 도입하면서 배포 시스템을 재정비했습니다. 당시 개발자들이 로컬에서 테스트해도 문제가 없는데, 스테이징 서버에 배포하면 30% 이상의 에러가 발생했어요. 특히 백엔드 서버에서 메모리 누수로 인한 장애가 반복적으로 발생했고, 이로 인한 고객 불만이 1일 10건 이상 늘었습니다.
+### 왜 DevOps가 생겼나 (배경 스토리)
 
-문제를 해결하기 위해 DevOps를 체계적으로 도입했죠. CI/CD 파이프라인을 구축하고, Terraform으로 인프라를 코드로 관리하며, Prometheus로 실시간 모니터링을 도입했습니다. 결과적으로 배포 시간이 4시간에서 15분으로 단축되고, 주간 장애 발생률은 0.5%에서 0.02%로 감소했어요. 특히 '배포 후 1시간 내 이슈 발견'이 가능해져, 고객 불만이 70% 줄었습니다.
+2017년 11월, 8명 규모의 웹팀이 월 1회 정기 배포를 하던 시절을 떠올려 봅시다. 배포 당일(금요일 22:00), 기능은 단순했는데도 장애가 자주 났습니다. 원인은 늘 비슷했습니다.
+
+- 개발 PC에서는 정상인데 운영 서버에서는 실패: 라이브러리 버전/환경 차이
+- 배포 절차가 문서가 아니라 "사람 머리"에 있음: 담당자가 없으면 진행 불가
+- QA/보안 점검이 막판에 몰림: 배포 직전 수정 -> 더 큰 리스크
+
+이 팀이 경험한 'Before/After'는 DevOps가 해결하려는 문제를 그대로 보여줍니다.
+
+- Before(3개월 평균): 배포 리드타임 10일, 배포 실패 10건 중 3건, MTTR(복구) 90분
+- After(6개월 개선): 리드타임 2일, 배포 실패 10건 중 1건, MTTR 20분
+
+핵심은 "도구 하나"가 아니라, 개발과 운영이 같은 목표와 같은 흐름(피드백 루프)을 공유하도록 프로세스/자동화/문화가 함께 바뀐 것입니다.
 
 ### 인포그래픽
 
 ```mermaid
-graph TD
-  Node_Start[2020년 문제: 로컬 테스트 정상, 스테이징 배포 30% 에러]
-  Node_Start --> Step1[DevOps 도입]
-  Step1 --> Step2[CI/CD 파이프라인 구축]
-  Step2 --> Step3[Terraform 인프라 코드화]
-  Step3 --> Step4[Prometheus 모니터링 도입]
-  Step4 --> Result1[배포 시간 4시간 → 15분 단축]
-  Result1 --> Result2[주간 장애율 0.5% → 0.02%]
-  Result2 --> Result3[고객 불만 1일 10건 → 70% 감소]
-  style Node_Start fill:#667eea,color:#fff
+flowchart LR
+  Plan[Plan] --> Code[Code]
+  Code --> Build[Build]
+  Build --> Test[Test]
+  Test --> Release[Release]
+  Release --> Deploy[Deploy]
+  Deploy --> Operate[Operate]
+  Operate --> Monitor[Monitor]
+  Monitor --> Plan
+
+  classDef p fill:#e7f5ff,stroke:#1c7ed6,color:#0b3d91
+  class Plan,Code,Build,Test,Release,Deploy,Operate,Monitor p
 ```
 
 </details>
@@ -31,26 +44,44 @@ graph TD
 <details>
 <summary>핵심 개념 보기</summary>
 
-- CI/CD(지속적 통합/지속적 배포): 코드 변경 시 자동으로 빌드-테스트-배포. 예) GitHub Actions에서 PR을 생성하면 1분 내에 테스트 완료
-- 인프라 as 코드(IaC): AWS EC2 같은 자원도 코드로 관리. 예) Terraform으로 5개 서버 생성 시간 30분 → 5분으로 단축
-- 모니터링: 시스템 상태 실시간 확인. 예) Prometheus로 CPU 사용량 90% 이상이면 알림 발송
-- 자동화 테스트: 배포 전 코드 품질 검증. 예) Jest로 100개 API 테스트 5분 내 완료
-- 캔버리 릴리즈: 점진적 배포로 리스크 최소화. 예) 10% 사용자에게 새 기능 배포 후 피드백 분석
+DevOps는 보통 "CALMS"로 요약합니다. 이 5개가 동시에 돌아가야 실무에서 효과가 납니다.
+
+- Culture(문화): blame 대신 learn. 장애를 개인 탓이 아니라 시스템 결함으로 보고 재발 방지에 투자
+- Automation(자동화): 빌드/테스트/배포/롤백을 스크립트로 표준화해서 재현성 확보
+- Lean(린): 작은 배치, 짧은 피드백. 크게 한 번에 배포하지 않고 작게 자주 배포
+- Measurement(측정): 배포 빈도, 변경 리드타임, 변경 실패율, MTTR 같은 지표로 개선을 확인
+- Sharing(공유): 운영 노하우/장애 포스트모템/런북을 팀 자산으로 축적
+
+그리고 "DevOps 파이프라인" 관점에서 자주 쓰는 용어는 아래입니다.
+
+- CI(Continuous Integration): 작은 변경을 자주 통합하고 자동 테스트로 품질을 확인
+- CD(Continuous Delivery/Deployment): 배포 가능한 상태를 지속적으로 유지(Delivery)하거나 자동 배포(Deployment)
+- Trunk-based development: 긴 브랜치 대신 짧은 브랜치/빠른 병합으로 통합 비용을 낮춤
+- IaC(Infrastructure as Code): 인프라를 코드로 관리하여 재현성/검토/롤백을 가능하게 함
+- Observability(관찰성): 로그/메트릭/트레이싱으로 "지금 무슨 일이 벌어지는지"를 빠르게 설명 가능하게 함
 
 ### 인포그래픽
 
 ```mermaid
-graph TD
-  CI_CD[CI/CD: 자동 빌드-테스트-배포 (GitHub Actions)] --> IAC[인프라 as 코드(IaC): 인프라 코드로 관리 (Terraform)]
-  IAC --> MONITORING[모니터링: 실시간 시스템 상태 확인 (Prometheus)]
-  MONITORING --> AUTOMATED_TESTING[자동화 테스트: 코드 품질 검증 (Jest)]
-  AUTOMATED_TESTING --> CANARY_RELEASE[캔버리 릴리즈: 점진적 배포 (10% 사용자)]
-
-  style CI_CD fill:#667eea,color:#fff
-  style IAC fill:#667eea,color:#fff
-  style MONITORING fill:#667eea,color:#fff
-  style AUTOMATED_TESTING fill:#667eea,color:#fff
-  style CANARY_RELEASE fill:#667eea,color:#fff
+mindmap
+  root((DevOps))
+    Culture
+      Postmortem
+      Runbook
+      On-call 협업
+    Automation
+      CI
+      CD
+      IaC
+    Measurement
+      Lead time
+      Deploy frequency
+      Change fail rate
+      MTTR
+    Sharing
+      문서화
+      템플릿화
+      표준 운영 절차
 ```
 
 </details>
@@ -61,26 +92,15 @@ graph TD
 <summary>장단점 보기</summary>
 
 **장점**:
-- 배포 시간 16배 단축: 4시간 → 15분
-- Before: 개발자 수동 배포로 1시간 소요, 버전 충돌로 30% 실패
-- After: GitLab CI/CD 파이프라인 자동화
-- 효과: 하루 5번 배포 가능 (기존 1번)
-- 장애 발생률 95% 감소: 0.5% → 0.02%
-- Before: 수동 모니터링으로 24시간 후 이슈 발견
-- After: Prometheus + Grafana로 실시간 알림
-- 효과: 장애 대응 시간 30분 → 5분 단축
-- 온보딩 시간 80% 단축: 3일 → 1일
-- Before: 개발자 수동 환경 설정, 버전 충돌로 2일 소요
-- After: Terraform으로 인프라 자동 구성
-- 효과: 신입이 첫날부터 서비스 배포 가능
+- 배포 리스크를 줄이면서 속도를 높임: "크게 한 번" 대신 "작게 자주"로 실패의 폭을 제한
+- 재현 가능한 운영: 사람의 기억이 아니라 코드/파이프라인/런북으로 운영 품질을 표준화
+- 장애 대응이 빨라짐: 모니터링/로그/롤백 절차가 자동화될수록 MTTR이 줄어듦
+- 협업 비용 감소: 개발-운영 간 요청/승인/전달 과정을 줄이고 같은 목표로 정렬
 
 **단점**:
-- 초기 파이프라인 구성 시간 길다: 1개월 소요
-- 해결: AWS CodePipeline 템플릿 사용으로 2주로 단축
-- 팁: Terraform으로 인프라 먼저 구성해 테스트 환경 만들기
-- 문화 변화 저항: 30% 팀원이 수동 작업에 익숙함
-- 해결: 1주일 간 '자동화 체험 데이' 운영
-- 팁: CI/CD 파이프라인에 실패 시 자동 롤백 기능 추가해 안전성 강조
+- 초기 투자 비용: CI/CD, 관찰성, IaC, 보안 자동화는 만들고 유지하는 비용이 필요
+- 문화 충돌 가능: "내 일/네 일" 경계를 깨야 해서 역할/책임 재정의가 필요
+- 지표 오남용 위험: 배포 빈도만 올리고 품질을 희생하면 오히려 실패율이 증가할 수 있음
 
 </details>
 
@@ -89,18 +109,9 @@ graph TD
 <details>
 <summary>사용 사례 보기</summary>
 
-1. 스타트업 D사: 100만 유저 확보
-- 상황: 개발자 5명이 3개 서비스 운영, 배포 실패로 10% 사용자 유출
-- 도입: GitLab CI/CD + Terraform로 인프라 자동화
-- 결과: 3개월 후 배포 실패 0건, 사용자 증가 200%
-2. 대기업 E사: 1000개 서버 관리
-- 상황: 수동 인프라 설정으로 200시간/월 소요
-- 도입: Terraform으로 인프라 코드화
-- 결과: 인프라 설정 시간 300시간 → 50시간으로 감소
-3. 핀테크 F사: 금융 규제 준수
-- 상황: 수동 배포로 감사 요청 시 이력 확인 어려움
-- 도입: AWS CloudTrail로 모든 배포 기록 보관
-- 결과: 감사 기간 3일 → 1일로 단축
+1. 빠른 제품 실험이 필요한 팀: 기능 플래그/자동 배포/모니터링을 통해 실험 -> 측정 -> 개선 루프를 단축
+2. 운영 안정성이 중요한 서비스: 배포 전 자동 테스트/정책 검사, 배포 후 자동 검증과 롤백으로 장애 확산을 방지
+3. 여러 팀이 하나의 플랫폼을 공유하는 조직: 표준 템플릿(파이프라인, IaC, 모니터링)을 제공해 팀별 편차를 줄임
 
 </details>
 
@@ -109,19 +120,24 @@ graph TD
 <details>
 <summary>연관 서비스 보기</summary>
 
-- Jenkins: CI/CD 파이프라인 운영에 최적화된 오픈소스 도구
-- Terraform: AWS, Azure 등 클라우드 인프라 자동화
-- Prometheus: 시스템 메트릭 수집 및 알림
-- Grafana: 모니터링 데이터 시각화
-- Kubernetes: 컨테이너 오케스트레이션
+- 형상관리: Git, GitHub/GitLab/Bitbucket
+- CI/CD: GitHub Actions, Jenkins, GitLab CI, Argo Workflows
+- 컨테이너/오케스트레이션: Docker, Kubernetes
+- IaC: Terraform, CloudFormation
+- 관찰성: Prometheus, Grafana, Loki/ELK, OpenTelemetry
+- 대안/보완 개념: SRE(Site Reliability Engineering), Platform Engineering
 
 </details>
 
 ## 6. 공식 문서 링크
 
-- [DevOps 시작하기 (AWS, 초급) - 30분](https://aws.amazon.com/devops/)
-- [Jenkins CI/CD 가이드 (한글) - 중급](https://www.jenkins.io/doc/book/)
-- [Terraform 핵심 개념 (영문) - 고급](https://www.terraform.io/docs/intro/index.html)
-- [Prometheus 실무 가이드 (한글) - 중급](https://grafana.com/oss/prometheus/)
-- [Kubernetes 학습 트랙 (영문, 고급) - 100시간](https://kubernetes.io/docs/tutorials/)
+- [Git Documentation](https://git-scm.com/doc)
+- [Git Reference](https://git-scm.com/docs)
+- [Git Book (Pro Git)](https://git-scm.com/book/en/v2)
+- [GitHub Docs](https://docs.github.com/)
+- [GitHub Actions Documentation](https://docs.github.com/actions)
+- [Docker Docs (다음 일차 예고)](https://docs.docker.com/)
 
+## 7. 추가 자료
+
+- 팀 내 공유 문서 템플릿: 배포 체크리스트, 장애 포스트모템 템플릿, 런북(운영 절차) 템플릿

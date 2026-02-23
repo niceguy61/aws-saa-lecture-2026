@@ -305,6 +305,33 @@
 
 ---
 
+## 📌 1개월차 강의 산출물 매핑 (EARS)
+
+아래 표는 1개월차(1-4주, Day 1-20) 강의를 생성/작성할 때, EARS 4개 컴포넌트에 무엇을 넣을지 빠르게 참조하기 위한 매핑입니다.
+
+| Day | 주제 | Service Understanding 대상 | Deep Dive(트러블슈팅) 키워드 예시(2+) | Hands-on Lab(7+ steps) 실습 테마 | Quiz(5+) 범위 |
+|---:|---|---|---|---|---|
+| 1 | DevOps 개요 및 문화 | DevOps | 협업 충돌, 배포 실패 커뮤니케이션 | Git 기본 워크플로우 | DevOps/CALMS/SDLC |
+| 2 | 컨테이너 기술 개요 및 Docker 소개 | Docker | 설치 실패, 포트 충돌 | hello-world/nginx 실행 | Docker 기본 개념 |
+| 3 | Docker 이미지 기초 | Docker Image | build 실패, 캐시 오해 | Dockerfile로 이미지 빌드 | Dockerfile/레이어 |
+| 4 | Docker 컨테이너 관리 | Docker Container | 컨테이너 즉시 종료, 로그 분석 | exec/logs/volume | run/ps/logs/exec |
+| 5 | Docker 네트워킹 기초 | Docker Network | DNS/통신 실패, 포트 매핑 | bridge 네트워크 구성 | 네트워크 타입 |
+| 6 | Dockerfile 최적화 | Dockerfile | 멀티스테이지 오류, 이미지 비대화 | multistage + .dockerignore | 최적화 베스트프랙티스 |
+| 7 | Docker Registry 및 이미지 배포 | Registry | push 권한 오류, tag 혼동 | tag/push/pull | registry 흐름 |
+| 8 | Docker Compose 기초 | Docker Compose | depends_on 오해, env 설정 | 웹+DB compose up/down | compose 기본 |
+| 9 | Docker Compose 심화 | Docker Compose | volume 데이터 꼬임, 네트워크 | override로 dev/prod 분리 | compose 고급 |
+| 10 | Docker Swarm 소개 | Swarm | 서비스 배포 실패, 노드 상태 | swarm init/service | swarm 개념 |
+| 11 | Docker 보안 | Docker Security | 취약 이미지, 권한 과다 | non-root/secret 기본 | 보안 베스트프랙티스 |
+| 12 | MSA 개요 | Microservices | 서비스 경계 오류, 데이터 일관성 | 간단 분해 설계 | MSA 기본 |
+| 13 | MSA 통신 패턴 | Microservices Comm | 타임아웃/재시도 폭주, 메시지 유실 | REST vs async 비교 | 통신 패턴 |
+| 14 | Docker 기반 MSA 구현 | Docker + MSA | 서비스 디스커버리, 설정 공유 | compose로 2-3서비스 | MSA+Docker |
+| 15 | 1개월차 종합 프로젝트 | Project | 장애 재현/원인/복구 | end-to-end 배포 | 종합 리뷰 |
+| 16 | Docker 모니터링 및 로깅 | Observability | 로그 누락, 메트릭 오해 | 기본 지표 수집 | 모니터링/로깅 |
+| 17 | Docker 성능 최적화 | Performance | OOM/CPU 스로틀, IO 병목 | 리소스 제한/측정 | 성능 튜닝 |
+| 18 | Docker 트러블슈팅 | Troubleshooting | 네트워크/볼륨/빌드 | 시나리오 기반 진단 | 트러블슈팅 |
+| 19 | Docker 실전 운영 사례 | Operations | 무중단 배포 실패, 롤백 | blue-green/canary 모형 | 운영/배포 |
+| 20 | 1개월차 최종 평가 및 복습 | Review | 빈출 장애 요약 | 프로젝트 리팩터 | 전범위 |
+
 
 ## 📅 2개월차: AWS 클라우드 기초
 

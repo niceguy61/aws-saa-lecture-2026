@@ -1,15 +1,19 @@
 # Hands-on Lab - Step 6
 
-## Step 6: AWS Secret Manager 연동
+## Step 6: 컨테이너/이미지 정리 (stop, rm, rmi)
 
-**목표**: 기밀 정보를 AWS Secret Manager에서 불러옵니다
+**목표**: 실습 후 자원을 정리하는 습관을 들이고 컨테이너와 이미지의 차이를 다시 확인합니다.
 
 **명령어**:
 <details>
 <summary>명령어 보기</summary>
 
 ```bash
-aws s3 cp s3://my-bucket/secrets.json ./secrets.json && docker run -d -p 3000:3000 --mount type=bind,src=./,target=/app --env AWS_ACCESS_KEY_ID=KEY --env AWS_SECRET_ACCESS_KEY=SECRET myapp-image
+docker stop web
+docker rm web
+
+docker images | head -n 10
+docker rmi nginx:alpine
 ```
 
 </details>
@@ -19,7 +23,9 @@ aws s3 cp s3://my-bucket/secrets.json ./secrets.json && docker run -d -p 3000:30
 <summary>예상 출력 보기</summary>
 
 ```
-컨테이너 실행됨
+web
+web
+Untagged: nginx:alpine
 ```
 
 </details>
@@ -29,7 +35,8 @@ aws s3 cp s3://my-bucket/secrets.json ./secrets.json && docker run -d -p 3000:30
 <summary>확인 방법 보기</summary>
 
 ```bash
-docker ps | grep myapp
+docker ps -a
+docker images | grep nginx || true
 ```
 
 </details>
@@ -38,8 +45,8 @@ docker ps | grep myapp
 <details>
 <summary>문제 해결 보기</summary>
 
-- 문제: 권한 오류 → IAM 정책 확인: https://docs.aws.amazon.com/lambda/latest/dg/security-iam.html
-- 문제: Secret 불러오기 실패 → aws s3 ls로 S3 버킷 확인
+- `image is being used by running container` -> 먼저 컨테이너 stop/rm 후 rmi
+- `grep: command not found` -> Git Bash/WSL 사용 또는 `docker images`에서 확인
 
 </details>
 

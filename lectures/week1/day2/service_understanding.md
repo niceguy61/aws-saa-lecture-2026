@@ -5,21 +5,33 @@
 <details>
 <summary>배경 정보 보기</summary>
 
-2019년 9월, 50인 스타트업 입사 첫날. 환경 세팅에 오전 10시간 투자. Node.js 14 설치 후 프로젝트 빌드 실패. MySQL 버전 충돌로 하루 세팅. 더 큰 문제는 배포. 로컬에서 성공하나 서버에서 에러. 3시간 디버깅 끝에 원인 파악: Python 3.9 vs 서버 3.7 버전 차이. CTO가 Docker 도입 결정. 일주일 후 컨테이너화 완료. 결과? 온보딩 시간 8시간 → 30분, 배포 에러 월 15건 → 2건. 6개월 추적 결과 30% 성과 향상.
+### Docker는 왜 나왔나
+
+배포가 어려운 이유는 "코드"만 옮기면 끝나지 않기 때문입니다. 런타임, OS 의존성, 라이브러리 버전, 설정 파일, 권한, 네트워크까지 맞아야 동일하게 동작합니다. 2010년대 초반 많은 팀이 아래 같은 문제를 반복해서 겪었습니다.
+
+- 개발 PC에서는 정상인데 운영 서버에서는 실패(환경 차이)
+- 신규 입사자의 로컬 환경 세팅에 반나절~1일 소요(문서 편차/누락)
+- 배포는 위험하니 한 번에 몰아서(큰 배치) 진행 -> 실패 시 영향이 커짐
+
+Docker는 "애플리케이션 + 의존성 + 실행 방법"을 이미지(Image)로 패키징하고, 어디서든 동일하게 실행(재현성)하도록 만들면서, VM보다 가볍게(빠른 기동/높은 밀도) 운영할 수 있는 접근으로 빠르게 확산했습니다.
+
+Before/After를 숫자로 보면 감이 더 잘 옵니다.
+
+- Before: 환경 세팅 4시간, 배포 리드타임 3일, 환경 이슈로 핫픽스 월 2회
+- After: 환경 세팅 20분, 배포 리드타임 1일, 환경 이슈로 핫픽스 월 0~1회
+
+핵심은 "코드를 옮긴다"가 아니라 "실행 가능한 환경을 같이 옮긴다"입니다.
 
 ### 인포그래픽
 
 ```mermaid
-timeline
-  title Docker 도입 전후 변화
-  2019-09 : 입사 첫날 환경 세팅 시작<br/>10시간 투자
-  2019-09 : Node.js 14 설치 후 빌드 실패
-  2019-09 : MySQL 버전 충돌로 하루 소요<br/>배포 시 Python 3.9 vs 3.7 버전 차이
-  2019-09 : 3시간 디버깅 후 원인 파악
-  2019-09 : CTO Docker 도입 결정
-  2019-10 : 컨테이너화 1주일 후 완료
-  2019-10 : 온보딩 시간 8시간 → 30분<br/>배포 에러 15건 → 2건
-  2019-12 : 6개월 추적 결과 30% 성과 향상
+flowchart LR
+  Dev[Developer] --> CLI[Docker CLI]
+  CLI --> Daemon[Docker Daemon]
+  Daemon --> Image[Image]
+  Daemon --> Container[Container]
+  Container --> Net[Network]
+  Container --> Vol[(Volume)]
 ```
 
 </details>
@@ -29,29 +41,29 @@ timeline
 <details>
 <summary>핵심 개념 보기</summary>
 
-- 이미지(Image): 설계도. 한 번 만들면 재사용. 예) Python3.9+FastAPI+PostgreSQL 이미지 저장 → 팀원 10명 동일 환경. 에러 0건
-- 레이어(Layer): 이미지 층. 명령어마다 생성. 캐싱으로 재사용. 예) package.json 안 바뀌면 npm install 건너뜀. 빌드 5분 → 30초
-- 볼륨(Volume): 데이터 저장소. 로컬 파일을 컨테이너에 실시간 동기화. 예) ./web/App.jsx → /src/web/App.jsx. 수정 시 자동 반영
-- 네트워크(Network): 컨테이너 간 통신. 서비스 간 API 호출 시 라우팅 자동 설정. 예) web 서비스와 db 서비스 자동 연결
-- 시크릿(Secret): 민감 정보 보호. AWS 자격증명을 환경 변수로 전달. 예) --mount type=secret,id=aws-secret-key,env=AWS_SECRET_ACCESS_KEY
+- Image(이미지): 컨테이너를 만들기 위한 "불변 템플릿". 레이어(layer) 단위로 캐시/재사용 가능
+- Container(컨테이너): 이미지로부터 생성된 "실행 인스턴스". 프로세스 격리(네임스페이스)와 자원 제한(cgroups) 활용
+- Registry(레지스트리): 이미지를 저장/배포(Docker Hub, ECR, GHCR 등)
+- Dockerfile: 이미지를 만드는 레시피. 단계/캐시 설계가 빌드 속도와 이미지 크기에 큰 영향
+- Network/Volume: 컨테이너 통신(포트/네임해결)과 데이터 영속성(컨테이너 생명주기와 분리)의 기본
+
+Docker Engine을 트러블슈팅 관점에서 단순화하면 아래로 정리할 수 있습니다.
+
+- Docker CLI: 사용자가 명령을 내리는 클라이언트
+- Docker Daemon: 이미지/컨테이너/네트워크/볼륨을 관리하는 서버 프로세스
+- Container runtime: 컨테이너 실행 담당(containerd/runc 등)
 
 ### 인포그래픽
 
 ```mermaid
 graph TD
-  IMAGE[이미지] --> LAYER[레이어]
-  IMAGE --> VOLUME[볼륨]
-  NETWORK[네트워크] --> SECRET[시크릿]
-  VOLUME --> STORAGE[저장소]
-  LAYER --> CACHING[캐싱]
-  style IMAGE fill:#667eea,color:#fff
-  style LAYER fill:#667eea,color:#fff
-  style VOLUME fill:#868e96,color:#000
-  style NETWORK fill:#667eea,color:#fff
-  style SECRET fill:#667eea,color:#fff
-  style STORAGE fill:#868e96,color:#000
-  style CACHING fill:#ffd43b,color:#000
-  caption Docker 컨셉 관계도: 이미지, 레이어, 볼륨, 네트워크, 시크릿 간의 상호작용
+  CLI[CLI] --> Daemon[Daemon]
+  Daemon --> Runtime[Runtime]
+  Runtime --> C1[Container A]
+  Runtime --> C2[Container B]
+  Daemon --> Img[Images]
+  Daemon --> Vol[(Volumes)]
+  C1 --- Vol
 ```
 
 </details>
@@ -62,28 +74,14 @@ graph TD
 <summary>장단점 보기</summary>
 
 **장점**:
-- 온보딩 96% 단축: 8시간 → 30분
-- Before: README 보고 Python3.9, PostgreSQL13, Redis6 각각 설치. 충돌로 하루 세팅. 선배 도움 5회
-- After: docker-compose up 한 줄. 5분 → 완료. 오후부터 개발
-- 효과: 팀원당 7.5시간 절약. 월 4명 입사 시 120시간 절약. 6개월 24명 데이터
-- 배포 실패 88% 감소: 월 15건 → 2건
-- Before: 내 맥북에선 되는데 월 15회. 평균 2시간 디버깅
-- After: Dockerfile로 환경 고정. 로컬=서버
-- 효과: 월 2건(코드 버그, 환경 문제 0). 디버깅 30시간 → 4시간. 1년 추적
-- 빌드 8배 향상: 10분 → 75초
-- Before: 매번 전체 재빌드. npm install 5분
-- After: 캐싱으로 변경만. package.json 안 바뀌면 건너뜀
-- 효과: 하루 20번 빌드 시 3시간 절약. 3개월 측정
+- 재현성: 개발/테스트/운영에서 동일한 실행 환경을 유지하기 쉬움
+- 속도: 이미지를 준비해두면 컨테이너는 수 초 내 기동 가능
+- 운영 밀도: VM보다 가볍게 여러 워크로드를 한 호스트에서 운영 가능
+- 표준화: Dockerfile/Compose로 팀 표준을 만들면 온보딩/배포가 빨라짐
 
 **단점**:
-- 디스크 30GB 차지: 팀 평균
-- 문제: 이미지 누적, 캐시. Images 43개(15GB), Cache 12GB. 신입 디스크 풀로 작업 중단
-- 해결: 주 1회 docker system prune. Cron 일요일 2시
-- 팁: .dockerignore로 node_modules 제외
-- 학습 2주: 개념+실전
-- 문제: Dockerfile, Volume, Network 생소. Layer 캐싱 이해 3일. 순서 잘못 써서 10배 느림. 2주 후 발견
-- 해결: 템플릿 제공(React, Node, Python). 가이드 15페이지
-- 팁: docker-compose부터. 2주 → 1주
+- 보안 설계 필요: 커널을 공유하므로 권한, 이미지 취약점, 비밀(Secret) 관리가 중요
+- 데이터/네트워크 학습 필요: 볼륨/포트 매핑/브리지 네트워크가 초기 진입장벽이 될 수 있음
 
 </details>
 
@@ -92,18 +90,9 @@ graph TD
 <details>
 <summary>사용 사례 보기</summary>
 
-1. 핀테크 G사: 멀티 테넌트
-- 상황: 금융사별 다른 규제. 은행 A는 한국 보관, B는 암호화. 15개사
-- 도입: 커스텀 Dockerfile. 베이스 공통, 규제만 다르게
-- 결과: 온보딩 2주 → 2일. 위반 0건. 감사 100%. 2년 15개사
-2. 게임 H사: 글로벌 동시 배포
-- 상황: 한국, 일본, 미국. 각 2시간(총 6시간). 시차로 야간
-- 도입: Dockerfile+CI/CD 동시 배포. ECR 멀티 리전
-- 결과: 6시간 → 20분(18배). 야간 작업 없음. 실패 0. 3개월 데이터
-3. SaaS 스타트업: CI/CD 자동화
-- 상황: 10명 개발자, 20개 서비스. 매일 빌드 실패 5회
-- 도입: GitHub Actions + Docker CI 파이프라인
-- 결과: 빌드 실패 0. 배포 시간 4시간 → 15분. 6개월 추적
+1. 로컬 개발환경 표준화: DB/캐시까지 포함한 스택을 Compose로 한 번에 구성
+2. CI 격리: 빌드/테스트 환경을 이미지로 고정해 결과 일관성 확보
+3. 배포 단위 표준화: 서비스별 이미지를 배포 아티팩트로 삼아 파이프라인 단순화
 
 </details>
 
@@ -112,19 +101,25 @@ graph TD
 <details>
 <summary>연관 서비스 보기</summary>
 
-- Kubernetes: 컨테이너 오케스트레이션. Docker 컨테이너를 클러스터에 배포. 예) 100개 서버 자동 관리
-- Docker Compose: 다중 컨테이너 관리. docker-compose.yml로 서비스 정의. 예) web, db, redis 동시 실행
-- AWS ECR: Docker 이미지 저장소. AWS 클라우드에 이미지 저장. 예) docker push aws_account_id.dkr.ecr.region.amazonaws.com/repo:tag
-- Terraform: 인프라 자동화. Docker 환경을 AWS/Google Cloud 자동 배포. 예) VPC, EC2, RDS 자동 생성
+- Docker Compose: 멀티 컨테이너 앱 구성/실행
+- Kubernetes: 컨테이너 오케스트레이션
+- BuildKit: 빌드 캐시/성능 최적화
+- containerd/runc: 런타임 계층
+- 대안: Podman(daemon-less), nerdctl(containerd CLI)
 
 </details>
 
 ## 6. 공식 문서 링크
 
-- [Docker 시작 (공식, 30분) - 초급 필수](https://docs.docker.com/get-started/)
-- [44BITS Docker (한글) - 초급](https://www.44bits.io/ko/keyword/docker)
-- [Docker Compose 가이드 (중급)](https://docs.docker.com/compose/)
-- [AWS ECR 사용법 (고급)](https://docs.aws.amazon.com/AmazonECR/latest/userguide/)
-- [Kubernetes 기초 (중급)](https://kubernetes.io/docs/tutorials/)
-- [Docker Hub 이미지 검색 (실전)](https://hub.docker.com/)
+- [Docker Docs](https://docs.docker.com/)
+- [Docker Desktop Install](https://docs.docker.com/desktop/install/)
+- [Docker Engine Install](https://docs.docker.com/engine/install/)
+- [docker run](https://docs.docker.com/reference/cli/docker/container/run/)
+- [docker ps](https://docs.docker.com/reference/cli/docker/container/ls/)
+- [docker logs](https://docs.docker.com/reference/cli/docker/container/logs/)
+- [docker exec](https://docs.docker.com/reference/cli/docker/container/exec/)
+
+## 7. 추가 자료
+
+- 팀 표준: 이미지 태그 전략(불변 태그), 컨테이너/이미지 정리 정책, 로컬 개발환경 템플릿(Compose)
 

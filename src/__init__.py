@@ -1,1 +1,2 @@
-"""DevOps Training Multi-Agent System with RAG"""
+"""DevOps lecture scaffold generator."""
+

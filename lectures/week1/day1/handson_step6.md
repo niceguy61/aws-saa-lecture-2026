@@ -1,15 +1,24 @@
 # Hands-on Lab - Step 6
 
-## Step 6: AWS ECR 리포지토리 생성
+## Step 6: 안전하게 되돌리기 (revert)
 
-**목표**: 클라우드 저장소 준비
+**목표**: 협업 환경에서 권장되는 되돌리기 방법인 `git revert`를 사용해 "원인을 보존한 채" 수정합니다.
 
 **명령어**:
 <details>
 <summary>명령어 보기</summary>
 
 ```bash
-aws ecr create-repository --repository-name devops-repo
+# 실수로 넣은 한 줄을 추가했다고 가정
+echo "- Mistake: temporary note" >> README.md
+git add README.md
+git commit -m "docs: add temporary note (mistake)"
+
+# 마지막 커밋을 되돌리기 (히스토리는 남김)
+git revert --no-edit HEAD
+
+# 결과 확인
+git log --oneline --decorate -n 5
 ```
 
 </details>
@@ -19,7 +28,8 @@ aws ecr create-repository --repository-name devops-repo
 <summary>예상 출력 보기</summary>
 
 ```
-repositoryUri 포함한 JSON 응답
+[main 7e6d5c4] Revert "docs: add temporary note (mistake)"
+ 1 file changed, 1 deletion(-)
 ```
 
 </details>
@@ -29,7 +39,8 @@ repositoryUri 포함한 JSON 응답
 <summary>확인 방법 보기</summary>
 
 ```bash
-aws ecr describe-repositories --repository-names devops-repo
+git show -n 1 --stat
+tail -n 5 README.md
 ```
 
 </details>
@@ -38,8 +49,7 @@ aws ecr describe-repositories --repository-names devops-repo
 <details>
 <summary>문제 해결 보기</summary>
 
-- 문제: 권한 오류 → IAM 정책 확인
-- 문제: 리포지토리 생성 실패 → AWS 서비스 상태 확인
+- `revert` 중 충돌 발생 -> Deep Dive 시나리오 1 절차와 동일하게 해결 후 커밋
+- `tail: command not found` -> Git Bash/WSL 사용 또는 에디터로 파일 확인
 
 </details>
-

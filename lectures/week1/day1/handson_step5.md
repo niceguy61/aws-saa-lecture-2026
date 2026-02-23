@@ -1,15 +1,22 @@
 # Hands-on Lab - Step 5
 
-## Step 5: 애플리케이션 테스트
+## Step 5: 변경 이력을 읽기 좋게 만들기 (log, diff, blame)
 
-**목표**: 배포된 서비스 기능 검증
+**목표**: 히스토리/변경 내역을 확인하는 기본 명령을 익혀, "왜 이렇게 됐지?"를 빠르게 답할 수 있게 합니다.
 
 **명령어**:
 <details>
 <summary>명령어 보기</summary>
 
 ```bash
-curl http://localhost:3000
+# 최근 커밋 확인
+git log --oneline --decorate --graph -n 10
+
+# 특정 파일 변경 내역
+git log -p -- README.md -n 3
+
+# 누가 어느 줄을 바꿨는지(협업에서 매우 자주 씀)
+git blame README.md | head -n 20
 ```
 
 </details>
@@ -19,7 +26,9 @@ curl http://localhost:3000
 <summary>예상 출력 보기</summary>
 
 ```
-HTTP 200 응답 및 애플리케이션 메시지
+* 9f8e7d6 (HEAD -> main) merge: resolve README conflict
+* abcd123 docs: add automation note
+* 1a2b3c4 docs: add initial README
 ```
 
 </details>
@@ -29,7 +38,7 @@ HTTP 200 응답 및 애플리케이션 메시지
 <summary>확인 방법 보기</summary>
 
 ```bash
-curl http://localhost:3000
+git log --oneline -n 1
 ```
 
 </details>
@@ -38,8 +47,7 @@ curl http://localhost:3000
 <details>
 <summary>문제 해결 보기</summary>
 
-- 문제: 연결 실패 → docker ps 확인
-- 문제: 404 오류 → 애플리케이션 로직 점검
+- `head: command not found` -> Git Bash/WSL 사용 또는 출력 줄 수만 눈으로 확인
+- `fatal: no such path` -> 파일명/경로를 확인(`ls`, `git ls-files`)
 
 </details>
-

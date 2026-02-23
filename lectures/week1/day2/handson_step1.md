@@ -2,48 +2,40 @@
 
 ## 실습 개요
 
-**제목**: Docker 실습: 개발 환경 구성
+**제목**: Docker 첫날 실습: hello-world -> nginx 실행 -> 기본 운영 명령
 
-**목적**: Docker를 사용해 개발 환경을 구성하고 실시간 코드 동기화 및 컨테이너 실행을 연습합니다
+**목적**: Docker의 최소 워크플로우(이미지 가져오기 -> 컨테이너 실행 -> 상태/로그 확인 -> 정리)를 반복해, 이후 Dockerfile/Compose 학습의 기반을 만듭니다.
 
 **학습 목표**:
-- Dockerfile 작성 및 이미지 빌드
-- 포트 매핑 및 바인드 마운트 설정
-- 실시간 코드 동기화 기능 활용
-- 컨테이너 로그 확인 및 디버깅
-- AWS Secret Manager와의 통합 설정
+- Docker Engine(daemon/cli)과 image/container의 차이를 설명한다
+- `docker run/ps/logs/exec/stop/rm`로 컨테이너를 관리한다
+- 데몬 연결/포트 충돌 같은 대표 이슈를 진단/해결한다
 
-**예상 소요 시간**: 45분
+**예상 소요 시간**: 60-90분
 
 **난이도**: Beginner
 
 ### 실습 흐름도
 
 ```mermaid
-flowchart TD
-  Step1[프로젝트 디렉토리 생성] --> Step2[Dockerfile 작성]
-  Step2 --> Step3[이미지 빌드]
-  Step3 --> Step4[컨테이너 실행]
-  Step4 --> Step5[로그 확인]
-  Step5 --> Step6[AWS Secret Manager 연동]
-  Step6 --> Step7[실시간 동기화 테스트]
-  classDef primary fill:#667eea,color:#fff,stroke:#764ba2
-  class Step1,Step2,Step3,Step4,Step5,Step6,Step7 primary
+flowchart LR
+  Pull[이미지 준비] --> Run[컨테이너 실행]
+  Run --> Observe[상태/로그 확인]
+  Observe --> Exec[내부 점검]
+  Exec --> Cleanup[정리]
 ```
-
 
 ## 사전 요구사항
 
 <details>
 <summary>사전 요구사항 보기</summary>
 
-- Docker Desktop 24.0+ 설치
-  - 설치 가이드: https://docs.docker.com/desktop/install/
-- AWS CLI 구성
-  - 설치: https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html
-  - 설정: https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-quickstart.html
-- 기본 Docker 명령어 이해 (링크 포함)
-  - 공식 문서: https://docs.docker.com/engine/reference/commandline/cli/
+- Docker Desktop 설치(Windows/macOS)
+  - 설치 가이드(공식): https://docs.docker.com/desktop/install/
+- (Linux) Docker Engine 설치
+  - 설치 가이드(공식): https://docs.docker.com/engine/install/
+- curl 준비(HTTP 확인용)
+  - 문서(공식): https://curl.se/docs/
 
 </details>
 
@@ -52,26 +44,27 @@ flowchart TD
 <details>
 <summary>환경 설정 보기</summary>
 
-Docker Desktop 설치 및 실행
-  - 설정 가이드: https://docs.docker.com/desktop/install/
-
-AWS CLI 설정 및 테스트
-  - AWS CLI 설치 후 aws configure 명령어로 기본 설정 수행
+- Docker 상태 확인
+  - 명령어: `docker info`
+  - 문서(공식): https://docs.docker.com/reference/cli/docker/system/info/
+- CLI 레퍼런스 준비
+  - 문서(공식): https://docs.docker.com/reference/cli/docker/
 
 </details>
 
 ---
 
-## Step 1: 프로젝트 디렉토리 생성
+## Step 1: Docker 설치/실행 상태 확인
 
-**목표**: 개발에 필요한 디렉토리를 생성합니다
+**목표**: Docker CLI가 데몬에 연결되는지 확인하고, 버전/환경 정보를 확인합니다.
 
 **명령어**:
 <details>
 <summary>명령어 보기</summary>
 
 ```bash
-mkdir myapp && cd myapp
+docker --version
+docker info
 ```
 
 </details>
@@ -81,7 +74,10 @@ mkdir myapp && cd myapp
 <summary>예상 출력 보기</summary>
 
 ```
-현재 디렉토리가 myapp으로 변경됨
+Client: Docker Engine - Community
+...
+Server: Docker Desktop
+...
 ```
 
 </details>
@@ -91,7 +87,7 @@ mkdir myapp && cd myapp
 <summary>확인 방법 보기</summary>
 
 ```bash
-pwd
+docker version
 ```
 
 </details>
@@ -100,8 +96,8 @@ pwd
 <details>
 <summary>문제 해결 보기</summary>
 
-- 문제: 디렉토리 생성 실패 → 권한 문제 확인: ls -ld myapp
-- 문제: 경로 접근 거부 → sudo 권한으로 재시도
+- `Cannot connect to the Docker daemon` -> Docker Desktop/Engine 실행 후 재시도(공식: https://docs.docker.com/desktop/install/)
+- 이미지 pull이 느리거나 실패 -> 프록시 설정 확인(공식: https://docs.docker.com/network/proxy/)
 
 </details>
 

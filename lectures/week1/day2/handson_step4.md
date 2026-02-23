@@ -1,15 +1,17 @@
 # Hands-on Lab - Step 4
 
-## Step 4: 컨테이너 실행
+## Step 4: 컨테이너 상태/로그 확인
 
-**목표**: 포트 매핑 및 바인드 마운트 설정
+**목표**: 실행 중인 컨테이너를 관찰하는 기본 명령을 익힙니다.
 
 **명령어**:
 <details>
 <summary>명령어 보기</summary>
 
 ```bash
-docker run -d -p 3000:3000 --mount type=bind,src=./,target=/app myapp-image
+docker ps
+docker logs --tail 20 web
+docker inspect web --format "{{json .State}}"
 ```
 
 </details>
@@ -19,7 +21,7 @@ docker run -d -p 3000:3000 --mount type=bind,src=./,target=/app myapp-image
 <summary>예상 출력 보기</summary>
 
 ```
-Container ID 출력됨
+{"Status":"running","Running":true,"Pid":...}
 ```
 
 </details>
@@ -29,7 +31,8 @@ Container ID 출력됨
 <summary>확인 방법 보기</summary>
 
 ```bash
-docker ps | grep myapp
+curl -I http://localhost:8080
+docker logs web | tail -n 5
 ```
 
 </details>
@@ -38,8 +41,8 @@ docker ps | grep myapp
 <details>
 <summary>문제 해결 보기</summary>
 
-- 문제: 포트 충돌 → docker ps | grep 3000로 확인
-- 문제: 마운트 실패 → 권한 설정 확인: docker run --rm -it --user root myapp-image sh
+- `No such container: web` -> 컨테이너 이름 확인(`docker ps -a`)
+- 로그가 거의 없음 -> 요청이 없으면 로그가 적을 수 있음. curl 호출 후 재확인
 
 </details>
 

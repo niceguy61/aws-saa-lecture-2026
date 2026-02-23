@@ -1,23 +1,19 @@
 # Hands-on Lab - Step 2
 
-## Step 2: Dockerfile 작성
+## Step 2: 첫 커밋 만들기 (작게 커밋의 시작)
 
-**목표**: Node.js 기반 컨테이너 이미지 정의
+**목표**: 변경 사항을 스테이징(add)하고 커밋(commit)한 뒤, 히스토리를 확인합니다.
 
 **명령어**:
 <details>
 <summary>명령어 보기</summary>
 
 ```bash
-cat > Dockerfile <<EOF
-FROM node:18
-WORKDIR /app
-COPY package*.json .
-RUN npm install
-COPY . .
-EXPOSE 3000
-CMD ["node", "app.js"]
-EOF
+git add README.md
+git commit -m "docs: add initial README"
+
+# 히스토리 확인
+git log --oneline --decorate -n 3
 ```
 
 </details>
@@ -27,7 +23,9 @@ EOF
 <summary>예상 출력 보기</summary>
 
 ```
-Dockerfile 파일 생성 및 내용 확인
+[main (root-commit) 1a2b3c4] docs: add initial README
+ 1 file changed, 2 insertions(+)
+ create mode 100644 README.md
 ```
 
 </details>
@@ -37,7 +35,8 @@ Dockerfile 파일 생성 및 내용 확인
 <summary>확인 방법 보기</summary>
 
 ```bash
-cat Dockerfile
+git status
+git show --stat
 ```
 
 </details>
@@ -46,8 +45,7 @@ cat Dockerfile
 <details>
 <summary>문제 해결 보기</summary>
 
-- 문제: 문법 오류 → Dockerfile 공식 문서 참고
-- 문제: 파일 생성 실패 → 파일 권한 확인
+- `nothing to commit` -> `git status`로 변경 파일이 있는지 확인 후 파일 수정/저장
+- `Author identity unknown` -> Step 1에서 `git config user.name/email` 설정
 
 </details>
-

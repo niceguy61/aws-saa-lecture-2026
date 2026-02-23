@@ -2,51 +2,41 @@
 
 ## 실습 개요
 
-**제목**: DevOps 실습: Docker와 AWS CLI로 간단한 웹 애플리케이션 배포
+**제목**: DevOps 협업의 시작: Git으로 "작게, 자주" 통합하기
 
-**목적**: Docker를 사용한 애플리케이션 패키징과 AWS CLI를 활용한 클라우드 배포 프로세스를 실습합니다.
+**목적**: DevOps의 핵심(짧은 피드백 루프, 공유, 자동화)의 출발점인 "형상관리 + 협업 흐름"을 Git으로 직접 경험합니다. 팀에서 문제가 생기는 지점(충돌, push 거절)을 일부러 만들고, 표준 절차로 해결하는 연습을 합니다.
 
 **학습 목표**:
-- Docker 컨테이너화 기초 이해
-- AWS CLI를 통한 리소스 관리 방법 습득
-- CI/CD 파이프라인 기본 흐름 경험
+- Git 저장소를 초기화하고 커밋/브랜치/병합의 기본 흐름을 수행한다
+- 충돌(conflict)과 non-fast-forward 같은 협업 이슈를 진단하고 해결한다
+- "작게, 자주" 변경을 통합하는 이유를 지표(리드타임/실패율/복구시간) 관점으로 설명한다
 
-**예상 소요 시간**: 45분
+**예상 소요 시간**: 60-90분
 
 **난이도**: Beginner
 
 ### 실습 흐름도
 
-`mermaid
-flowchart TD
-  Step1[프로젝트 디렉토리 생성] --> Step2[DOCKERFILE 작성]
-  Step2 --> Step3[DOCKER 이미지 빌드]
-  Step3 --> Step4[컨테이너 실행]
-  Step4 --> Step5[애플리케이션 테스트]
-  Step5 --> Step6[ECR 리포지토리 생성]
-  Step6 --> Step7[이미지 태그 및 업로드]
-  style Step1 fill:#667eea,color:#fff
-  style Step2 fill:#667eea,color:#fff
-  style Step3 fill:#667eea,color:#fff
-  style Step4 fill:#667eea,color:#fff
-  style Step5 fill:#667eea,color:#fff
-  style Step6 fill:#667eea,color:#fff
-  style Step7 fill:#667eea,color:#fff
-  caption DevOps 실습: Docker와 AWS CLI로 간단한 웹 애플리케이션 배포
+```mermaid
+flowchart LR
+  Work[작업] --> Commit[작게 커밋]
+  Commit --> PR[리뷰/공유]
+  PR --> Merge[빠른 병합]
+  Merge --> Verify[검증]
+  Verify --> Work
 ```
-
 
 ## 사전 요구사항
 
 <details>
 <summary>사전 요구사항 보기</summary>
 
-- Docker Desktop 24.0+ 설치
-  - 설치 가이드: https://docs.docker.com/desktop/install/
-- AWS CLI 구성
-  - 설치: https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html
-  - 설정: https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-quickstart.html
-- 기본 명령어 이해 (공식 문서: https://docs.docker.com/engine/reference/commandline/docker/)
+- Git 설치
+  - 설치 가이드(공식): https://git-scm.com/downloads
+- 터미널 환경(Git Bash 또는 WSL)
+  - WSL 설치(공식): https://learn.microsoft.com/windows/wsl/install
+- 텍스트 에디터(예: VS Code)
+  - 설치/설정(공식): https://code.visualstudio.com/docs/setup/windows
 
 </details>
 
@@ -55,26 +45,44 @@ flowchart TD
 <details>
 <summary>환경 설정 보기</summary>
 
-Docker Desktop 실행 및 호스트 통신 설정
-  - 공식 가이드: https://docs.docker.com/desktop/initial-setup/
-
-AWS CLI 구성 검증
-  - 명령어: aws configure list
+- Git 버전 확인
+  - 명령어: `git --version`
+  - 문서(공식): https://git-scm.com/docs/git
+- Git 사용자 정보 설정(커밋 작성자)
+  - 문서(공식): https://git-scm.com/docs/git-config
+- 기본 브랜치명을 `main`으로 통일(선택)
+  - 문서(공식): https://git-scm.com/docs/git-config#Documentation/git-config.txt-initdefaultBranch
 
 </details>
 
 ---
 
-## Step 1: 프로젝트 디렉토리 생성
+## Step 1: 작업 공간 준비 및 저장소 초기화
 
-**목표**: 워크스페이스 구조 생성
+**목표**: 실습용 폴더를 만들고 Git 저장소를 초기화한 뒤, 커밋 작성자 정보를 설정합니다.
 
 **명령어**:
 <details>
 <summary>명령어 보기</summary>
 
 ```bash
-mkdir devops-practice && cd devops-practice
+# 작업 폴더 생성 및 이동
+mkdir -p devops-day1-git-lab
+cd devops-day1-git-lab
+
+# Git 저장소 초기화 및 기본 브랜치 설정
+git init
+git branch -M main
+
+# 커밋 작성자 설정(프로젝트 범위)
+git config user.name "Student"
+git config user.email "student@example.com"
+
+# 첫 파일 생성
+cat > README.md << 'EOF'
+# DevOps Day 1 Git Lab
+This repo is for practicing small, frequent integrations.
+EOF
 ```
 
 </details>
@@ -84,7 +92,7 @@ mkdir devops-practice && cd devops-practice
 <summary>예상 출력 보기</summary>
 
 ```
-디렉토리 생성 완료 및 진입
+Initialized empty Git repository in .../devops-day1-git-lab/.git/
 ```
 
 </details>
@@ -94,7 +102,8 @@ mkdir devops-practice && cd devops-practice
 <summary>확인 방법 보기</summary>
 
 ```bash
-pwd && ls
+git status
+git config --list --local | grep -E "user.name|user.email"
 ```
 
 </details>
@@ -103,8 +112,7 @@ pwd && ls
 <details>
 <summary>문제 해결 보기</summary>
 
-- 문제: 디렉토리 생성 실패 → sudo 권한 필요
-- 문제: 경로 접근 거부 → 파일 시스템 권한 확인
+- `git: command not found` -> Git 설치 후 터미널 재시작(공식 다운로드: https://git-scm.com/downloads)
+- `grep: command not found` -> Windows 기본 cmd/powershell이 아니라 Git Bash 또는 WSL 사용
 
 </details>
-
