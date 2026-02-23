@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="620" viewBox="0 0 1200 620" role="img" aria-label="Docker 아키텍처 개념도(클라이언트-데몬-런타임-컨테이너-레지스트리)">
+  <defs>
+    <style>
+      .bg { fill: #fbfcfe; }
+      .title { font: 700 28px Arial, sans-serif; fill: #0f172a; }
+      .small { font: 400 16px Arial, sans-serif; fill: #334155; }
+      .box { fill: #ffffff; stroke: #1f2937; stroke-width: 2; rx: 16; }
+      .accent { fill: #eff6ff; stroke: #2563eb; }
+      .accent2 { fill: #ecfeff; stroke: #0e7490; }
+      .label { font: 700 18px Arial, sans-serif; fill: #0f172a; }
+      .desc { font: 600 15px Arial, sans-serif; fill: #475569; }
+      .arrow { stroke: #0f172a; stroke-width: 3; fill: none; marker-end: url(#arrowHead); }
+    </style>
+    <marker id="arrowHead" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="10" markerHeight="10" orient="auto">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#0f172a"/>
+    </marker>
+  </defs>
+
+  <rect class="bg" x="0" y="0" width="1200" height="620"/>
+  <text class="title" x="60" y="70">Docker 아키텍처(개념도)</text>
+  <text class="small" x="60" y="100">CLI가 데몬에 요청하고, 데몬이 이미지/컨테이너/네트워크/볼륨을 관리하며 런타임이 컨테이너를 실행합니다.</text>
+
+  <rect class="box accent" x="80" y="160" width="260" height="120"/>
+  <text class="label" x="110" y="205">Docker CLI</text>
+  <text class="desc" x="110" y="235">docker run/build/ps</text>
+
+  <rect class="box accent2" x="420" y="140" width="320" height="160"/>
+  <text class="label" x="450" y="190">Docker Daemon</text>
+  <text class="desc" x="450" y="220">이미지/컨테이너 관리</text>
+  <text class="desc" x="450" y="245">네트워크/볼륨 관리</text>
+
+  <rect class="box" x="820" y="160" width="300" height="120"/>
+  <text class="label" x="850" y="205">Container Runtime</text>
+  <text class="desc" x="850" y="235">containerd / runc</text>
+
+  <rect class="box" x="820" y="330" width="300" height="180"/>
+  <text class="label" x="850" y="375">Containers</text>
+  <text class="desc" x="850" y="405">프로세스 격리</text>
+  <text class="desc" x="850" y="430">네임스페이스/cgroups</text>
+
+  <rect class="box" x="420" y="340" width="320" height="170"/>
+  <text class="label" x="450" y="385">Images / Volumes</text>
+  <text class="desc" x="450" y="415">레이어, 캐시</text>
+  <text class="desc" x="450" y="440">데이터 영속성</text>
+
+  <rect class="box accent" x="80" y="360" width="260" height="150"/>
+  <text class="label" x="110" y="405">Registry</text>
+  <text class="desc" x="110" y="435">Docker Hub / ECR</text>
+  <text class="desc" x="110" y="460">push / pull</text>
+
+  <path class="arrow" d="M 340 220 L 420 220"/>
+  <path class="arrow" d="M 740 220 L 820 220"/>
+  <path class="arrow" d="M 970 280 L 970 330"/>
+
+  <path class="arrow" d="M 420 420 L 340 420"/>
+  <path class="arrow" d="M 340 420 L 260 420"/>
+
+  <path class="arrow" d="M 260 360 C 320 320, 360 260, 420 240"/>
+</svg>
+

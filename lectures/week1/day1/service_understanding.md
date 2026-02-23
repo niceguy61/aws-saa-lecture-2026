@@ -37,6 +37,8 @@ flowchart LR
   class Plan,Code,Build,Test,Release,Deploy,Operate,Monitor p
 ```
 
+![DevOps 피드백 루프(이미지)](./assets/devops-loop.svg)
+
 </details>
 
 ## 2. 핵심 개념
@@ -83,6 +85,8 @@ mindmap
       템플릿화
       표준 운영 절차
 ```
+
+![DevOps CALMS(이미지)](./assets/calms.svg)
 
 </details>
 
@@ -141,3 +145,5 @@ mindmap
 ## 7. 추가 자료
 
 - 팀 내 공유 문서 템플릿: 배포 체크리스트, 장애 포스트모템 템플릿, 런북(운영 절차) 템플릿
+- 외부 참고(이미지/도표가 포함된 페이지)
+  - GitHub Actions 개요(공식): https://docs.github.com/actions

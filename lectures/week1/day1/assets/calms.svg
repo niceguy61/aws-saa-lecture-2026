@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="560" viewBox="0 0 1200 560" role="img" aria-label="DevOps CALMS 프레임워크 개념도">
+  <defs>
+    <style>
+      .bg { fill: #fbfcfe; }
+      .title { font: 700 28px Arial, sans-serif; fill: #0f172a; }
+      .small { font: 400 16px Arial, sans-serif; fill: #334155; }
+      .card { fill: #ffffff; stroke: #1f2937; stroke-width: 2; rx: 18; }
+      .accent { fill: #eff6ff; stroke: #2563eb; }
+      .label { font: 700 18px Arial, sans-serif; fill: #0f172a; }
+      .desc { font: 600 15px Arial, sans-serif; fill: #475569; }
+    </style>
+  </defs>
+
+  <rect class="bg" x="0" y="0" width="1200" height="560"/>
+  <text class="title" x="60" y="70">DevOps = CALMS(개념도)</text>
+  <text class="small" x="60" y="100">도구가 아니라 "문화 + 자동화 + 린 + 측정 + 공유"가 같이 굴러가야 효과가 납니다.</text>
+
+  <rect class="card accent" x="80" y="160" width="210" height="160"/>
+  <text class="label" x="110" y="210">Culture</text>
+  <text class="desc" x="110" y="240">blame 대신 learn</text>
+  <text class="desc" x="110" y="265">포스트모템/런북</text>
+
+  <rect class="card" x="320" y="160" width="210" height="160"/>
+  <text class="label" x="350" y="210">Automation</text>
+  <text class="desc" x="350" y="240">CI/CD, IaC</text>
+  <text class="desc" x="350" y="265">롤백/검증 자동화</text>
+
+  <rect class="card accent" x="560" y="160" width="210" height="160"/>
+  <text class="label" x="590" y="210">Lean</text>
+  <text class="desc" x="590" y="240">작게 자주 배포</text>
+  <text class="desc" x="590" y="265">짧은 피드백</text>
+
+  <rect class="card" x="800" y="160" width="210" height="160"/>
+  <text class="label" x="830" y="210">Measurement</text>
+  <text class="desc" x="830" y="240">DORA 지표</text>
+  <text class="desc" x="830" y="265">리드타임/MTTR</text>
+
+  <rect class="card accent" x="1040" y="160" width="210" height="160" transform="translate(-120,0)"/>
+  <text class="label" x="950" y="210">Sharing</text>
+  <text class="desc" x="950" y="240">표준/템플릿</text>
+  <text class="desc" x="950" y="265">지식 공유/문서화</text>
+
+  <text class="small" x="60" y="420">팁: CALMS 중 하나만 강화하면 병목이 생깁니다(예: 자동화만 하고 문화가 따라오지 않으면 운영 품질이 떨어짐).</text>
+</svg>
+

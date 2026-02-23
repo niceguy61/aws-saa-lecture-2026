@@ -112,3 +112,6 @@ sequenceDiagram
 ## 7. 추가 자료
 
 - 로컬에서 네트워크 개념이 헷갈리면 "호스트에서 접근은 `-p`", "컨테이너 간 접근은 같은 네트워크 + 이름(DNS)" 두 문장으로 정리해두면 좋습니다.
+- 외부 참고(이미지/도표가 포함된 페이지)
+  - Docker 네트워킹(공식): https://docs.docker.com/network/
+  - Bridge driver(공식): https://docs.docker.com/network/drivers/bridge/

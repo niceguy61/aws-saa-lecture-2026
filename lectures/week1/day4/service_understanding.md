@@ -120,3 +120,6 @@ flowchart LR
 ## 7. 추가 자료
 
 - "컨테이너는 상태를 저장하지 않는다"는 원칙과 볼륨 분리는 이후 Kubernetes 학습에서도 그대로 이어집니다.
+- 외부 참고(이미지/도표가 포함된 페이지)
+  - Docker Logging(공식): https://docs.docker.com/config/containers/logging/
+  - Docker Volumes(공식): https://docs.docker.com/storage/volumes/

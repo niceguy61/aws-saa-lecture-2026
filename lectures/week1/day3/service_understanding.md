@@ -116,3 +116,6 @@ flowchart TD
 ## 7. 추가 자료
 
 - [OCI Image Format Specification](https://github.com/opencontainers/image-spec)
+- 외부 참고(이미지/도표가 포함된 페이지)
+  - Docker Build 개요(공식): https://docs.docker.com/build/
+  - Multi-stage builds(공식): https://docs.docker.com/build/building/multi-stage/

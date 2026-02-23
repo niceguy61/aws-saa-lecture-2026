@@ -34,6 +34,9 @@ flowchart LR
   Container --> Vol[(Volume)]
 ```
 
+![Docker 아키텍처(이미지)](./assets/docker-architecture.svg)
+![이미지 vs 컨테이너(이미지)](./assets/image-vs-container.svg)
+
 </details>
 
 ## 2. 핵심 개념
@@ -65,6 +68,8 @@ graph TD
   Daemon --> Vol[(Volumes)]
   C1 --- Vol
 ```
+
+![Docker 아키텍처(이미지)](./assets/docker-architecture.svg)
 
 </details>
 
@@ -122,4 +127,6 @@ graph TD
 ## 7. 추가 자료
 
 - 팀 표준: 이미지 태그 전략(불변 태그), 컨테이너/이미지 정리 정책, 로컬 개발환경 템플릿(Compose)
-
+- 외부 참고(이미지/도표가 포함된 페이지)
+  - Docker 시작하기(공식): https://docs.docker.com/get-started/
+  - Docker 네트워킹 개요(공식): https://docs.docker.com/network/
