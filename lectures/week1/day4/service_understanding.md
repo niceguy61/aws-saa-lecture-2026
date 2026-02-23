@@ -59,6 +59,9 @@ flowchart LR
 
 ![트러블슈팅 기본 루프(이미지)](./assets/ops-troubleshoot-loop.svg)
 
+![Linux cgroups 개념도(외부 참고: 리소스 제한과 연결)](https://commons.wikimedia.org/wiki/Special:FilePath/Linux_kernel_unified_hierarchy_cgroups_and_systemd.svg)
+출처: https://commons.wikimedia.org/wiki/File:Linux_kernel_unified_hierarchy_cgroups_and_systemd.svg
+
 </details>
 
 ## 3. 장단점

@@ -37,6 +37,15 @@ flowchart LR
 ![Docker 아키텍처(이미지)](./assets/docker-architecture.svg)
 ![이미지 vs 컨테이너(이미지)](./assets/image-vs-container.svg)
 
+![Docker 로고(외부 참고)](https://commons.wikimedia.org/wiki/Special:FilePath/Docker_%28container_engine%29_logo.svg)
+출처: https://commons.wikimedia.org/wiki/File:Docker_(container_engine)_logo.svg
+
+![컨테이너 개념(외부 참고: 전통적 배포 vs 컨테이너)](https://commons.wikimedia.org/wiki/Special:FilePath/Containers.svg)
+출처: https://commons.wikimedia.org/wiki/File:Containers.svg
+
+![Docker가 물리 호스트 위에서 동작하는 방식(외부 참고)](https://commons.wikimedia.org/wiki/Special:FilePath/Docker-on-physical.svg)
+출처: https://commons.wikimedia.org/wiki/File:Docker-on-physical.svg
+
 </details>
 
 ## 2. 핵심 개념
@@ -70,6 +79,9 @@ graph TD
 ```
 
 ![Docker 아키텍처(이미지)](./assets/docker-architecture.svg)
+
+![Docker 설치/구성 개요(외부 참고)](https://commons.wikimedia.org/wiki/Special:FilePath/Diagram_of_the_docker_installation.png)
+출처: https://commons.wikimedia.org/wiki/File:Diagram_of_the_docker_installation.png
 
 </details>
 

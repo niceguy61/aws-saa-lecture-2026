@@ -25,6 +25,9 @@ flowchart LR
 
 ![Docker 이미지 빌드 흐름(이미지)](./assets/image-build-flow.svg)
 
+![컨테이너 개념(외부 참고: 전통적 배포 vs 컨테이너)](https://commons.wikimedia.org/wiki/Special:FilePath/Containers.svg)
+출처: https://commons.wikimedia.org/wiki/File:Containers.svg
+
 </details>
 
 ## 2. 핵심 개념
@@ -57,6 +60,9 @@ flowchart TD
 ```
 
 ![레이어 캐시 전략(이미지)](./assets/layer-cache-strategy.svg)
+
+![Docker가 물리 호스트 위에서 동작하는 방식(외부 참고)](https://commons.wikimedia.org/wiki/Special:FilePath/Docker-on-physical.svg)
+출처: https://commons.wikimedia.org/wiki/File:Docker-on-physical.svg
 
 </details>
 

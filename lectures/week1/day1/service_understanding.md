@@ -39,6 +39,9 @@ flowchart LR
 
 ![DevOps 피드백 루프(이미지)](./assets/devops-loop.svg)
 
+![Infinity loop(DevOps에서 자주 쓰이는 '무한 루프' 메타포)](https://commons.wikimedia.org/wiki/Special:FilePath/Infinity_loop_open_tapered_ends.svg)
+출처: https://commons.wikimedia.org/wiki/File:Infinity_loop_open_tapered_ends.svg
+
 </details>
 
 ## 2. 핵심 개념
@@ -87,6 +90,12 @@ mindmap
 ```
 
 ![DevOps CALMS(이미지)](./assets/calms.svg)
+
+![Continuous Delivery 프로세스 다이어그램(외부 참고)](https://commons.wikimedia.org/wiki/Special:FilePath/Continuous_Delivery_process_diagram.svg)
+출처: https://commons.wikimedia.org/wiki/File:Continuous_Delivery_process_diagram.svg
+
+![Continuous Delivery vs Continuous Deployment(외부 참고)](https://commons.wikimedia.org/wiki/Special:FilePath/Continuous_Delivery_Vs._Continuous_Deployment.svg)
+출처: https://commons.wikimedia.org/wiki/File:Continuous_Delivery_Vs._Continuous_Deployment.svg
 
 </details>
 

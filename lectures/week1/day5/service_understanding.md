@@ -28,6 +28,9 @@ flowchart LR
 ![포트 퍼블리시(-p) 개념도(이미지)](./assets/port-publish.svg)
 ![브리지 네트워크 DNS 통신(이미지)](./assets/bridge-dns.svg)
 
+![NAT 개념도(외부 참고: 포트 퍼블리시의 직관)](https://commons.wikimedia.org/wiki/Special:FilePath/NAT_Concept-en.svg)
+출처: https://commons.wikimedia.org/wiki/File:NAT_Concept-en.svg
+
 </details>
 
 ## 2. 핵심 개념
@@ -58,6 +61,9 @@ sequenceDiagram
 ```
 
 ![유저 정의 브리지 + DNS 개념도(이미지)](./assets/bridge-dns.svg)
+
+![NAT 예시(외부 참고)](https://commons.wikimedia.org/wiki/Special:FilePath/CPT-NAT-2.svg)
+출처: https://commons.wikimedia.org/wiki/File:CPT-NAT-2.svg
 
 </details>
 
