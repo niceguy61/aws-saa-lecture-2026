@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="600" viewBox="0 0 1200 600" role="img" aria-label="유저 정의 브리지 네트워크와 DNS 통신">
+  <defs>
+    <style>
+      .bg { fill: #fbfcfe; }
+      .title { font: 700 28px Arial, sans-serif; fill: #0f172a; }
+      .small { font: 400 16px Arial, sans-serif; fill: #334155; }
+      .net { fill: #ffffff; stroke: #0f172a; stroke-width: 2; rx: 22; }
+      .container { fill: #eff6ff; stroke: #2563eb; stroke-width: 2; rx: 18; }
+      .container2 { fill: #ecfeff; stroke: #0e7490; stroke-width: 2; rx: 18; }
+      .label { font: 700 18px Arial, sans-serif; fill: #0f172a; }
+      .cmd { font: 600 16px Arial, sans-serif; fill: #475569; }
+      .arrow { stroke: #0f172a; stroke-width: 3; fill: none; marker-end: url(#arrowHead); }
+      .dash { stroke-dasharray: 8 6; }
+    </style>
+    <marker id="arrowHead" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="10" markerHeight="10" orient="auto">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#0f172a"/>
+    </marker>
+  </defs>
+
+  <rect class="bg" x="0" y="0" width="1200" height="600"/>
+  <text class="title" x="60" y="70">유저 정의 브리지 네트워크: 이름(DNS)으로 컨테이너 간 통신</text>
+  <text class="small" x="60" y="100">같은 네트워크(labnet) 위에 있으면 client가 web을 IP 없이 http://web 로 접근할 수 있습니다.</text>
+
+  <rect class="net" x="80" y="150" width="1040" height="360"/>
+  <text class="label" x="120" y="190">labnet (bridge)</text>
+
+  <rect class="container" x="160" y="250" width="360" height="170"/>
+  <text class="label" x="200" y="295">client 컨테이너</text>
+  <text class="cmd" x="200" y="330">wget http://web</text>
+  <text class="small" x="200" y="360">DNS로 "web" 이름 해석</text>
+
+  <rect class="container2" x="680" y="250" width="360" height="170"/>
+  <text class="label" x="720" y="295">web 컨테이너</text>
+  <text class="cmd" x="720" y="330">nginx listen :80</text>
+  <text class="small" x="720" y="360">컨테이너 이름 = 서비스 이름</text>
+
+  <path class="arrow dash" d="M 520 330 C 600 260, 680 260, 760 310"/>
+  <text class="small" x="535" y="250">DNS query: web</text>
+
+  <path class="arrow" d="M 520 355 C 600 395, 680 395, 680 355"/>
+  <text class="small" x="545" y="420">HTTP request to web:80</text>
+
+  <text class="small" x="120" y="540">주의: 다른 네트워크에 있으면 이름 해석/접근이 실패할 수 있습니다. 그때는 connect로 같은 네트워크에 붙이거나 설계를 바꿉니다.</text>
+</svg>
+

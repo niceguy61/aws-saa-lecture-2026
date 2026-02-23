@@ -25,6 +25,9 @@ flowchart LR
   Client -->|DNS: http://web| Web
 ```
 
+![포트 퍼블리시(-p) 개념도(이미지)](./assets/port-publish.svg)
+![브리지 네트워크 DNS 통신(이미지)](./assets/bridge-dns.svg)
+
 </details>
 
 ## 2. 핵심 개념
@@ -53,6 +56,8 @@ sequenceDiagram
   Docker-->>Client: web -> 172.x.x.x
   Client->>Web: http://web:80
 ```
+
+![유저 정의 브리지 + DNS 개념도(이미지)](./assets/bridge-dns.svg)
 
 </details>
 

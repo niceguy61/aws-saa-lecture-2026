@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="600" viewBox="0 0 1200 600" role="img" aria-label="Docker 이미지 빌드 흐름도">
+  <defs>
+    <style>
+      .bg { fill: #fbfcfe; }
+      .box { fill: #ffffff; stroke: #1f2937; stroke-width: 2; rx: 16; }
+      .title { font: 700 28px Arial, sans-serif; fill: #0f172a; }
+      .label { font: 600 20px Arial, sans-serif; fill: #0f172a; }
+      .small { font: 400 16px Arial, sans-serif; fill: #334155; }
+      .accent { fill: #eef2ff; stroke: #4338ca; }
+      .accent2 { fill: #ecfeff; stroke: #0e7490; }
+      .arrow { stroke: #0f172a; stroke-width: 3; fill: none; marker-end: url(#arrowHead); }
+      .dash { stroke-dasharray: 8 6; }
+    </style>
+    <marker id="arrowHead" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="10" markerHeight="10" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#0f172a"/>
+    </marker>
+  </defs>
+
+  <rect class="bg" x="0" y="0" width="1200" height="600"/>
+
+  <text class="title" x="60" y="70">Docker 이미지 빌드 흐름(개념도)</text>
+  <text class="small" x="60" y="100">Dockerfile + Build Context로 레이어를 만들고, 태그로 식별되는 이미지를 생성한 다음 실행 또는 레지스트리 배포</text>
+
+  <!-- Sources -->
+  <rect class="box accent" x="60" y="150" width="300" height="120"/>
+  <text class="label" x="90" y="195">Dockerfile</text>
+  <text class="small" x="90" y="225">FROM / COPY / RUN</text>
+
+  <rect class="box accent" x="60" y="300" width="300" height="120"/>
+  <text class="label" x="90" y="345">Build Context</text>
+  <text class="small" x="90" y="375">소스코드, 설정, 파일</text>
+
+  <!-- Build -->
+  <rect class="box accent2" x="430" y="220" width="320" height="160"/>
+  <text class="label" x="460" y="270">docker build</text>
+  <text class="small" x="460" y="300">BuildKit / 캐시 / 레이어 생성</text>
+  <text class="small" x="460" y="330">.dockerignore로 컨텍스트 최소화</text>
+
+  <!-- Layers -->
+  <rect class="box" x="820" y="150" width="320" height="120"/>
+  <text class="label" x="850" y="195">Layers</text>
+  <text class="small" x="850" y="225">변경분만 추가, 캐시 재사용</text>
+
+  <!-- Image -->
+  <rect class="box" x="820" y="300" width="320" height="120"/>
+  <text class="label" x="850" y="345">Image (name:tag)</text>
+  <text class="small" x="850" y="375">digest(sha256)로 내용 식별</text>
+
+  <!-- Actions -->
+  <rect class="box" x="430" y="430" width="320" height="120"/>
+  <text class="label" x="460" y="475">배포/실행</text>
+  <text class="small" x="460" y="505">docker run / push / pull</text>
+
+  <!-- Arrows -->
+  <path class="arrow" d="M 360 210 C 400 210, 400 250, 430 260"/>
+  <path class="arrow" d="M 360 360 C 400 360, 400 320, 430 310"/>
+
+  <path class="arrow" d="M 750 260 C 790 240, 790 210, 820 210"/>
+  <path class="arrow" d="M 750 340 C 790 340, 790 360, 820 360"/>
+
+  <path class="arrow dash" d="M 980 270 C 980 310, 900 380, 750 490"/>
+  <path class="arrow dash" d="M 820 360 C 780 380, 780 455, 750 490"/>
+
+  <text class="small" x="770" y="520">점선: 운영/배포 경로(레지스트리, 실행)</text>
+</svg>
+

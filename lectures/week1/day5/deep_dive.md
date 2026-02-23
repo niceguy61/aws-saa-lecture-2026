@@ -1,5 +1,7 @@
 # Deep Dive - 트러블슈팅
 
+![Docker 네트워킹 핵심: -p(호스트 접근) vs 같은 네트워크(DNS 통신)](./assets/port-publish.svg)
+
 ## 시나리오 1: 호스트에서 컨테이너 서비스에 접속이 안 된다(포트 퍼블리시/바인딩 혼동)
 
 ### 트러블슈팅 흐름도
@@ -99,6 +101,8 @@ curl -s -o /dev/null -w "%{http_code}\n" http://localhost:8080
 ---
 
 ## 시나리오 2: 컨테이너끼리 통신이 안 된다(같은 네트워크가 아님 / DNS 이름 해석 실패)
+
+![유저 정의 브리지 네트워크 DNS 통신](./assets/bridge-dns.svg)
 
 ### 트러블슈팅 흐름도
 

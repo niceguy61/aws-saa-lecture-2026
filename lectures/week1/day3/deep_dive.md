@@ -1,5 +1,7 @@
 # Deep Dive - 트러블슈팅
 
+![Docker 이미지 빌드/캐시 개념도](./assets/image-build-flow.svg)
+
 ## 시나리오 1: `COPY failed: file not found in build context` (빌드 컨텍스트/`.dockerignore` 문제)
 
 ### 트러블슈팅 흐름도
@@ -116,6 +118,8 @@ flowchart TD
   E --> F[이미지 크기 증가]
   F --> G[배포/풀 시간 증가]
 ```
+
+![레이어 캐시 전략(이미지)](./assets/layer-cache-strategy.svg)
 
 ### 시나리오 설명
 

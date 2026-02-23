@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="600" viewBox="0 0 1200 600" role="img" aria-label="포트 퍼블리시(NAT) 개념도">
+  <defs>
+    <style>
+      .bg { fill: #fbfcfe; }
+      .title { font: 700 28px Arial, sans-serif; fill: #0f172a; }
+      .small { font: 400 16px Arial, sans-serif; fill: #334155; }
+      .box { fill: #ffffff; stroke: #1f2937; stroke-width: 2; rx: 16; }
+      .accent { fill: #eff6ff; stroke: #2563eb; }
+      .accent2 { fill: #ecfeff; stroke: #0e7490; }
+      .label { font: 700 18px Arial, sans-serif; fill: #0f172a; }
+      .cmd { font: 600 16px Arial, sans-serif; fill: #475569; }
+      .arrow { stroke: #0f172a; stroke-width: 3; fill: none; marker-end: url(#arrowHead); }
+    </style>
+    <marker id="arrowHead" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="10" markerHeight="10" orient="auto">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#0f172a"/>
+    </marker>
+  </defs>
+
+  <rect class="bg" x="0" y="0" width="1200" height="600"/>
+  <text class="title" x="60" y="70">포트 퍼블리시(-p) = 호스트에서 컨테이너로 들어오는 문 만들기</text>
+  <text class="small" x="60" y="100">컨테이너 내부 포트가 열려 있어도, -p로 퍼블리시하지 않으면 호스트(localhost)에서 접근할 수 없습니다.</text>
+
+  <rect class="box accent" x="80" y="220" width="320" height="160"/>
+  <text class="label" x="115" y="270">Host</text>
+  <text class="cmd" x="115" y="305">http://localhost:8085</text>
+  <text class="small" x="115" y="335">사용자는 호스트 포트로 접속</text>
+
+  <rect class="box accent2" x="460" y="220" width="280" height="160"/>
+  <text class="label" x="495" y="270">NAT / Port Map</text>
+  <text class="cmd" x="495" y="305">-p 8085:80</text>
+  <text class="small" x="495" y="335">HOST_PORT -> CONTAINER_PORT</text>
+
+  <rect class="box" x="800" y="200" width="340" height="200"/>
+  <text class="label" x="835" y="255">Container (web)</text>
+  <text class="cmd" x="835" y="290">listen 0.0.0.0:80</text>
+  <text class="small" x="835" y="320">컨테이너 내부 포트(80)</text>
+  <text class="small" x="835" y="345">서비스가 127.0.0.1만</text>
+  <text class="small" x="835" y="370">바인딩이면 외부 접근 불가</text>
+
+  <path class="arrow" d="M 400 300 L 460 300"/>
+  <path class="arrow" d="M 740 300 L 800 300"/>
+
+  <text class="small" x="80" y="520">체크리스트: 1) -p 했나? 2) HOST_PORT가 맞나? 3) 컨테이너 내부 서비스가 0.0.0.0에 listen하나?</text>
+</svg>
+

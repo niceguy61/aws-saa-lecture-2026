@@ -1,5 +1,7 @@
 # Deep Dive - 트러블슈팅
 
+![컨테이너 트러블슈팅 기본 루프](./assets/ops-troubleshoot-loop.svg)
+
 ## 시나리오 1: 컨테이너가 "바로 종료"된다 (`Exited (0)` 또는 `Exited (1)`)
 
 ### 트러블슈팅 흐름도
@@ -113,6 +115,8 @@ flowchart TD
   D --> E[로그 확인이 어려움/리소스 낭비]
   E --> F[재시작 정책 일시 해제 후 디버깅]
 ```
+
+![컨테이너 수명주기(상태 전이)](./assets/container-lifecycle.svg)
 
 ### 시나리오 설명
 

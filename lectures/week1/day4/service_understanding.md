@@ -28,6 +28,8 @@ stateDiagram-v2
   removed --> [*]
 ```
 
+![컨테이너 수명주기 상태도(이미지)](./assets/container-lifecycle.svg)
+
 </details>
 
 ## 2. 핵심 개념
@@ -54,6 +56,8 @@ flowchart LR
   B --> F[docker stop / rm]
   F --> G[cleanup: prune]
 ```
+
+![트러블슈팅 기본 루프(이미지)](./assets/ops-troubleshoot-loop.svg)
 
 </details>
 

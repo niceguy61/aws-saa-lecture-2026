@@ -23,6 +23,8 @@ flowchart LR
   F --> G[Container]
 ```
 
+![Docker 이미지 빌드 흐름(이미지)](./assets/image-build-flow.svg)
+
 </details>
 
 ## 2. 핵심 개념
@@ -53,6 +55,8 @@ flowchart TD
   Img --> Run[docker run]
   Run --> C[Container]
 ```
+
+![레이어 캐시 전략(이미지)](./assets/layer-cache-strategy.svg)
 
 </details>
 
