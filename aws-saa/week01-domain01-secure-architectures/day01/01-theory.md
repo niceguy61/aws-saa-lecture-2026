@@ -88,8 +88,8 @@ sequenceDiagram
 
 ```mermaid
 flowchart LR
-  Root[Org Root] --> OU1[OU: Security]
-  Root --> OU2[OU: Workloads]
+  Root[Org Root] --> OU1[OU - Security]
+  Root --> OU2[OU - Workloads]
   OU2 --> A1[Account - prod]
   OU2 --> A2[Account - dev]
   OU1 --> S1[Account - log-archive]

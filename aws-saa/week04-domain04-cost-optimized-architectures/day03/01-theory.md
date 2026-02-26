@@ -25,7 +25,7 @@
 
 ```mermaid
 flowchart LR
-  Data[Objects] -->|prefix logs| Rule1[Lifecycle: IA -> Glacier -> Expire]
+  Data[Objects] -->|prefix logs| Rule1[Lifecycle IA -> Glacier -> Expire]
   Data -->|prefix app| Rule2[Intelligent-Tiering]
 ```
 

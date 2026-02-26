@@ -24,3 +24,9 @@
   - Special lecture (theory): 2h 30m
   - Integrated mini lab (console): 1h
   - Case quiz + review: 30m
+
+## Mermaid Lint
+
+```powershell
+powershell -File scripts/mermaid_lint.ps1
+```
