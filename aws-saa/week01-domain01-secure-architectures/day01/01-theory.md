@@ -46,9 +46,9 @@ flowchart TB
   EVAL -->|Explicit Deny| DENY[Deny]
   EVAL -->|No Allow| DENY
   EVAL -->|Allowed and within boundaries| ALLOW[Allow]
-  subgraph B[Permission Boundaries]
-    SCP["SCP: Org, OU, Account"]
-    PB["Permissions Boundary: User, Role"]
+  subgraph B["Permission boundaries"]
+    SCP["SCP: Org > OU > Account"]
+    PB["Permissions boundary: user or role"]
   end
   EVAL --- SCP
   EVAL --- PB

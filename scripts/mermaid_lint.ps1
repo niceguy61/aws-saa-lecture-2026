@@ -73,6 +73,15 @@ foreach ($file in $mdFiles) {
       Add-Finding -List $findings -File $file -Line ($i + 1) -Severity "ERROR" -Rule "seq_alias_special" -Message "sequenceDiagram participant alias contains '(' or ')' or '/'."
     }
 
+    # subgraph lines: common GitHub renderer failure when nodes are appended on the same line.
+    # Bad: 'subgraph B[Title] SCP[Node]' or 'subgraph Title A[Node]'
+    if ($line -match '^\s*subgraph\s+\S+\s+\w+\[') {
+      Add-Finding -List $findings -File $file -Line ($i + 1) -Severity "ERROR" -Rule "subgraph_inline_node" -Message "subgraph line includes a node definition on the same line. Put nodes on separate lines."
+    }
+    if ($line -match '^\s*subgraph\b.*\]\s+\S+') {
+      Add-Finding -List $findings -File $file -Line ($i + 1) -Severity "ERROR" -Rule "subgraph_trailing_tokens" -Message "subgraph line has trailing tokens after closing ']'. Keep subgraph header on its own line."
+    }
+
     # Flowchart node labels: flag risky characters inside [label] unless quoted ["..."].
     $matches = [regex]::Matches($line, '(?<id>\b[A-Za-z0-9_]+)\[(?<label>[^\]]+)\]')
     foreach ($m in $matches) {

@@ -56,3 +56,4 @@ This repository is being used to author AWS SAA (Solutions Architect - Associate
 - 실습은 콘솔 위주로 전환
 - Top 10~15 서비스 Deep Dive는 Special Lecture 문서로 분리
 - 각 주차 Day05는 “Special Lecture + Week Summary(이론 2h30 + 미니 랩 1h + 케이스 퀴즈 30m)”로 운영
+- OT는 주차 과정이 아니라 “과정 시작 전 1회” 오리엔테이션이다: `aws-ot/README.md` + `aws-ot/assets/`만 유지(weekNN 구조 재발 방지)
