@@ -1,41 +1,36 @@
-﻿# Theory
+# Theory
 
 ## Exam Guide Mapping
 
 - Domain: Domain 2: Design Resilient Architectures
-- Objectives: TODO (?쒗뿕 媛?대뱶 臾멸뎄瑜?洹몃?濡?遺숈씠吏 留먭퀬, ?섎? ?⑥쐞濡??붿빟)
-
-## Core Concepts
-
-- TODO
+- Task focus:
+  - 2.2 Highly available and/or fault-tolerant architectures
 
 ## Deep Dive
 
-### Service A
+### RDS/Aurora: Multi-AZ vs Read Replica (시험 단골)
 
-- When to use / When not to use
-- Key limits & tradeoffs
-- Security & IAM
-- Cost drivers
-- Common architectures
+| Goal | Best feature | Why | Common trap |
+|---|---|---|---|
+| HA/자동 장애 조치 | Multi-AZ | failover 중심 | Read replica로 HA 해결하려 함 |
+| 읽기 확장 | Read replica | read scaling | Multi-AZ가 읽기 확장이라고 착각 |
 
 ```mermaid
 flowchart LR
-  A[Client] --> B[Service A]
+  App[App] --> DBP[(Primary)]
+  DBP -->|sync/ha| DBS[(Standby - Multi-AZ)]
+  DBP -->|async read| RR[(Read Replica)]
 ```
 
-### Service B
+### DynamoDB Resilience (개념)
 
-- TODO
+- 관리형 서비스로 AZ 내구가 기본 전제(시험 문장에 자주 등장)
+- 백업/복구 관점 옵션
+  - On-demand backup(수동)
+  - PITR(Point-in-time recovery): 시점 복구(요구사항에 “실수 복구/롤백”이 있으면 힌트)
 
-## Quick Comparison Table
+## Exam Traps
 
-| Topic | Option 1 | Option 2 | Notes |
-|---|---|---|---|
-| TODO | TODO | TODO | TODO |
-
-## Exam Traps (5-8)
-
-- TODO
-
+- “Multi-AZ = 읽기 확장” 착각
+- 관계형/NoSQL 요구를 구분하지 못하고 아무 DB나 고르는 실수
 

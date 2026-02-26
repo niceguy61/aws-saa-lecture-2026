@@ -1,21 +1,24 @@
-﻿# Day 04 - Database resilience
+# Day 04 - Database resilience (RDS/Aurora/DynamoDB)
 
-## Outcomes (3-5)
+## Outcomes
 
-- TODO
+- RDS/Aurora에서 “가용성(Multi-AZ)”과 “읽기 확장(Read replica)”을 구분한다.
+- DynamoDB의 복원력(관리형, AZ 내구) 특징을 개념으로 설명한다.
+- DynamoDB PITR(시점 복구)을 콘솔에서 켜고 “복구/복원” 흐름을 이해한다.
 
 ## Services In Scope
 
-- TODO
+- RDS/Aurora (Multi-AZ vs Read replica 개념)
+- DynamoDB (PITR/backup 개념)
 
 ## Timebox (4h)
 
-- Theory: TODO (2~3h)
-- Hands-on: TODO (1~2h)
-- Quiz/Review: TODO (15~30m)
+- Theory: 2h 30m
+- Hands-on (console): 1h 30m
 
-## Exam-Style Design Questions (3-5)
+## Exam-Style Design Questions
 
-- TODO
-
+- “가용성” 요구가 있을 때 Multi-AZ가 정답인 신호는?
+- “읽기 성능 확장” 요구가 있을 때 Read replica가 정답인 신호는?
+- NoSQL이 필요한 요구(키-값/저지연/탄력)와 관계형이 필요한 요구(조인/트랜잭션)를 어떻게 구분할까?
 
