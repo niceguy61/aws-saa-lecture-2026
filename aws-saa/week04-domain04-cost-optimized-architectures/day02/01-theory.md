@@ -1,41 +1,47 @@
-﻿# Theory
+# Theory
 
 ## Exam Guide Mapping
 
 - Domain: Domain 4: Design Cost-Optimized Architectures
-- Objectives: TODO (?쒗뿕 媛?대뱶 臾멸뎄瑜?洹몃?濡?遺숈씠吏 留먭퀬, ?섎? ?⑥쐞濡??붿빟)
-
-## Core Concepts
-
-- TODO
+- Task focus:
+  - 4.2 Design cost-optimized compute solutions
 
 ## Deep Dive
 
-### Service A
+### Purchase Options (시험형 선택 기준)
 
-- When to use / When not to use
-- Key limits & tradeoffs
-- Security & IAM
-- Cost drivers
-- Common architectures
+- On-Demand
+  - 기본값, 유연, 할인 적음
+- Reserved Instances / Savings Plans
+  - 장기 예측 가능(1~3년) + 할인
+  - 시험 힌트: “steady state”, “predictable usage”
+- Spot
+  - 중단 허용 워크로드에 큰 할인
+  - 시험 힌트: “fault tolerant”, “batch”, “can be interrupted”
 
 ```mermaid
-flowchart LR
-  A[Client] --> B[Service A]
+flowchart TB
+  Sig[Workload signals] --> Steady[Predictable 1-3y -> RI/SP]
+  Sig --> Burst[Unpredictable -> On-Demand + ASG]
+  Sig --> Batch[Interruptible -> Spot]
 ```
 
-### Service B
+### Right Sizing = 측정 기반 의사결정
 
-- TODO
+- 신호
+  - CPU/메모리/네트워크/IO 지표(CloudWatch/내장 지표)
+  - p95/p99 지연(앱 지표)
+- 함정
+  - “더 큰 인스턴스 1대”로만 해결(비용/가용성 악화)
 
-## Quick Comparison Table
+### Auto Scaling을 비용 최적화로 쓰는 패턴
 
-| Topic | Option 1 | Option 2 | Notes |
-|---|---|---|---|
-| TODO | TODO | TODO | TODO |
+- 피크 시간만 확장, 비피크는 축소
+- Scheduled scaling(스케줄 액션)으로 야간 0도 가능(워크로드 성격에 따라)
 
-## Exam Traps (5-8)
+## Exam Traps
 
-- TODO
-
+- 중단 허용인데 On-Demand만 고르는 오답(Spot 후보)
+- 예측 가능인데 On-Demand만 고르는 오답(RI/SP 후보)
+- right sizing을 “스펙 감”으로 결정하는 선택지(측정 기반이 정답)
 

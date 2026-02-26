@@ -1,41 +1,54 @@
-﻿# Theory
+# Theory
 
 ## Exam Guide Mapping
 
 - Domain: Domain 4: Design Cost-Optimized Architectures
-- Objectives: TODO (?쒗뿕 媛?대뱶 臾멸뎄瑜?洹몃?濡?遺숈씠吏 留먭퀬, ?섎? ?⑥쐞濡??붿빟)
+- Task focus:
+  - 4.1 Storage
+  - 4.2 Compute
+  - 4.3 Database
+  - 4.4 Network
 
 ## Core Concepts
 
-- TODO
+- 비용은 “사용량(시간/요청/GB) x 단가”다.
+- 비용 최적화는 “요구사항을 유지하면서 비용 드라이버를 줄이는 설계”다.
+- 가시성이 없으면 최적화가 없다
+  - 태그/계정/서비스/리전 차원으로 “어디서 돈이 나가는지”부터 본다.
 
-## Deep Dive
+## Cost Drivers Cheat Sheet
 
-### Service A
-
-- When to use / When not to use
-- Key limits & tradeoffs
-- Security & IAM
-- Cost drivers
-- Common architectures
+- Compute: 인스턴스 시간, 컨테이너/서버리스 호출/동시성, 구매 옵션
+- Storage: GB-month, 요청 수, 복구(Glacier) 비용, 복제/스냅샷
+- Network: 인터넷 egress, NAT 경유, 교차 AZ/리전 전송
 
 ```mermaid
-flowchart LR
-  A[Client] --> B[Service A]
+flowchart TB
+  Spend[Monthly spend] --> C[Compute]
+  Spend --> S[Storage]
+  Spend --> N[Network]
+  C --> Model[Pricing model]
+  S --> Class[Storage class/lifecycle]
+  N --> Transfer[Egress/NAT/Inter-AZ]
 ```
 
-### Service B
+## Tagging & Cost Allocation (시험형 포인트)
 
-- TODO
+- “팀별/프로젝트별 비용 분리” 요구가 나오면
+  - 계정 분리(Organizations) 또는 태그 기반 차지백이 정답 후보가 된다.
+- 태그는 “표준화”가 핵심
+  - 예: `CostCenter`, `Service`, `Env`, `Owner`
 
-## Quick Comparison Table
+## Cost Explorer vs Budgets (Choose-this-not-that)
 
-| Topic | Option 1 | Option 2 | Notes |
+| Goal | Best tool | Why | Trap |
 |---|---|---|---|
-| TODO | TODO | TODO | TODO |
+| 비용 분석/추세/그룹핑 | Cost Explorer | 필터/그룹 분석 | Budgets만 만들고 분석이 없다고 착각 |
+| 초과 알림/통제 | Budgets | 임계치 알림 | Cost Explorer가 알림을 준다고 착각 |
 
-## Exam Traps (5-8)
+## Exam Traps
 
-- TODO
-
+- 태깅 없이 “팀별 비용”을 정확히 보겠다는 선택지
+- NAT 비용/데이터 전송 비용이 숨어 있는데 컴퓨트만 줄이는 선택지
+- “최적화 = 무조건 cheapest”로 가는 오답(요구사항 위반)
 
