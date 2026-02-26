@@ -4,3 +4,6 @@
 
 - `aws-saa/README.md`
 
+## AWS OT Materials
+
+- `aws-ot/README.md`
