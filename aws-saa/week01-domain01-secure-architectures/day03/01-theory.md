@@ -31,9 +31,9 @@
 ```mermaid
 flowchart LR
   API[API Call] --> CT[CloudTrail]
-  CT --> EH[Event history (console)]
-  CT --> S3[(S3 bucket - logs)]
-  S3 --> ATH[Athena/Query (optional)]
+  CT --> EH[Event history - console]
+  CT --> S3[S3 bucket - logs]
+  S3 --> ATH[Athena/Query - optional]
 ```
 
 ### AWS Config: 구성 변화와 준수(Compliance) 관점
@@ -80,4 +80,3 @@ flowchart LR
 - CloudTrail과 Config를 “둘 다 로그니까 동일”로 보는 선택지: 기록 목적이 다르다.
 - “탐지 서비스가 곧 로그 저장소”라는 오해: 탐지는 소스(CloudTrail 등) 위에서 동작한다.
 - 데이터 이벤트/고급 기능을 무조건 켜는 답: 요구사항/비용 트레이드오프를 본다.
-

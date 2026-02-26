@@ -20,9 +20,9 @@
 
 ```mermaid
 flowchart LR
-  App[App] --> Cache[Cache (ElastiCache/DAX)]
+  App[App] --> Cache[Cache - ElastiCache/DAX]
   Cache -->|hit| App
-  Cache -->|miss| DB[(DB)]
+  Cache -->|miss| DB[DB]
   DB --> Cache --> App
 ```
 
@@ -53,4 +53,3 @@ flowchart TB
 - DynamoDB 성능 이슈를 무조건 “DAX 추가”로 해결하는 오답(키 설계가 근본일 수 있음)
 - Query가 가능한데 Scan을 고르는 오답
 - 캐시를 “모든 문제의 답”으로 고르는 오답(일관성 요구가 강하면 신중)
-

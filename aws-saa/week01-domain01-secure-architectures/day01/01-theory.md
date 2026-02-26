@@ -45,12 +45,13 @@ flowchart TB
   REQ --> EVAL[Policy Evaluation]
   EVAL -->|Explicit Deny| DENY[Deny]
   EVAL -->|No Allow| DENY
-  EVAL -->|Allowed + within boundaries| ALLOW[Allow]
-  subgraph Boundaries[Permission Boundaries]
-    SCP[SCP (Org/OU/Account)]
-    PB[Permissions Boundary (User/Role)]
+  EVAL -->|Allowed and within boundaries| ALLOW[Allow]
+  subgraph B[Permission Boundaries]
+    SCP["SCP: Org, OU, Account"]
+    PB["Permissions Boundary: User, Role"]
   end
-  EVAL --- Boundaries
+  EVAL --- SCP
+  EVAL --- PB
 ```
 
 ### STS: AssumeRole 로 “키 공유”를 제거한다
@@ -70,9 +71,9 @@ flowchart TB
 sequenceDiagram
   participant U as User/Workload
   participant STS as AWS STS
-  participant S as AWS Service (e.g., S3)
-  U->>STS: AssumeRole(RoleArn, ExternalId?, SessionPolicy?)
-  STS-->>U: Temp creds (AKIA..., Secret, SessionToken)
+  participant S as AWS Service e.g. S3
+  U->>STS: AssumeRole roleArn, externalId?, sessionPolicy?
+  STS-->>U: Temp creds accessKeyId, secret, sessionToken
   U->>S: API calls signed with temp creds
   S-->>U: Authorized / AccessDenied
 ```
@@ -111,4 +112,3 @@ flowchart LR
 - S3 접근을 막고 싶은데 security group으로 해결하려 함: S3는 SG 대상이 아님(대신 bucket policy/VPC endpoint policy)
 - Cross-account에서 “액세스 키 공유”가 정답처럼 보이면 의심: 대부분 AssumeRole + trust policy
 - Role trust policy와 permission policy를 혼동: trust는 “누가 Assume”, permission은 “Assume 후 무엇을”
-

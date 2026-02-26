@@ -17,9 +17,9 @@
 
 ```mermaid
 flowchart LR
-  App[App] --> DBP[(Primary)]
-  DBP -->|sync/ha| DBS[(Standby - Multi-AZ)]
-  DBP -->|async read| RR[(Read Replica)]
+  App[App] --> DBP[Primary]
+  DBP -->|sync/ha| DBS[Standby - Multi-AZ]
+  DBP -->|async read| RR[Read Replica]
 ```
 
 ### DynamoDB Resilience (개념)
@@ -33,4 +33,3 @@ flowchart LR
 
 - “Multi-AZ = 읽기 확장” 착각
 - 관계형/NoSQL 요구를 구분하지 못하고 아무 DB나 고르는 실수
-

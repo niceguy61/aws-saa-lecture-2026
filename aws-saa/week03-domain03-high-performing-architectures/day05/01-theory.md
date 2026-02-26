@@ -32,7 +32,7 @@
 ```mermaid
 flowchart LR
   U[Users] --> CF[CloudFront]
-  CF --> S3[(S3 Bucket - private)]
+  CF --> S3[S3 Bucket - private]
   CF -. signed as OAC .-> S3
 ```
 
@@ -42,4 +42,3 @@ flowchart LR
 ## Reference Pack
 
 - `aws-saa/special-lectures/domain03-high-performing-top-services.md`
-

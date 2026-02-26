@@ -22,7 +22,7 @@
 
 ```mermaid
 flowchart LR
-  App[Private subnet] --> NAT[NAT Gateway] --> IGW[IGW] --> S3[(S3)]
+  App[Private subnet] --> NAT[NAT Gateway] --> IGW[IGW] --> S3[S3]
   App2[Private subnet] --> EP[S3 Gateway Endpoint] --> S3
 ```
 
@@ -39,4 +39,3 @@ flowchart LR
 
 - NAT를 무조건 정답으로 고르는 오답(요구가 S3 접근/비용이면 endpoint 후보)
 - 캐시 불가능(개인화/강한 일관성)인데 CloudFront를 고르는 오답
-

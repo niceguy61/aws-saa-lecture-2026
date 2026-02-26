@@ -52,7 +52,7 @@ flowchart TB
 flowchart LR
   App[Private subnet workload] --> RT[Route table]
   RT --> EP[S3 Gateway Endpoint]
-  EP --> S3[(S3)]
+  EP --> S3[S3]
   App -. alternative .-> NAT[NAT GW] -.-> IGW[Internet] -.-> S3
 ```
 

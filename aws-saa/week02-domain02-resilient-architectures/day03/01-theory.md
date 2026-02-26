@@ -18,9 +18,9 @@
 ```mermaid
 sequenceDiagram
   participant U as User
-  participant S3 as S3 (versioning on)
-  U->>S3: PUT object (v1)
-  U->>S3: PUT object (v2 overwrite)
+  participant S3 as S3 - versioning on
+  U->>S3: PUT object v1
+  U->>S3: PUT object v2 overwrite
   U->>S3: DELETE object
   Note over S3: delete marker
   U->>S3: Restore previous version
@@ -44,4 +44,3 @@ sequenceDiagram
 
 - 복제를 원하는데 versioning을 언급하지 않는 답안
 - 단일 버킷에만 의존하는 DR(요구사항이 리전 장애라면 추가 설계 필요)
-

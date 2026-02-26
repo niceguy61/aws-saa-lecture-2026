@@ -22,10 +22,9 @@ flowchart TB
     end
     subgraph PrivateSubnets[Private Subnets]
       APP[App]
-      DB[(DB)]
+      DB[DB]
     end
   end
   IGW[Internet Gateway] --- ALB
   APP --> NAT --> IGW
 ```
-

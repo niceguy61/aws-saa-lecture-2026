@@ -54,9 +54,9 @@
 
 ```mermaid
 flowchart LR
-  App[Workload (Role)] --> SM[Secrets Manager]
+  App[Workload - Role] --> SM[Secrets Manager]
   SM --> KMS[KMS CMK]
-  App -. API calls .-> CT[CloudTrail (Event history / Trail)]
+  App -. API calls .-> CT[CloudTrail - Event history or Trail]
   SM -. API calls .-> CT
 ```
 
@@ -75,4 +75,3 @@ flowchart LR
 ## Reference Pack
 
 - `aws-saa/special-lectures/domain01-secure-top-services.md`
-

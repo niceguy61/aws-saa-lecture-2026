@@ -28,11 +28,10 @@
 
 ```mermaid
 flowchart LR
-  App[Private subnet] --> NAT[NAT Gateway] --> IGW[Internet GW] --> S3[(S3)]
+  App[Private subnet] --> NAT[NAT Gateway] --> IGW[Internet GW] --> S3[S3]
   App2[Private subnet] --> EP[S3 Gateway Endpoint] --> S3
 ```
 
 ## Reference Pack
 
 - `aws-saa/special-lectures/domain04-cost-optimized-top-services.md`
-

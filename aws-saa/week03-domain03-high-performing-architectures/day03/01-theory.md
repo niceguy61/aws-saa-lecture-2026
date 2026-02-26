@@ -18,7 +18,7 @@
 
 ```mermaid
 flowchart LR
-  EC2[EC2] --> EBS[(EBS Volume)]
+  EC2[EC2] --> EBS[EBS Volume]
   EBS --> CW[CloudWatch: Ops/Bytes/QueueLength]
 ```
 
@@ -36,4 +36,3 @@ flowchart LR
 
 - “공유 파일 시스템”인데 EBS를 고르는 오답(블록 스토리지는 공유 목적이 아님)
 - “IOPS 병목”인데 스케일업만 고르는 오답(스토리지 성능 조정이 정답일 수 있음)
-
