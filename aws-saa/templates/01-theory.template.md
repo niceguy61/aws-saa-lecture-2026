@@ -7,6 +7,11 @@
 
 ## Core Concepts
 
+- 최소 1개 이미지를 포함한다(코어 개념은 “암기”가 아니라 “근거로 설명” 가능해야 한다).
+- 예시(weekNN/dayDD/01-theory.md 기준 상대경로):
+
+![TODO core concept](../../assets/core/TODO.svg)
+
 - TODO
 
 ## Deep Dive
@@ -18,6 +23,10 @@
 - Security & IAM
 - Cost drivers
 - Common architectures
+- Exam must-know (시험 포인트)
+  - Key point: TODO
+  - Why: TODO (근거/원리 1~2줄)
+  - Alternative: TODO (제약을 넘기 위한 대안 서비스/패턴)
 
 ```mermaid
 flowchart LR
@@ -37,4 +46,3 @@ flowchart LR
 ## Exam Traps (5-8)
 
 - TODO
-

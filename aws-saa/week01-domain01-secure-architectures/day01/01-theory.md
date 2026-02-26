@@ -22,6 +22,8 @@
   - Allow 가 있어야만 통과
   - 여러 정책이 겹칠 때, “경계(SCP/Boundary)”가 최종 권한을 제한
 
+![IAM policy evaluation (order and boundaries)](../../assets/core/iam-evaluation.svg)
+
 ## Deep Dive
 
 ### IAM: Least Privilege 를 설계하는 단위
