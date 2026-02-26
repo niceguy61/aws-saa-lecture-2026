@@ -5,6 +5,7 @@
 ## Navigation
 
 - References: `aws-saa/references/exam-guide.md`
+- Exam keypoints: `aws-saa/exam-keypoints.md`
 - Templates: `aws-saa/templates/`
 - Week 1 (Domain 1): `aws-saa/week01-domain01-secure-architectures/README.md`
 - Week 2 (Domain 2): `aws-saa/week02-domain02-resilient-architectures/README.md`
