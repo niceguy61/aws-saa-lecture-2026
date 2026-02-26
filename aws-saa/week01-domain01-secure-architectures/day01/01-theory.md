@@ -69,7 +69,7 @@ flowchart TB
 
 ```mermaid
 sequenceDiagram
-  participant U as User/Workload
+  participant U as User and workload
   participant STS as AWS STS
   participant S as AWS Service e.g. S3
   U->>STS: AssumeRole roleArn, externalId?, sessionPolicy?
@@ -90,10 +90,10 @@ sequenceDiagram
 flowchart LR
   Root[Org Root] --> OU1[OU: Security]
   Root --> OU2[OU: Workloads]
-  OU2 --> A1[Account: prod]
-  OU2 --> A2[Account: dev]
-  OU1 --> S1[Account: log-archive]
-  OU1 --> S2[Account: security]
+  OU2 --> A1[Account - prod]
+  OU2 --> A2[Account - dev]
+  OU1 --> S1[Account - log-archive]
+  OU1 --> S2[Account - security]
   SCP1[SCP] -. limits .- OU2
 ```
 

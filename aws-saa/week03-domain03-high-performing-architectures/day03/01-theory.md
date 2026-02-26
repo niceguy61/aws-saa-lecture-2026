@@ -19,7 +19,7 @@
 ```mermaid
 flowchart LR
   EC2[EC2] --> EBS[EBS Volume]
-  EBS --> CW[CloudWatch: Ops/Bytes/QueueLength]
+  EBS --> CW[CloudWatch metrics]
 ```
 
 ### EFS: 공유 파일 시스템

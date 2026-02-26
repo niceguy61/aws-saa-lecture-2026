@@ -33,7 +33,7 @@ flowchart LR
   API[API Call] --> CT[CloudTrail]
   CT --> EH[Event history - console]
   CT --> S3[S3 bucket - logs]
-  S3 --> ATH[Athena/Query - optional]
+  S3 --> ATH[Athena query - optional]
 ```
 
 ### AWS Config: 구성 변화와 준수(Compliance) 관점
@@ -49,7 +49,7 @@ flowchart LR
 flowchart TB
   R[Resource state changes] --> CFG[AWS Config]
   CFG --> HIST[Config history]
-  CFG --> RULES[Config rules / compliance]
+  CFG --> RULES[Config rules - compliance]
 ```
 
 ### Detection 서비스 연결(개념 수준)

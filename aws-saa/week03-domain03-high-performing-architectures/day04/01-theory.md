@@ -20,7 +20,7 @@
 
 ```mermaid
 flowchart LR
-  App[App] --> Cache[Cache - ElastiCache/DAX]
+  App[App] --> Cache[Cache - ElastiCache and DAX]
   Cache -->|hit| App
   Cache -->|miss| DB[DB]
   DB --> Cache --> App
@@ -39,7 +39,7 @@ flowchart LR
 ```mermaid
 flowchart TB
   Q[Query requires key] --> Fast[Fast path]
-  S[Scan reads all] --> Slow[Slow/expensive]
+  S[Scan reads all] --> Slow[Slow expensive]
   Need[Need new access pattern] --> GSI[GSI]
 ```
 

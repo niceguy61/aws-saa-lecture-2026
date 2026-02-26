@@ -30,7 +30,7 @@
 flowchart TB
   subgraph Subnet
     N[NACL]
-    I[Instance/ENI]
+    I[Instance ENI]
     SG[Security Group]
   end
   N --> SG --> I

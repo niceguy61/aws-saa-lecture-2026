@@ -44,11 +44,11 @@ flowchart LR
 
 ```mermaid
 flowchart TB
-  Req[RPO/RTO Requirement] --> Menu{Pick strategy}
-  Menu --> BR[Backup/Restore]
+  Req[RPO and RTO requirement] --> Menu{Pick strategy}
+  Menu --> BR[Backup restore]
   Menu --> PL[Pilot light]
   Menu --> WS[Warm standby]
-  Menu --> AA[Active/Active]
+  Menu --> AA[Active active]
 ```
 
 ## Exam Traps
@@ -56,4 +56,3 @@ flowchart TB
 - “Failover가 필요”한데 Weighted를 고르는 실수(요구 문장에 health check/장애 조치가 있으면 Failover 후보).
 - “Latency 기반” 요구인데 단일 리전 배포로 끝내는 실수.
 - RPO/RTO를 “성능 지표”로 착각하는 선택지.
-

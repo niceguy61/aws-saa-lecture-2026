@@ -21,7 +21,7 @@
 
 ```mermaid
 flowchart TB
-  Sig[Workload signals] --> Steady[Predictable 1-3y -> RI/SP]
+  Sig[Workload signals] --> Steady[Predictable 1-3y -> RI or SP]
   Sig --> Burst[Unpredictable -> On-Demand + ASG]
   Sig --> Batch[Interruptible -> Spot]
 ```
@@ -44,4 +44,3 @@ flowchart TB
 - 중단 허용인데 On-Demand만 고르는 오답(Spot 후보)
 - 예측 가능인데 On-Demand만 고르는 오답(RI/SP 후보)
 - right sizing을 “스펙 감”으로 결정하는 선택지(측정 기반이 정답)
-

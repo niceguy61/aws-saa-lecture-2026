@@ -28,8 +28,8 @@ flowchart TB
   Spend --> S[Storage]
   Spend --> N[Network]
   C --> Model[Pricing model]
-  S --> Class[Storage class/lifecycle]
-  N --> Transfer[Egress/NAT/Inter-AZ]
+  S --> Class[Storage class lifecycle]
+  N --> Transfer[Egress NAT inter-AZ]
 ```
 
 ## Tagging & Cost Allocation (시험형 포인트)
@@ -51,4 +51,3 @@ flowchart TB
 - 태깅 없이 “팀별 비용”을 정확히 보겠다는 선택지
 - NAT 비용/데이터 전송 비용이 숨어 있는데 컴퓨트만 줄이는 선택지
 - “최적화 = 무조건 cheapest”로 가는 오답(요구사항 위반)
-

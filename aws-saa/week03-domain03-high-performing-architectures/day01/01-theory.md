@@ -31,10 +31,10 @@
 ```mermaid
 flowchart TB
   Req[Workload signals] --> CPU[CPU heavy -> C family]
-  Req --> MEM[Memory heavy -> R/X family]
+  Req --> MEM[Memory heavy -> R or X family]
   Req --> BAL[Balanced -> M family]
   Req --> BURST[Burst only -> T family]
-  Req --> GPU[GPU/ML -> G/P/Inf]
+  Req --> GPU[GPU or ML -> G, P, Inf]
 ```
 
 ### Burstable(T) 계열: 크레딧 함정
@@ -50,7 +50,7 @@ flowchart TB
 ### CloudWatch로 1차 진단하기
 
 - CPUUtilization만 보지 말고 “추가 지표”를 같이 고려한다
-  - T 계열: CPUCreditBalance/CPUCreditUsage
+  - T 계열: CPUCreditBalance and CPUCreditUsage
   - EBS: VolumeReadOps/WriteOps/QueueLength
   - Network: NetworkIn/Out
 
@@ -58,7 +58,7 @@ flowchart TB
 flowchart LR
   Problem[Perf issue] --> CW[CloudWatch metrics]
   CW --> CPU[CPU high?]
-  CW --> IO[IO queue/ops?]
+  CW --> IO[IO queue ops?]
   CW --> NET[Network saturating?]
   CW --> T[T credits drained?]
 ```
@@ -68,4 +68,3 @@ flowchart LR
 - “성능 문제 = 무조건 더 큰 인스턴스”로 답하는 선택지(병목이 스토리지/DB/네트워크일 수 있음)
 - burstable을 “지속 워크로드”에 쓰는 선택지(크레딧 함정)
 - 단일 지표만 보고 결론 내리게 유도(보조 지표가 힌트로 등장)
-

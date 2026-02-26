@@ -25,8 +25,8 @@
 
 ```mermaid
 flowchart LR
-  Data[Objects] -->|prefix=logs/| Rule1[Lifecycle: IA -> Glacier -> Expire]
-  Data -->|prefix=app/| Rule2[Intelligent-Tiering]
+  Data[Objects] -->|prefix logs| Rule1[Lifecycle: IA -> Glacier -> Expire]
+  Data -->|prefix app| Rule2[Intelligent-Tiering]
 ```
 
 ### Intelligent-Tiering (시험 힌트)
@@ -38,4 +38,3 @@ flowchart LR
 
 - “모든 데이터를 Glacier”로 옮기는 오답(복구 시간/비용을 무시)
 - lifecycle을 “전체 데이터에 일괄 적용”하는 오답(중요 데이터까지 전환)
-
