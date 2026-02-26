@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="980" height="360" viewBox="0 0 980 360" role="img" aria-label="S3 versioning and replication (SRR/CRR) prerequisites">
+  <defs>
+    <style>
+      .bg { fill: #fbfbf7; }
+      .box { fill: #ffffff; stroke: #1f2937; stroke-width: 2; }
+      .muted { fill: #f3f4f6; stroke: #1f2937; stroke-width: 2; }
+      .title { font: 700 18px ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial; fill: #111827; }
+      .text { font: 14px ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial; fill: #111827; }
+      .small { font: 12px ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial; fill: #111827; }
+      .arrow { stroke: #111827; stroke-width: 2; fill: none; marker-end: url(#m); }
+    </style>
+    <marker id="m" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#111827"/>
+    </marker>
+  </defs>
+
+  <rect class="bg" x="0" y="0" width="980" height="360" rx="18"/>
+  <text class="title" x="28" y="42">S3: Versioning for rollback + Replication for DR (SRR/CRR)</text>
+
+  <rect class="box" x="60" y="90" width="360" height="220" rx="14"/>
+  <text class="text" x="80" y="124">Source bucket</text>
+  <text class="small" x="80" y="152">Versioning: ON (required)</text>
+  <rect class="muted" x="90" y="175" width="300" height="46" rx="10"/>
+  <text class="small" x="104" y="204">obj.txt: v1, v2, delete marker</text>
+
+  <rect class="box" x="560" y="90" width="360" height="220" rx="14"/>
+  <text class="text" x="580" y="124">Destination bucket</text>
+  <text class="small" x="580" y="152">Versioning: ON (required)</text>
+  <rect class="muted" x="590" y="175" width="300" height="46" rx="10"/>
+  <text class="small" x="604" y="204">Replicated versions</text>
+
+  <path class="arrow" d="M 420 200 L 560 200"/>
+  <text class="small" x="440" y="186">SRR/CRR replication</text>
+
+  <rect class="muted" x="60" y="320" width="860" height="28" rx="10"/>
+  <text class="small" x="76" y="340">Exam intuition: "accidental deletion/overwrite" => Versioning. "region-level DR / compliance copy" => Replication. Both buckets must have Versioning enabled.</text>
+</svg>
+

@@ -15,6 +15,8 @@
 - “사설 경로”는 시험에서 자주 정답으로 이어진다
   - 인터넷 경유를 피하고(보안), NAT 비용/운영을 줄인다(비용)
 
+![VPC endpoints: gateway vs interface](../../assets/core/vpc-endpoints-types.svg)
+
 ## Deep Dive
 
 ### Security Group vs NACL (시험형 비교)
@@ -47,6 +49,10 @@ flowchart TB
   - 다양한 AWS 서비스/사설 연결에 사용
 - Endpoint policy(개념)
   - 엔드포인트를 통해 허용되는 요청을 추가로 제한
+- Exam must-know (포인트 + Why + 대안)
+  - Key point: S3/DynamoDB 는 gateway endpoint, 대부분의 다른 서비스는 interface endpoint(PrivateLink)다.
+  - Why: gateway는 라우팅 테이블 경로로 “목적지”를 바꾸는 모델이고(S3/DDB 전용), interface는 VPC 안 ENI로 사설 엔드포인트를 제공하는 모델(서비스 범용)이다.
+  - Alternative: endpoint가 지원되지 않거나 요구가 “인터넷 아웃바운드 일반”이면 NAT가 후보가 되지만, “사설 경로/비용 절감”이면 endpoint가 우선이다.
 
 ```mermaid
 flowchart LR

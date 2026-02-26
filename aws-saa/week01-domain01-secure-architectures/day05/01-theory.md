@@ -23,6 +23,15 @@
 - 상한선이 있는지 먼저 확인한다: SCP/Permissions boundary가 있으면 IAM Allow로 뚫을 수 없다.
 - 데이터 보호 요구가 있으면 “암호화(키 관리) + 접근 제어 + 감사”를 같이 묻는 문제다.
 
+## Core Concepts
+
+- Domain 1은 “보안 설계”를 3개의 축으로 반복해서 묻는다.
+  - Access control: IAM/리소스 정책/경계(SCP, permissions boundary)
+  - Data protection: KMS/암호화/시크릿 관리
+  - Audit: CloudTrail/Config/탐지(GuardDuty 등)
+
+![IAM policy evaluation (order and boundaries)](../../assets/core/iam-evaluation.svg)
+
 ## Confusing Similar Cases
 
 | Scenario | Best choice | Why | Common wrong choice | Why it's wrong |
@@ -71,6 +80,12 @@ flowchart LR
 - “SCP로 Allow를 줬다”는 문장 자체가 함정이다: SCP는 상한선(Allow의 의미가 다름)
 - “KMS는 IAM policy만으로 제어한다”는 오답 유도: key policy가 핵심
 - “시크릿을 S3에 저장” 같은 안티패턴은 거의 오답
+
+## Exam must-know (요약)
+
+- Key point: Domain 1은 “권한(경계 포함) + 암호화(KMS) + 감사(CloudTrail/Config)”의 조합으로 반복 출제된다.
+- Why: 실제 사고/장애는 단일 원인이 아니라 “권한/설정/키/감사”가 연결된 경로에서 난다. 문제도 이 연결을 읽는지를 테스트한다.
+- Alternative: 답이 하나로 끝나지 않으면(요구사항이 복합) 2~3개 서비스를 조합하는 선택지가 정답인 경우가 많다(예: role + KMS + CloudTrail).
 
 ## Reference Pack
 

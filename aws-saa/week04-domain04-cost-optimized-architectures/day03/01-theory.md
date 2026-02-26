@@ -6,6 +6,16 @@
 - Task focus:
   - 4.1 Design cost-optimized storage solutions
 
+## Core Concepts
+
+- 스토리지 비용 최적화는 “액세스 패턴 + 복구 요구”를 같이 본다
+  - 자주 접근: Standard
+  - 가끔 접근: IA 계열
+  - 거의 안 함: Glacier 계열(복구 시간/비용 트레이드오프)
+- Lifecycle은 “자동 정책화”다(수동 이동은 운영비를 만든다)
+
+![S3 storage class and lifecycle](../../assets/core/s3-storage-class-lifecycle.svg)
+
 ## Deep Dive
 
 ### Storage class 선택 프레임
@@ -28,6 +38,12 @@ flowchart LR
   Data[Objects] -->|prefix logs| Rule1[Lifecycle IA -> Glacier -> Expire]
   Data -->|prefix app| Rule2[Intelligent-Tiering]
 ```
+
+#### Exam must-know (포인트 + Why + 대안)
+
+- Key point: “장기 보관/액세스 드묾” 신호가 있으면 lifecycle + Glacier 계열이 정답 후보가 된다.
+- Why: 저장 클래스는 단순히 ‘싸다’가 아니라 복구 시간과 요청 비용 트레이드오프가 있어 요구사항을 만족해야 한다.
+- Alternative: 액세스 패턴이 불명확하면 Intelligent-Tiering이 후보가 된다(“자동 최적화” 문장이 신호).
 
 ### Intelligent-Tiering (시험 힌트)
 

@@ -6,6 +6,16 @@
 - Task focus:
   - 4.2 Design cost-optimized compute solutions
 
+## Core Concepts
+
+- 비용 절감은 “요구사항 신호”로부터 시작한다
+  - 예측 가능(steady state) -> 할인 모델(RI/Savings Plans)
+  - 중단 허용 -> Spot
+  - 변동/스파이크 -> On-Demand + Auto Scaling
+- right-sizing은 감이 아니라 측정이다(CloudWatch, p95/p99, utilization)
+
+![Purchase options decision](../../assets/core/purchase-options-decision.svg)
+
 ## Deep Dive
 
 ### Purchase Options (시험형 선택 기준)
@@ -25,6 +35,12 @@ flowchart TB
   Sig --> Burst[Unpredictable -> On-Demand + ASG]
   Sig --> Batch[Interruptible -> Spot]
 ```
+
+#### Exam must-know (포인트 + Why + 대안)
+
+- Key point: “steady state/predictable 1-3년”이면 RI/SP, “interruptible/batch”면 Spot이 정답 후보로 올라간다.
+- Why: 구매 옵션은 기술 문제가 아니라 요금 모델 선택 문제이며, 문장에 신호가 직접 등장한다.
+- Alternative: 요구가 “가용성/중단 불가”면 Spot은 오답 후보가 되고, On-Demand + ASG/멀티 AZ로 돌아간다.
 
 ### Right Sizing = 측정 기반 의사결정
 

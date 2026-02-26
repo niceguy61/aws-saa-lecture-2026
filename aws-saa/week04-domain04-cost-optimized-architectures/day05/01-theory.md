@@ -15,6 +15,12 @@
 - 비용 문제는 보통 “요구사항을 유지하면서 드라이버를 제거”하는 대안 비교로 출제된다.
 - NAT 비용은 숨은 폭탄으로 자주 나온다(특히 프라이빗 서브넷 -> S3).
 
+## Core Concepts
+
+- Domain 4는 “가시화 -> 분류(Compute/Storage/Network) -> 대안 비교” 순서로 푸는 문제가 많다.
+
+![Cost drivers map](../../assets/core/cost-drivers-map.svg)
+
 ## Confusing Similar Cases
 
 | Scenario | Best choice | Why | Common wrong choice | Why it's wrong |
@@ -31,6 +37,12 @@ flowchart LR
   App[Private subnet] --> NAT[NAT Gateway] --> IGW[Internet GW] --> S3[S3]
   App2[Private subnet] --> EP[S3 Gateway Endpoint] --> S3
 ```
+
+## Exam must-know (요약)
+
+- Key point: “예측 가능/중단 허용/장기 보관/프라이빗 S3 접근” 같은 신호는 Domain 4의 대표 키워드다.
+- Why: 비용 문제는 기술적 가능성보다 “요금 모델/전송/티어링”의 선택 문제로 귀결되며, 문제 문장에 신호가 직접 들어간다.
+- Alternative: 요구사항이 성능/가용성 중심이면 비용 최적화만으로 풀지 말고(Domain 2/3) 먼저 요구를 만족하는 설계를 만든 뒤 비용을 줄인다.
 
 ## Reference Pack
 

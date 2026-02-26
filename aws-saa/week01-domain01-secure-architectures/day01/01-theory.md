@@ -40,6 +40,10 @@
 - 시험에서 자주 헷갈리는 포인트
   - “그룹은 리소스에 붙지 않는다.” 그룹은 사용자 권한 관리를 위한 컨테이너다.
   - “역할(role)은 임시 자격 증명”을 통해 사용된다. (STS)
+- Exam must-know (포인트 + Why + 대안)
+  - Key point: “AccessDenied”는 대부분 “Allow가 없어서”가 아니라 “Explicit Deny/경계/리소스 정책”에 막힌 케이스다.
+  - Why: 정책 평가는 기본 Deny이며, Explicit Deny는 어떤 Allow보다 우선한다. 또한 SCP/permissions boundary 같은 상한선은 IAM Allow로 뚫을 수 없다.
+  - Alternative: 교차 계정/워크로드 접근은 액세스 키 공유가 아니라 STS AssumeRole(=role 기반 임시 자격증명)로 설계한다.
 
 ```mermaid
 flowchart TB

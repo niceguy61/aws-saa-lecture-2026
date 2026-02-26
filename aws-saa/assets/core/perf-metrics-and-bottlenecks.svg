@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="980" height="380" viewBox="0 0 980 380" role="img" aria-label="Performance metrics and common bottleneck axes">
+  <defs>
+    <style>
+      .bg { fill: #fbfbf7; }
+      .box { fill: #ffffff; stroke: #1f2937; stroke-width: 2; }
+      .muted { fill: #f3f4f6; stroke: #1f2937; stroke-width: 2; }
+      .title { font: 700 18px ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial; fill: #111827; }
+      .text { font: 14px ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial; fill: #111827; }
+      .small { font: 12px ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial; fill: #111827; }
+    </style>
+  </defs>
+
+  <rect class="bg" x="0" y="0" width="980" height="380" rx="18"/>
+  <text class="title" x="28" y="42">High performance: express requirements as numbers, then find the bottleneck</text>
+
+  <rect class="box" x="60" y="90" width="420" height="250" rx="14"/>
+  <text class="text" x="80" y="124">Translate into metrics</text>
+  <rect class="muted" x="90" y="145" width="370" height="44" rx="10"/>
+  <text class="text" x="110" y="173">Latency: p95/p99 (not average)</text>
+  <rect class="muted" x="90" y="200" width="370" height="44" rx="10"/>
+  <text class="text" x="110" y="228">Throughput: req/s, MB/s, IOPS</text>
+  <rect class="muted" x="90" y="255" width="370" height="44" rx="10"/>
+  <text class="text" x="110" y="283">Concurrency: parallelism / limits</text>
+
+  <rect class="box" x="520" y="90" width="400" height="250" rx="14"/>
+  <text class="text" x="540" y="124">Common bottlenecks</text>
+
+  <rect class="muted" x="550" y="145" width="170" height="70" rx="12"/>
+  <text class="text" x="604" y="185">CPU</text>
+  <text class="small" x="566" y="206">compute-bound</text>
+
+  <rect class="muted" x="740" y="145" width="170" height="70" rx="12"/>
+  <text class="text" x="786" y="185">Memory</text>
+  <text class="small" x="756" y="206">cache / OOM</text>
+
+  <rect class="muted" x="550" y="230" width="170" height="70" rx="12"/>
+  <text class="text" x="596" y="270">Network</text>
+  <text class="small" x="566" y="291">RTT / bandwidth</text>
+
+  <rect class="muted" x="740" y="230" width="170" height="70" rx="12"/>
+  <text class="text" x="770" y="270">Storage I/O</text>
+  <text class="small" x="756" y="291">IOPS / throughput</text>
+
+  <text class="small" x="28" y="360">Exam intuition: avoid "scale up one big instance" answers if signals point to cache, DB, storage I/O, or network path.</text>
+</svg>
+

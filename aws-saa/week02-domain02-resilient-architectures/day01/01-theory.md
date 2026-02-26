@@ -20,6 +20,8 @@
   - stateless + Auto Scaling
   - decouple(큐/이벤트)
 
+![DR strategies by RPO/RTO](../../assets/core/dr-rpo-rto-strategies.svg)
+
 ## Route 53 Routing Policies (시험 빈출)
 
 - Simple: 단순 라우팅(대개 정답 후보가 아님)
@@ -50,6 +52,12 @@ flowchart TB
   Menu --> WS[Warm standby]
   Menu --> AA[Active active]
 ```
+
+## Exam must-know (요약)
+
+- Key point: “Failover/헬스체크/자동 전환” 문장이 있으면 Route 53 Failover(+ health check)가 후보로 올라간다.
+- Why: 가용성 요구는 “장애 탐지(health) + 트래픽 전환(라우팅)”의 결합으로 풀리는 경우가 많다.
+- Alternative: “점진 배포/비율 조정”이면 Weighted, “가까운 리전”이면 Latency 기반이 더 자연스럽다.
 
 ## Exam Traps
 

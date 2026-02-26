@@ -18,6 +18,12 @@
 4. 컴퓨트가 부족한가(EC2/Lambda concurrency)
 5. 네트워크 경로/엣지/리전 선택이 문제인가
 
+## Core Concepts
+
+- Domain 3는 “성능 최적화”를 단일 서비스 선택이 아니라 “병목 진단 순서”로 푸는 문제로 자주 나온다.
+
+![Caching layers](../../assets/core/caching-layers.svg)
+
 ## Confusing Similar Cases
 
 | Scenario | Best choice | Why | Common wrong choice | Why it's wrong |
@@ -38,6 +44,12 @@ flowchart LR
 
 - S3는 퍼블릭이 아니고, CloudFront만 접근하도록 bucket policy를 제한한다.
 - 캐시 키/TTL/무효화(invalidation)가 선택지로 등장한다.
+
+## Exam must-know (요약)
+
+- Key point: 캐시 가능하면 캐시(CloudFront/ElastiCache)가 1순위 후보, 키/인덱스/IOPS 신호가 있으면 그 축으로 들어간다.
+- Why: 성능 문제의 원인은 CPU보다 네트워크 RTT/캐시 히트율/DB 액세스 패턴/스토리지 I/O에 있는 경우가 많다.
+- Alternative: 요구가 “복원력” 중심이면(Domain 2) DR/ASG/큐로, “비용” 중심이면(Domain 4) 티어링/구매 옵션/전송 비용으로 전환한다.
 
 ## Reference Pack
 

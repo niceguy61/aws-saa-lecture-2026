@@ -19,6 +19,8 @@
   - Network
   - Storage I/O
 
+![Performance metrics and bottlenecks](../../assets/core/perf-metrics-and-bottlenecks.svg)
+
 ## Deep Dive
 
 ### EC2 Instance Family Selection (시험형 프레임)
@@ -37,6 +39,12 @@ flowchart TB
   Req --> GPU[GPU or ML -> G, P, Inf]
 ```
 
+#### Exam must-know (포인트 + Why + 대안)
+
+- Key point: 요구사항 신호(지속 CPU, 메모리 캐시/인메모리, GPU, burst)를 “패밀리 선택”으로 매핑하는 문제가 자주 나온다.
+- Why: 성능/비용은 인스턴스 자원 비율과 네트워크/EBS 대역폭에도 묶여 있어, 무작정 큰 인스턴스를 고르는 답은 함정이 될 수 있다.
+- Alternative: “동시성/수평 확장” 요구가 강하면 더 큰 1대가 아니라 ASG/분산 처리로 푸는 답이 더 안전하다.
+
 ### Burstable(T) 계열: 크레딧 함정
 
 - 장점
@@ -46,6 +54,12 @@ flowchart TB
   - “일관된 성능”이 요구(예측 가능성)
 - 힌트 문장
   - “CPU credit이 소진된다”, “성능이 갑자기 떨어진다” 같은 서술
+
+#### Exam must-know (포인트 + Why + 대안)
+
+- Key point: “지속 고CPU/일관된 성능” 신호가 있으면 T 계열은 오답 후보가 된다.
+- Why: T는 크레딧 모델이라 장시간 고부하에서 크레딧이 소진되면 스로틀링으로 성능이 떨어질 수 있다(예측 가능성 저하).
+- Alternative: 지속 워크로드면 C/M 계열로 옮기거나, 캐시/DB/스토리지 병목을 먼저 제거한다.
 
 ### CloudWatch로 1차 진단하기
 

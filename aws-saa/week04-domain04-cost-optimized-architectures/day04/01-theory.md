@@ -6,6 +6,16 @@
 - Task focus:
   - 4.4 Design cost-optimized network architectures
 
+## Core Concepts
+
+- 네트워크 비용은 “숨은 드라이버”가 많다
+  - NAT 경유, 인터넷 egress, 교차 AZ/리전 전송
+- 시험에서 자주 나오는 최적화 방향
+  - S3/DynamoDB 접근이면 endpoint로 NAT를 피한다
+  - 다운로드/정적 콘텐츠면 CloudFront로 전송량/오리진 부하를 줄인다
+
+![Network cost levers: NAT vs endpoint vs CloudFront](../../assets/core/network-cost-nat-endpoint-cloudfront.svg)
+
 ## Deep Dive
 
 ### Data Transfer Cost: “숨은 비용”
@@ -28,6 +38,12 @@ flowchart LR
 
 - NAT는 편하지만 비용 드라이버가 될 수 있다(요구 문장에 “자주/대량”이 있으면 힌트).
 - S3 접근이 핵심이면 gateway endpoint가 정답 후보가 된다.
+
+#### Exam must-know (포인트 + Why + 대안)
+
+- Key point: “프라이빗 서브넷에서 S3를 자주 호출 + 비용”이면 S3 gateway endpoint가 정답 후보로 올라간다.
+- Why: endpoint는 사설 경로로 NAT/인터넷 경유를 줄여 보안/비용 두 축을 동시에 개선할 수 있다.
+- Alternative: endpoint가 없는 서비스 접근이면 interface endpoint(PrivateLink) 또는 NAT가 후보가 된다(요구사항에 따라).
 
 ### CloudFront가 비용 최적화가 되는 신호
 

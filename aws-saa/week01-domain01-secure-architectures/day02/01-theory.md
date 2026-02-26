@@ -17,6 +17,8 @@
   - 암호화/복호화는 KMS API 호출로 귀결되고, KMS는 key policy를 중심으로 통제한다.
   - 다른 서비스(S3, EBS, Secrets Manager)가 KMS를 “호출 대행”할 때도 권한 경계가 중요하다.
 
+![KMS envelope encryption and integration intuition](../../assets/core/kms-envelope-encryption.svg)
+
 ## Deep Dive
 
 ### KMS: key policy가 핵심(그리고 함정)
@@ -32,6 +34,10 @@
   - 결론: IAM Allow가 있어도 key policy가 막으면 실패할 수 있다(문제에서 AccessDenied 힌트로 자주 등장)
 - Grants(개념)
   - 일시적/위임형 권한 부여로 등장할 수 있다(서비스 통합/권한 위임의 힌트).
+- Exam must-know (포인트 + Why + 대안)
+  - Key point: “SSE-KMS/Secrets/EBS 암호화”는 결국 KMS API 권한 문제로 귀결될 수 있다.
+  - Why: 데이터 키(또는 키 작업)는 KMS에서 발급/복호화되며, 호출 주체(직접 호출 vs 서비스 대행)와 key policy가 최종 관문이 된다.
+  - Alternative: “키 공유/하드코딩” 요구가 보이면 KMS가 아니라 Secrets Manager/role 기반 위임으로 설계를 재정렬한다.
 
 ```mermaid
 flowchart LR
@@ -54,6 +60,10 @@ flowchart LR
 - Parameter Store(SecureString)의 포지션
   - 단순 구성 값/파라미터에 적합(특히 애플리케이션 설정)
   - 시크릿 운영 기능이 요구되면 Secrets Manager가 더 자연스럽다.
+- Exam must-know (포인트 + Why + 대안)
+  - Key point: “자동 rotation/통합 운영” 요구가 있으면 Secrets Manager가 정답 후보가 된다.
+  - Why: rotation은 단순 저장이 아니라 교체/검증/롤백까지 포함한 운영 기능이며, 문제 문장에 “주기적 교체”가 등장하면 의도적으로 분리해 묻는 경우가 많다.
+  - Alternative: “경량 파라미터”만 요구하면 Parameter Store로 충분하지만, 시크릿 수명 관리가 요구되면 Secrets Manager로 전환한다.
 
 ## S3 SSE-KMS: “S3 권한만 주면 되지 않나요?” 함정
 
@@ -85,4 +95,3 @@ sequenceDiagram
 - “KMS는 IAM만 보면 된다”는 오답 유도: key policy가 포인트다.
 - “SSE-KMS는 S3만 권한 주면 된다”는 오답 유도: KMS decrypt 경로가 있다.
 - “시크릿을 S3/코드/환경변수에 저장” 같은 답안이 보이면 거의 오답(요구사항 따라 예외는 있지만 SAA는 대부분 관리형 선택).
-
