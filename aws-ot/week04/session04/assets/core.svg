@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="520" viewBox="0 0 1000 520">
+  <defs>
+    <style>
+      .bg { fill: #ffffff; }
+      .box { fill: #eff6ff; stroke: #1d4ed8; stroke-width: 2; }
+      .box2 { fill: #ffffff; stroke: #1d4ed8; stroke-width: 2; }
+      .h { font: 700 22px sans-serif; fill: #1e3a8a; }
+      .t { font: 16px sans-serif; fill: #1e3a8a; }
+      .s { font: 13px sans-serif; fill: #1d4ed8; }
+      .line { stroke: #1d4ed8; stroke-width: 2; }
+    </style>
+  </defs>
+  <rect class="bg" x="0" y="0" width="1000" height="520"/>
+  <text class="h" x="40" y="45">Compute Choice (Lambda vs Containers vs EC2)</text>
+
+  <rect class="box" x="40" y="80" width="920" height="360" rx="16"/>
+
+  <rect class="box2" x="90" y="140" width="260" height="90" rx="12"/>
+  <text class="t" x="110" y="180">Short event tasks</text>
+  <text class="s" x="110" y="205">minutes, bursty</text>
+
+  <rect class="box2" x="370" y="140" width="260" height="90" rx="12"/>
+  <text class="t" x="390" y="180">Long running</text>
+  <text class="s" x="390" y="205">more than 15 minutes</text>
+
+  <rect class="box2" x="650" y="140" width="260" height="90" rx="12"/>
+  <text class="t" x="670" y="180">Full control</text>
+  <text class="s" x="670" y="205">custom OS, agents</text>
+
+  <line class="line" x1="220" y1="230" x2="220" y2="330"/>
+  <line class="line" x1="500" y1="230" x2="500" y2="330"/>
+  <line class="line" x1="780" y1="230" x2="780" y2="330"/>
+
+  <text class="t" x="165" y="360">Lambda</text>
+  <text class="s" x="125" y="385">Max execution: 15 min</text>
+
+  <text class="t" x="420" y="360">ECS Fargate or Batch</text>
+  <text class="s" x="410" y="385">Use Step Functions for orchestration</text>
+
+  <text class="t" x="745" y="360">EC2</text>
+  <text class="s" x="705" y="385">Highest ops responsibility</text>
+</svg>
+

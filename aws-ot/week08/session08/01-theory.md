@@ -1,5 +1,11 @@
 # Workshop Guide
 
+## Core Concepts
+
+![Reference architecture starting point](./assets/core.svg)
+
+이 세션은 정답을 맞히는 시간이 아니라, "선택 기준을 말하는 연습"을 하는 시간이다.
+
 ## Workshop Prompt
 
 요구사항:
@@ -16,18 +22,9 @@
 - "선택 이유" 10줄
 - 비용 함정 3개와 대응 3개
 
-```mermaid
-flowchart LR
-  U[Users] --> R53[Route 53]
-  R53 --> CF[CloudFront]
-  CF --> ALB[ALB]
-  ALB --> App[App]
-  App --> DB[Database]
-  App --> Q[Queue]
-```
+## Facilitation Notes (Why this works)
 
-## Facilitation Notes
-
-- 정답보다 "선택 기준"을 말하게 한다.
-- 보안과 비용을 꼭 같이 묻게 한다.
+- 다이어그램은 팀 커뮤니케이션 비용을 낮춘다.
+- "왜 이 선택이 정답인가"를 말하면, 비슷한 문제도 풀 수 있다.
+- 보안과 비용은 항상 같이 묻는다. 하나만 보면 시험과 실무 모두 실패한다.
 
