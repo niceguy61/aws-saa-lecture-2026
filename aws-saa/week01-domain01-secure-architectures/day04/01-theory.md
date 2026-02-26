@@ -53,7 +53,7 @@ flowchart LR
   App[Private subnet workload] --> RT[Route table]
   RT --> EP[S3 Gateway Endpoint]
   EP --> S3[(S3)]
-  App -. (alternative) .-> NAT[NAT GW] -.-> IGW[Internet] -.-> S3
+  App -. alternative .-> NAT[NAT GW] -.-> IGW[Internet] -.-> S3
 ```
 
 ## Exam Traps
@@ -61,4 +61,3 @@ flowchart LR
 - “S3는 보안 그룹으로 막는다”는 오답 유도: S3는 SG 대상이 아니다(대신 bucket policy/VPC endpoint policy).
 - “NACL은 상태 저장”이라는 착각: NACL은 무상태라 리턴 트래픽 포트까지 고려해야 한다.
 - NAT를 무조건 정답으로 고르는 실수: 요구사항이 “사설 경로/비용”이면 endpoint가 정답 후보가 된다.
-
