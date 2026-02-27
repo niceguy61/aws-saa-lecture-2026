@@ -1,5 +1,15 @@
 # Week 1 - Domain 1: Design Secure Architectures (30%)
 
+## Exam Guide (Badges)
+
+![Domain](https://img.shields.io/badge/Domain-1-0ea5e9?style=flat&logo=amazonaws&logoColor=white)
+![Service: IAM](https://img.shields.io/badge/Service-IAM-8b5cf6?style=flat&logo=amazonaws&logoColor=white)
+![Service: STS](https://img.shields.io/badge/Service-STS-8b5cf6?style=flat&logo=amazonaws&logoColor=white)
+![Service: KMS](https://img.shields.io/badge/Service-KMS-8b5cf6?style=flat&logo=amazonaws&logoColor=white)
+![Service: CloudTrail](https://img.shields.io/badge/Service-CloudTrail-8b5cf6?style=flat&logo=amazonaws&logoColor=white)
+![Service: Organizations](https://img.shields.io/badge/Service-Organizations-8b5cf6?style=flat&logo=amazonaws&logoColor=white)
+![Service: VPC%20Endpoints](https://img.shields.io/badge/Service-VPC%20Endpoints-8b5cf6?style=flat&logo=amazonaws&logoColor=white)
+
 ## Goals
 
 - IAM 중심으로 “권한 경계”를 설계하고, 암호화/감사/네트워크 경계를 함께 묶어 보안 아키텍처를 설명한다.

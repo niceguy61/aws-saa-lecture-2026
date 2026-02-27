@@ -51,6 +51,7 @@ This repository is being used to author AWS SAA (Solutions Architect - Associate
 
 - 기술 핵심(Core)은 짧고 매끈하게, 비유/설명(Explain)은 편안한 대화체로 쓴다(`WRITING_GUIDE.md`).
 - 한 줄 결론(TL;DR)은 맨 아래에서 “정리”로 고정한다.
+- Exam Guide 뱃지는 shields.io로 짧게, Services는 서비스별 뱃지로 3~6개만 붙인다(`WRITING_GUIDE.md`).
 - 용어는 첫 등장에만 1줄로 정의한다.
 - 문단은 3~5줄, 한 문단에 한 주장.
 - “무조건/항상” 대신 조건과 예외를 쓴다.

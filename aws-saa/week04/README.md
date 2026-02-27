@@ -1,5 +1,15 @@
 # Week 4 - Domain 4: Design Cost-Optimized Architectures (20%)
 
+## Exam Guide (Badges)
+
+![Domain](https://img.shields.io/badge/Domain-4-0ea5e9?style=flat&logo=amazonaws&logoColor=white)
+![Service: Budgets](https://img.shields.io/badge/Service-Budgets-8b5cf6?style=flat&logo=amazonaws&logoColor=white)
+![Service: Cost%20Explorer](https://img.shields.io/badge/Service-Cost%20Explorer-8b5cf6?style=flat&logo=amazonaws&logoColor=white)
+![Service: Savings%20Plans](https://img.shields.io/badge/Service-Savings%20Plans-8b5cf6?style=flat&logo=amazonaws&logoColor=white)
+![Service: S3](https://img.shields.io/badge/Service-S3-8b5cf6?style=flat&logo=amazonaws&logoColor=white)
+![Service: NAT%20Gateway](https://img.shields.io/badge/Service-NAT%20Gateway-8b5cf6?style=flat&logo=amazonaws&logoColor=white)
+![Service: VPC%20Endpoints](https://img.shields.io/badge/Service-VPC%20Endpoints-8b5cf6?style=flat&logo=amazonaws&logoColor=white)
+
 ## Goals
 
 - 비용 최적화를 “지출 줄이기”가 아니라 “요구사항 대비 합리적 설계”로 설명하고, 비용 드라이버를 식별한다.

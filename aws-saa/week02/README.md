@@ -1,5 +1,15 @@
 # Week 2 - Domain 2: Design Resilient Architectures (26%)
 
+## Exam Guide (Badges)
+
+![Domain](https://img.shields.io/badge/Domain-2-0ea5e9?style=flat&logo=amazonaws&logoColor=white)
+![Service: Route%2053](https://img.shields.io/badge/Service-Route%2053-8b5cf6?style=flat&logo=amazonaws&logoColor=white)
+![Service: ALB](https://img.shields.io/badge/Service-ALB-8b5cf6?style=flat&logo=amazonaws&logoColor=white)
+![Service: Auto%20Scaling](https://img.shields.io/badge/Service-Auto%20Scaling-8b5cf6?style=flat&logo=amazonaws&logoColor=white)
+![Service: S3](https://img.shields.io/badge/Service-S3-8b5cf6?style=flat&logo=amazonaws&logoColor=white)
+![Service: RDS](https://img.shields.io/badge/Service-RDS-8b5cf6?style=flat&logo=amazonaws&logoColor=white)
+![Service: SQS](https://img.shields.io/badge/Service-SQS-8b5cf6?style=flat&logo=amazonaws&logoColor=white)
+
 ## Goals
 
 - 장애를 “전제로” 가용성/복구 전략을 설계하고, 단일 장애 지점을 제거하는 패턴을 설명한다.

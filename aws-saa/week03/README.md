@@ -1,5 +1,15 @@
 # Week 3 - Domain 3: Design High-Performing Architectures (24%)
 
+## Exam Guide (Badges)
+
+![Domain](https://img.shields.io/badge/Domain-3-0ea5e9?style=flat&logo=amazonaws&logoColor=white)
+![Service: EC2](https://img.shields.io/badge/Service-EC2-8b5cf6?style=flat&logo=amazonaws&logoColor=white)
+![Service: CloudFront](https://img.shields.io/badge/Service-CloudFront-8b5cf6?style=flat&logo=amazonaws&logoColor=white)
+![Service: DynamoDB](https://img.shields.io/badge/Service-DynamoDB-8b5cf6?style=flat&logo=amazonaws&logoColor=white)
+![Service: ElastiCache](https://img.shields.io/badge/Service-ElastiCache-8b5cf6?style=flat&logo=amazonaws&logoColor=white)
+![Service: Lambda](https://img.shields.io/badge/Service-Lambda-8b5cf6?style=flat&logo=amazonaws&logoColor=white)
+![Service: EBS](https://img.shields.io/badge/Service-EBS-8b5cf6?style=flat&logo=amazonaws&logoColor=white)
+
 ## Goals
 
 - 성능 병목(컴퓨트/스토리지/네트워크/DB/캐시)을 진단하고, 서비스 선택과 튜닝의 근거를 설명한다.
