@@ -33,10 +33,8 @@ This repository is being used to author AWS SAA (Solutions Architect - Associate
 - 주차별 폴더: `aws-saa/weekNN/`
 - 일자별 폴더: `aws-saa/weekNN/dayDD/`
   - `README.md` (목표/타임박스/서비스 범위)
-  - `01-theory.md`
-    - 단일 서비스만 다루면: 해당 서비스의 theory(전체 본문)
-    - 서비스가 여러 개면: **Day theory 인덱스(읽는 순서/공통 규칙)**로 운영
-  - `theory/` (선택: 서비스별 theory 문서, 예: `theory/10-iam.md`)
+  - `00-theory-index.md` (선택: Day theory 인덱스/링크)
+  - `01-<service>.md`, `02-<service>.md` ... (서비스별 theory, 각각 완전한 한 편)
   - `02-handson.md`
   - `03-quiz.md`
 

@@ -1,6 +1,6 @@
 # TODO - (서비스/주제)
 
-> 이 문서는 `01-theory.md`에서 링크되는 “서비스별 theory” 문서다(분량/구조는 `01-theory.template.md`와 동일하게 운영).
+> 이 문서는 `00-theory-index.md`에서 링크되는 “서비스별 theory” 문서다(분량/구조는 `01-theory.template.md`와 동일하게 운영).
 
 ## 소개 (이 서비스/주제는 무엇인가?)
 
@@ -81,4 +81,4 @@
 
 ## Back
 
-- `../01-theory.md`
+- `./00-theory-index.md`
