@@ -15,5 +15,5 @@
 
 ## Outputs
 
-- `aws-saa/weekNN-*/README.md`의 day-by-day 범위/목표
+- `aws-saa/weekNN/README.md`의 day-by-day 범위/목표
 - `aws-saa/services-index.md`의 도메인-서비스 매핑

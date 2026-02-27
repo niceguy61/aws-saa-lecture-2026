@@ -9,10 +9,10 @@
 - Templates: `aws-saa/templates/`
 - Writing guide: `WRITING_GUIDE.md`
 - VAKOG guide: `VAKOG.md`
-- Week 1 (Domain 1): `aws-saa/week01-domain01-secure-architectures/README.md`
-- Week 2 (Domain 2): `aws-saa/week02-domain02-resilient-architectures/README.md`
-- Week 3 (Domain 3): `aws-saa/week03-domain03-high-performing-architectures/README.md`
-- Week 4 (Domain 4): `aws-saa/week04-domain04-cost-optimized-architectures/README.md`
+- Week 1 (Domain 1): `aws-saa/week01/README.md`
+- Week 2 (Domain 2): `aws-saa/week02/README.md`
+- Week 3 (Domain 3): `aws-saa/week03/README.md`
+- Week 4 (Domain 4): `aws-saa/week04/README.md`
 
 ## Daily Timebox (Default)
 

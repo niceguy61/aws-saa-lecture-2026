@@ -30,8 +30,8 @@ This repository is being used to author AWS SAA (Solutions Architect - Associate
 ## Output Layout (Conventions)
 
 - 코스 루트: `aws-saa/`
-- 주차별 폴더: `aws-saa/weekNN-domainXX-*/`
-- 일자별 폴더: `aws-saa/weekNN-.../dayDD/`
+- 주차별 폴더: `aws-saa/weekNN/`
+- 일자별 폴더: `aws-saa/weekNN/dayDD/`
   - `README.md` (목표/타임박스/서비스 범위)
   - `01-theory.md`
   - `02-handson.md`

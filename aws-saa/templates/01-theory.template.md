@@ -40,7 +40,7 @@
 ## Core Concepts
 
 - 최소 1개 이미지를 포함한다(코어 개념은 “암기”가 아니라 “근거로 설명” 가능해야 한다).
-- 예시(weekNN/dayDD/01-theory.md 기준 상대경로):
+- 예시(`aws-saa/weekNN/dayDD/01-theory.md` 기준 상대경로):
 
 ![TODO core concept](../../assets/core/TODO.svg)
 
