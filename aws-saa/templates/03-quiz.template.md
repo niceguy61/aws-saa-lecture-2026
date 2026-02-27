@@ -1,8 +1,4 @@
-# Quiz (Mock Questions)
-
-## TL;DR (오늘의 규칙)
-
-- TODO (기술 핵심만: 정답을 가르는 규칙 1줄)
+# TODO - 퀴즈 (Mock Questions)
 
 ## Instructions
 
@@ -29,3 +25,7 @@ D. TODO
 **Explanation:** TODO  
 
 **Tags:** `domain:TODO` `services:TODO`
+
+## TL;DR (오늘의 규칙)
+
+- TODO (기술 핵심만: 정답을 가르는 규칙 1줄)

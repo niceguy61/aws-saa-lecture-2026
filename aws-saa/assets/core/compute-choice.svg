@@ -12,33 +12,32 @@
     </style>
   </defs>
   <rect class="bg" x="0" y="0" width="1000" height="520"/>
-  <text class="h" x="40" y="45">Compute Choice (Lambda vs Containers vs EC2)</text>
+  <text class="h" x="40" y="45">컴퓨트 선택 (Lambda vs Containers vs EC2)</text>
 
   <rect class="box" x="40" y="80" width="920" height="360" rx="16"/>
 
   <rect class="box2" x="90" y="140" width="260" height="90" rx="12"/>
-  <text class="t" x="110" y="180">Short event tasks</text>
-  <text class="s" x="110" y="205">minutes, bursty</text>
+  <text class="t" x="110" y="180">짧은 이벤트 작업</text>
+  <text class="s" x="110" y="205">수 분 단위, 버스트</text>
 
   <rect class="box2" x="370" y="140" width="260" height="90" rx="12"/>
-  <text class="t" x="390" y="180">Long running</text>
-  <text class="s" x="390" y="205">more than 15 minutes</text>
+  <text class="t" x="390" y="180">장시간 실행</text>
+  <text class="s" x="390" y="205">15분 초과</text>
 
   <rect class="box2" x="650" y="140" width="260" height="90" rx="12"/>
-  <text class="t" x="670" y="180">Full control</text>
-  <text class="s" x="670" y="205">custom OS, agents</text>
+  <text class="t" x="670" y="180">완전한 제어</text>
+  <text class="s" x="670" y="205">커스텀 OS/에이전트</text>
 
   <line class="line" x1="220" y1="230" x2="220" y2="330"/>
   <line class="line" x1="500" y1="230" x2="500" y2="330"/>
   <line class="line" x1="780" y1="230" x2="780" y2="330"/>
 
   <text class="t" x="165" y="360">Lambda</text>
-  <text class="s" x="125" y="385">Max execution: 15 min</text>
+  <text class="s" x="125" y="385">최대 실행: 15분</text>
 
-  <text class="t" x="420" y="360">ECS Fargate or Batch</text>
-  <text class="s" x="410" y="385">Use Step Functions for orchestration</text>
+  <text class="t" x="420" y="360">ECS Fargate 또는 Batch</text>
+  <text class="s" x="410" y="385">오케스트레이션은 Step Functions를 고려</text>
 
   <text class="t" x="745" y="360">EC2</text>
-  <text class="s" x="705" y="385">Highest ops responsibility</text>
+  <text class="s" x="705" y="385">운영 책임(Ops)이 가장 큼</text>
 </svg>
-

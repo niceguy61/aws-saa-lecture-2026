@@ -1,8 +1,4 @@
-# Theory
-
-## TL;DR (한 줄 결론)
-
-- TODO (기술 핵심만: 오늘의 “선택 기준/규칙” 1줄)
+# TODO - (서비스/주제)
 
 ## Why This Matters (시험/실무에서 걸리는 지점)
 
@@ -27,6 +23,7 @@
 
 ![TODO core concept](../../assets/core/TODO.svg)
 
+- 권장: SVG/다이어그램 라벨은 한글로(반드시 필요한 영어 용어만 괄호로).
 - TODO
 
 ## Deep Dive
@@ -61,3 +58,7 @@ flowchart LR
 ## Exam Traps (5-8)
 
 - TODO
+
+## TL;DR (한 줄 정리)
+
+- TODO (기술 핵심만: 오늘의 “선택 기준/규칙” 1줄)

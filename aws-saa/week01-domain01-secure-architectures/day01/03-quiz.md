@@ -1,9 +1,5 @@
 # Quiz (Mock Questions) - Day 01
 
-## TL;DR (오늘의 규칙)
-
-- “키 공유/루트 사용”이 보이면 일단 의심하고, **Role + STS AssumeRole + (필요 시) boundary/SCP**로 답을 좁힌다.
-
 ## Questions
 
 ### Q1
@@ -166,3 +162,7 @@ D. 모든 버킷을 퍼블릭으로 전환
 
 - Q1의 정답을 “키 공유 금지” 관점에서 30초로 설명해보면?
 - “Allow를 줬는데 안 됨” 상황에서, 오늘 배운 규칙 3개 중 무엇부터 의심할까?
+
+## TL;DR (오늘의 규칙)
+
+- “키 공유/루트 사용”이 보이면 일단 의심하고, **Role + STS AssumeRole + (필요 시) boundary/SCP**로 답을 좁힌다.

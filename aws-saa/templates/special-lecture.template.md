@@ -1,8 +1,4 @@
-# Special Lecture - Title
-
-## TL;DR (이 특강의 선택 기준)
-
-- TODO (기술 핵심만: Choose-this-not-that의 규칙 1줄)
+# TODO - 특강 (Special Lecture)
 
 ## Why This Matters On The Exam
 
@@ -69,3 +65,7 @@ D. TODO
 **Explanation:** TODO  
 
 **Tags:** `domain:TODO` `services:TODO`
+
+## TL;DR (이 특강의 선택 기준)
+
+- TODO (기술 핵심만: Choose-this-not-that의 규칙 1줄)

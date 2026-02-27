@@ -1,9 +1,5 @@
 # Day NN - Title
 
-## TL;DR (한 줄 결론)
-
-- TODO (기술 핵심만: 오늘의 “선택 기준/규칙” 1줄)
-
 ## Outcomes (3-5)
 
 - TODO
@@ -33,3 +29,7 @@
 ## Exam-Style Design Questions (3-5)
 
 - TODO
+
+## TL;DR (한 줄 정리)
+
+- TODO (기술 핵심만: 오늘의 “선택 기준/규칙” 1줄)

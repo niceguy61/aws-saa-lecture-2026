@@ -1,6 +1,6 @@
 # Hands-on Lab: IAM Role Switching + Least Privilege (STS)
 
-## TL;DR (무엇이 보이면 성공인가)
+## Success Criteria (무엇이 보이면 성공인가)
 
 - `allowed/`는 읽히고 `denied/`는 막히면 성공이다. 그리고 “누가 호출했는지(Caller identity)”가 **AssumeRole 한 role ARN**으로 바뀌어야 한다.
 
@@ -155,3 +155,7 @@ aws s3 cp "s3://$BUCKET/allowed/allowed.txt" - || true
 1. S3 버킷 오브젝트 삭제 후 버킷 삭제
 2. IAM Role 삭제
 3. IAM 정책 삭제
+
+## TL;DR (한 줄 정리)
+
+- `allowed/`는 읽히고 `denied/`는 막히면 성공이다(막히는 경로가 제대로 막히는지 확인한다).

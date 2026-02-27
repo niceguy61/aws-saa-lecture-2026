@@ -1,8 +1,4 @@
-# Theory
-
-## TL;DR (한 줄 결론)
-
-- IAM은 “Allow 목록”이 아니라 **정책 평가 규칙 + 상한선(SCP/boundary) + 리소스 정책**의 조합이다. 그래서 AccessDenied는 대부분 “Allow를 더 붙이면 된다”가 아니다.
+# IAM/STS 기초
 
 ## Why This Matters (시험/실무에서 걸리는 지점)
 
@@ -145,3 +141,7 @@ flowchart LR
 
 1) “SCP에서 Allow 했으니 이제 접근 가능하다.”  
 2) “교차 계정 운영은 access key 공유가 가장 단순하다.”
+
+## TL;DR (한 줄 정리)
+
+- IAM은 “Allow 목록”이 아니라 **정책 평가 규칙 + 상한선(SCP/boundary) + 리소스 정책**의 조합이다. 그래서 AccessDenied는 대부분 “Allow를 더 붙이면 된다”가 아니다.

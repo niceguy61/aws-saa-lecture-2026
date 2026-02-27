@@ -1,9 +1,5 @@
 # Day 01 - IAM/STS foundations
 
-## TL;DR (한 줄 결론)
-
-- 키 공유가 보이면 대부분 오답이다: **Role + STS AssumeRole + (필요 시) boundary/SCP**로 “최소 권한 + 임시 자격 증명”을 만든다.
-
 ## Outcomes
 
 - IAM 정책 평가(기본 Deny, Explicit Deny 우선, 경계/상한선)를 “말로” 풀어 설명한다.
@@ -33,3 +29,7 @@
 - “특정 S3 prefix만 읽기” 같은 요구사항에서 identity policy vs bucket policy 중 무엇을 선택할까?
 - Organizations에서 SCP를 적용했는데도 액세스가 안 풀린다. 무엇을 먼저 확인할까?
 - 임시 크레덴셜을 써야 하는 이유(키 유출/수명/감사)와 설계 상의 장점은?
+
+## TL;DR (한 줄 정리)
+
+- 키 공유가 보이면 대부분 오답이다: **Role + STS AssumeRole + (필요 시) boundary/SCP**로 “최소 권한 + 임시 자격 증명”을 만든다.

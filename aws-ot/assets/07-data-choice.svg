@@ -12,24 +12,23 @@
     </style>
   </defs>
   <rect class="bg" x="0" y="0" width="1000" height="520"/>
-  <text class="h" x="40" y="45">Data Choice (RDS/Aurora vs DynamoDB)</text>
+  <text class="h" x="40" y="45">데이터 선택 (RDS/Aurora vs DynamoDB)</text>
 
   <rect class="box" x="40" y="80" width="920" height="360" rx="16"/>
 
   <rect class="box2" x="90" y="150" width="380" height="260" rx="12"/>
-  <text class="t" x="115" y="190">Relational</text>
-  <text class="s" x="115" y="215">joins, SQL, transactions</text>
-  <text class="t" x="115" y="255">RDS or Aurora</text>
+  <text class="t" x="115" y="190">관계형(Relational)</text>
+  <text class="s" x="115" y="215">조인/SQL/트랜잭션</text>
+  <text class="t" x="115" y="255">RDS/Aurora</text>
   <text class="s" x="115" y="285">HA: Multi-AZ</text>
-  <text class="s" x="115" y="310">Read scaling: Read replica</text>
+  <text class="s" x="115" y="310">읽기 확장: Read Replica</text>
 
   <rect class="box2" x="530" y="150" width="380" height="260" rx="12"/>
   <text class="t" x="555" y="190">NoSQL</text>
-  <text class="s" x="555" y="215">key based, low latency, elastic</text>
+  <text class="s" x="555" y="215">키 기반/저지연/탄력 확장</text>
   <text class="t" x="555" y="255">DynamoDB</text>
-  <text class="s" x="555" y="285">Design by access patterns</text>
-  <text class="s" x="555" y="310">Avoid Scan for large tables</text>
+  <text class="s" x="555" y="285">접근 패턴 기준으로 설계</text>
+  <text class="s" x="555" y="310">큰 테이블에서는 Scan 지양</text>
 
   <line class="line" x1="500" y1="150" x2="500" y2="410"/>
 </svg>
-

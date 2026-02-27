@@ -1,12 +1,12 @@
-# Hands-on Lab
-
-## TL;DR (무엇을 만들고, 무엇이 보이면 성공인가)
-
-- TODO (기술 핵심만: 최종 상태 1줄 + 검증 신호 1줄)
+# TODO - 실습
 
 ## Goal
 
 - TODO
+
+## Success Criteria (성공 기준)
+
+- TODO (최종 상태 1줄 + 검증 신호 1줄)
 
 ## VAKOG Cues (for the lab)
 
@@ -51,3 +51,7 @@
 ## Cleanup
 
 1. TODO
+
+## TL;DR (한 줄 정리)
+
+- TODO

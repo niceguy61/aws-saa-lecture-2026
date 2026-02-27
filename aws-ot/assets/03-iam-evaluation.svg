@@ -12,28 +12,27 @@
     </style>
   </defs>
   <rect class="bg" x="0" y="0" width="1000" height="520"/>
-  <text class="h" x="40" y="45">IAM Evaluation (Why AccessDenied happens)</text>
+  <text class="h" x="40" y="45">IAM 정책 평가 (왜 AccessDenied가 발생할까)</text>
 
   <rect class="box" x="40" y="80" width="920" height="360" rx="16"/>
   <rect class="box2" x="80" y="140" width="250" height="80" rx="12"/>
-  <text class="t" x="105" y="185">Request</text>
+  <text class="t" x="105" y="185">요청(Request)</text>
   <text class="s" x="105" y="208">Principal + Action + Resource</text>
 
   <rect class="box2" x="380" y="140" width="250" height="80" rx="12"/>
-  <text class="t" x="405" y="175">Policies</text>
-  <text class="s" x="405" y="198">Identity + Resource + Boundaries</text>
+  <text class="t" x="405" y="175">정책(Policies)</text>
+  <text class="s" x="405" y="198">Identity + Resource + 경계(상한선)</text>
 
   <rect class="box2" x="680" y="140" width="240" height="80" rx="12"/>
-  <text class="t" x="705" y="185">Decision</text>
-  <text class="s" x="705" y="208">Allow or Deny</text>
+  <text class="t" x="705" y="185">결정(Decision)</text>
+  <text class="s" x="705" y="208">Allow / Deny</text>
 
   <line class="line" x1="330" y1="180" x2="380" y2="180"/>
   <line class="line" x1="630" y1="180" x2="680" y2="180"/>
 
   <rect class="box2" x="230" y="260" width="520" height="140" rx="12"/>
-  <text class="t" x="255" y="295">Rule of thumb</text>
-  <text class="t" x="255" y="325">1) Default is Deny</text>
-  <text class="t" x="255" y="355">2) Any Explicit Deny wins</text>
-  <text class="t" x="255" y="385">3) Allow must exist AND be within SCP or boundaries</text>
+  <text class="t" x="255" y="295">핵심 규칙</text>
+  <text class="t" x="255" y="325">1) 기본은 Deny(거부)</text>
+  <text class="t" x="255" y="355">2) Explicit Deny가 있으면 항상 Deny</text>
+  <text class="t" x="255" y="385">3) Allow가 있어야 하고, SCP/boundary 상한선 안이어야 한다</text>
 </svg>
-

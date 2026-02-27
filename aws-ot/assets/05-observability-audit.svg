@@ -12,28 +12,27 @@
     </style>
   </defs>
   <rect class="bg" x="0" y="0" width="1000" height="520"/>
-  <text class="h" x="40" y="45">Observability and Audit (Who did what vs What changed)</text>
+  <text class="h" x="40" y="45">관측(Observability)과 감사(Audit) - 누가 했나 vs 무엇이 바뀌었나</text>
 
   <rect class="box" x="40" y="80" width="920" height="360" rx="16"/>
 
   <rect class="box2" x="100" y="150" width="260" height="120" rx="12"/>
   <text class="t" x="125" y="190">CloudWatch</text>
-  <text class="s" x="125" y="215">metrics, logs, alarms</text>
+  <text class="s" x="125" y="215">지표/로그/알람</text>
 
   <rect class="box2" x="380" y="150" width="260" height="120" rx="12"/>
   <text class="t" x="405" y="190">CloudTrail</text>
-  <text class="s" x="405" y="215">API activity</text>
+  <text class="s" x="405" y="215">API 활동(누가 무엇을 했나)</text>
 
   <rect class="box2" x="660" y="150" width="260" height="120" rx="12"/>
   <text class="t" x="685" y="190">Config</text>
-  <text class="s" x="685" y="215">resource state and compliance</text>
+  <text class="s" x="685" y="215">리소스 상태/준수</text>
 
   <line class="line" x1="230" y1="270" x2="230" y2="360"/>
   <line class="line" x1="510" y1="270" x2="510" y2="360"/>
   <line class="line" x1="790" y1="270" x2="790" y2="360"/>
 
-  <text class="t" x="170" y="395">Symptom and SLO</text>
-  <text class="t" x="465" y="395">Who changed it</text>
-  <text class="t" x="725" y="395">What is compliant</text>
+  <text class="t" x="170" y="395">증상/SLO</text>
+  <text class="t" x="465" y="395">누가 바꿨나</text>
+  <text class="t" x="725" y="395">무엇이 준수인가</text>
 </svg>
-
