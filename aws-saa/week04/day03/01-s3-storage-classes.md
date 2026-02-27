@@ -1,0 +1,50 @@
+# S3 스토리지 클래스: 액세스/복구 요구로 고른다
+
+## 소개 (이 서비스/주제는 무엇인가?)
+
+- S3 클래스 선택은 “가장 싼 것”이 아니라, **액세스 빈도 + 복구 시간 + 요청/복구 비용**의 트레이드오프다.
+
+## 고객 사례 (스토리, 600~1000자)
+
+팀은 로그/백업/릴리즈 파일을 전부 S3 Standard에 넣어두고 있었다. 처음엔 괜찮았지만 데이터가 몇 TB를 넘어가면서 매달 비용이 눈에 띄게 늘었다. 그래서 “모두 Glacier로 옮기자”라는 의견이 나온다. 그런데 사고가 나면 로그를 당장 꺼내야 하는 경우가 있고, 고객이 “지난주 파일을 즉시 내려받아야 한다”는 요구도 있다. 여기서 ‘가장 싼 클래스’만 고르면 요구사항을 깨게 된다.
+
+그래서 문장 신호를 먼저 본다. “자주 접근”이면 Standard가 자연스럽고, “가끔 접근”이면 IA 계열이 후보가 된다. “거의 안 본다 + 장기 보관”이면 Glacier 계열이 후보로 올라가지만, 복구 시간(몇 분/몇 시간)과 복구/요청 비용이 허용되는지 확인해야 한다. 시험은 이 힌트를 “즉시 필요”, “몇 시간 괜찮음” 같은 표현으로 준다.
+
+그리고 “가끔 조회”는 사람마다 다르게 해석하기 쉽다. 그래서 시험은 ‘빈도’뿐 아니라 ‘복구 요구’를 같이 준다. 예를 들어 “감사/컴플라이언스 때문에 7년 보관”이면 장기 보관 축이 강하고, “사고 조사 때는 빨리 봐야 한다”면 복구 시간 축이 강하다. 이 둘을 같이 맞춰야 정답이 된다.
+
+정리하면, 클래스 선택은 저장비만이 아니라 ‘꺼낼 때의 조건’까지 포함한 설계다. 지금 시나리오에서 복구는 즉시여야 하나요, 아니면 기다려도 되나요?
+
+## Impact 범위 (어디에 영향을 주나?)
+
+- Cost: 장기 보관 데이터의 클래스 선택이 비용을 크게 좌우한다.
+- Performance/Operations: 복구 시간 요구를 만족해야 하고, 복구 절차도 고려해야 한다.
+
+## Exam Guide (Badges)
+
+![Domain](https://img.shields.io/badge/Domain-4-0ea5e9?style=flat&logo=amazonwebservices&logoColor=white)
+![Task](https://img.shields.io/badge/Task-4.1%20Storage%20classes-22c55e?style=flat&logo=amazonwebservices&logoColor=white)
+![Service: S3](https://img.shields.io/badge/Service-S3-8b5cf6?style=flat&logo=amazonwebservices&logoColor=white)
+
+## Core Concepts
+
+- 시험형 매칭
+  - Hot(자주): Standard
+  - Warm(가끔): Standard-IA 계열
+  - Cold(거의 없음): Glacier 계열(복구 시간/비용 확인)
+
+## Exam Traps (5-8)
+
+- 복구 시간이 즉시 필요한데 Glacier를 고르는 선택지
+- “가끔 접근”인데도 Standard만 고집하는 선택지(비용 함정)
+
+## Taste Test (1~3분)
+
+- “장기 보관, 가끔 조회, 복구 시간은 몇 시간 괜찮다” → 어떤 클래스가 후보가 되나요?
+
+## TL;DR (한 줄 정리)
+
+- S3 클래스는 **액세스 패턴 + 복구 시간/비용**으로 고른다.
+
+## Back
+
+- `./00-theory-index.md`
