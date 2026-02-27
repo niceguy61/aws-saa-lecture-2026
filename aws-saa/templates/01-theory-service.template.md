@@ -1,17 +1,55 @@
-# TODO - (서비스명)
+# TODO - (서비스/주제)
 
-> 이 문서는 `01-theory.md`에서 링크되는 “서비스별 챕터”용 템플릿이다.
+> 이 문서는 `01-theory.md`에서 링크되는 “서비스별 theory” 문서다(분량/구조는 `01-theory.template.md`와 동일하게 운영).
 
-## 소개 (이 서비스는 무엇인가?)
+## 소개 (이 서비스/주제는 무엇인가?)
 
 - TODO (1~2문장)
 
-## Core (핵심만)
+## 고객 사례 (스토리, 600~1000자)
 
-- 규칙: TODO (선택 기준 1~2줄)
-- 함정: TODO (가장 흔한 오답 1줄)
+> TODO: 여기에 스토리를 쓴다(Explain 톤, 용어는 정확).
+
+## Impact 범위 (어디에 영향을 주나?)
+
+- Security: TODO
+- Cost: TODO
+- Reliability: TODO
+- Performance: TODO
+- Operations: TODO
+
+## Exam Guide (Badges)
+
+![Domain](https://img.shields.io/badge/Domain-TODO-0ea5e9?style=flat&logo=amazonwebservices&logoColor=white)
+![Task](https://img.shields.io/badge/Task-TODO-22c55e?style=flat&logo=amazonwebservices&logoColor=white)
+![Service: TODO](https://img.shields.io/badge/Service-TODO-8b5cf6?style=flat&logo=amazonwebservices&logoColor=white)
+
+<details>
+<summary>Exam guide mapping (details)</summary>
+
+- Domain: TODO
+- Objectives: TODO (의미 단위로 요약)
+
+</details>
+
+## Why This Matters (시험/실무에서 걸리는 지점)
+
+- TODO (Explain: 함정/비용/보안/운영 포인트 1~3개)
+
+## VAKOG Anchors
+
+- V(Visual): TODO
+- A(Auditory): TODO
+- O(Olfactory, smell test): TODO
+- G(Gustatory, taste test): TODO
+
+## Core Concepts
+
+- TODO
 
 ## Deep Dive
+
+### TODO (Feature)
 
 - When to use / When not to use
 - Key limits & tradeoffs
@@ -23,12 +61,17 @@
   - Why: TODO
   - Alternative: TODO
 
-```mermaid
-flowchart LR
-  A[Client] --> B[TODO]
-```
+## Quick Comparison Table
 
-## Exam Traps (3-5)
+| Topic | Option 1 | Option 2 | Notes |
+|---|---|---|---|
+| TODO | TODO | TODO | TODO |
+
+## Exam Traps (5-8)
+
+- TODO
+
+## Taste Test (1~3분)
 
 - TODO
 

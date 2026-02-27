@@ -1,4 +1,6 @@
-# KMS + Secrets 패턴
+# Day 02 - Theory Index (데이터 보호: KMS/Secrets/S3 SSE-KMS)
+
+> 이 문서는 Day 이론 “인덱스”다. 서비스별 theory는 `theory/*.md`에서 각각 읽는다.
 
 ## 소개 (이게 뭔가요?)
 

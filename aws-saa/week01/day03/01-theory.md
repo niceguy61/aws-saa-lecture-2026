@@ -1,4 +1,6 @@
-# CloudTrail/Config + 탐지 서비스(감사/준수/탐지)
+# Day 03 - Theory Index (감사/준수/탐지)
+
+> 이 문서는 Day 이론 “인덱스”다. 서비스별 theory는 `theory/*.md`에서 각각 읽는다.
 
 ## 소개 (이게 뭔가요?)
 

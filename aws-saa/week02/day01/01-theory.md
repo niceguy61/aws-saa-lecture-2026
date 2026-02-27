@@ -1,4 +1,6 @@
-# 복원력(Resilience) 기초 + Route 53 라우팅
+# Day 01 - Theory Index (Resilience: Route 53 + DR)
+
+> 이 문서는 Day 이론 “인덱스”다. 서비스별 theory는 `theory/*.md`에서 각각 읽는다.
 
 ## 소개 (이게 뭔가요?)
 

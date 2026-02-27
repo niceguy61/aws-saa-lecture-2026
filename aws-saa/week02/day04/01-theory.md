@@ -1,4 +1,6 @@
-# DB 복원력: RDS/Aurora/DynamoDB
+# Day 04 - Theory Index (Resilience: Database)
+
+> 이 문서는 Day 이론 “인덱스”다. 서비스별 theory는 `theory/*.md`에서 각각 읽는다.
 
 ## 소개 (이게 뭔가요?)
 
