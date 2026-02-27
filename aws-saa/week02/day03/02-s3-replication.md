@@ -39,13 +39,6 @@
 
 - “복제” 문제는 거의 항상 Versioning 전제 조건이 같이 나온다.
 
-## VAKOG Anchors
-
-- V(Visual): 복제 전제 조건(versioning)을 한 줄로 외운다.
-- A(Auditory): “CRR/SRR은 versioning이 필수”를 말로 고정한다.
-- O(Olfactory, smell test): 복제인데 versioning 언급 없는 답은 냄새가 난다.
-- G(Gustatory, taste test): 문장 하나 보고 replication vs backup을 고른다.
-
 ## Core Concepts
 
 ![S3 versioning and replication prerequisites](../../assets/core/s3-versioning-replication.svg)
@@ -58,6 +51,40 @@
   - versioning을 안 켠 채 복제를 “설정했다”는 선택지
 
 ## Deep Dive
+
+### SRR/CRR을 고르는 “문장 신호”
+
+Replication은 “원격에 사본이 있어야 한다”는 요구에 직접 대응한다. 시험에서 자주 등장하는 신호는 아래다.
+
+- **규제/데이터 주권/지리적 분리**: “다른 리전(또는 다른 계정)에도 동일 데이터가 있어야 한다”
+- **리전 DR**: “리전 장애가 나도 서비스/데이터가 있어야 한다”
+- **운영 단순화**: “업로드하면 자동으로 복제되어야 한다(수동 배치/스크립트 금지)”
+
+반대로 “실수 복구(삭제/덮어쓰기)”는 Replication이 아니라 **Versioning/PITR/백업 복원** 신호인 경우가 많다.
+
+### 반드시 따라오는 전제 조건(시험 단골)
+
+| 체크포인트 | 왜 중요하나 | 자주 나오는 함정 |
+|---|---|---|
+| **소스/대상 버킷 Versioning ON** | 버전 기반 복제 | 한쪽만 켜고 복제된다고 착각 |
+| IAM 권한(복제 Role) | S3가 대신 복제 수행 | “정책은 나중에”라고 넘김 |
+| KMS 사용 시 키 정책/권한 | SSE-KMS 객체 복제 | `AccessDenied`로 복제 실패 |
+
+### “새 객체만 복제” vs “기존 객체도 복제”
+
+기본적인 복제 규칙은 **규칙 생성 이후의 객체**가 복제 대상이 되는 형태로 문제를 내는 경우가 많다.  
+“이미 쌓여 있는 기존 객체도 일괄 복제해야 한다”라는 문장이 있으면, 단순 규칙만으로 끝내지 말고 **기존 객체 처리(배치/재처리)**까지 고려해야 한다는 신호로 읽는다.
+
+### 비용/운영 Best Practices
+
+- CRR은 대개 **전송(리전 간 데이터 이동)**과 **요청/복제 작업**이 비용 드라이버가 된다. “복제”가 등장하면 비용이 0이 아님을 같이 떠올린다.
+- 복제 “완료 시간”을 명시적으로 요구(예: SLA/규제)하면 **Replication metrics / RTC** 같은 키워드가 따라올 수 있다.
+
+### 핵심 정리 (Deep Dive)
+
+- “다른 리전/다른 계정에도 자동 사본” → **S3 Replication(SRR/CRR)**.
+- “실수 복구” → Replication보다 **Versioning/백업** 축을 먼저 본다.
+- Replication 문제는 **Versioning 전제**를 거의 항상 같이 체크한다.
 
 ## Exam must-know (포인트 + Why + 대안)
 

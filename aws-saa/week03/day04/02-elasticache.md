@@ -40,13 +40,6 @@
 
 - “읽기 지연/반복 조회” 문장에서 캐시를 떠올리면 정답 후보가 선명해진다.
 
-## VAKOG Anchors
-
-- V(Visual): 아래 캐시 hit/miss 흐름을 떠올린다.
-- A(Auditory): “반복 읽기=캐시, 최신성 강함=조심”을 말로 고정한다.
-- O(Olfactory, smell test): “항상 최신”인데 캐시를 무조건 고르는 답은 냄새가 난다.
-- G(Gustatory, taste test): 문장 1개로 캐시가 맞는지 판정한다.
-
 ## Core Concepts
 
 ```mermaid

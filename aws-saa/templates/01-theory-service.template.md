@@ -36,13 +36,6 @@
 
 - TODO (Explain: 함정/비용/보안/운영 포인트 1~3개)
 
-## VAKOG Anchors
-
-- V(Visual): TODO
-- A(Auditory): TODO
-- O(Olfactory, smell test): TODO
-- G(Gustatory, taste test): TODO
-
 ## Core Concepts
 
 - TODO

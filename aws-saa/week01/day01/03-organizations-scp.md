@@ -39,13 +39,6 @@
 - “SCP Deny”가 보이면, 어떤 IAM Allow도 상쇄할 수 없다.
 - “SCP로 Allow했다”는 문장 자체가 함정일 때가 많다(SCP는 부여가 아님).
 
-## VAKOG Anchors
-
-- V(Visual): OU 트리와 SCP 적용 범위를 그림으로 본다.
-- A(Auditory): “SCP는 상한선, IAM은 실제 권한”을 한 문장으로 말해본다.
-- O(Olfactory, smell test): “SCP로 Allow 줘서 해결” 같은 답은 냄새가 난다.
-- G(Gustatory, taste test): “왜 안 되지?”에서 SCP 여부를 30초 내 확인한다.
-
 ## Core Concepts
 
 - SCP는 최대 권한을 제한한다(deny가 있으면 끝).
@@ -70,6 +63,28 @@ flowchart LR
 - 흔한 패턴(개념)
   - Security/Log archive 계정 분리
   - Workload 계정(prod/stage/dev) 분리
+
+### Best Practices: “팀 속도”를 살리면서 표준을 고정하는 법
+
+- **팀이 IAM으로 마음껏 Allow를 늘려도 넘지 못하는 선**을 Organizations/SCP로 잡고, 그 안에서 팀이 자율적으로 운영하게 하면 “속도 vs 통제”를 동시에 만족시키기 쉽다.
+- SCP는 보통 “정책 모음”이라기보다 **금지/제한(가드레일)** 중심으로 설계하는 문제가 많이 나온다. 예: 특정 리전 밖 리소스 생성 금지, 특정 서비스 사용 금지 등.
+
+### 시험에 자주 나오는 함정(정책 평가 감각)
+
+- **SCP는 권한을 부여하지 않는다.** SCP의 Allow는 “통과 가능”일 뿐이고, 실제 권한은 계정 내 IAM Allow가 따로 필요하다.
+- **SCP의 Deny는 관문**이라서, 계정 안에서 IAM Allow를 아무리 늘려도 뚫을 수 없다(Explicit Deny 우선).
+
+### 핵심 정리 (Deep Dive)
+
+- SCP는 “조직 단위 상한선”, IAM은 “계정 내 실제 권한(부여)”.
+- AccessDenied가 “이상하게” 풀리지 않으면, IAM만 보지 말고 **SCP/Boundary 같은 상한선 관문**부터 확인한다.
+
+### Deny 중심(가드레일) vs Allow 중심(허용 목록) 감각
+
+시험에서는 SCP를 “권한 부여 정책”처럼 오해시키는 선택지가 자주 나온다. 실무적으로도 SCP는 보통 다음처럼 이해하면 안정적이다.
+
+- **Deny 중심(가드레일)**: “조직에서 절대 하면 안 되는 것”을 막는다(가장 일반적인 사고방식)
+- **Allow 중심(허용 목록)**: 가능한 액션을 좁히는 설계(요구가 매우 강할 때 등장, 운영 난이도↑)
 
 ## Quick Comparison Table
 

@@ -39,13 +39,6 @@
 - 시험은 “Allow를 줬는데 왜 안 되지?”로 시작해서, 정답을 **Deny/경계/리소스 정책**에서 찾게 만든다.
 - 실무에서도 문제의 80%는 권한이 ‘없어서’가 아니라 ‘막혀서’다.
 
-## VAKOG Anchors
-
-- V(Visual): 정책 평가 흐름 그림으로 “어디서 막혔는지”를 한 번에 본다.
-- A(Auditory): “기본 Deny → Explicit Deny 우선 → 상한선은 못 뚫음”을 3문장으로 말해본다.
-- O(Olfactory, smell test): “AccessDenied면 Allow 추가”만 하는 습관은 위험 신호다.
-- G(Gustatory, taste test): 1분 안에 “deny vs allow 부족”을 구분하는 미니 판정.
-
 ## Core Concepts
 
 - 정책 평가는 기본 Deny에서 시작한다(Allow가 없으면 끝).

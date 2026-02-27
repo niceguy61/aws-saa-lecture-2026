@@ -39,13 +39,6 @@
 
 - “Failover vs Weighted vs Latency”는 Domain 2의 대표 비교 문제다.
 
-## VAKOG Anchors
-
-- V(Visual): 아래 다이어그램으로 트래픽 분산을 본다.
-- A(Auditory): “failover=장애 조치, weighted=비율, latency=가까운 곳”을 말로 고정한다.
-- O(Olfactory, smell test): 장애 조치 요구인데 weighted만 고르는 답은 냄새가 난다.
-- G(Gustatory, taste test): 문장 1개 보고 정책을 고른다.
-
 ## Core Concepts
 
 - Simple: 단순 라우팅(대개 정답 후보가 아님)
@@ -63,10 +56,39 @@ flowchart LR
 
 ## Deep Dive
 
-- 시험형으로는 “키워드 매칭”이 가장 강하다:
-  - health check/failover → Failover
-  - percentage/gradual/canary → Weighted
-  - lowest latency/closest → Latency
+### 시험형 “키워드 매칭” (기본기)
+
+- health check/failover → **Failover**
+- percentage/gradual/canary/AB test → **Weighted**
+- lowest latency/closest → **Latency**
+
+### Best Practices: DNS 정책을 고를 때 같이 보는 것들
+
+- Failover는 “DNS 레벨 전환”이므로, 보통 **헬스 체크**와 함께 언급된다. (문장에 health check가 없는데 Failover를 고르게 만드는 보기가 나오면 함정일 수 있다.)
+- Weighted는 점진 배포에 좋지만, 장애 조치(HA)를 “자동으로” 해결해주진 않는다. 문장에 “장애 시 자동 전환”이 강하면 Failover 축으로 읽는다.
+- Latency는 “가까운 곳” 신호에 강하지만, 규제/국가 고정 같은 요구가 있으면 Geolocation/Geoproximity 축이 더 자연스러울 수 있다.
+
+### 시험에 자주 나오는 개념(소거 포인트)
+
+- Route 53은 “트래픽을 보내는 서비스”가 아니라 **DNS 응답을 다르게 주는 서비스**다. 그래서 TTL/캐시 영향이 뒤따를 수 있다.
+- “AWS 서비스(ALB/CloudFront 등)를 DNS로 붙인다”는 문장이 나오면, 보통 **Alias 레코드**가 보기로 섞여 나온다.
+
+### 핵심 정리 (Deep Dive)
+
+- 라우팅 정책 문제는 대부분 “요구 신호”를 하나로 잡으면 빠르게 풀린다(장애 조치/비율/지연).
+
+### 라우팅 정책 요약표(시험에 자주 나오는 것들)
+
+| 정책 | 대표 신호 | 한 줄 포인트 |
+|---|---|---|
+| Failover | health check, primary/secondary | 장애 조치가 목적 |
+| Weighted | percentage, canary, AB test | 비율로 분배/점진 배포 |
+| Latency | closest, lowest latency | 지연 시간 기준 |
+| Geolocation | country/region 제한 | “어디서 접속했나”가 핵심 |
+| Geoproximity | “거리 기반 + bias” | 지리/거리 최적화(세밀) |
+| Multi-value | “여러 IP 반환” | 단순 분산(HA 만능 아님) |
+
+> DNS는 “전환 속도”가 아니라 “응답을 바꾸는 것”이므로 TTL/캐시 영향이 따라올 수 있다.
 
 ## Quick Comparison Table
 

@@ -40,13 +40,6 @@
 
 - “여러 인스턴스가 같은 파일”은 EFS 대표 신호인데, EBS로 착각하는 함정이 자주 나온다.
 
-## VAKOG Anchors
-
-- V(Visual): “여러 EC2가 같은 파일시스템을 마운트”한다고 상상한다.
-- A(Auditory): “EFS=공유 파일, EBS=인스턴스에 붙는 블록”을 말로 고정한다.
-- O(Olfactory, smell test): 공유 요구인데 ‘동기화 스크립트’로 풀겠다는 답은 냄새가 난다.
-- G(Gustatory, taste test): 공유 신호 1개만 보고 EFS를 고른다.
-
 ## Core Concepts
 
 - When to use

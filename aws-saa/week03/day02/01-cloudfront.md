@@ -41,13 +41,6 @@
 
 - “글로벌 사용자 + 정적 콘텐츠”는 CloudFront 대표 신호다. 여기서 TTL/키/무효화로 함정을 판다.
 
-## VAKOG Anchors
-
-- V(Visual): 아래 다이어그램으로 캐시 hit/miss 흐름을 본다.
-- A(Auditory): “TTL=신선도, 키=히트율, 무효화=비용”을 말로 고정한다.
-- O(Olfactory, smell test): “캐시 가능한데도 오리진만 늘린다”는 냄새가 난다.
-- G(Gustatory, taste test): 문장 1개로 CloudFront가 답인지 판정한다.
-
 ## Core Concepts
 
 - CloudFront 핵심 조절점(시험 포인트)
@@ -74,6 +67,27 @@ flowchart LR
   - Key point: “쿼리 스트링 다양/개인화” 문장이면 캐시 키 설계가 정답을 가른다.
   - Why: 키가 커질수록 캐시가 사실상 ‘안 되는 것’처럼 동작할 수 있다.
   - Alternative: 개인화가 강하면 캐시 범위를 좁히거나, 정적/공통 리소스만 캐시한다.
+
+### “즉시 반영” 요구를 푸는 두 가지 방식
+
+시험에서는 “배포 후 바로 반영” 문장으로 무효화(invalidation)를 떠올리게 만들지만, 운영 Best Practice는 대개 두 가지 중 하나다.
+
+- **버전 파일명(캐시 버스팅)**: `/app.abc123.js`처럼 파일명을 바꾸면, 캐시는 “새 객체”로 인식해 자연스럽게 갱신된다(무효화 남발을 줄임).
+- **무효화(invalidation)**: 정말로 “기존 경로를 즉시 갱신”해야 할 때 선택한다. 다만 비용/운영 부담이 커질 수 있어 남발이 함정이 된다.
+
+### 프라이빗 S3 오리진 보호(OAC) 신호
+
+“S3는 퍼블릭이면 안 된다 + CloudFront로만 내려주자” 같은 문장이 보이면, 단순히 CDN을 붙이는 문제가 아니라 **오리진 접근 통제(OAC)**까지 포함된 패턴인 경우가 많다.
+
+### CloudFront vs Global Accelerator (시험 단골 구분)
+
+- CloudFront: **캐시 가능한 콘텐츠**(정적/반복 읽기)에서 히트율로 오리진 부하/지연을 줄인다.
+- Global Accelerator: 캐시가 아니라 **경로 최적화/고정 IP** 신호에서 등장한다.
+
+### 핵심 정리 (Deep Dive)
+
+- CloudFront는 “CDN 설치”가 아니라 **TTL/키/무효화**로 신선도·히트율·비용을 조절하는 문제다.
+- “프라이빗 S3 오리진”이 붙으면 **OAC**까지 같이 떠올린다.
 
 ## Quick Comparison Table
 

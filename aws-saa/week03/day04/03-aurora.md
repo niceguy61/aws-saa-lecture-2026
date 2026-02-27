@@ -41,13 +41,6 @@
 
 - “읽기 확장 vs 캐시 vs NoSQL 전환” 비교 문제에서 Aurora가 자주 후보로 올라간다.
 
-## VAKOG Anchors
-
-- V(Visual): “쓰기=1, 읽기=여러 개로 분산”을 그림으로 떠올린다.
-- A(Auditory): “읽기 많음=리플리카/엔드포인트”를 말로 고정한다.
-- O(Olfactory, smell test): 읽기 문제인데 쿼리/인덱스 힌트를 무시하는 답은 냄새가 난다.
-- G(Gustatory, taste test): 문장 1개로 “읽기 확장” 신호를 잡는다.
-
 ## Core Concepts
 
 - 읽기 확장: Read replica(또는 Aurora의 read endpoint 개념)

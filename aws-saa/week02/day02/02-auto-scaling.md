@@ -39,13 +39,6 @@ Auto Scaling Group(ASG)으로 사고방식을 바꾸면, 인스턴스는 “교�
 
 - “자동 복구”는 ‘사람이 재기동’이 아니라 ‘헬스체크 기반 교체’를 뜻한다.
 
-## VAKOG Anchors
-
-- V(Visual): “health check 실패 → 제외/교체” 흐름을 한 줄로 그린다.
-- A(Auditory): “ASG는 교체 엔진”을 말로 고정한다.
-- O(Olfactory, smell test): “장애 나면 수동 재기동” 같은 답은 냄새가 난다.
-- G(Gustatory, taste test): 문장 1개 보고 ASG가 필요한지 판정한다.
-
 ## Core Concepts
 
 ## 구성요소
@@ -55,6 +48,34 @@ Auto Scaling Group(ASG)으로 사고방식을 바꾸면, 인스턴스는 “교�
 - Health checks: EC2 + (옵션) ELB health check
 
 ## Deep Dive
+
+### Auto Scaling을 “스케일”과 “치유”로 분리해서 보기
+
+ASG는 크게 두 가지를 한다.
+
+- **치유(Self-healing)**: 헬스체크 실패/인스턴스 장애를 감지해 *제외 → 교체*로 원하는 대수를 유지한다.
+- **스케일(Elasticity)**: 지표(예: CPU/RequestCount/큐 길이)나 시간표에 따라 *늘리고/줄이는* 정책을 적용한다.
+
+시험 문장에서는 “장애 나면 자동으로 교체”, “수동 재기동 제거” 같은 표현이 나오면 **치유 신호**이고, “트래픽이 늘 때 자동으로 확장”, “피크 시간만 늘리고 싶다” 같은 표현이 나오면 **스케일 신호**다.
+
+### 스케일링 정책: 언제 무엇을 쓰나
+
+| 요구(문장 신호) | 자연스러운 정책 | 포인트 |
+|---|---|---|
+| “항상 60% 근처로 자동 유지” | Target tracking | 운영 부담이 가장 적은 ‘기본값’ |
+| “임계치 넘으면 2대 추가, 더 넘으면 5대” | Step scaling | 단계별로 반응을 다르게 |
+| “매일 10~12시만 확장” | Scheduled scaling | 예측 가능한 패턴에 강함 |
+
+### 운영 Best Practices (시험에도 자주 나오는 디테일)
+
+- **ELB 뒤에 있다면** 치유 판단은 보통 `EC2 상태 체크`만이 아니라 **ELB health check 연동**이 더 정확하다(애플리케이션 레벨 실패를 잡음).
+- 새로 띄운 인스턴스가 준비될 시간을 고려해 **health check grace period/cooldown** 개념을 같이 떠올린다.
+- “배포 중에도 안정적으로 교체” 같은 문장이 보이면 **Instance refresh**(점진 교체) 신호로 읽는다.
+
+### 핵심 정리 (Deep Dive)
+
+- “자동 교체/자가 치유”가 핵심이면 **ASG + health check**가 1순위 후보로 올라온다.
+- “언제/어떤 기준으로 늘리고 줄일지”가 핵심이면 **스케일링 정책(Target/Step/Scheduled)**을 고르는 문제다.
 
 ## 시험 함정
 

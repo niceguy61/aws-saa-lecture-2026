@@ -41,13 +41,6 @@
 - NAT를 무조건 정답으로 고르는 실수를 줄여준다.
 - “S3는 SG로 막는다” 같은 오답을 피하게 만든다(정책/엔드포인트 관점).
 
-## VAKOG Anchors
-
-- V(Visual): endpoint 타입(gateway vs interface)을 그림으로 고정한다.
-- A(Auditory): “S3/DDB는 gateway, 그 외는 interface(PrivateLink)”를 말로 고정한다.
-- O(Olfactory, smell test): “사설 경로 요구인데 NAT로 해결”은 냄새가 난다.
-- G(Gustatory, taste test): 30초 내에 NAT vs Endpoint를 고른다.
-
 ## Core Concepts
 
 ![VPC endpoints: gateway vs interface](../../assets/core/vpc-endpoints-types.svg)

@@ -31,13 +31,6 @@ DB가 느려지자 팀은 “읽기를 늘리자”고 했다. 그런데 장애�
 
 - “Read replica로 HA”는 대표 함정이다.
 
-## VAKOG Anchors
-
-- V(Visual): 아래 표 1장으로 목적을 고정한다.
-- A(Auditory): “Multi-AZ=failover, RR=read scaling”을 말로 고정한다.
-- O(Olfactory, smell test): failover 요구인데 RR만 고르는 답은 냄새가 난다.
-- G(Gustatory, taste test): 문장 하나 보고 둘 중 하나를 고른다.
-
 ## Core Concepts
 
 ![RDS Multi-AZ vs Read Replica](../../assets/core/rds-multi-az-vs-read-replica.svg)
@@ -55,6 +48,35 @@ flowchart LR
 ```
 
 ## Deep Dive
+
+### “가용성”과 “성능”을 먼저 분리하기
+
+DB 문제는 겉으로는 둘 다 “느리다/불안하다”로 보이지만, 시험에서는 문장이 어느 축을 말하는지 분리하는 게 핵심이다.
+
+- **가용성(HA) 신호**: `자동 failover`, `몇 분 다운도 안 됨`, `AZ 장애에도 계속` 같은 표현
+- **성능(읽기 확장) 신호**: `read-heavy`, `읽기 지연`, `리포트/조회가 병목`, `읽기 트래픽 분산` 같은 표현
+
+### RDS/Aurora에서의 실제 차이(시험에 자주 나오는 디테일)
+
+| 항목 | Multi-AZ | Read replica |
+|---|---|---|
+| 목적 | **자동 장애 조치(HA)** | **읽기 확장(read scaling)** |
+| 복제 특성 | (보통) 동기/고가용성 구성 | (대개) 비동기 복제(지연 가능) |
+| 애플리케이션 연결 | 장애 시 엔드포인트가 자동 전환 | 읽기 전용 엔드포인트/분산 설계 필요 |
+| 대표 함정 | “Multi-AZ면 읽기가 빨라진다” | “RR을 HA standby로 쓴다” |
+
+> Aurora는 “리더/리더 엔드포인트” 같은 구성 요소가 있어 표현이 조금 다르지만, 시험에서 요구를 분해하는 축(HA vs read scaling)은 동일하게 적용되는 경우가 많다.
+
+### Best Practices (언제 이렇게/저렇게)
+
+- “장애 시 자동 전환”이 핵심이면 **Multi-AZ**를 먼저 붙이고, 그 다음에 읽기 병목이 있으면 **Read replica**를 추가해 *목적별로 조합*한다.
+- Read replica는 **읽기 전용**이라는 전제가 강하다. “쓰기 트래픽도 분산” 같은 문장이라면 함정일 가능성이 높다.
+- “리전 DR/글로벌 읽기” 신호가 강하면 단순 RR/Multi-AZ만으로 끝내지 말고 **다중 리전 옵션(예: Aurora Global Database)** 같은 상위 설계를 떠올린다.
+
+### 핵심 정리 (Deep Dive)
+
+- “failover”는 **Multi-AZ**, “read-heavy”는 **Read replica**로 먼저 매핑한다.
+- Read replica는 “느린 읽기”를 풀어주지만, **복제 지연** 때문에 “항상 최신” 요구에는 함정이 될 수 있다.
 
 ## Exam must-know (포인트 + Why + 대안)
 

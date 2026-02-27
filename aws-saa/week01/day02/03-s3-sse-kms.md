@@ -40,13 +40,6 @@
 
 - “S3 정책은 맞는데 AccessDenied”는 KMS 연동 함정을 의도적으로 묻는 경우가 많다.
 
-## VAKOG Anchors
-
-- V(Visual): 아래 시퀀스 다이어그램에서 “누가 KMS를 부르는지”를 본다.
-- A(Auditory): “S3 권한 + KMS 권한/키 정책”을 한 문장으로 말한다.
-- O(Olfactory, smell test): AccessDenied를 보고 S3 Allow만 추가하는 답은 냄새가 난다.
-- G(Gustatory, taste test): 30초 내에 원인 후보를 2개로 좁힌다.
-
 ## Core Concepts
 
 - SSE-KMS 객체 접근은 “S3 → (대행) KMS Decrypt” 경로가 생길 수 있다.
@@ -64,9 +57,36 @@ sequenceDiagram
 
 ## Deep Dive
 
-- SSE-KMS로 암호화된 S3 객체는 “S3 GetObject 권한” 외에 “KMS Decrypt 권한”이 연동될 수 있다.
-- 시험에서는 다음 형태로 출제된다:
-  - “S3 정책은 맞는데 AccessDenied가 난다” -> KMS 권한/키 정책을 의심
+### 왜 SSE-KMS는 “S3만” 보면 안 되는가
+
+SSE-KMS의 핵심은 암호화 자체가 아니라 **권한 평가 경로가 2단계로 늘어난다**는 점이다.
+
+1) S3에서 `GetObject`를 허용해야 하고  
+2) S3가 대행 호출하는 KMS `Decrypt`도 **통과**해야 한다
+
+그래서 “S3 권한은 맞는데 특정 객체만 `AccessDenied`”는 KMS 관문을 떠올리라는 강한 시험 신호다.
+
+### 실무/시험에서 가장 많이 막히는 지점
+
+- **KMS key policy가 gate**가 되는 경우가 있다. IAM에 `kms:Decrypt`을 줘도, key policy가 막으면 실패할 수 있다.
+- 객체가 어느 키로 암호화됐는지부터 확인해야 한다(키가 다르면 정책도 다르다).
+
+### 암호화 옵션 비교(자주 나오는 선택 문제)
+
+| 옵션 | 장점 | 주의/함정 | 신호 |
+|---|---|---|---|
+| SSE-S3 | 설정/운영 단순 | 키 통제/감사 요구가 강하면 부족 | “기본 암호화만” |
+| **SSE-KMS** | 키 통제/감사/정책 가능 | **권한/키 정책**으로 `AccessDenied` 함정 | “KMS로 암호화”, “키 통제” |
+| SSE-C | 고객 제공 키 | 운영/키 관리 부담 큼 | 특수 케이스 |
+
+### 비용/최적화 포인트(현업 Best Practice)
+
+SSE-KMS는 요청이 많아지면 KMS 호출도 늘 수 있다. “대량 다운로드/캠페인” 같은 신호가 붙으면, 암호화를 유지하면서도 **비용 드라이버(KMS 호출)**를 의식해야 한다.
+
+### 핵심 정리 (Deep Dive)
+
+- SSE-KMS 문제는 “S3 Allow를 더 준다”가 아니라 **KMS(키/권한/키 정책)** 관문을 먼저 의심하는 문제다.
+- “특정 객체만” 안 되는 경우는 **객체가 어떤 키로 암호화됐는지**부터 좁히면 해결이 빨라진다.
 
 ## Quick Comparison Table
 

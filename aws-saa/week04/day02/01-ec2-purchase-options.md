@@ -38,13 +38,6 @@
 
 </details>
 
-## VAKOG Anchors
-
-- V(Visual): 아래 결정 트리로 신호를 분류한다.
-- A(Auditory): “예측 가능=RI/SP, 중단 허용=Spot, 스파이크=On-Demand+ASG”를 말로 고정한다.
-- O(Olfactory, smell test): 중단 불가인데 Spot을 고르면 냄새가 난다.
-- G(Gustatory, taste test): 문장 1개로 옵션을 고른다.
-
 ## Core Concepts
 
 ```mermaid
@@ -63,9 +56,28 @@ flowchart TB
 | 옵션 | 언제 쓰나(문장 신호) | 제약/리스크 | 비용 효율 포인트 |
 |---|---|---|---|
 | **On-Demand** | 스파이크/변동, 예측 어려움 | 할인 적음 | 유연성 최우선(기본값) |
-| **Savings Plans(SP)** | steady state, 1~3년 예측 가능 | 약정(커밋) 필요 | 예측 가능할수록 비용 효율↑ |
-| Reserved Instances(RI) | steady state, 특정 타입/리전 고정 성향 | 제약이 더 큼(설계에 따라) | 조건이 맞으면 절감 효과 |
-| Spot | 중단 허용 배치/내결함 | 인터럽트 가능 | 중단 허용이면 큰 절감 |
+| **Savings Plans(Compute)** | steady state, 1~3년 예측 가능 | 약정(커밋) 필요 | “할인 폭 + 유연성” 균형 |
+| Savings Plans(EC2 Instance) | 특정 인스턴스/리전에 더 고정 | 유연성 낮음 | 조건이 딱 맞으면 더 효율적 |
+| Reserved Instances(Standard) | steady state, 고정 성향 강함 | 변경 유연성 낮음 | 장기 고정 워크로드에 유리 |
+| Reserved Instances(Convertible) | 어느 정도 변경 가능 | 할인 폭/조건 트레이드오프 | “고정은 부담”일 때 대안 |
+| **Spot** | 중단 허용 배치/내결함 | 인터럽트 가능 | 중단 허용이면 큰 절감 |
+
+### Savings Plans vs RI: 언제 헷갈리고, 어떻게 소거하나
+
+- 문장에 “1~3년 예측 가능”만 있으면 **SP/RI 둘 다 후보**다. 이때는 “얼마나 고정되어도 괜찮은가(유연성)”를 추가 신호로 본다.
+- “인스턴스 타입/리전이 바뀔 수 있다” 같은 문장이 있으면, 너무 고정적인 선택지를 빠르게 소거하고 **(Compute) Savings Plans** 쪽이 자연스럽게 올라온다.
+
+### Spot을 정답으로 만드는 추가 힌트(시험 단골)
+
+Spot은 “싸다”만으로는 부족하고, 보통 아래 힌트가 같이 온다.
+
+- “배치/큐 기반”, “재시도 가능”, “중단 허용(fault-tolerant)”
+- “ASG/Mixed Instances” 같은 운영 구성 힌트
+
+### 핵심 정리 (Deep Dive)
+
+- **예측 가능(steady state)** → SP/RI 후보, **중단 허용** → Spot, **변동/스파이크** → On-Demand(+ASG)로 먼저 분류한다.
+- 할인 모델은 “절감”이 아니라 “조건”이다. 신호가 없는데 할인만 노리면 함정이다.
 
 ### 비용 드라이버 체크(컴퓨트 관점)
 

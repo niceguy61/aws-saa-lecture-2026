@@ -39,13 +39,6 @@ Cost Explorer를 열고 먼저 기간을 맞춘 뒤, Group by를 바꿔가며 �
 
 - Domain 4는 “최적화 아이디어”보다, 먼저 “무엇이 드라이버인지”를 찾는 흐름을 본다.
 
-## VAKOG Anchors
-
-- V(Visual): “비용 막대그래프를 Service/Region/Tag로 갈아 끼운다”를 떠올린다.
-- A(Auditory): “분석은 Cost Explorer, 알림은 Budgets”를 말로 고정한다.
-- O(Olfactory, smell test): “알림이 필요”한데 Cost Explorer만 고르는 답은 냄새가 난다.
-- G(Gustatory, taste test): 요구 문장 1개로 Cost Explorer/Budgets를 고른다.
-
 ## Core Concepts
 
 - Cost Explorer가 잘하는 것

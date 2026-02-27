@@ -39,13 +39,6 @@
 
 - “accidental deletion/overwrite”는 Versioning 신호다.
 
-## VAKOG Anchors
-
-- V(Visual): delete marker 모델을 시퀀스로 본다.
-- A(Auditory): “실수 복구=Versioning”을 말로 고정한다.
-- O(Olfactory, smell test): 실수 복구 요구인데 replication만 고르는 답은 냄새가 난다.
-- G(Gustatory, taste test): 문장 하나 보고 Versioning을 고른다.
-
 ## Core Concepts
 
 - What it gives you
@@ -54,6 +47,33 @@
   - “accidental deletion/overwrite”가 문장에 있으면 versioning이 정답 후보
 
 ## Deep Dive
+
+### Versioning의 “진짜 동작” (시험 포인트)
+
+Versioning은 “백업을 만든다”기보다 **객체의 히스토리를 남기는 스위치**다. 그래서 시험에서 자주 나오는 디테일이 있다.
+
+- **Overwrite(덮어쓰기)**: 기존 객체를 ‘대체’하는 게 아니라 **새 버전이 하나 더 생긴다**.
+- **Delete(삭제)**: 실제로 바로 지우지 않고 **delete marker**를 붙여 “최신 버전이 삭제된 것처럼 보이게” 만든다.
+- **Suspend(중지)**: 이전 버전이 사라지지 않는다. *Versioning ON/OFF*를 단순 토글로 이해하면 함정에 빠진다.
+
+### 언제 Versioning이 정답이고, 언제 아닌가
+
+| 요구(문장 신호) | 1순위 후보 | 이유 | 같이 따라오는 체크포인트 |
+|---|---|---|---|
+| “실수로 삭제/덮어쓰기 복구” | **S3 Versioning** | 객체 히스토리 기반 복구 | 이전 버전/마커 정리(비용) |
+| “규제/WORM/변경 불가(불변성)” | Object Lock | ‘지울 수 없음’ 자체가 목적 | Governance/Compliance 모드 |
+| “다른 리전에 사본도 필요” | Replication(SRR/CRR) | 지리적 분리/DR | **Versioning 전제** |
+
+### 운영 Best Practices
+
+- Versioning을 켜면 “복구 가능성”은 올라가지만, **이전 버전이 계속 쌓여 비용이 늘 수 있다**. 그래서 일반적으로 **Lifecycle**로 오래된 버전을 정리(또는 아카이브)하는 전략을 같이 둔다.
+- “삭제를 강하게 통제”해야 하면 **MFA Delete** 같은 추가 통제를 검토하지만, 운영 복잡도가 올라간다는 점(특히 계정/권한 운영)도 같이 고려한다.
+
+### 핵심 정리 (Deep Dive)
+
+- “accidental deletion/overwrite” 신호가 보이면 **Versioning**이 기본 답이다.
+- “불변성(지워지면 안 됨)”은 Versioning이 아니라 **Object Lock** 신호다.
+- “다른 리전 사본”은 Replication이지만, **Versioning이 전제**로 따라온다.
 
 ## Exam must-know (포인트 + Why + 대안)
 

@@ -37,13 +37,6 @@
 
 - “탐지/알림” 요구는 CloudTrail 자체가 아니라 탐지 계층을 붙이라는 신호다.
 
-## VAKOG Anchors
-
-- V(Visual): 아래 흐름도로 “소스 → 탐지 → 집계”를 본다.
-- A(Auditory): “기록은 CloudTrail, 탐지는 GuardDuty”를 말로 고정한다.
-- O(Olfactory, smell test): “GuardDuty가 로그를 저장한다” 같은 문장은 냄새가 난다.
-- G(Gustatory, taste test): 문장 하나 보고 ‘탐지 계층’ 필요 여부를 판정한다.
-
 ## Core Concepts
 
 ```mermaid
@@ -57,9 +50,35 @@ flowchart LR
 
 ## Deep Dive
 
-- GuardDuty: 위협 탐지(여러 로그 소스 기반) 후 findings 생성
-- Security Hub: 다양한 보안 결과를 집계/표준화/점수화(허브)
-- Inspector: 취약점/구성 평가(선택지로 출제될 수 있음)
+### “로그/근거”와 “탐지/결과”를 분리하기
+
+시험에서 가장 흔한 함정은 “로그를 모으면 탐지가 된다”로 착각하게 만드는 것이다.
+
+- **근거를 남기는 계층**: CloudTrail(행위/API), Config(상태/구성), (옵션) VPC Flow Logs
+- **탐지/평가해서 결과(findings)를 만드는 계층**: GuardDuty / Inspector / Macie 등
+- **결과를 모아 한 곳에서 관리하는 계층**: Security Hub
+
+즉, GuardDuty/Security Hub는 “로그 저장소”가 아니라 **findings를 만들고/모으는 계층**이다.
+
+### 서비스별 “언제 이렇게/저렇게”
+
+| 서비스 | 언제 쓰나(문장 신호) | 핵심 출력 |
+|---|---|---|
+| GuardDuty | “의심스러운 API/DNS/네트워크 활동 탐지”, “위협 징후 자동 알림” | 위협 탐지 findings |
+| Inspector | “취약점 스캔”, “CVE/패치”, “컨테이너/서버 취약점” | 취약점 findings |
+| Security Hub | “여러 보안 결과를 한 곳에서”, “표준화/집계/대시보드” | 통합 보안 허브 |
+| (자주 등장) Macie | “S3의 민감정보/PII 탐지” | 데이터 분류 findings |
+
+### Best Practices (운영 관점)
+
+- “탐지”는 끝이 아니라 시작이다. 보통 findings를 **EventBridge/SNS**로 연결해 티켓/알림 흐름을 만든다.
+- “누가/언제/무엇을 했나” 질문은 탐지 서비스가 아니라 **CloudTrail** 축이라는 점을 고정해두면 소거가 빨라진다.
+
+### 핵심 정리 (Deep Dive)
+
+- “탐지/알림” 신호 → GuardDuty(또는 해당 도메인의 탐지 서비스)
+- “집계/표준화” 신호 → Security Hub
+- “취약점/CVE” 신호 → Inspector
 
 ## Quick Comparison Table
 
@@ -68,6 +87,7 @@ flowchart LR
 | 이상 징후 탐지 | GuardDuty | 탐지 엔진 + findings |
 | 결과 집계 | Security Hub | 여러 findings 표준화/집계 |
 | 취약점 평가 | Inspector | 취약점/구성 평가 축 |
+| S3 민감정보 탐지 | Macie | 데이터 분류/PII 탐지 |
 
 ## Exam Traps (5-8)
 

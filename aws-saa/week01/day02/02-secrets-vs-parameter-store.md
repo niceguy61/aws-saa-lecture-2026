@@ -41,13 +41,6 @@
 - “rotation”이 문장에 있으면 Secrets Manager가 강한 정답 후보가 된다.
 - “단순 설정 값”이면 Parameter Store가 충분한 경우가 많다.
 
-## VAKOG Anchors
-
-- V(Visual): 아래 비교표를 보고 10초 안에 선택한다.
-- A(Auditory): “회전이면 SM, 설정이면 PS”를 말로 고정한다.
-- O(Olfactory, smell test): “시크릿을 S3/코드/환경변수에 저장”은 냄새가 난다.
-- G(Gustatory, taste test): 문장 1개 보고 바로 선택해본다.
-
 ## Core Concepts
 
 - “시크릿 운영(회전/교체/버전)”이 요구되면 Secrets Manager 쪽이 자연스럽다.
@@ -65,6 +58,25 @@
   - Key point: “자동 rotation/통합 운영” 요구가 있으면 Secrets Manager가 정답 후보가 된다.
   - Why: rotation은 단순 저장이 아니라 교체/검증/롤백까지 포함한 운영 기능이다.
   - Alternative: “경량 파라미터”만 요구하면 Parameter Store로 충분하지만, 수명 관리가 요구되면 Secrets Manager로 전환한다.
+
+### 기능 비교(시험/실무에서 자주 묻는 차이)
+
+| 비교 축 | Secrets Manager | Parameter Store(SecureString) | 힌트/신호 |
+|---|---|---|---|
+| 핵심 포지션 | **시크릿 운영** | **설정/파라미터 저장** | “운영(회전)” vs “설정 값” |
+| 회전(rotation) | 강한 장점(시험 단골) | 기본 기능은 아님 | “30일마다 자동 교체” |
+| 버전/이력 | 시크릿 버전 관리 중심 | 파라미터 버전 관리 가능 | “이전 값으로 롤백” |
+| 암호화 | KMS 연동 | KMS 연동 | “KMS 키로 암호화” |
+
+### 비용/운영 Best Practices
+
+- 시크릿 저장소 선택은 “보안”뿐 아니라 “운영 자동화” 선택이다. **회전/교체**가 요구되면, 사람이 수동으로 돌리는 운영은 금방 무너진다.
+- 애플리케이션은 보통 시크릿을 호출할 때 매번 원격 호출을 하지 않도록 **캐싱/갱신 전략**을 같이 고려한다(시험에서 ‘너무 자주 호출’ 같은 문장이 나오면 운영 관점 힌트가 될 수 있음).
+
+### 핵심 정리 (Deep Dive)
+
+- “rotation/자동 교체”가 보이면 **Secrets Manager**로 답이 강하게 좁혀진다.
+- “단순 설정 값”이면 **Parameter Store**로도 충분한 경우가 많다.
 
 ## Quick Comparison Table
 

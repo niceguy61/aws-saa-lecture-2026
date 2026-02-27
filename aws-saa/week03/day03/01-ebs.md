@@ -41,13 +41,6 @@
 
 - “느린데 CPU는 낮다”가 나오면, 시험은 스토리지/네트워크 쪽으로 시선을 돌리라고 신호를 준다.
 
-## VAKOG Anchors
-
-- V(Visual): 아래 다이어그램으로 “EC2→EBS→지표”를 본다.
-- A(Auditory): “용량이 아니라 IOPS/처리량”을 말로 고정한다.
-- O(Olfactory, smell test): “IOPS 힌트가 있는데 인스턴스만 키운다”는 냄새가 난다.
-- G(Gustatory, taste test): 문장 1개로 gp3 vs io2를 고른다.
-
 ## Core Concepts
 
 - gp3: 용량과 성능(IOPS/처리량)을 분리해서 조절 가능

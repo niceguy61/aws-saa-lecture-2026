@@ -40,13 +40,6 @@
 
 - GA를 CloudFront와 같은 “캐시”로 착각하면 바로 오답이 된다.
 
-## VAKOG Anchors
-
-- V(Visual): “사용자→Anycast 엔트리→AWS 백본→엔드포인트” 흐름을 떠올린다.
-- A(Auditory): “GA=경로/고정 IP, CloudFront=캐시”를 말로 고정한다.
-- O(Olfactory, smell test): “GA를 캐시로 고른다”는 냄새가 난다.
-- G(Gustatory, taste test): 요구 문장 1개로 GA가 맞는지 판정한다.
-
 ## Core Concepts
 
 - GA 핵심 키워드(시험형)

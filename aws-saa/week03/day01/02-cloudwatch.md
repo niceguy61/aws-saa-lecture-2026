@@ -40,13 +40,6 @@
 
 - 시험은 “무엇을 먼저 확인하나”를 통해, 병목 축을 제대로 잡는지 확인한다.
 
-## VAKOG Anchors
-
-- V(Visual): 아래 플로우로 ‘지표 확인 순서’를 본다.
-- A(Auditory): “CPU만 보지 말고 I/O/네트워크/크레딧을 같이 본다”를 토크 트랙으로 고정한다.
-- O(Olfactory, smell test): CPU만 보고 결론 내리게 유도하는 선택지는 냄새가 난다.
-- G(Gustatory, taste test): 지표 2~3개로 병목을 판정한다.
-
 ## Core Concepts
 
 - 기본 진단 루틴(시험형)
@@ -66,10 +59,34 @@ flowchart LR
 
 ## Deep Dive
 
-- Exam must-know
-  - Key point: “T 계열 + 성능 저하” 문장이면 CPU credit 관련 지표가 힌트다.
-  - Why: CPU 사용률이 높지 않아도 크레딧 소진은 성능을 급격히 떨어뜨릴 수 있다.
-  - Alternative: 디스크 큐가 힌트면 EBS 타입/IOPS 조정(gp3/io2)으로 방향이 바뀐다.
+### 1차 진단 루틴: “병목 축”을 빠르게 좁히기
+
+시험에서 CloudWatch는 “정답 지표 1개”를 묻기보다, **무엇을 먼저 보고 어떤 축으로 결론을 내리는지**를 본다. 다음처럼 축을 나누면 소거가 쉬워진다.
+
+| 신호(문장/지표) | 가능성이 큰 병목 축 | CloudWatch에서 먼저 볼 것 |
+|---|---|---|
+| CPU가 지속적으로 높음 | 컴퓨트 | `CPUUtilization` |
+| CPU는 낮은데 느림 + 큐가 증가 | 스토리지 I/O | `VolumeQueueLength`, Read/WriteBytes |
+| T 계열 + 특정 시점부터 급격히 느림 | 크레딧 스로틀링 | `CPUCreditBalance`, `CPUCreditUsage` |
+| 특정 시간대만 느림 + 네트워크 급증 | 네트워크/대역 | `NetworkIn/Out` |
+
+### Best Practices (시험 포인트로 자주 등장)
+
+- CPU가 높지 않다고 해서 “컴퓨트가 아니다”로 끝내지 말고, **크레딧(T 계열)** 같은 “숨은 제한”을 같이 확인한다.
+- “지표 1개로 결론”을 내리면 함정에 빠진다. **CPU + I/O + Network**를 같이 보며 교차 검증하는 선택지가 보이면 정답 후보가 된다.
+- CloudWatch Alarm은 “이상 감지 후 알림”의 기본 도구다. 문제에서 “자동 알림/임계치”가 나오면 Alarm을 떠올리는 흐름이 자연스럽다.
+
+### 지표(Metrics) vs 로그(Logs) vs 알람(Alarms)
+
+- “값이 숫자(시계열)로 측정된다” → Metrics/Alarms 축
+- “문장/이벤트를 검색해서 원인을 찾는다” → Logs/Logs Insights 축
+
+시험은 이 둘을 섞어 “알람은 로그로 만든다”처럼 보이게 하는 선택지를 낼 수 있으니, 데이터 형태로 분리해두면 소거가 빨라진다.
+
+### 핵심 정리 (Deep Dive)
+
+- CloudWatch는 병목을 ‘맞히는’ 도구가 아니라, 병목 축을 ‘좁히는’ 도구다.
+- “CPU만” 보지 말고 **I/O/네트워크/크레딧**으로 교차 확인한다.
 
 ## Exam Traps (5-8)
 

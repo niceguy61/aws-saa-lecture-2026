@@ -41,13 +41,6 @@
 
 - TODO (Explain: 편안한 대화체로, 함정/비용/보안/운영 포인트 1~3개)
 
-## VAKOG Anchors
-
-- V(Visual): TODO (그림/다이어그램/표 1개 이상)
-- A(Auditory): TODO (토크 트랙 3~6줄 + 토론 질문 1개)
-- O(Olfactory, smell test): TODO (레드 플래그 3~5개)
-- G(Gustatory, taste test): TODO (1~3분 미니 확인 1개)
-
 ## Core Concepts
 
 - 최소 1개 이미지를 포함한다(코어 개념은 “암기”가 아니라 “근거로 설명” 가능해야 한다).

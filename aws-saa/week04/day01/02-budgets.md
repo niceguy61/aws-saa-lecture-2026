@@ -39,13 +39,6 @@
 
 - Domain 4는 “월말에야 알 수 있다”를 피하게 만든다. 알림 요구는 Budgets 신호다.
 
-## VAKOG Anchors
-
-- V(Visual): “게이지가 80%를 넘으면 경고가 뜬다”를 떠올린다.
-- A(Auditory): “Budgets=알림, Cost Explorer=분석”을 말로 고정한다.
-- O(Olfactory, smell test): 분석 요구인데 Budgets만 만드는 답은 냄새가 난다.
-- G(Gustatory, taste test): 요구 문장 1개로 도구를 고른다.
-
 ## Core Concepts
 
 - Budgets가 잘하는 것

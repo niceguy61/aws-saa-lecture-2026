@@ -41,13 +41,6 @@ Config를 쓰면 상태를 기준으로 규칙을 만들고, 위반을 평가할
 - “준수/규칙 위반”은 Config 축이다.
 - “누가 바꿨나”는 CloudTrail 축이다.
 
-## VAKOG Anchors
-
-- V(Visual): Config 흐름(상태 → 이력 → 규칙 평가)을 그림으로 본다.
-- A(Auditory): “행위=CloudTrail, 상태=Config”를 말로 고정한다.
-- O(Olfactory, smell test): 준수 요구를 CloudTrail 하나로 끝내려는 답은 냄새가 난다.
-- G(Gustatory, taste test): 문장 1개 보고 CloudTrail/Config를 고른다.
-
 ## Core Concepts
 
 ![CloudTrail vs Config vs CloudWatch (audit and observability)](../../assets/core/observability-audit.svg)
@@ -64,6 +57,16 @@ Config를 쓰면 상태를 기준으로 규칙을 만들고, 위반을 평가할
   - Key point: “준수/규칙 위반” 문장이 있으면 Config(규칙/준수)가 정답 후보로 올라간다.
   - Why: 준수는 이벤트(행위)보다 리소스의 속성/구성 기준으로 판단된다.
   - Alternative: “누가 그 설정을 바꿨는지”까지 묻는다면 CloudTrail을 함께 써야 한다.
+
+### Best Practices (운영/감사 관점)
+
+- 준수는 “한 번 점검”이 아니라 **지속 평가**가 핵심이다. 문제에서 “주기적으로 보고”, “지속적으로 위반 탐지”가 나오면 Config rules 쪽으로 기운다.
+- “위반을 발견했으면 자동으로 고친다” 같은 문장이 보이면, Config 단독이 아니라 **자동 조치(remediation)** 흐름까지 묻는 문제일 수 있다.
+- 조직이 커지면 계정 단위가 아니라 “여러 계정의 준수 현황을 한 곳에서” 보고 싶어한다. 이때는 **집계(aggregator)** 성격의 키워드가 함께 등장할 수 있다.
+
+### 핵심 정리 (Deep Dive)
+
+- Config는 “상태/준수”, CloudTrail은 “행위/주체”다. 둘을 섞으면 소거가 어려워진다.
 
 ```mermaid
 flowchart TB

@@ -41,13 +41,6 @@
 - “누가 변경했나”는 CloudTrail로 푼다.
 - “로그를 켜자”가 아니라 “어떤 이벤트를 어떤 범위로”가 선택 포인트다.
 
-## VAKOG Anchors
-
-- V(Visual): 아래 다이어그램으로 “API → CloudTrail → 저장/조회” 흐름을 본다.
-- A(Auditory): “행위(CloudTrail) vs 상태(Config)”를 말로 구분한다.
-- O(Olfactory, smell test): “감사 요구인데 앱 로그만 보자”는 냄새가 난다.
-- G(Gustatory, taste test): 문장 하나 보고 Event history vs Trail을 고른다.
-
 ## Core Concepts
 
 ![CloudTrail vs Config vs CloudWatch (audit and observability)](../../assets/core/observability-audit.svg)

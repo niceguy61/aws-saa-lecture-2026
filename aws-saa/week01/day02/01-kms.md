@@ -39,13 +39,6 @@
 - “IAM Allow는 있는데도 실패”가 보이면, KMS는 key policy가 관문일 수 있다.
 - “서비스가 KMS를 대신 호출”하는 경로를 이해하면 함정이 풀린다.
 
-## VAKOG Anchors
-
-- V(Visual): envelope encryption 그림을 보고 “키는 어디서 나오나”를 감각으로 잡는다.
-- A(Auditory): “KMS는 key policy가 gate”를 1문장으로 말해본다.
-- O(Olfactory, smell test): 암호화 문제를 ‘S3 권한만’으로 끝내려는 답안은 냄새가 난다.
-- G(Gustatory, taste test): 1분 안에 “IAM vs key policy” 중 어디를 볼지 고른다.
-
 ## Core Concepts
 
 ![KMS envelope encryption and integration intuition](../../assets/core/kms-envelope-encryption.svg)

@@ -39,13 +39,6 @@
 - “키 공유가 보이면 대부분 오답”이라는 규칙이 STS에서 나온다.
 - 시험은 trust policy와 permission policy를 섞어서 낚는다.
 
-## VAKOG Anchors
-
-- V(Visual): AssumeRole 흐름을 시퀀스로 그려본다.
-- A(Auditory): “trust는 누가 Assume, permission은 Assume 후 무엇”을 말로 구분한다.
-- O(Olfactory, smell test): “액세스 키를 배포 서버에 저장” 같은 설계는 냄새가 난다.
-- G(Gustatory, taste test): 1분 안에 trust/permission 중 어디를 고칠지 판정한다.
-
 ## Core Concepts
 
 - Trust policy: “누가 이 Role을 Assume할 수 있는가?”
@@ -75,6 +68,27 @@ sequenceDiagram
   - Trust policy가 “누가 Assume”을 정의
   - ExternalId는 제3자 교차계정 접근에서 confused deputy 완화 힌트
   - Session policy는 “더 좁게” 만들 때 사용
+
+### 언제 “AssumeRole” 말고 다른 STS 흐름이 나오나
+
+시험에서 STS는 대부분 AssumeRole로 풀리지만, 문장이 아래처럼 바뀌면 “어떤 Assume인가”를 묻는 문제로 바뀐다.
+
+| 신호 | 자연스러운 STS 흐름 | 포인트 |
+|---|---|---|
+| “웹/모바일 사용자가 OIDC/Social로 로그인” | AssumeRoleWithWebIdentity | 영구 키 없이 토큰 기반 |
+| “사내 IdP(SAML)로 연동” | SAML 기반 연합(Identity Center/페더레이션) | 사용자 입구 통일 |
+| “MFA로 단기 세션만 필요” | (케이스에 따라) GetSessionToken/AssumeRole | ‘강한 인증’ 신호 |
+
+### Best Practices (운영 관점)
+
+- 교차 계정 접근은 “키 발급”이 아니라 **Role(신뢰) + 최소 권한(권한 정책)**로 설계한다.
+- 제3자(파트너 SaaS) 접근이면, trust policy에 조건을 넣어 **confused deputy** 위험을 줄이는 방향이 자주 정답이 된다.
+- “권한을 넓혀서 해결”이 아니라, 먼저 **Deny/상한선/SCP** 같은 관문이 있는지 확인하는 습관이 중요하다.
+
+### 핵심 정리 (Deep Dive)
+
+- STS는 “키 공유 금지”를 구현하는 표준 도구다.
+- 문제를 “trust(입구) 문제인가, permission(출구) 문제인가”로 나누면 진단/소거가 빨라진다.
 
 ## Quick Comparison Table
 
