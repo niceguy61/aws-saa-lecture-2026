@@ -296,3 +296,113 @@ Scene: Read scaling concept in an IT office. One primary DB icon handles writes 
 ```text
 Scene: Week 3 recap in an IT office. Four stickmen around a big whiteboard “diagnosis order” flow drawn with icons only: cache (cache box) -> DB pattern (key + index grid) -> storage I/O (disk + speedometer) -> compute (CPU chip) -> network path (globe + route line). One stickman marks “trap” with a red warning triangle near “Scan” and “wrong accelerator choice” icons, another marks “best move” with a green check near cache-first. Friendly debrief vibe, no text.
 ```
+
+---
+
+## Week04 / Day01 (Cost drivers + visibility)
+
+### `aws-saa/week04/day01/00-theory-index.md`
+
+```text
+Scene: IT office “cost triage” board. Three big buckets on a whiteboard made of icons only: compute (server + CPU chip), storage (bucket + archive box), network (cable + globe). A coin stack icon sits at the top and arrows point into each bucket. Three stickmen: one points at the biggest bucket, one holds a magnifying glass (visibility), and one holds a tag label icon (cost allocation). No text, clean and friendly.
+```
+
+### `aws-saa/week04/day01/01-cost-explorer.md`
+
+```text
+Scene: Cost analysis in an IT office. A monitor shows a simple bar chart and line chart (no text). A funnel/filter icon and a “group by” icon (stacked squares) float near the chart. Two stickmen point at the chart while another stickman attaches colored tag label icons to small resource icons (server, bucket, cable). The vibe is “break costs down by service/region/tag”. No UI screenshot, no readable text.
+```
+
+### `aws-saa/week04/day01/02-budgets.md`
+
+```text
+Scene: Budget alert setup in an IT office. A big gauge/meter icon shows a needle near a warning zone; two dashed threshold lines are shown as abstract marks (no numbers, no text). An alarm bell icon and an envelope icon represent alerts. Three stickmen: one sets the threshold with a dial, one watches the bell light up, one holds a small checklist icon. Calm, proactive vibe.
+```
+
+### `aws-saa/week04/day01/03-cost-allocation-tags.md`
+
+```text
+Scene: Tagging for chargeback in an IT office. Several resource icons (server, bucket, database, network) each get a colored tag label icon (no words). On a whiteboard, these resources are grouped into two or three “team boxes” by color, with coin stacks under each group (no text). Three stickmen: one standardizes tag colors, one moves a missing-tag resource into place, one points to a messy pile labeled by a red warning triangle to show “no tags = chaos”. Friendly and clear.
+```
+
+---
+
+## Week04 / Day02 (Compute cost: purchase options + right sizing)
+
+### `aws-saa/week04/day02/00-theory-index.md`
+
+```text
+Scene: IT office decision board split into two panels. Panel A: purchase options decision tree using icons only (calendar for predictable, lightning/spike for burst, broken-heart/interrupt icon for interruptible). Panel B: measurement and scaling using icons (charts, stopwatch, and an auto-scaling up/down arrow over server icons). Three stickmen connect the panels with arrows: “signals -> choice -> measure”. No text.
+```
+
+### `aws-saa/week04/day02/01-ec2-purchase-options.md`
+
+```text
+Scene: In an IT office, three stickmen choose EC2 pricing. A whiteboard shows three lanes with icons only: predictable usage (calendar + check) -> discount card icon, interruptible batch (pause symbol + loop arrow) -> spot lightning icon, unpredictable spikes (wave icon) -> on-demand flexible icon. One stickman holds a coin stack, another holds a shield icon to signal “don’t break reliability”, and the third points at the matching lane. No text.
+```
+
+### `aws-saa/week04/day02/02-right-sizing-autoscaling.md`
+
+```text
+Scene: Right sizing and “nightly scale-down” in an IT office. A monitor shows simple utilization charts (no text). Next to it, a wall calendar icon shows day/night symbols (sun and moon) and arrows: scale up at day, scale down at night. Server icons increase/decrease accordingly. Three stickmen: one measures with a ruler icon over the chart, one schedules with the calendar, one celebrates a smaller coin stack shrinking cost. No text, clean.
+```
+
+---
+
+## Week04 / Day03 (S3 cost: classes + lifecycle + intelligent tiering)
+
+### `aws-saa/week04/day03/00-theory-index.md`
+
+```text
+Scene: IT office “storage temperature” ladder. Three tiers on a whiteboard made of icons only: hot (flame), warm (sun), cold (snowflake) leading to archive (box). Small S3 bucket icons drop objects onto the ladder. Arrows show lifecycle transitions downward over time (hourglass icon). Three stickmen discuss tradeoffs with a balancing scale icon and a clock/restore icon. No text.
+```
+
+### `aws-saa/week04/day03/01-s3-storage-classes.md`
+
+```text
+Scene: Choosing S3 storage class in an IT office. Three object boxes labeled only by icons move between tiers: frequent access (many eye icons), infrequent access (few eyes), archive (sealed box). A stopwatch icon indicates retrieval time tradeoff, and a coin icon indicates cost. Three stickmen: one points at “needs fast restore” icon (stopwatch with green check), one points at “rare access” icon (few eyes), one points at a red warning triangle near the archive tier to show “don’t archive everything”. No text.
+```
+
+### `aws-saa/week04/day03/02-s3-lifecycle.md`
+
+```text
+Scene: Policy automation conveyor belt in an IT office. Object boxes ride a conveyor belt from a “hot shelf” icon to a “warm shelf” icon to an “archive shelf” icon (no text). A folder/prefix icon splits the belt into two lanes (logs vs app) using icons only. An expiration/trash icon appears at the end for old logs. Three stickmen: one draws the rules as arrows, one removes a “manual move” sticky note (no text), one gives a thumbs-up as the system runs automatically. Clean and friendly.
+```
+
+### `aws-saa/week04/day03/03-intelligent-tiering.md`
+
+```text
+Scene: Unpredictable access pattern in an IT office. A “dice/roulette” icon hovers over object boxes to show unpredictability. The boxes automatically shift between warm and cold shelves with smooth arrows (auto tiering vibe). Three stickmen: one looks puzzled at the randomness icon, another points at an “auto” gear icon, and the third holds a coin stack with a small down arrow. No text, simple and playful.
+```
+
+---
+
+## Week04 / Day04 (Network cost: NAT vs endpoints + CloudFront)
+
+### `aws-saa/week04/day04/00-theory-index.md`
+
+```text
+Scene: IT office “hidden network costs” map. A private subnet box sends traffic to S3. Path 1 goes through a toll booth icon (NAT cost) with coin icons spilling out; Path 2 goes through a private tunnel icon (endpoint) with a shield. Separately, a global users globe icon downloads files via an edge cache box (CloudFront) reducing arrows to the origin. Three stickmen point at the cheaper paths with green checks. No text.
+```
+
+### `aws-saa/week04/day04/01-vpc-endpoints.md`
+
+```text
+Scene: NAT vs endpoint comparison in an IT office. Two side-by-side diagrams made of icons and arrows only: left shows private subnet -> NAT toll booth -> internet gate -> S3; right shows private subnet -> endpoint tunnel -> S3. On the NAT side, a coin meter spins upward (bad); on the endpoint side, the coin meter calms down (good). Three stickmen: one highlights the endpoint route with a green marker, one points at the NAT “toll” warning triangle, one holds a shield to indicate improved security. No text.
+```
+
+### `aws-saa/week04/day04/02-cloudfront-cost.md`
+
+```text
+Scene: CloudFront cost lever in an IT office. Many user icons around a globe request the same file; requests hit an edge cache box close to the globe most of the time (green checks), and only a few go to the origin (thin arrows). Show an origin load icon decreasing (down arrow) and a coin stack shrinking. Three stickmen: one sets a TTL hourglass icon, one points at the reduced origin arrows, one holds a warning icon near a “personalization” mask icon to hint cache-not-always. No text.
+```
+
+---
+
+## Week04 / Day05 (Special Lecture + Week Summary)
+
+### `aws-saa/week04/day05/01-theory.md`
+
+```text
+Scene: Week 4 recap in an IT office. Four stickmen around a big whiteboard showing the Domain 4 flow with icons only: visibility (magnifying glass + tag labels) -> drivers (compute/server, storage/bucket, network/cable) -> choices (discount card for RI/SP, spot lightning for interruptible, lifecycle conveyor for S3, endpoint tunnel for NAT avoidance, edge cache box). Add two “trap” warning triangles near NAT toll booth and “archive everything” shelf, and a shield icon to remind “don’t break requirements”. Friendly debrief vibe, no text.
+```
