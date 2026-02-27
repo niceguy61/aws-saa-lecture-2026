@@ -1,11 +1,38 @@
-# Theory
+# VPC 보안 경계 + VPC Endpoints/PrivateLink
 
-## Exam Guide Mapping
+## 소개 (이게 뭔가요?)
+
+- SG/NACL은 “네트워크 문지기”이고, VPC Endpoints/PrivateLink는 “인터넷을 거치지 않는 사설 길”이다.
+- 시험에서는 NAT를 당연하게 쓰지 말고, **사설 경로/비용/보안** 신호가 있으면 Endpoints가 먼저다.
+
+## Impact 범위 (어디에 영향을 주나?)
+
+- Security: 프라이빗 서브넷 설계, 데이터 유출 경로(인터넷 경유) 차단과 직결된다.
+- Cost: NAT Gateway 비용을 줄이는 대표 카드가 VPC Endpoints다.
+
+## Exam Guide (Badges)
+
+![Domain](https://img.shields.io/badge/Domain-1-0ea5e9?style=flat&logo=amazonwebservices&logoColor=white)
+![Task](https://img.shields.io/badge/Task-1.2%20Network%20boundaries-22c55e?style=flat&logo=amazonwebservices&logoColor=white)
+![Service: VPC](https://img.shields.io/badge/Service-VPC-8b5cf6?style=flat&logo=amazonwebservices&logoColor=white)
+![Service: Security%20Group](https://img.shields.io/badge/Service-Security%20Group-8b5cf6?style=flat&logo=amazonwebservices&logoColor=white)
+![Service: NACL](https://img.shields.io/badge/Service-NACL-8b5cf6?style=flat&logo=amazonwebservices&logoColor=white)
+![Service: VPC%20Endpoints](https://img.shields.io/badge/Service-VPC%20Endpoints-8b5cf6?style=flat&logo=amazonwebservices&logoColor=white)
+![Service: PrivateLink](https://img.shields.io/badge/Service-PrivateLink-8b5cf6?style=flat&logo=amazonwebservices&logoColor=white)
+
+<details>
+<summary>Exam guide mapping (details)</summary>
 
 - Domain: Domain 1: Design Secure Architectures
 - Task focus:
   - 1.1 Design secure access to AWS resources (프라이빗 접근/경계)
   - 1.2 Design secure workloads and applications (네트워크 경계)
+
+</details>
+
+## Why This Matters (시험/실무에서 걸리는 지점)
+
+- “Private subnet에서 S3 접근” 문제는 거의 항상 **NAT vs VPC Endpoint** 선택 문제다.
 
 ## Core Concepts
 
@@ -67,3 +94,7 @@ flowchart LR
 - “S3는 보안 그룹으로 막는다”는 오답 유도: S3는 SG 대상이 아니다(대신 bucket policy/VPC endpoint policy).
 - “NACL은 상태 저장”이라는 착각: NACL은 무상태라 리턴 트래픽 포트까지 고려해야 한다.
 - NAT를 무조건 정답으로 고르는 실수: 요구사항이 “사설 경로/비용”이면 endpoint가 정답 후보가 된다.
+
+## TL;DR (한 줄 정리)
+
+- **SG(인스턴스) + NACL(서브넷)로 경계를 세우고**, “인터넷 없이/비용 줄여”가 보이면 **VPC Endpoints(필요 시 PrivateLink)**로 사설 경로를 만든다.

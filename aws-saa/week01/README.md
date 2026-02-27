@@ -10,6 +10,8 @@
 ![Service: Organizations](https://img.shields.io/badge/Service-Organizations-8b5cf6?style=flat&logo=amazonwebservices&logoColor=white)
 ![Service: VPC%20Endpoints](https://img.shields.io/badge/Service-VPC%20Endpoints-8b5cf6?style=flat&logo=amazonwebservices&logoColor=white)
 
+> 주차 뱃지는 “하이라이트(최대 6개)”만 보여준다. Day별 서비스 범위는 각 Day 문서 상단 `Exam Guide (Badges)`를 기준으로 본다.
+
 ## Goals
 
 - IAM 중심으로 “권한 경계”를 설계하고, 암호화/감사/네트워크 경계를 함께 묶어 보안 아키텍처를 설명한다.

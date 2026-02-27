@@ -1,12 +1,35 @@
 # Special Lecture + Week Summary (Domain 1)
 
-## Exam Guide Mapping
+## 소개 (이게 뭔가요?)
+
+- Week 1(Domain 1)에서 다룬 핵심 서비스를 “비교/함정/대안”으로 한 번에 회수하는 정리 세션이다.
+- 시험형 문장(요구사항)에서 어떤 서비스/패턴이 정답인지 “규칙”으로 고정한다.
+
+## Impact 범위 (어디에 영향을 주나?)
+
+- Exam: 같은 서비스라도 “질문 축”이 다르면 정답이 바뀐다(CloudTrail vs Config 같은 유형).
+- 실무: 사고/장애의 상당수가 권한/키/네트워크 경계에서 시작한다. 여기서 자주 터지는 함정을 미리 제거한다.
+
+## Exam Guide (Badges)
+
+![Domain](https://img.shields.io/badge/Domain-1-0ea5e9?style=flat&logo=amazonwebservices&logoColor=white)
+![Task](https://img.shields.io/badge/Task-Domain%201%20recap-22c55e?style=flat&logo=amazonwebservices&logoColor=white)
+![Service: IAM](https://img.shields.io/badge/Service-IAM-8b5cf6?style=flat&logo=amazonwebservices&logoColor=white)
+![Service: KMS](https://img.shields.io/badge/Service-KMS-8b5cf6?style=flat&logo=amazonwebservices&logoColor=white)
+![Service: CloudTrail](https://img.shields.io/badge/Service-CloudTrail-8b5cf6?style=flat&logo=amazonwebservices&logoColor=white)
+![Service: VPC%20Endpoints](https://img.shields.io/badge/Service-VPC%20Endpoints-8b5cf6?style=flat&logo=amazonwebservices&logoColor=white)
+![Service: Secrets%20Manager](https://img.shields.io/badge/Service-Secrets%20Manager-8b5cf6?style=flat&logo=amazonwebservices&logoColor=white)
+
+<details>
+<summary>Exam guide mapping (details)</summary>
 
 - Domain: Domain 1: Design Secure Architectures
 - Task focus:
   - 1.1 Design secure access to AWS resources
   - 1.2 Design secure workloads and applications
   - 1.3 Determine appropriate data security controls
+
+</details>
 
 ## Agenda (2h 30m)
 
@@ -90,3 +113,7 @@ flowchart LR
 ## Reference Pack
 
 - `aws-saa/special-lectures/domain01-secure-top-services.md`
+
+## TL;DR (한 줄 정리)
+
+- Domain 1은 결국 **권한 경계(IAM/SCP) + 데이터 보호(KMS/Secrets) + 감사(CloudTrail/Config) + 사설 경로(Endpoints)**를 요구사항 신호에 맞춰 조합하는 게임이다.

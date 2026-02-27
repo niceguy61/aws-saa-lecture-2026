@@ -1,11 +1,39 @@
-# Theory
+# CloudTrail/Config + 탐지 서비스(감사/준수/탐지)
 
-## Exam Guide Mapping
+## 소개 (이게 뭔가요?)
+
+- CloudTrail은 “누가/언제/무엇을 했는지(행위)”를 남기는 감사 로그 계층이다.
+- Config는 “리소스가 어떤 구성 상태인지(상태/준수)”를 추적한다.
+- GuardDuty/Security Hub/Inspector는 “탐지 결과를 만들고/모으고/취약점을 찾는” 레이어다.
+
+## Impact 범위 (어디에 영향을 주나?)
+
+- Security/Compliance: 감사(Audit)와 준수(Compliance) 요구를 풀어내는 핵심 도구들이다.
+- Operations: “원인 추적/누가 바꿨나”를 못 풀면 장애 대응이 느려진다.
+
+## Exam Guide (Badges)
+
+![Domain](https://img.shields.io/badge/Domain-1-0ea5e9?style=flat&logo=amazonwebservices&logoColor=white)
+![Task](https://img.shields.io/badge/Task-1.2%20Secure%20workloads%20%26%20apps-22c55e?style=flat&logo=amazonwebservices&logoColor=white)
+![Service: CloudTrail](https://img.shields.io/badge/Service-CloudTrail-8b5cf6?style=flat&logo=amazonwebservices&logoColor=white)
+![Service: Config](https://img.shields.io/badge/Service-Config-8b5cf6?style=flat&logo=amazonwebservices&logoColor=white)
+![Service: GuardDuty](https://img.shields.io/badge/Service-GuardDuty-8b5cf6?style=flat&logo=amazonwebservices&logoColor=white)
+![Service: Security%20Hub](https://img.shields.io/badge/Service-Security%20Hub-8b5cf6?style=flat&logo=amazonwebservices&logoColor=white)
+![Service: Inspector](https://img.shields.io/badge/Service-Inspector-8b5cf6?style=flat&logo=amazonwebservices&logoColor=white)
+
+<details>
+<summary>Exam guide mapping (details)</summary>
 
 - Domain: Domain 1: Design Secure Architectures
 - Task focus:
   - 1.2 Design secure workloads and applications (감사/탐지로 운영 보안)
   - 1.3 Determine appropriate data security controls (감사/추적)
+
+</details>
+
+## Why This Matters (시험/실무에서 걸리는 지점)
+
+- 시험은 “행위(CloudTrail) vs 상태(Config)”를 섞어서 낚는다. 질문 축을 먼저 고르면 절반은 맞춘다.
 
 ## Core Concepts
 
@@ -90,3 +118,7 @@ flowchart LR
 - CloudTrail과 Config를 “둘 다 로그니까 동일”로 보는 선택지: 기록 목적이 다르다.
 - “탐지 서비스가 곧 로그 저장소”라는 오해: 탐지는 소스(CloudTrail 등) 위에서 동작한다.
 - 데이터 이벤트/고급 기능을 무조건 켜는 답: 요구사항/비용 트레이드오프를 본다.
+
+## TL;DR (한 줄 정리)
+
+- “누가 했나”는 **CloudTrail**, “구성이 어땠나/준수인가”는 **Config**, “이상 징후를 찾고 모아라”는 **GuardDuty + Security Hub(+ Inspector)**로 푼다.

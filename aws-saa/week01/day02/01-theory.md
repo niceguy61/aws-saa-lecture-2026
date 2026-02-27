@@ -1,11 +1,38 @@
-# Theory
+# KMS + Secrets 패턴
 
-## Exam Guide Mapping
+## 소개 (이게 뭔가요?)
+
+- KMS는 “키를 직접 들고 다니지 않게” 해주는 중앙 키 관리 계층이다.
+- Secrets Manager/Parameter Store는 “시크릿을 코드 밖으로” 빼서 안전하게 보관/회수/회전하게 돕는다.
+
+## Impact 범위 (어디에 영향을 주나?)
+
+- Security: 암호화 at-rest + 키/시크릿 접근 통제의 정답을 가른다.
+- Operations: `AccessDenied`의 원인이 “S3 권한”이 아니라 “KMS key policy”인 경우가 많다.
+
+## Exam Guide (Badges)
+
+![Domain](https://img.shields.io/badge/Domain-1-0ea5e9?style=flat&logo=amazonwebservices&logoColor=white)
+![Task](https://img.shields.io/badge/Task-1.3%20Data%20security%20controls-22c55e?style=flat&logo=amazonwebservices&logoColor=white)
+![Service: KMS](https://img.shields.io/badge/Service-KMS-8b5cf6?style=flat&logo=amazonwebservices&logoColor=white)
+![Service: Secrets%20Manager](https://img.shields.io/badge/Service-Secrets%20Manager-8b5cf6?style=flat&logo=amazonwebservices&logoColor=white)
+![Service: Parameter%20Store](https://img.shields.io/badge/Service-Parameter%20Store-8b5cf6?style=flat&logo=amazonwebservices&logoColor=white)
+![Service: S3](https://img.shields.io/badge/Service-S3-8b5cf6?style=flat&logo=amazonwebservices&logoColor=white)
+
+<details>
+<summary>Exam guide mapping (details)</summary>
 
 - Domain: Domain 1: Design Secure Architectures
 - Task focus:
   - 1.1 Design secure access to AWS resources (권한/정책 경계)
   - 1.3 Determine appropriate data security controls (암호화/시크릿)
+
+</details>
+
+## Why This Matters (시험/실무에서 걸리는 지점)
+
+- KMS는 “IAM Allow가 있는데도” 막힐 수 있다: **key policy**가 최종 관문인 문제가 많다.
+- 시크릿을 코드/환경변수/S3에 두라는 선택지는 대개 오답이다(관리형 서비스 우선).
 
 ## Core Concepts
 
@@ -95,3 +122,7 @@ sequenceDiagram
 - “KMS는 IAM만 보면 된다”는 오답 유도: key policy가 포인트다.
 - “SSE-KMS는 S3만 권한 주면 된다”는 오답 유도: KMS decrypt 경로가 있다.
 - “시크릿을 S3/코드/환경변수에 저장” 같은 답안이 보이면 거의 오답(요구사항 따라 예외는 있지만 SAA는 대부분 관리형 선택).
+
+## TL;DR (한 줄 정리)
+
+- “암호화/시크릿 + AccessDenied”가 보이면 **KMS key policy(관문) + 적절한 시크릿 저장소(Secrets Manager/Parameter Store) + 서비스 통합 권한(S3 SSE-KMS)** 조합부터 의심한다.
