@@ -1,168 +1,147 @@
-# Quiz (Mock Questions) - Day 01
+# 03-quiz - Week 01 Day 01 (IAM/STS/Organizations/Identity Center)
 
-## Questions
+- 문항 수: 5 (Day 규칙)
+- 4지선다 = 정답 1개 / 5지선다 = 정답 2개(복수정답)
+- 정답/해설은 `<details>`로 숨김
 
-### Q1
+---
 
-**Scenario:** 보안팀이 “개발자가 장기 액세스 키를 공유하지 않도록” 교차 계정 운영 방식을 요구한다. 가장 적절한 설계는?
+## Q1.
 
-A. 운영 계정에서 개발 계정의 IAM 사용자 액세스 키를 발급받아 공유한다  
-B. 개발 계정에 역할을 만들고 운영 계정의 주체가 STS AssumeRole로 접근한다  
-C. 개발 계정에서 루트 사용자로 로그인해 필요한 작업을 수행한다  
-D. 모든 계정을 하나로 합쳐 계정 간 이동을 없앤다  
+운영팀이 야간 장애 대응을 하다가 “지금만요”라는 말과 함께 액세스 키를 서로 전달하기 시작했다. 처음엔 빨랐지만, 키가 여기저기 복사되면서 누가 어떤 작업을 했는지(감사)도 흐려지고, 퇴사/외주 종료 후에도 키가 남을 수 있다는 지적이 나왔다.  
+장기 액세스 키 공유를 없애고, 필요할 때만 권한을 빌려 쓰며, 일정 시간이 지나면 자동으로 만료되는 방식으로 운영을 바꾸려 한다. 가장 적절한 설계는?
 
-**Answer:** B  
-**Explanation:** 규칙: 교차 계정은 **AssumeRole(임시 자격 증명)** 이 기본이다. 키 공유/루트 사용은 회수/감사/노출 위험 때문에 모범사례가 아니다.  
-**Tags:** `domain:1` `services:IAM,STS`
+A. 팀 공용 IAM 사용자를 만들고 액세스 키를 공유한다  
+B. 작업용 Role을 만들고 STS `AssumeRole`로 임시 자격 증명을 발급받아 사용한다  
+C. 루트 사용자로만 로그인하도록 강제한다  
+D. S3 버킷을 퍼블릭으로 열어 “키 없이도” 접근하게 한다  
 
-### Q2
+<details>
+<summary>정답/해설</summary>
 
-**Scenario:** 동일 계정 내에서 EC2 인스턴스가 S3에 접근해야 한다. 가장 권장되는 방식은?
+- 정답: B
+- 근거 원칙: 보안 원칙 (Security)
+- 왜 이게 원칙에 맞나: 장기 키 공유는 노출/회수/감사에 취약하다. STS 임시 자격 증명은 **수명(만료)**과 **범위(Role 권한)**로 접근을 제한해 “키를 들고 다니지 않게” 만든다.
+- 소거법
+  - A (명확히 틀림): 장기 키 공유는 사고 확률을 키우고 회수도 어렵다.
+  - C (근접 오답): “강하게” 보이지만 루트 사용은 통제/감사/권한 분리 관점에서 오답이다.
+  - D (명확히 틀림): 인증을 없애는 건 요구사항(보안)과 정반대다.
+- 한 줄 규칙: “키 공유” 신호가 보이면 **Role + STS AssumeRole**로 답을 좁힌다.
+- 태그: `pillar:security` `services:STS,IAM` `week:01` `day:01`
 
-A. 코드에 액세스 키를 하드코딩한다  
-B. IAM 사용자에 액세스 키를 만들고 인스턴스에 저장한다  
-C. IAM 역할을 인스턴스 프로파일로 연결하고 필요한 권한만 부여한다  
-D. S3 버킷을 퍼블릭으로 열어 접근한다  
+</details>
 
-**Answer:** C  
-**Explanation:** 규칙: 워크로드는 **IAM Role(인스턴스 프로파일/태스크 role)** 로 권한을 받는다. 장기 키 저장은 사고로 이어진다.  
-**Tags:** `domain:1` `services:IAM,EC2`
+---
 
-### Q3
+## Q2.
 
-**Scenario:** Organizations에서 SCP로 특정 서비스 사용을 차단했다. 개발자가 “IAM에서 Allow를 줬는데도” 접근이 안 된다고 한다. 가장 먼저 설명해야 할 사실은?
+회사가 성장하면서 AWS 계정이 dev/prod/보안 계정 등으로 늘었고, 입사/퇴사가 잦아졌다. 각 계정에 IAM User를 만들어 운영하니, 퇴사 처리 누락이 반복되고 “기간 제한”이 필요한 외주 인력 관리도 번거롭다.  
+보안팀은 “사내 IdP로 로그인하고, 권한은 중앙에서 할당/회수하며, 계정이 늘어나도 같은 방식이어야 한다”고 요구한다. 가장 자연스러운 구현은?
 
-A. SCP는 권한을 부여하므로 Allow를 더 주면 된다  
-B. SCP는 계정/OU의 최대 허용 범위를 제한하며, SCP에서 막히면 IAM Allow가 있어도 Deny다  
-C. SCP는 리전별로만 적용된다  
-D. SCP는 루트 사용자에게는 절대 적용되지 않는다  
+A. 각 계정마다 IAM User를 계속 만들고, 권한은 그룹으로만 관리한다  
+B. IAM Identity Center(SSO)로 로그인하고, 권한은 계정별 Role(권한 세트)로 할당한다  
+C. 모든 사용자가 AdministratorAccess를 갖도록 하고, 로그는 나중에 본다  
+D. 개발자에게 루트 사용자만 나눠주고, 사용 기록은 수기로 관리한다  
 
-**Answer:** B  
-**Explanation:** 규칙: SCP는 **부여가 아니라 상한선**이다. 상위에서 막히면 IAM Allow로 풀 수 없다.  
-**Tags:** `domain:1` `services:Organizations`
+<details>
+<summary>정답/해설</summary>
 
-### Q4
+- 정답: B
+- 근거 원칙: 운영 우수성 원칙 (Operational Excellence)
+- 왜 이게 원칙에 맞나: 반복 작업(온보딩/오프보딩)을 줄이고 운영 절차를 일관되게 만드는 게 핵심이다. Identity Center는 “입구(인증)”를 통일하고, 권한은 Role/권한 세트로 분리한다.
+- 소거법
+  - A (근접 오답): 그룹으로 묶어도 “계정마다 사용자 생성/삭제” 자체가 운영 리스크다.
+  - C (명확히 틀림): 과도 권한은 사고의 폭발 반경을 키운다.
+  - D (명확히 틀림): 루트 공유는 통제/감사/회수에 취약하다.
+- 한 줄 규칙: “여러 계정 + 중앙 SSO”면 **Identity Center**가 우선 후보.
+- 태그: `pillar:operational-excellence` `services:IdentityCenter,Organizations` `week:01` `day:01`
 
-**Scenario:** S3 접근 제어에서 “특정 버킷을 다른 계정에 공유”해야 한다. 더 자연스러운 선택은?
+</details>
 
-A. 공유 대상 계정에 동일한 IAM 사용자 이름을 만든다  
-B. 버킷 정책(resource-based policy)로 외부 계정 principal을 허용한다  
-C. 보안 그룹에서 인바운드 443만 허용한다  
-D. Route 53 레코드를 공유한다  
+---
 
-**Answer:** B  
-**Explanation:** 규칙: 교차 계정 “리소스 공유”는 **resource-based policy**(예: bucket policy)로 푸는 경우가 많다.  
-**Tags:** `domain:1` `services:S3,IAM`
+## Q3.
 
-### Q5
+플랫폼 팀이 “권한 템플릿”을 정책으로 운영하기 시작했는데, 배포가 빠를수록 권한 변경도 잦아져서 “어제는 됐는데 오늘은 `AccessDenied`” 같은 이슈가 반복된다. 개발자는 “Allow를 더 주면 되지 않냐”라고 말한다.  
+최소 권한을 무너뜨리지 않으면서도, 빠르게 원인을 좁히기 위한 1차 진단 방향으로 가장 적절한 것은?
 
-**Scenario:** “Explicit Deny”가 포함된 정책이 하나라도 존재하면 결과는?
+A. 우선 Allow를 넓게 추가하고, 나중에 줄인다  
+B. Explicit Deny/권한 상한선(SCP, boundary)처럼 “뚫을 수 없는 관문”이 있는지부터 확인한다  
+C. CloudFront 캐시를 지우면 해결된다  
+D. Route 53 레코드를 바꾸면 해결된다  
 
-A. 다른 Allow가 더 많으면 Allow  
-B. 리소스 정책이 있으면 Allow  
-C. 무조건 Deny  
-D. SCP가 없으면 Allow  
+<details>
+<summary>정답/해설</summary>
 
-**Answer:** C  
-**Explanation:** 규칙: **Explicit Deny가 최우선**이다. Allow가 있어도 Deny 하나면 실패다.  
-**Tags:** `domain:1` `services:IAM`
+- 정답: B
+- 근거 원칙: 보안 원칙 (Security)
+- 왜 이게 원칙에 맞나: `AccessDenied`는 “권한이 부족”보다 “어딘가에 막힘(Explicit Deny/상한선)”인 경우가 많다. 관문을 못 본 상태에서 Allow를 넓히면 과도 권한만 남는다.
+- 소거법
+  - A (근접 오답): 단기적으로는 빨라 보이지만 최소 권한을 무너뜨린다.
+  - C (명확히 틀림): 캐시는 권한 평가와 무관하다.
+  - D (명확히 틀림): DNS는 권한 평가와 무관하다.
+- 한 줄 규칙: “Allow를 줬는데도 안 됨”이면 **Deny/상한선**부터 본다.
+- 태그: `pillar:security` `services:IAM,Organizations` `week:01` `day:01`
 
-### Q6
+</details>
 
-**Scenario:** 외부 SaaS 업체가 고객 계정의 역할을 AssumeRole 하도록 구성한다. 고객은 “confused deputy” 위험을 줄이고 싶다. 어떤 메커니즘이 핵심인가?
+---
 
-A. ExternalId 조건 사용  
-B. S3 퍼블릭 접근 허용  
-C. 액세스 키를 이메일로 전달  
-D. 루트 사용자로만 접근 허용  
+## Q4.
 
-**Answer:** A  
-**Explanation:** 규칙: 제3자 교차 계정 AssumeRole은 **ExternalId**로 confused deputy 위험을 낮춘다.  
-**Tags:** `domain:1` `services:STS`
+보안팀이 “실수로 공개 S3를 만들거나, 특정 리전 밖에서 리소스를 생성하는 것 같은 위험한 선택지는 구조적으로 막아야 한다”고 한다. 팀들은 계정 안에서 속도 있게 개발/배포를 하고 싶지만, 표준 가드레일은 조직 단위로 남아야 한다.  
+다음 설명 중 가장 정확한 것은?
 
-### Q7
+A. SCP는 권한을 부여하는 정책이므로, SCP에 Allow만 있으면 계정 내 IAM 없이도 된다  
+B. SCP는 OU/계정에 적용되는 **상한선**이고, SCP에서 막히면 계정 내 IAM Allow가 있어도 Deny다  
+C. SCP는 VPC 보안 그룹처럼 인바운드 트래픽만 제어한다  
+D. SCP는 특정 S3 버킷에만 적용되는 리소스 정책이다  
 
-**Scenario:** 다음 중 “권한을 부여하지 않고 상한선만 제한”하는 것은?
+<details>
+<summary>정답/해설</summary>
 
-A. IAM inline policy  
-B. S3 bucket policy  
-C. Permissions boundary  
-D. AWS access key  
+- 정답: B
+- 근거 원칙: 운영 우수성 원칙 (Operational Excellence)
+- 왜 이게 원칙에 맞나: 조직 표준(가드레일)은 SCP로 구현할 수 있다. 단, SCP는 **부여가 아니라 제한(상한선)**이다. 상한선에 걸리면 IAM Allow를 늘려도 풀리지 않는다.
+- 소거법
+  - A (근접 오답): 시험 단골 함정. SCP는 권한 “부여”가 아니다.
+  - C (명확히 틀림): 네트워크 제어가 아니라 API 액션 상한선이다.
+  - D (명확히 틀림): SCP는 조직 단위, 버킷 정책은 리소스 단위다.
+- 한 줄 규칙: SCP는 “가드레일(상한선)”, IAM은 “실제 권한(부여)”이다.
+- 태그: `pillar:operational-excellence` `services:Organizations,SCP,IAM` `week:01` `day:01`
 
-**Answer:** C  
-**Explanation:** 규칙: Permissions boundary는 identity의 **최대 권한 상한선**이다(부여가 아니라 제한).  
-**Tags:** `domain:1` `services:IAM`
+</details>
 
-### Q8
+---
 
-**Scenario:** 역할(Role)의 trust policy가 정의하는 것은?
+## Q5. (복수정답: 2개)
 
-A. AssumeRole 이후 수행 가능한 액션 목록  
-B. 누가/어떤 주체가 그 역할을 Assume 할 수 있는지  
-C. 버킷에 접근 가능한 IP 대역  
-D. CloudTrail 로그 저장 위치  
+외부 파트너 SaaS가 고객 계정의 “특정 리소스만” 교차 계정으로 접근해야 한다. 고객은 “키 공유는 절대 금지”라고 못 박았고, 제3자 접근에서 confused deputy 위험도 줄이고 싶다.  
+다음 중 요구사항을 직접적으로 만족시키는 조치 2개를 고르시오.
 
-**Answer:** B  
-**Explanation:** 규칙: trust는 “누가 Assume?”, permission은 “Assume 후 무엇을?”. 둘을 섞으면 설계가 꼬인다.  
-**Tags:** `domain:1` `services:IAM,STS`
+A. 파트너에게 고객 계정 IAM 사용자 액세스 키를 발급해 전달한다  
+B. Role trust policy에 `ExternalId` 조건을 추가한다  
+C. 루트 사용자만 사용하도록 강제한다  
+D. Role 권한을 최소 권한으로 제한하고, 필요 시 AssumeRole 시점에 session policy로 더 좁힌다  
+E. S3 버킷을 퍼블릭으로 열어 인증을 제거한다  
 
-### Q9 (Multiple response)
+<details>
+<summary>정답/해설</summary>
 
-**Scenario:** IAM 모범사례로 옳은 것을 모두 고르시오.
+- 정답: B, D
+- 근거 원칙: 보안 원칙 (Security)
+- 왜 이게 원칙에 맞나: 제3자 교차 계정은 “누가 Assume 가능한가(trust)”를 엄격히 하고(ExternalId), “Assume 후 무엇을 할 수 있는가(permission)”를 최소화해야 한다(필요 시 session policy로 더 제한).
+- 소거법
+  - A (명확히 틀림): 장기 키 공유는 회수/감사/노출에 취약하다.
+  - C (명확히 틀림): 루트는 통제/감사/분리 관점에서 오답이다.
+  - E (명확히 틀림): 인증 제거는 요구사항(보안)과 정반대다.
+- 한 줄 규칙: 제3자 교차 계정은 **ExternalId(입구)** + **최소 권한(출구)**로 잠근다.
+- 태그: `pillar:security` `services:STS,IAM` `week:01` `day:01`
 
-A. 루트 사용자 MFA 활성화  
-B. 장기 액세스 키를 여러 팀이 공유  
-C. 최소 권한 원칙 적용  
-D. 워크로드 권한은 IAM role로 위임  
+</details>
 
-**Answer:** A, C, D  
-**Explanation:** 규칙: 루트 MFA, 최소 권한, role 위임은 모범사례다. 키 공유는 안티패턴이다.  
-**Tags:** `domain:1` `services:IAM`
-
-### Q10
-
-**Scenario:** AssumeRole 시점에 session policy를 넣는 목적은?
-
-A. 역할 권한을 영구적으로 확장한다  
-B. 임시 세션의 권한을 추가로 제한한다  
-C. S3 버킷 이름을 암호화한다  
-D. VPC 라우팅을 변경한다  
-
-**Answer:** B  
-**Explanation:** 규칙: session policy는 AssumeRole 세션의 권한을 **추가로 제한**하는 도구다(확장 아님).  
-**Tags:** `domain:1` `services:STS`
-
-### Q11
-
-**Scenario:** “그룹(Group)”에 대해 옳은 설명은?
-
-A. 그룹은 리소스 정책을 가질 수 있다  
-B. 그룹은 사용자 권한 관리를 단순화하는 단위이며, 리소스에 직접 붙지 않는다  
-C. 그룹은 STS로 임시 자격 증명을 발급한다  
-D. 그룹은 SCP를 대체한다  
-
-**Answer:** B  
-**Explanation:** 규칙: 그룹은 “권한을 묶어서 사용자에 적용”하는 관리 단위다. 리소스에 직접 붙지 않는다.  
-**Tags:** `domain:1` `services:IAM`
-
-### Q12
-
-**Scenario:** 다음 중 “권한 부여 모델을 유연하게 설계”하기 위한 조합으로 가장 적절한 것은?
-
-A. 사용자마다 inline policy로 모든 권한 부여  
-B. 역할 기반(RBAC)으로 역할에 정책을 부여하고 필요 시 AssumeRole로 전환  
-C. 루트 사용자 공유  
-D. 모든 버킷을 퍼블릭으로 전환  
-
-**Answer:** B  
-**Explanation:** 규칙: 역할(RBAC)로 권한을 묶고, 필요할 때 AssumeRole로 전환하는 게 분리/감사/회수에 유리하다.  
-**Tags:** `domain:1` `services:IAM,STS`
-
-## Debrief (말로 설명해보기)
-
-- Q1의 정답을 “키 공유 금지” 관점에서 30초로 설명해보면?
-- “Allow를 줬는데 안 됨” 상황에서, 오늘 배운 규칙 3개 중 무엇부터 의심할까?
+---
 
 ## TL;DR (오늘의 규칙)
 
-- “키 공유/루트 사용”이 보이면 일단 의심하고, **Role + STS AssumeRole + (필요 시) boundary/SCP**로 답을 좁힌다.
+- “키 공유/루트”가 보이면 소거하고, **SSO(Identity Center) + Role + STS AssumeRole + SCP/Boundary(가드레일)**로 답을 좁힌다.

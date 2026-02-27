@@ -1,67 +1,146 @@
-# Quiz (Mock Questions) - Day 02
+# 03-quiz - Week 03 Day 02 (CloudFront / Global Accelerator)
 
-## Q1
+- 문항 수: 5 (Day 규칙)
+- 4지선다 = 정답 1개 / 5지선다 = 정답 2개(복수정답)
+- 정답/해설은 `<details>`로 숨김
 
-**Scenario:** 전 세계 사용자에게 정적 콘텐츠를 빠르게 제공해야 한다. 가장 적절한 서비스는?
+---
+
+## Q1.
+
+대규모 캠페인 시작 후 페이지 로딩이 느리다는 문의가 폭증한다. 서버 CPU는 여유가 있는데도 해외 사용자일수록 이미지/JS가 늦게 내려오고, S3 오리진 요청 수가 급격히 늘면서 비용도 튄다. “서버를 더 늘리면 되지 않나?”라는 제안이 나오지만, 정적 콘텐츠는 서버 증설이 핵심이 아니다.  
+이 요구(글로벌 지연 감소 + 오리진 부하/비용 감소)에 가장 자연스러운 선택은?
+
+A. CloudFront를 붙여 엣지 캐시로 히트율을 올리고 오리진 호출을 줄인다  
+B. Global Accelerator를 붙여 정적 콘텐츠를 캐시한다  
+C. Route 53 Weighted 라우팅만 설정한다  
+D. S3 버킷을 퍼블릭으로 열어 접근을 단순화한다  
+
+<details>
+<summary>정답/해설</summary>
+
+- 정답: A
+- 근거 원칙: 성능 효율성 원칙 (Performance Efficiency)
+- 왜 이게 원칙에 맞나: 정적 콘텐츠 지연/오리진 부하는 CDN 캐시로 해결하는 게 축이다. CloudFront는 엣지에서 캐시 히트 시 RTT와 오리진 호출(비용)을 같이 줄인다.
+- 소거법
+  - B (근접 오답): GA는 캐시가 아니라 경로 최적화/고정 IP 축이다.
+  - C (근접 오답): DNS 분배는 가능하지만 캐시로 오리진 부하를 줄이진 못한다.
+  - D (명확히 틀림): 보안 요구(퍼블릭 금지)와도 충돌할 수 있다.
+- 한 줄 규칙: “글로벌 정적 콘텐츠/오리진 부하”면 **CloudFront**.
+- 태그: `pillar:performance-efficiency` `services:CloudFront,S3` `week:03` `day:02`
+
+</details>
+
+---
+
+## Q2.
+
+CloudFront를 붙였는데 캐시 히트율이 생각보다 안 나온다. 설정을 보니 쿼리 스트링/쿠키/헤더를 무조건 캐시 키에 포함하도록 해두었다. 개인화 응답의 정확도는 올라가지만, 객체 변종이 폭발하면서 히트율이 떨어지고 오리진 부하가 다시 늘었다.  
+이 문제를 완화하기 위한 “캐시 키 설계” 관점에서 가장 자연스러운 접근은?
+
+A. 개인화에 꼭 필요한 요소만 캐시 키에 포함하고, 공통 정적 리소스 위주로 캐시 범위를 설계한다  
+B. 캐시 키는 무조건 크게 잡아야 히트율이 올라간다  
+C. invalidation을 모든 배포마다 전 객체에 대해 남발한다  
+D. CloudFront 대신 Global Accelerator로 바꿔서 캐시한다  
+
+<details>
+<summary>정답/해설</summary>
+
+- 정답: A
+- 근거 원칙: 비용 최적화 원칙 (Cost Optimization)
+- 왜 이게 원칙에 맞나: 불필요한 변종은 히트율을 떨어뜨려 오리진 호출과 비용을 키운다. “정확도 vs 히트율”을 분리해 필요한 키만 포함하는 게 비용/성능에 유리하다.
+- 소거법
+  - B (명확히 틀림): 캐시 키가 커질수록 변종이 늘어 히트율이 떨어질 수 있다.
+  - C (근접 오답): 즉시 반영은 되지만 비용/운영 부담이 커지고 근본 원인(키 폭발)을 해결하지 못한다.
+  - D (명확히 틀림): GA는 캐시가 아니라 경로 최적화 서비스다.
+- 한 줄 규칙: CloudFront는 **TTL(신선도) + 키(히트율) + 무효화(비용)**를 같이 설계한다.
+- 태그: `pillar:cost-optimization` `services:CloudFront` `week:03` `day:02`
+
+</details>
+
+---
+
+## Q3.
+
+실시간 기능이 있는 서비스(TCP/UDP 기반)가 해외 사용자에게서 지연이 들쭉날쭉하다. ISP/인터넷 구간이 꼬이는 날에는 지연이 갑자기 늘어난다. 캐시할 성격의 트래픽이 아니라 CDN만으로는 체감이 좋아지지 않는다. 게다가 고객사가 “고정 IP 화이트리스트”를 요구한다.  
+이 요구(경로 최적화 + 고정 IP)에 가장 자연스러운 선택은?
 
 A. CloudFront  
-B. KMS  
-C. CloudTrail  
-D. SQS  
+B. Global Accelerator  
+C. S3 Replication  
+D. AWS Config  
 
-**Answer:** A  
-**Explanation:** 글로벌 엣지 캐시는 지연과 오리진 부하를 줄이는 대표 선택지다.  
-**Tags:** `domain:3` `services:CloudFront`
+<details>
+<summary>정답/해설</summary>
 
-## Q2
+- 정답: B
+- 근거 원칙: 성능 효율성 원칙 (Performance Efficiency)
+- 왜 이게 원칙에 맞나: GA는 Anycast 고정 IP + AWS 백본 경로 최적화로 TCP/UDP 트래픽의 네트워크 경로 변동 영향을 줄이고, 고정 IP 요구도 만족한다.
+- 소거법
+  - A (근접 오답): CloudFront는 캐시 축이다. 캐시 불가 트래픽/고정 IP 요구엔 결이 다르다.
+  - C (명확히 틀림): 데이터 복제/DR 축이다.
+  - D (명확히 틀림): 준수/상태 평가 서비스다.
+- 한 줄 규칙: “고정 IP + TCP/UDP + 경로 최적화”면 **Global Accelerator**.
+- 태그: `pillar:performance-efficiency` `services:GlobalAccelerator` `week:03` `day:02`
 
-**Scenario:** CloudFront에서 쿼리 스트링을 캐시 키에 포함시키면 일반적으로 어떤 영향이 있을 수 있는가?
+</details>
 
-A. 캐시 히트율이 낮아질 수 있다  
-B. 항상 히트율이 높아진다  
-C. RPO가 줄어든다  
-D. DDoS가 자동 차단된다  
+---
 
-**Answer:** A  
-**Explanation:** 키가 세분화되면 변종이 늘어 히트율이 떨어질 수 있다.  
-**Tags:** `domain:3` `services:CloudFront`
+## Q4.
 
-## Q3
+다음 중 서비스 선택을 가장 정확히 한 것은?
 
-**Scenario:** 오리진 객체가 변경됐는데도 사용자가 이전 버전을 본다. 빠르게 갱신하려면?
+A. “정적 콘텐츠 캐시” 요구에는 Global Accelerator가 가장 자연스럽다  
+B. “고정 IP 화이트리스트” 요구에는 CloudFront가 가장 자연스럽다  
+C. “캐시”는 CloudFront, “경로/고정 IP/Anycast”는 Global Accelerator로 축이 다르다  
+D. CloudFront와 Global Accelerator는 동일 서비스의 다른 이름이다  
 
-A. Invalidation 생성  
-B. SCP 적용  
-C. DLQ 설정  
-D. KMS key rotation  
+<details>
+<summary>정답/해설</summary>
 
-**Answer:** A  
-**Explanation:** 캐시 무효화는 즉시성 있는 갱신 수단이다.  
-**Tags:** `domain:3` `services:CloudFront`
+- 정답: C
+- 근거 원칙: 운영 우수성 원칙 (Operational Excellence)
+- 왜 이게 원칙에 맞나: 요구사항 신호를 올바르게 분류(캐시 vs 경로)해야 운영/설계가 꼬이지 않는다. 시험도 이 혼동을 노린다.
+- 소거법
+  - A (명확히 틀림): GA는 캐시가 아니다.
+  - B (근접 오답): CloudFront도 엣지 IP는 있지만, “고정 IP” 요구는 GA 쪽 신호가 더 강하다.
+  - D (명확히 틀림): 목적/계층이 다르다.
+- 한 줄 규칙: “캐시”와 “경로 최적화”는 같은 문제처럼 보여도 답이 다르다.
+- 태그: `pillar:operational-excellence` `services:CloudFront,GlobalAccelerator` `week:03` `day:02`
 
-## Q4
+</details>
 
-**Scenario:** Global Accelerator와 CloudFront 차이로 가장 적절한 것은?
+---
 
-A. 둘 다 캐시 서비스다  
-B. CloudFront는 캐시, GA는 네트워크 경로 최적화(개념)  
-C. GA는 KMS 키를 관리한다  
-D. CloudFront는 DB 복제 서비스다  
+## Q5. (복수정답: 2개)
 
-**Answer:** B  
-**Explanation:** 시험은 “캐시 vs 네트워크 가속”을 구분시키려 한다.  
-**Tags:** `domain:3` `services:CloudFront,GlobalAccelerator`
+요구사항을 빠르게 분류하려 한다. 다음 중 사실에 맞는 설명 2개를 고르시오.
 
-## Q5
+A. CloudFront는 정적/캐시 가능한 콘텐츠에서 엣지 캐시로 RTT와 오리진 부하를 줄일 수 있다  
+B. Global Accelerator는 Anycast 고정 IP와 AWS 백본 경로로 TCP/UDP 경로를 최적화한다(캐시 서비스 아님)  
+C. Global Accelerator는 캐시 키/TTL/무효화 설정이 핵심이다  
+D. CloudFront는 고정 IP 화이트리스트 요구에만 쓰는 서비스다  
+E. 둘 다 “S3 버전 관리” 기능이다  
 
-**Scenario:** CloudFront를 정답 후보로 올리는 요구 문장으로 가장 자연스러운 것은?
+<details>
+<summary>정답/해설</summary>
 
-A. “정적 콘텐츠를 글로벌로 빠르게 제공”  
-B. “관계형 조인 쿼리가 필요”  
-C. “시크릿 rotation이 필요”  
-D. “SQS로 버퍼링 필요”  
+- 정답: A, B
+- 근거 원칙: 운영 우수성 원칙 (Operational Excellence)
+- 왜 이게 원칙에 맞나: 서비스의 “핵심 조절점”을 정확히 아는 게 소거의 핵심이다(CloudFront=TTL/키/무효화, GA=경로/고정 IP/헬스 전환).
+- 소거법
+  - C (명확히 틀림): TTL/키/무효화는 CloudFront 축이다.
+  - D (근접 오답): CloudFront도 IP 요구가 힌트로 나올 수는 있지만, 본질은 캐시다.
+  - E (명확히 틀림): S3 기능이다.
+- 한 줄 규칙: “정적=CloudFront, 경로/고정 IP=GA”로 먼저 분리한다.
+- 태그: `pillar:operational-excellence` `services:CloudFront,GlobalAccelerator` `week:03` `day:02`
 
-**Answer:** A  
-**Explanation:** 글로벌 캐시 요구는 CloudFront의 정석 신호다.  
-**Tags:** `domain:3` `services:CloudFront`
+</details>
 
+---
+
+## TL;DR (오늘의 규칙)
+
+- CloudFront는 **TTL/캐시 키/무효화**로 “신선도 vs 히트율 vs 비용”을 설계한다.  
+- Global Accelerator는 **Anycast 고정 IP + 경로 최적화 + 헬스 전환**이다(캐시가 아니다).

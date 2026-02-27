@@ -1,106 +1,148 @@
-# Quiz (Mock Questions) - Day 01
+# 03-quiz - Week 02 Day 01 (Route 53 Routing / DR Strategies)
 
-## Q1
+- 문항 수: 5 (Day 규칙)
+- 4지선다 = 정답 1개 / 5지선다 = 정답 2개(복수정답)
+- 정답/해설은 `<details>`로 숨김
 
-**Scenario:** “장애 시 자동으로 secondary로 전환” 요구가 명확하다. Route 53에서 가장 적절한 라우팅 정책은?
+---
+
+## Q1.
+
+서비스가 단일 리전/단일 엔드포인트로 운영되다가, 이제 “장애가 나면 자동으로 다른 곳으로 넘어가야 한다”는 요구가 명확해졌다. 운영팀은 DNS 단계에서 primary/secondary를 두고, 헬스 체크 기반으로 전환되길 원한다.  
+Route 53 라우팅 정책으로 가장 자연스러운 선택은?
+
+A. Simple  
+B. Failover  
+C. Weighted  
+D. Geolocation  
+
+<details>
+<summary>정답/해설</summary>
+
+- 정답: B
+- 근거 원칙: 신뢰성 원칙 (Reliability)
+- 왜 이게 원칙에 맞나: 장애 감지/전환 요구는 “헬스체크 기반 장애 조치”로 매핑되고, Route 53 Failover가 대표 선택이다.
+- 소거법
+  - A (근접 오답): 요구가 없을 때의 단순 라우팅에 가깝다.
+  - C (근접 오답): 비율/점진 배포가 목적일 때 맞다.
+  - D (명확히 틀림): 장애 조치가 아니라 위치 기반 요구에서 등장한다.
+- 한 줄 규칙: “health check + 장애 조치”면 **Failover**.
+- 태그: `pillar:reliability` `services:Route53` `week:02` `day:01`
+
+</details>
+
+---
+
+## Q2.
+
+개발팀이 새 버전을 위험하게 한 번에 올리고 싶지 않다. “전체 트래픽 중 10%만 새 버전으로 보내고, 문제가 없으면 30% → 100%로 늘리자”는 점진 배포(카나리) 요구가 들어왔다.  
+Route 53 라우팅 정책으로 가장 적절한 것은?
 
 A. Weighted  
 B. Failover  
 C. Simple  
-D. Geolocation  
+D. Latency  
 
-**Answer:** B  
-**Explanation:** 헬스체크 기반 장애 조치 요구는 Failover 라우팅이 대표 정답 후보다.  
-**Tags:** `domain:2` `services:Route53`
+<details>
+<summary>정답/해설</summary>
 
-## Q2
+- 정답: A
+- 근거 원칙: 운영 우수성 원칙 (Operational Excellence)
+- 왜 이게 원칙에 맞나: 운영 우수성은 위험을 통제하며 변경을 배포하는 방식(점진 배포)이 중요하다. “비율 조정” 요구는 Weighted로 직접 매핑된다.
+- 소거법
+  - B (근접 오답): 장애 조치가 아니라 “비율”이 핵심이다.
+  - C (명확히 틀림): 비율/점진 분배 요구를 만족시키지 못한다.
+  - D (근접 오답): 지연 시간 최적화가 목적일 때 선택한다.
+- 한 줄 규칙: “percentage/카나리/AB 테스트”면 **Weighted**.
+- 태그: `pillar:operational-excellence` `services:Route53` `week:02` `day:01`
 
-**Scenario:** “점진적으로 새 버전 트래픽을 늘려” 배포하고 싶다. 적절한 Route 53 라우팅 정책은?
+</details>
 
-A. Weighted  
-B. Failover  
-C. Latency  
-D. Multivalue answer  
+---
 
-**Answer:** A  
-**Explanation:** 카나리/AB 테스트/점진 분산은 Weighted가 자연스럽다.  
-**Tags:** `domain:2` `services:Route53`
+## Q3.
 
-## Q3
-
-**Scenario:** RPO의 의미로 가장 적절한 것은?
-
-A. 복구 시간 목표  
-B. 복구 시점 목표(데이터 손실 허용량)  
-C. 응답 시간 목표  
-D. 비용 목표  
-
-**Answer:** B  
-**Explanation:** RPO는 허용 가능한 데이터 손실 시점이다.  
-**Tags:** `domain:2` `services:DR`
-
-## Q4
-
-**Scenario:** RTO의 의미로 가장 적절한 것은?
-
-A. 복구 시간 목표  
-B. 복구 시점 목표  
-C. 암호화 키 회전 주기  
-D. 캐시 TTL  
-
-**Answer:** A  
-**Explanation:** RTO는 허용 가능한 복구 시간이다.  
-**Tags:** `domain:2` `services:DR`
-
-## Q5
-
-**Scenario:** “글로벌 사용자에게 지연시간을 최소화”하고 싶다. Route 53에서 후보가 되는 라우팅 정책은?
+글로벌 사용자 비중이 늘었다. 요구사항은 “가장 가까운(지연 시간이 낮은) 리전으로 보내달라”는 것이다. 단순히 국가별로 나누는 게 아니라, 실제 네트워크 지연 시간을 기준으로 라우팅하고 싶다.  
+Route 53 라우팅 정책으로 가장 자연스러운 선택은?
 
 A. Latency  
 B. Failover  
-C. Simple  
-D. Geolocation(무조건)  
+C. Weighted  
+D. Multivalue answer  
 
-**Answer:** A  
-**Explanation:** 지연시간 기반 라우팅 요구는 Latency가 직접적으로 매핑된다.  
-**Tags:** `domain:2` `services:Route53`
+<details>
+<summary>정답/해설</summary>
 
-## Q6
+- 정답: A
+- 근거 원칙: 성능 효율성 원칙 (Performance Efficiency)
+- 왜 이게 원칙에 맞나: 성능 효율성은 요구 성능(지연 시간)을 만족시키는 설계를 고르는 것이다. “lowest latency/closest” 신호는 Latency 기반 라우팅으로 매핑된다.
+- 소거법
+  - B (근접 오답): 장애 조치가 목적이 아니다.
+  - C (근접 오답): 비율 분산이 목적이 아니다.
+  - D (명확히 틀림): 다중 값 응답은 ‘지연 시간 최적화’와 직접 매핑되지 않는다.
+- 한 줄 규칙: “가까운 리전/지연 시간”이면 **Latency**.
+- 태그: `pillar:performance-efficiency` `services:Route53` `week:02` `day:01`
 
-**Scenario:** 다음 중 DR 전략에서 일반적으로 “비용은 낮지만 RTO가 큰” 선택은?
+</details>
 
-A. Active/Active  
+---
+
+## Q4.
+
+경영진이 묻는다. “리전 장애가 나면 얼마나 빨리 복구돼야 하나요?” 계약/규제 때문에 복구 시간(RTO)과 데이터 손실 허용량(RPO)을 정의해야 한다. 팀은 비용도 고려해야 한다. “항상 두 곳에서 완전히 운영(Active/Active)”은 빠르지만 비싸고, “백업만”은 싸지만 느리다.  
+다음 중 일반적으로 “비용은 낮지만 RTO가 큰” DR 전략은?
+
+A. Multi-site Active/Active  
 B. Warm standby  
 C. Backup/Restore  
-D. 멀티리전 상시 운영  
+D. Always-on Multi-Region  
 
-**Answer:** C  
-**Explanation:** Backup/Restore는 비용은 낮지만 복구 시간이 길어지는 경향이 있다.  
-**Tags:** `domain:2` `services:DR`
+<details>
+<summary>정답/해설</summary>
 
-## Q7
+- 정답: C
+- 근거 원칙: 비용 최적화 원칙 (Cost Optimization)
+- 왜 이게 원칙에 맞나: 비용을 낮추려면 평소에 덜 띄워두는 방향(백업 중심)으로 가지만, 그만큼 복구 시간이 길어지기 쉽다.
+- 소거법
+  - A (명확히 틀림): 가장 빠르지만 비용이 가장 크다.
+  - B (근접 오답): 백업보다 RTO를 줄이려고 “축소 운영”을 유지한다.
+  - D (명확히 틀림): 상시 운영은 비용을 낮추는 선택이 아니다.
+- 한 줄 규칙: “싸게” 가면 보통 **RTO가 길어진다**(백업/복구).
+- 태그: `pillar:cost-optimization` `services:DR` `week:02` `day:01`
 
-**Scenario:** 단일 장애 지점(SPOF) 제거에 가장 직접적인 설계는?
+</details>
 
-A. 단일 AZ에 더 큰 인스턴스 1대  
-B. Multi-AZ 분산 + 자동 복구  
-C. CloudTrail 활성화  
-D. KMS 키 생성  
+---
 
-**Answer:** B  
-**Explanation:** AZ 분산과 자동 복구는 SPOF 제거의 기본 패턴이다.  
-**Tags:** `domain:2` `services:HA`
+## Q5. (복수정답: 2개)
 
-## Q8
+DR은 “리소스를 만들어두는 것”으로 끝나지 않는다. 장애 시 어떤 순서로 전환/복구할지, 그리고 그 계획이 실제로 작동하는지까지 운영에 포함돼야 한다.  
+다음 중 DR 운영 우수성 관점에서 “반드시 넣어야 하는 것” 2개를 고르시오.
 
-**Scenario:** Resilience와 Scalability에 대한 설명으로 가장 적절한 것은?
+A. 장애 시 전환/복구 절차(runbook)를 문서화한다  
+B. 정기적으로 DR 전환 연습(Game day)을 수행한다  
+C. S3 버킷을 퍼블릭으로 열어 접근을 단순화한다  
+D. 모든 사용자가 루트 사용자로만 복구 작업을 수행한다  
+E. RPO/RTO 정의 없이 “최대한 빨리”라고만 적는다  
 
-A. 둘은 항상 동일하다  
-B. 확장성은 부하 대응, 복원력은 장애 대응에 더 직접적이다  
-C. 복원력은 캐시만 의미한다  
-D. 확장성은 보안 기능이다  
+<details>
+<summary>정답/해설</summary>
 
-**Answer:** B  
-**Explanation:** 시험에서는 요구사항 문장을 분리해 해석해야 한다.  
-**Tags:** `domain:2` `services:Architecture`
+- 정답: A, B
+- 근거 원칙: 운영 우수성 원칙 (Operational Excellence)
+- 왜 이게 원칙에 맞나: 운영 우수성은 “계획 + 반복 가능한 절차 + 연습”으로 위험을 줄인다. DR은 특히 연습 없는 계획은 실전에서 잘 깨진다.
+- 소거법
+  - C (명확히 틀림): 보안 요구와 정반대다.
+  - D (명확히 틀림): 루트 사용은 통제/감사/분리 관점에서 오답이다.
+  - E (근접 오답): 의지는 좋지만 기준(RPO/RTO) 없이 설계가 흔들린다.
+- 한 줄 규칙: DR은 **runbook + 연습**이 있어야 ‘운영’이 된다.
+- 태그: `pillar:operational-excellence` `services:DR` `week:02` `day:01`
 
+</details>
+
+---
+
+## TL;DR (오늘의 규칙)
+
+- DNS 라우팅은 문장 키워드로 푼다: **Failover(장애 조치)** / **Weighted(비율)** / **Latency(가까운 리전)**.  
+- DR은 RPO/RTO ↔ 비용 트레이드오프 + 운영(runbook/연습)까지 본다.

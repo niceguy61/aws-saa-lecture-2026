@@ -1,106 +1,146 @@
-# Quiz (Mock Questions) - Day 04
+# 03-quiz - Week 01 Day 04 (SG vs NACL / VPC Endpoints / PrivateLink)
 
-## Q1
+- 문항 수: 5 (Day 규칙)
+- 4지선다 = 정답 1개 / 5지선다 = 정답 2개(복수정답)
+- 정답/해설은 `<details>`로 숨김
 
-**Scenario:** Security Group과 NACL의 차이를 묻는다. 올바른 설명은?
+---
 
-A. 둘 다 무상태(stateless)다  
-B. Security Group은 상태 저장(stateful)이고 NACL은 무상태(stateless)다  
-C. NACL은 인스턴스에 직접 붙는다  
-D. Security Group은 Deny 규칙을 지원한다  
+## Q1.
 
-**Answer:** B  
-**Explanation:** 시험형 핵심 구분이다. SG는 stateful(allow), NACL은 stateless(allow/deny).  
-**Tags:** `domain:1` `services:VPC`
+백엔드를 프라이빗 서브넷에 올린 뒤 연결이 끊겼다. 개발자는 Security Group 인바운드를 열고 다시 테스트했지만 여전히 타임아웃이다. “NACL도 열어야 한다”는 말이 나오지만, 무엇을 어디까지 열어야 하는지 감이 없다. 보안팀은 “그냥 다 열어두기”는 안 된다고 한다.  
+다음 중 이 상황에서 가장 가능성이 큰 원인/진단 방향은?
 
-## Q2
+A. NACL은 무상태라 인바운드만 열면 리턴 트래픽은 자동으로 허용된다  
+B. NACL은 무상태라 리턴 트래픽(에페메랄 포트 등)을 포함해 아웃바운드 규칙도 함께 고려해야 한다  
+C. Security Group은 Deny 규칙을 넣을 수 있으니 Deny를 제거하면 된다  
+D. Route 53 레코드를 바꾸면 네트워크 연결 문제가 해결된다  
 
-**Scenario:** 프라이빗 서브넷의 워크로드가 S3에 자주 접근한다. 보안과 비용을 개선하려면 가장 적절한 선택지는?
+<details>
+<summary>정답/해설</summary>
 
-A. NAT Gateway만 사용  
-B. S3 Gateway endpoint 사용  
-C. S3를 퍼블릭으로 오픈  
-D. Security Group에서 S3로 인바운드 허용  
+- 정답: B
+- 근거 원칙: 신뢰성 원칙 (Reliability)
+- 왜 이게 원칙에 맞나: 신뢰성은 “예상 가능한 네트워크 동작”을 만들고 장애를 빠르게 줄이는 게 중요하다. NACL은 **무상태(stateless)**라 리턴 트래픽까지 명시적으로 허용하지 않으면 타임아웃이 날 수 있다.
+- 소거법
+  - A (근접 오답): SG의 특징(stateful)을 NACL에 착각한 선택지다.
+  - C (명확히 틀림): SG는 allow-only(deny 규칙 없음)다.
+  - D (명확히 틀림): DNS는 보안 그룹/NACL 차단을 해결하지 못한다.
+- 한 줄 규칙: “인바운드는 열었는데 타임아웃”이면 **NACL 리턴 트래픽(무상태)**를 의심한다.
+- 태그: `pillar:reliability` `services:SecurityGroup,NACL` `week:01` `day:04`
 
-**Answer:** B  
-**Explanation:** S3 Gateway endpoint는 사설 경로로 연결해 NAT 의존을 줄이는 대표 정답 후보다.  
-**Tags:** `domain:1` `services:VPC,S3`
+</details>
 
-## Q3
+---
 
-**Scenario:** 다음 중 Gateway endpoint가 대표적으로 지원하는 서비스는?
+## Q2.
 
-A. S3  
-B. CloudWatch Logs  
-C. Secrets Manager  
-D. STS  
+다음 중 Security Group과 NACL의 차이를 가장 정확하게 설명한 것은?
 
-**Answer:** A  
-**Explanation:** 시험에서는 S3/DynamoDB가 Gateway endpoint의 대표 예시로 등장한다.  
-**Tags:** `domain:1` `services:VPC`
+A. SG는 서브넷 단위, NACL은 인스턴스(ENI) 단위다  
+B. SG는 stateful, NACL은 stateless다  
+C. SG는 allow+deny를 모두 지원하고, NACL은 allow만 지원한다  
+D. SG는 “누가 API를 호출했는지”를 기록한다  
 
-## Q4
+<details>
+<summary>정답/해설</summary>
 
-**Scenario:** Interface endpoint(PrivateLink)의 일반적인 형태(개념)로 가장 적절한 것은?
+- 정답: B
+- 근거 원칙: 보안 원칙 (Security)
+- 왜 이게 원칙에 맞나: 네트워크 경계에서 최소 노출을 만들려면 “무엇이 어디에 붙고, 어떤 방식으로 평가되는지”를 정확히 구분해야 한다. 시험도 이 혼동을 노린다.
+- 소거법
+  - A (명확히 틀림): 범위가 반대다(SG=ENI/인스턴스, NACL=서브넷).
+  - C (근접 오답): 반대다(SG=allow-only, NACL=allow+deny).
+  - D (명확히 틀림): 행위 기록은 CloudTrail 축이다.
+- 한 줄 규칙: **SG=인스턴스/상태 저장, NACL=서브넷/무상태**.
+- 태그: `pillar:security` `services:SecurityGroup,NACL` `week:01` `day:04`
 
-A. 라우팅 테이블에만 경로가 추가된다  
-B. VPC 안에 ENI 기반 엔드포인트가 생성된다  
-C. S3 버킷이 자동으로 생성된다  
-D. Route 53만 변경된다  
+</details>
 
-**Answer:** B  
-**Explanation:** Interface endpoint는 ENI 형태로 VPC 내 엔드포인트가 생긴다는 개념이 빈출이다.  
-**Tags:** `domain:1` `services:VPC,PrivateLink`
+---
 
-## Q5
+## Q3.
 
-**Scenario:** “S3 접근을 보안 그룹으로 제한하자”는 제안에 대한 올바른 반응은?
+보안팀이 “프라이빗 서브넷 워크로드는 인터넷으로 나가면 안 된다”고 요구한다. 하지만 서비스는 S3에서 파일을 읽고 써야 한다. NAT Gateway를 달면 동작은 되지만, 매달 NAT 비용이 꾸준히 발생하고 “인터넷 경유” 자체가 찜찜하다.  
+요구사항(사설 경로 + NAT 비용 최소화)에 가장 자연스러운 선택은?
 
-A. 맞다. S3는 인스턴스이므로 SG로 제어한다  
-B. 틀리다. S3는 SG 대상이 아니며 bucket policy/endpoint policy 등을 고려한다  
-C. 맞다. NACL만 설정하면 된다  
-D. 틀리다. Route 53로 해결한다  
+A. NAT Gateway를 계속 사용한다(사설 경로 요구는 무시)  
+B. S3 Gateway VPC Endpoint를 사용해 라우팅 테이블에 사설 경로를 만든다  
+C. S3 버킷을 퍼블릭으로 열고, 프라이빗 서브넷은 그대로 둔다  
+D. CloudFront를 붙이면 VPC에서 S3로 사설로 연결된다  
 
-**Answer:** B  
-**Explanation:** S3는 SG 대상이 아니고 정책/엔드포인트 관점으로 풀어야 한다.  
-**Tags:** `domain:1` `services:S3,VPC,IAM`
+<details>
+<summary>정답/해설</summary>
 
-## Q6
+- 정답: B
+- 근거 원칙: 비용 최적화 원칙 (Cost Optimization)
+- 왜 이게 원칙에 맞나: NAT는 편하지만 지속 비용이 발생한다. S3는 Gateway endpoint로 사설 경로를 만들 수 있어 NAT 비용을 줄이면서도 요구사항(인터넷 없이)을 만족한다.
+- 소거법
+  - A (근접 오답): 동작은 하지만 “비용 최소화/사설 경로” 요구를 만족하지 못한다.
+  - C (명확히 틀림): 인증/접근 제어 관점에서 요구사항과 반대다.
+  - D (명확히 틀림): CloudFront는 엣지 캐시/전송 최적화이지 VPC 사설 경로 대체가 아니다.
+- 한 줄 규칙: “프라이빗 서브넷에서 S3, NAT 비용 최소화”면 **S3 Gateway Endpoint**.
+- 태그: `pillar:cost-optimization` `services:VPCEndpoints,S3` `week:01` `day:04`
 
-**Scenario:** NACL에서 흔히 발생하는 실수는?
+</details>
 
-A. 리턴 트래픽을 자동으로 허용한다고 가정  
-B. Deny 규칙이 없다고 가정  
-C. 서브넷에 적용된다는 사실을 가정  
-D. 상태 저장이라고 가정하지 않음  
+---
 
-**Answer:** A  
-**Explanation:** NACL은 무상태라 양방향(리턴 트래픽) 규칙이 필요하다.  
-**Tags:** `domain:1` `services:VPC`
+## Q4. (복수정답: 2개)
 
-## Q7
+프라이빗 서브넷의 워크로드가 **S3와 DynamoDB** 모두에 인터넷 없이 접근해야 한다. NAT 비용도 최소화해야 한다.  
+가장 자연스러운 구성 2개를 고르시오.
 
-**Scenario:** “사설 경로로 AWS 서비스 접근” 요구가 있을 때 endpoint가 자주 정답이 되는 이유는?
+A. S3 Gateway endpoint 추가  
+B. DynamoDB Gateway endpoint 추가  
+C. Secrets Manager Interface endpoint 추가  
+D. CloudFront 배포 생성  
+E. Internet Gateway 추가  
 
-A. 캐시 기능 제공  
-B. 인터넷 경유를 피하고 NAT 의존/비용을 줄일 수 있다  
-C. 자동으로 IAM 권한을 부여한다  
-D. 데이터를 Glacier로 전환한다  
+<details>
+<summary>정답/해설</summary>
 
-**Answer:** B  
-**Explanation:** 보안(사설) + 비용(NAT) 힌트는 endpoint 정답 확률을 올린다.  
-**Tags:** `domain:1` `services:VPC`
+- 정답: A, B
+- 근거 원칙: 비용 최적화 원칙 (Cost Optimization)
+- 왜 이게 원칙에 맞나: S3/DynamoDB는 Gateway endpoint로 라우팅 테이블 기반 사설 경로를 만들 수 있어 NAT 비용을 줄이는 대표 패턴이다.
+- 소거법
+  - C (근접 오답): Interface endpoint(PrivateLink) 자체는 맞는 개념이지만, 문제의 “목적지”가 S3/DDB다.
+  - D (명확히 틀림): 캐싱/전송 계층으로 사설 경로 요구를 직접 해결하지 못한다.
+  - E (명확히 틀림): 인터넷 경유를 허용하는 방향으로 요구사항과 반대다.
+- 한 줄 규칙: **S3/DDB = Gateway endpoint**를 먼저 떠올린다.
+- 태그: `pillar:cost-optimization` `services:VPCEndpoints,S3,DynamoDB` `week:01` `day:04`
 
-## Q8
+</details>
 
-**Scenario:** Endpoint policy의 역할(개념)로 가장 적절한 것은?
+---
 
-A. 엔드포인트를 통해 허용되는 요청을 추가로 제한  
-B. S3 버킷 이름을 바꿈  
-C. CloudTrail 로그를 저장  
-D. VPC CIDR을 변경  
+## Q5.
 
-**Answer:** A  
-**Explanation:** endpoint policy는 “엔드포인트 경유 요청의 추가 제약”으로 출제된다.  
-**Tags:** `domain:1` `services:VPC`
+이번엔 S3가 아니라 **Secrets Manager** 같은 “대부분의 AWS 서비스”에 프라이빗하게 접근해야 한다. 인터넷/NAT 경유는 금지이고, VPC 안에 사설 엔드포인트(ENI)가 생기는 형태가 필요하다.  
+가장 자연스러운 선택은?
 
+A. S3 Gateway endpoint를 만든다  
+B. Interface VPC Endpoint(PrivateLink)를 만든다  
+C. NACL을 모두 Allow로 바꾼다  
+D. S3 버킷 정책을 바꾼다  
+
+<details>
+<summary>정답/해설</summary>
+
+- 정답: B
+- 근거 원칙: 보안 원칙 (Security)
+- 왜 이게 원칙에 맞나: “사설 경로/인터넷 없이” 요구는 VPC Endpoints가 축이다. S3/DDB 외 대부분 서비스는 **Interface endpoint(PrivateLink)** 형태로 VPC 안 ENI 기반 엔드포인트를 만든다.
+- 소거법
+  - A (근접 오답): Gateway endpoint는 S3/DynamoDB에 해당한다. 대상 서비스가 다르다.
+  - C (명확히 틀림): 네트워크를 더 열어도 “사설 AWS 서비스 접근”은 해결되지 않는다.
+  - D (명확히 틀림): 버킷 정책은 S3 리소스 접근 제어이고, Secrets Manager 접근 경로 문제와 축이 다르다.
+- 한 줄 규칙: “S3/DDB 외 사설 접근”이면 **Interface endpoint(PrivateLink)**.
+- 태그: `pillar:security` `services:VPCEndpoints,PrivateLink` `week:01` `day:04`
+
+</details>
+
+---
+
+## TL;DR (오늘의 규칙)
+
+- SG/NACL은 **stateful/stateless**로 구분하고, “사설 경로/비용” 요구가 보이면 **NAT보다 VPC Endpoints**가 먼저다.

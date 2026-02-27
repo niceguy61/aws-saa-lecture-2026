@@ -1,31 +1,54 @@
-# TODO - 퀴즈 (Mock Questions)
+# TODO - 03-quiz (Well-Architected Principles)
 
-## Instructions
+이 파일은 “각 Day/Week 퀴즈”를 만들 때 그대로 복사해서 쓰는 템플릿이다.
 
-- 1문제당 1정답(기본). 복수정답이면 명시.
-- 정답/해설을 반드시 포함.
+## Rules
 
-## VAKOG (for debrief)
-
-- A(Auditory): TODO (디브리핑 질문 1~2개)
-- G(Gustatory, taste test): TODO (규칙 1줄 요약/유사 케이스 1문항)
+- 출제 기준(원칙): 운영 우수성 / 보안 / 신뢰성 / 성능 효율성 / 비용 최적화 / 지속 가능성 중 **랜덤**으로 선택
+- 문항 수
+  - Day01~Day04: **5문항**
+  - Day05(Week summary): **10문항**
+- 보기 개수/정답 개수
+  - 4지선다: **정답 1개**
+  - 5지선다: **정답 2개(복수정답)**
+- 문항 스타일: 해당 Day의 **고객 사례(스토리)**와 직접 연결된 “문제 해결형” 시나리오
+- 정답/해설: 반드시 `<details>`로 감싸서 바로 보이지 않게 한다
+- 소거법(보기 품질)
+  - 약 50%: 비슷해 보이지만 **아예 다른 것(명확히 틀림)**
+  - 약 25%: 비슷하지만 **원칙(근거) 또는 요구사항이 살짝 다른 것(근접 오답)**
+  - 나머지: 정답(4지=1개, 5지=2개)
 
 ## Questions
 
-### Q1
+## Q1.
 
-**Scenario:** TODO
+TODO (고객 사례 요약 + 문제 해결 요구. 문제 본문은 “서술형”으로 길고 명확하게.)
 
 A. TODO  
 B. TODO  
 C. TODO  
 D. TODO  
 
-**Answer:** TODO  
-**Explanation:** TODO  
+<details>
+<summary>정답/해설</summary>
 
-**Tags:** `domain:TODO` `services:TODO`
+- 정답: TODO
+- 근거 원칙: TODO (운영 우수성/보안/신뢰성/성능 효율성/비용 최적화/지속 가능성)
+- 왜 이게 원칙에 맞나: TODO (원칙 1~2문장)
+- 소거법
+  - A (명확히 틀림): TODO
+  - C (근접 오답): TODO
+  - D (명확히 틀림): TODO
+- 한 줄 규칙: TODO
+- 태그: `pillar:TODO` `services:TODO` `week:TODO` `day:TODO`
+
+</details>
+
+## Debrief (말로 설명해보기)
+
+- (A) 30초로 “왜 정답인지”를 원칙 1개로만 설명해보기
+- (G) 비슷한 문장(함정)을 1개 만들어서 오답을 골라보기
 
 ## TL;DR (오늘의 규칙)
 
-- TODO (기술 핵심만: 정답을 가르는 규칙 1줄)
+- TODO (정답을 가르는 규칙 1줄)

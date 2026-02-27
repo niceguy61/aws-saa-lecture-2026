@@ -1,80 +1,152 @@
-# Quiz (Mock Questions) - Day 02
+# 03-quiz - Week 02 Day 02 (ALB vs NLB / Auto Scaling)
 
-## Q1
+- 문항 수: 5 (Day 규칙)
+- 4지선다 = 정답 1개 / 5지선다 = 정답 2개(복수정답)
+- 정답/해설은 `<details>`로 숨김
 
-**Scenario:** HTTP path 기반 라우팅이 필요하다. 가장 적절한 로드밸런서는?
+---
+
+## Q1.
+
+요구사항에 이런 문장이 있다.  
+“`/api`는 API 타깃 그룹으로, `/static`은 정적 컨텐츠 타깃 그룹으로 보내고 싶다. 또한 WAF 연동도 고려해야 한다.”  
+이 문장을 가장 자연스럽게 만족시키는 로드 밸런서 선택은?
 
 A. NLB  
 B. ALB  
 C. Gateway Load Balancer  
-D. Route 53만 사용  
+D. Route 53 Simple routing만 사용한다  
 
-**Answer:** B  
-**Explanation:** path/host 기반 라우팅은 ALB의 대표 기능이다.  
-**Tags:** `domain:2` `services:ELB`
+<details>
+<summary>정답/해설</summary>
 
-## Q2
+- 정답: B
+- 근거 원칙: 성능 효율성 원칙 (Performance Efficiency)
+- 왜 이게 원칙에 맞나: 요구사항이 L7(HTTP host/path, 규칙 기반 라우팅)이다. ALB는 요청 내용을 해석해 라우팅 규칙을 적용할 수 있다.
+- 소거법
+  - A (근접 오답): NLB는 L4(TCP/UDP) 축이 강하고 L7 라우팅 규칙이 핵심 요구일 때는 부자연스럽다.
+  - C (명확히 틀림): GWLB는 보안 어플라이언스 삽입(개념) 축이다.
+  - D (명확히 틀림): DNS만으로 L7 라우팅 규칙을 구현할 수 없다.
+- 한 줄 규칙: “host/path/WAF” 신호가 보이면 **ALB**.
+- 태그: `pillar:performance-efficiency` `services:ALB,ELB` `week:02` `day:02`
 
-**Scenario:** TCP 기반 초고성능 트래픽을 처리해야 한다. 후보가 되는 로드밸런서는?
+</details>
+
+---
+
+## Q2.
+
+요구사항에 이런 문장이 있다.  
+“TCP 기반 연결이 핵심이고, 초고성능이 필요하다. 또한 일부 고객은 고정 IP를 요구한다.”  
+이 문장을 가장 자연스럽게 만족시키는 선택은?
 
 A. ALB  
 B. NLB  
 C. CloudFront  
-D. WAF  
+D. S3 Static website hosting  
 
-**Answer:** B  
-**Explanation:** L4 요구(프로토콜/성능)면 NLB가 후보가 된다.  
-**Tags:** `domain:2` `services:ELB`
+<details>
+<summary>정답/해설</summary>
 
-## Q3
+- 정답: B
+- 근거 원칙: 성능 효율성 원칙 (Performance Efficiency)
+- 왜 이게 원칙에 맞나: TCP/UDP, 고성능, (케이스에 따라) 정적 IP 같은 신호는 L4 축이 강하고 NLB가 자연스럽다.
+- 소거법
+  - A (근접 오답): HTTP 규칙이 핵심이 아니고, L4 신호가 더 강하다.
+  - C (명확히 틀림): 엣지 캐시/전송 최적화 서비스다.
+  - D (명확히 틀림): 로드밸런싱 요구를 만족하지 못한다.
+- 한 줄 규칙: “TCP/정적 IP/초고성능”이면 **NLB**.
+- 태그: `pillar:performance-efficiency` `services:NLB,ELB` `week:02` `day:02`
 
-**Scenario:** Auto Scaling이 제공하는 가치로 가장 적절한 것은?
+</details>
 
-A. 암호화 키 관리  
-B. 수평 확장 + 헬스체크 기반 자가 치유  
-C. DNS 질의 응답  
-D. 취약점 스캔  
+---
 
-**Answer:** B  
-**Explanation:** ASG는 확장과 복구를 함께 다룬다.  
-**Tags:** `domain:2` `services:AutoScaling`
+## Q3.
 
-## Q4
+트래픽이 몰릴 때마다 운영자가 수동으로 인스턴스를 늘렸다가 이벤트가 끝나면 줄이고 있었다. 더 큰 문제는 인스턴스 한 대가 죽으면 일부 사용자만 계속 오류를 겪는다는 것이다. “운영자가 새벽에 깨서 재기동”하는 패턴을 없애고, 실패한 인스턴스를 자동으로 제외/교체(자가 치유)하고 싶다.  
+가장 자연스러운 설계는?
 
-**Scenario:** Multi-AZ 구성이 가용성에 좋은 이유는?
+A. 단일 EC2에만 큰 인스턴스 타입으로 스케일업한다  
+B. Auto Scaling Group(ASG) + (필요 시) ELB health check로 실패 인스턴스를 자동 교체한다  
+C. Route 53 Weighted로 트래픽을 분배하면 인스턴스가 자동으로 교체된다  
+D. S3 버킷 버저닝을 켠다  
 
-A. 더 큰 인스턴스 1대라서  
-B. 장애 영역(AZ)을 분리해 단일 장애 영향을 줄여서  
-C. 캐시가 자동으로 생겨서  
-D. IAM 권한이 자동으로 부여돼서  
+<details>
+<summary>정답/해설</summary>
 
-**Answer:** B  
-**Explanation:** AZ 분산은 장애 격리의 기본이다.  
-**Tags:** `domain:2` `services:HA`
+- 정답: B
+- 근거 원칙: 신뢰성 원칙 (Reliability)
+- 왜 이게 원칙에 맞나: 신뢰성은 장애가 나도 자동으로 복구되는 메커니즘(자가 치유)이 핵심이다. ASG는 헬스체크 실패를 기준으로 제외/교체 흐름을 만들 수 있다.
+- 소거법
+  - A (근접 오답): 성능은 좋아질 수 있어도 “죽었을 때 자동 교체”를 해결하지 못한다.
+  - C (명확히 틀림): DNS 라우팅은 인스턴스 교체 엔진이 아니다.
+  - D (명확히 틀림): 스토리지 기능이다.
+- 한 줄 규칙: “자동 복구/교체” 신호가 보이면 **ASG + health check**.
+- 태그: `pillar:reliability` `services:AutoScaling,ELB` `week:02` `day:02`
 
-## Q5
+</details>
 
-**Scenario:** 다음 중 ALB와 함께 안전한 인스턴스 접근 제어로 더 적절한 것은?
+---
 
-A. EC2 SG를 0.0.0.0/0에 오픈  
-B. EC2 SG는 ALB SG에서만 80 허용  
-C. NACL을 모든 포트 허용  
-D. S3 버킷 퍼블릭 오픈  
+## Q4.
 
-**Answer:** B  
-**Explanation:** 백엔드는 ALB에서만 접근하도록 제한하는 게 일반적으로 더 안전하다.  
-**Tags:** `domain:2` `services:VPC,ELB`
+서비스는 평상시에는 트래픽이 낮지만, 특정 시간대/이벤트에만 트래픽이 급증한다. 요구사항은 “평상시엔 비용을 아끼고, 피크에는 자동으로 늘어나야 한다”다. 또한 인스턴스 구성은 표준화(이미지/보안그룹/유저데이터)돼야 한다.  
+이 요구를 가장 자연스럽게 만족시키는 방향은?
 
-## Q6
+A. 매번 운영자가 콘솔에서 수동으로 늘리고 줄인다  
+B. Launch template로 표준 구성을 만들고, ASG에 min/desired/max 및 스케일 정책을 설정한다  
+C. 모든 트래픽을 하나의 인스턴스로 모아 캐시만 늘린다  
+D. NACL을 모두 Allow로 바꾼다  
 
-**Scenario:** 타겟 그룹 헬스체크가 실패하면 일반적으로 어떤 일이 일어나는가?
+<details>
+<summary>정답/해설</summary>
 
-A. Route 53 레코드가 삭제된다  
-B. unhealthy 타겟이 트래픽에서 제외된다(그리고 ASG가 교체할 수 있다)  
-C. KMS 키가 회전된다  
-D. SQS DLQ로 이동한다  
+- 정답: B
+- 근거 원칙: 비용 최적화 원칙 (Cost Optimization)
+- 왜 이게 원칙에 맞나: 비용 최적화는 “필요할 때만 자원 사용”이 핵심이다. ASG는 필요한 순간에만 확장하고, 평상시엔 줄이는 자동화를 제공한다.
+- 소거법
+  - A (근접 오답): 동작은 하지만 운영 인력 의존/실수/지연으로 비용과 리스크가 커진다.
+  - C (명확히 틀림): 단일 인스턴스 병목/단일 장애점이 된다.
+  - D (명확히 틀림): 스케일/비용 요구를 해결하지 못한다.
+- 한 줄 규칙: “피크만 자동 확장”이면 **ASG(표준 구성 + 스케일 정책)**.
+- 태그: `pillar:cost-optimization` `services:AutoScaling` `week:02` `day:02`
 
-**Answer:** B  
-**Explanation:** 헬스체크는 트래픽 제외/교체의 트리거로 동작한다.  
-**Tags:** `domain:2` `services:ELB,AutoScaling`
+</details>
 
+---
+
+## Q5. (복수정답: 2개)
+
+고객 사례에서 요구는 동시에 두 가지다.  
+1) “HTTP 요청을 경로(path) 기반으로 서로 다른 타깃 그룹으로 라우팅”  
+2) “인스턴스가 죽으면 자동으로 제외/교체(자가 치유)”  
+이 요구를 가장 자연스럽게 만족시키는 구성 2개를 고르시오.
+
+A. ALB  
+B. Auto Scaling Group(ASG)  
+C. Route 53 Simple routing  
+D. S3 Glacier  
+E. IAM Permissions boundary  
+
+<details>
+<summary>정답/해설</summary>
+
+- 정답: A, B
+- 근거 원칙: 신뢰성 원칙 (Reliability)
+- 왜 이게 원칙에 맞나: L7 라우팅은 ALB, 자가 치유는 ASG(헬스체크 기반 교체)로 풀린다. 둘을 분리해서 조합하는 게 정답 패턴이다.
+- 소거법
+  - C (근접 오답): DNS는 라우팅 “대상 선택”은 가능하지만 L7 경로 규칙/자가 치유를 제공하지 않는다.
+  - D (명확히 틀림): 저장 클래스다.
+  - E (명확히 틀림): IAM 권한 상한선이다.
+- 한 줄 규칙: “HTTP 규칙=ALB, 자동 교체=ASG”로 조합한다.
+- 태그: `pillar:reliability` `services:ALB,AutoScaling` `week:02` `day:02`
+
+</details>
+
+---
+
+## TL;DR (오늘의 규칙)
+
+- “host/path/WAF”면 **ALB**, “TCP/정적 IP/초고성능”이면 **NLB**.  
+- “자동 복구/교체”는 **ASG + health check** 흐름이다.

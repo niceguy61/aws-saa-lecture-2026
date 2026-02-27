@@ -1,158 +1,288 @@
-# Case Quiz (Domain 2) - Day 05
+# 03-quiz - Week 02 Day 05 (Week Summary / Domain 2)
 
-## Q1
+- 문항 수: 10 (Day05 규칙)
+- 4지선다 = 정답 1개 / 5지선다 = 정답 2개(복수정답)
+- 정답/해설은 `<details>`로 숨김
 
-**Scenario:** 주문 처리 시스템에서 트래픽 스파이크가 발생한다. 시스템은 요청을 잃지 않아야 하고, 처리 컴포넌트를 느슨하게 결합하고 싶다.
+---
 
-A. SNS만 사용한다  
-B. SQS를 사용해 버퍼링하고 워커가 폴링해서 처리한다  
-C. 모든 요청을 단일 EC2에 동기 처리한다  
-D. Route 53만 설정한다  
+## Q1.
 
-**Answer:** B  
-**Explanation:** 내구 큐 + 비동기 워커는 스파이크 흡수/느슨한 결합의 전형이다.  
-**Tags:** `domain:2` `services:SQS`
+요구사항이 명확하다. “장애가 나면 자동으로 secondary로 전환되어야 한다. DNS 단계에서 전환이 일어나고, 헬스 체크로 primary를 감지해야 한다.”  
+Route 53에서 가장 자연스러운 라우팅 정책은?
 
-## Q2
+A. Simple  
+B. Failover  
+C. Weighted  
+D. Latency  
 
-**Scenario:** 한 이벤트를 여러 다운스트림 시스템에 전달해야 한다(팬아웃). 가장 표준적인 조합은?
+<details>
+<summary>정답/해설</summary>
 
-A. SNS + 여러 SQS 구독  
-B. 단일 SQS만 사용  
-C. 단일 Lambda만 사용  
-D. 단일 RDS만 사용  
+- 정답: B
+- 근거 원칙: 신뢰성 원칙 (Reliability)
+- 왜 이게 원칙에 맞나: 헬스 체크 기반 장애 조치 요구는 Failover로 직결된다.
+- 소거법
+  - A (근접 오답): 요구가 없을 때의 단순 라우팅에 가깝다.
+  - C (근접 오답): 비율/점진 배포가 목적일 때 맞다.
+  - D (근접 오답): 지연 시간 최적화가 목적일 때 맞다.
+- 한 줄 규칙: “health check + 장애 조치”면 **Failover**.
+- 태그: `pillar:reliability` `services:Route53` `week:02` `day:05`
 
-**Answer:** A  
-**Explanation:** SNS는 팬아웃, SQS는 각 소비자별 내구/재시도를 제공한다.  
-**Tags:** `domain:2` `services:SNS,SQS`
+</details>
 
-## Q3
+---
 
-**Scenario:** 워커가 메시지를 반복 실패한다. 실패 메시지를 분리해 원인 분석/재처리를 하고 싶다.
+## Q2.
 
-A. CloudFront invalidation  
-B. DLQ 구성  
-C. Security group 수정  
-D. KMS key rotation  
+개발팀이 “점진 배포(카나리)”를 요구한다. “전체 트래픽 중 10%만 신규 버전으로 보내고, 문제가 없으면 30% → 100%로 늘리자.”  
+Route 53에서 가장 자연스러운 라우팅 정책은?
 
-**Answer:** B  
-**Explanation:** DLQ는 실패 격리와 재처리 경로를 제공한다.  
-**Tags:** `domain:2` `services:SQS`
+A. Weighted  
+B. Failover  
+C. Simple  
+D. Geolocation  
 
-## Q4
+<details>
+<summary>정답/해설</summary>
 
-**Scenario:** HTTP 기반 웹 서비스에서 경로 기반 라우팅이 필요하다.
+- 정답: A
+- 근거 원칙: 운영 우수성 원칙 (Operational Excellence)
+- 왜 이게 원칙에 맞나: 비율 분배/점진 배포는 Weighted로 매핑된다.
+- 소거법
+  - B (근접 오답): 장애 조치가 목적이 아니다.
+  - C (명확히 틀림): 비율 요구를 만족하지 못한다.
+  - D (명확히 틀림): 위치 기반 요구가 아니다.
+- 한 줄 규칙: “percentage/카나리”면 **Weighted**.
+- 태그: `pillar:operational-excellence` `services:Route53` `week:02` `day:05`
 
-A. NLB  
-B. ALB  
-C. Route 53 Weighted routing만 사용  
-D. CloudTrail  
+</details>
 
-**Answer:** B  
-**Explanation:** ALB는 L7(host/path) 라우팅을 지원한다.  
-**Tags:** `domain:2` `services:ELB`
+---
 
-## Q5
+## Q3.
 
-**Scenario:** RDS에서 “가용성(자동 failover)”을 목표로 한다. 가장 적절한 선택은?
+리전 장애까지 포함한 DR 전략을 고르는 문제다. “항상 두 곳에서 완전히 돌아가게(Active/Active)”는 빠르지만 비싸고, “백업만”은 싸지만 느리다.  
+다음 중 일반적으로 “비용은 낮지만 RTO가 큰” 선택은?
 
-A. Read replica  
-B. Multi-AZ  
-C. 단일 AZ + 스냅샷  
-D. DynamoDB Streams  
+A. Active/Active  
+B. Warm standby  
+C. Backup/Restore  
+D. 멀티리전 상시 운영  
 
-**Answer:** B  
-**Explanation:** Multi-AZ는 자동 failover로 HA를 제공한다. Read replica는 주로 읽기 확장이다.  
-**Tags:** `domain:2` `services:RDS,Aurora`
+<details>
+<summary>정답/해설</summary>
 
-## Q6
+- 정답: C
+- 근거 원칙: 비용 최적화 원칙 (Cost Optimization)
+- 왜 이게 원칙에 맞나: 비용을 낮추면 평소에 덜 띄워두게 되고, 복구 시간이 길어지는 경향이 있다.
+- 소거법
+  - A (명확히 틀림): 가장 비싼 편이다.
+  - B (근접 오답): 백업보다는 빠르지만 비용이 올라간다.
+  - D (명확히 틀림): 비용을 낮추는 방향이 아니다.
+- 한 줄 규칙: “싸게” 가면 보통 **RTO가 길어진다**.
+- 태그: `pillar:cost-optimization` `services:DR` `week:02` `day:05`
 
-**Scenario:** Route 53에서 헬스체크 기반 장애 조치가 필요하다.
+</details>
 
-A. Failover routing policy  
-B. Geolocation routing policy  
-C. Simple routing policy  
-D. Multi-value answer는 불가능하다  
+---
 
-**Answer:** A  
-**Explanation:** Failover 라우팅은 헬스체크 기반 primary/secondary 구성을 지원한다.  
-**Tags:** `domain:2` `services:Route53`
+## Q4.
 
-## Q7
+문장에 이런 요구가 있다. “HTTP host/path 기반 라우팅이 필요하고, WAF 연동을 고려한다.”  
+가장 자연스러운 선택은?
 
-**Scenario:** RTO가 아주 짧아야 하지만 비용은 제한적이다. 다음 중 일반적으로 Backup/Restore보다 RTO를 줄이는 선택은?
+A. ALB  
+B. NLB  
+C. CloudFront  
+D. S3 Glacier  
 
-A. Pilot light  
-B. 로그 압축만 수행  
-C. 단일 AZ 유지  
-D. CloudFront만 사용  
+<details>
+<summary>정답/해설</summary>
 
-**Answer:** A  
-**Explanation:** Pilot light는 핵심 구성만 상시 유지해 복구 시간을 줄인다.  
-**Tags:** `domain:2` `services:DR`
+- 정답: A
+- 근거 원칙: 성능 효율성 원칙 (Performance Efficiency)
+- 왜 이게 원칙에 맞나: L7(HTTP 규칙) 요구는 ALB가 축이다.
+- 소거법
+  - B (근접 오답): L4 신호(TCP/정적 IP)가 강할 때 맞다.
+  - C (명확히 틀림): 캐시/전송 계층이다.
+  - D (명확히 틀림): 저장 클래스다.
+- 한 줄 규칙: “host/path/WAF”면 **ALB**.
+- 태그: `pillar:performance-efficiency` `services:ALB,ELB` `week:02` `day:05`
 
-## Q8
+</details>
 
-**Scenario:** S3 데이터 내구성과 복구를 위해 버전 관리와 복제를 설계한다. 가장 적절한 조합은?
+---
 
-A. Versioning + Replication  
-B. 버킷 퍼블릭 오픈  
-C. SQS 사용  
-D. KMS만 설정  
+## Q5.
 
-**Answer:** A  
-**Explanation:** versioning은 실수/삭제 복구, replication은 다른 위치로 내구성을 확장한다.  
-**Tags:** `domain:2` `services:S3`
+인스턴스 한 대가 죽으면 그 인스턴스로 붙은 사용자만 계속 오류를 겪는다. 운영자가 새벽에 수동 재기동하는 패턴을 제거하고, 헬스 체크 실패 시 자동으로 제외/교체(자가 치유)하고 싶다.  
+가장 자연스러운 설계는?
 
-## Q9
+A. ASG + health check(필요 시 ELB health check)  
+B. Route 53 Simple routing  
+C. NACL을 모두 Allow  
+D. S3 Versioning  
 
-**Scenario:** EventBridge가 적합한 경우는?
+<details>
+<summary>정답/해설</summary>
 
-A. 큐 기반 버퍼링이 핵심일 때  
-B. 규칙 기반 라우팅/다양한 AWS 서비스 통합 이벤트 처리일 때  
-C. 정적 콘텐츠 캐시가 필요할 때  
-D. TLS 인증서 발급이 필요할 때  
+- 정답: A
+- 근거 원칙: 신뢰성 원칙 (Reliability)
+- 왜 이게 원칙에 맞나: 자가 치유는 “헬스체크 → 제외/교체” 흐름으로 만든다(ASG).
+- 소거법
+  - B (명확히 틀림): DNS는 교체 엔진이 아니다.
+  - C (근접 오답): 네트워크를 열어도 자동 교체는 생기지 않는다.
+  - D (명확히 틀림): 객체 실수 복구 기능이다.
+- 한 줄 규칙: “자동 복구/교체”면 **ASG**.
+- 태그: `pillar:reliability` `services:AutoScaling` `week:02` `day:05`
 
-**Answer:** B  
-**Explanation:** EventBridge는 이벤트 라우팅/통합에 강하다. 버퍼링은 SQS가 더 직접적이다.  
-**Tags:** `domain:2` `services:EventBridge`
+</details>
 
-## Q10
+---
 
-**Scenario:** 느슨한 결합 아키텍처에서 “중복 메시지 처리”에 대한 올바른 태도는?
+## Q6.
 
-A. 중복은 절대 발생하지 않는다  
-B. 중복은 발생할 수 있으니 idempotent 처리로 방어한다  
-C. 중복은 VPC로 해결한다  
-D. 중복은 KMS로 해결한다  
+문장에 “accidental deletion/overwrite를 복구해야 한다”가 명시돼 있다. 재해(리전 장애) 수준이 아니라 운영 실수 복구가 핵심이다.  
+가장 직접적인 1순위 해법은?
 
-**Answer:** B  
-**Explanation:** 적어도 한 번(at-least-once) 전달 모델에서 중복은 정상이며 처리측 방어가 필요하다.  
-**Tags:** `domain:2` `services:SQS,SNS`
+A. S3 Versioning  
+B. S3 Replication(CRR)  
+C. EBS Snapshot  
+D. Route 53 Failover  
 
-## Q11
+<details>
+<summary>정답/해설</summary>
 
-**Scenario:** 다음 중 “가용성”을 직접 높이는 구성으로 가장 적절한 것은?
+- 정답: A
+- 근거 원칙: 신뢰성 원칙 (Reliability)
+- 왜 이게 원칙에 맞나: 운영 실수에서 되돌릴 수 있게 만드는 메커니즘이 Versioning이다.
+- 소거법
+  - B (근접 오답): 원격 DR/규제 신호가 없으면 과할 수 있다.
+  - C (명확히 틀림): 블록 스토리지 복구 단위다.
+  - D (명확히 틀림): DNS 전환이다.
+- 한 줄 규칙: “accidental”이면 **Versioning**.
+- 태그: `pillar:reliability` `services:S3` `week:02` `day:05`
 
-A. 단일 AZ 배포  
-B. Multi-AZ 배포  
-C. 더 큰 인스턴스 1대  
-D. 코드 압축  
+</details>
 
-**Answer:** B  
-**Explanation:** AZ 분산은 장애 영역을 줄여 가용성을 올린다.  
-**Tags:** `domain:2` `services:HA`
+---
 
-## Q12
+## Q7.
 
-**Scenario:** DR 설계에서 RPO의 의미는?
+요구사항이 “다른 리전에도 데이터가 복제돼야 한다(리전 DR/규제)”다. 시험에서 복제 설정을 고를 때 같이 따라오는 전제 조건을 빠뜨리면 오답이 된다.  
+S3 Replication(SRR/CRR)의 필수 전제는?
 
-A. 복구 시간 목표  
-B. 복구 시점 목표(데이터 손실 허용량)  
-C. 응답 시간 목표  
-D. 비용 목표  
+A. 소스/대상 버킷 모두 Versioning이 켜져 있어야 한다  
+B. CloudFront를 반드시 붙여야 한다  
+C. 버킷은 퍼블릭이어야 한다  
+D. 모든 객체가 Glacier여야 한다  
 
-**Answer:** B  
-**Explanation:** RPO는 장애 시 허용 가능한 데이터 손실 시점이다.  
-**Tags:** `domain:2` `services:DR`
+<details>
+<summary>정답/해설</summary>
 
+- 정답: A
+- 근거 원칙: 신뢰성 원칙 (Reliability)
+- 왜 이게 원칙에 맞나: 복제는 버전 기반이라 Versioning 전제가 같이 나온다.
+- 소거법
+  - B (명확히 틀림): 캐시/전송 계층이다.
+  - C (명확히 틀림): 접근 제어와 복제 기능은 별개다.
+  - D (명확히 틀림): 저장 클래스와 무관하다.
+- 한 줄 규칙: “S3 복제”는 **Versioning 전제** 체크.
+- 태그: `pillar:reliability` `services:S3` `week:02` `day:05`
+
+</details>
+
+---
+
+## Q8.
+
+상태를 디스크(EBS)에 쓰는 워크로드에서 업데이트 도중 디스크가 꼬여 롤백이 필요하다. 인스턴스를 새로 띄워도 디스크 데이터가 없으면 의미가 없다.  
+이 상황에서 가장 직접적인 백업/복구 단위는?
+
+A. EBS Snapshot  
+B. S3 Versioning  
+C. Route 53 Weighted  
+D. GuardDuty  
+
+<details>
+<summary>정답/해설</summary>
+
+- 정답: A
+- 근거 원칙: 신뢰성 원칙 (Reliability)
+- 왜 이게 원칙에 맞나: 블록 스토리지 복구는 스냅샷이 기본 단위다.
+- 소거법
+  - B (근접 오답): 객체 스토리지 실수 복구다.
+  - C (명확히 틀림): DNS/트래픽 분배다.
+  - D (명확히 틀림): 탐지 서비스다.
+- 한 줄 규칙: “디스크 복구”면 **Snapshot**.
+- 태그: `pillar:reliability` `services:EBS` `week:02` `day:05`
+
+</details>
+
+---
+
+## Q9.
+
+문장에 “자동 장애 조치(failover)”가 강하게 들어 있다. 읽기 성능 확장은 부차적이다.  
+RDS/Aurora에서 가장 자연스러운 선택은?
+
+A. Multi-AZ  
+B. Read replica  
+C. S3 Replication  
+D. Route 53 Latency routing  
+
+<details>
+<summary>정답/해설</summary>
+
+- 정답: A
+- 근거 원칙: 신뢰성 원칙 (Reliability)
+- 왜 이게 원칙에 맞나: 가용성/자동 장애 조치는 Multi-AZ로 매핑된다.
+- 소거법
+  - B (근접 오답): 읽기 확장 도구다.
+  - C (명확히 틀림): S3 기능이다.
+  - D (명확히 틀림): DNS 라우팅이다.
+- 한 줄 규칙: “failover”면 **Multi-AZ**.
+- 태그: `pillar:reliability` `services:RDS,Aurora` `week:02` `day:05`
+
+</details>
+
+---
+
+## Q10. (복수정답: 2개)
+
+요구사항이 동시에 들어왔다.  
+1) “장애 시 자동 failover”(가용성)  
+2) “read-heavy라 읽기 성능 확장”(읽기 분산)  
+두 요구를 가장 자연스럽게 만족하는 구성 2개를 고르시오.
+
+A. Multi-AZ 구성  
+B. Read replica 추가  
+C. S3 Versioning 켜기  
+D. CloudTrail Trail 생성  
+E. NACL을 모두 Allow로 바꾸기  
+
+<details>
+<summary>정답/해설</summary>
+
+- 정답: A, B
+- 근거 원칙: 신뢰성 원칙 (Reliability)
+- 왜 이게 원칙에 맞나: 요구를 분해해 각각의 기능에 매핑해야 한다. failover=Multi-AZ, read scaling=Read replica.
+- 소거법
+  - C (명확히 틀림): 객체 스토리지 실수 복구다.
+  - D (근접 오답): 감사엔 유용하지만 가용성/읽기 확장의 답은 아니다.
+  - E (명확히 틀림): 네트워크를 열어도 DB 기능이 생기지 않는다.
+- 한 줄 규칙: “가용성 vs 읽기 확장”을 분리하고 **Multi-AZ + RR**로 조합한다.
+- 태그: `pillar:reliability` `services:RDS,Aurora` `week:02` `day:05`
+
+</details>
+
+---
+
+## TL;DR (이번 주 소거 규칙)
+
+- Route 53: **Failover(장애 조치)** / **Weighted(비율)** / **Latency(가까운 리전)**  
+- ELB: “host/path”면 **ALB**, “TCP/정적 IP”면 **NLB**  
+- 자가 치유: **ASG + health check**  
+- S3: “실수 복구=Versioning”, “원격 DR/규제=Replication(+Versioning 전제)”  
+- DB: “failover=Multi-AZ”, “read-heavy=Read replica”, “실수 롤백=DynamoDB PITR”
