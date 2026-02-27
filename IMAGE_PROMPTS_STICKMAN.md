@@ -192,3 +192,107 @@ Scene: Timeline rollback in an IT office. A NoSQL table icon has a time slider/r
 ```text
 Scene: Resilience patterns recap in an IT office. Four stickmen run a “system resilience rehearsal” on a whiteboard made of icons only (no text): traffic routing (signpost + heartbeat), self-healing (thermostat + replace icon), decoupling (queue box buffering a spike wave), and DR strategy menu (archive vs dual-site icons). One stickman places a small clock + database icon to represent RPO/RTO, while another highlights retry/DLQ with a loop arrow and a dead-letter box icon. Friendly, energetic summary vibe.
 ```
+
+---
+
+## Week03 / Day01 (Performance thinking + compute)
+
+### `aws-saa/week03/day01/00-theory-index.md`
+
+```text
+Scene: A friendly IT office “performance triage” moment. Three stickmen stand around a whiteboard showing four simple bottleneck buckets (CPU chip icon, memory chip icon, network cable icon, disk icon) with arrows from a “slow app” box (no text). One stickman holds a small stopwatch icon labeled only by symbols (p95/p99 vibe as two stacked percentile dots, no text). Another stickman places a magnifying glass over the CPU bucket to show “diagnosis first”. Calm, methodical vibe.
+```
+
+### `aws-saa/week03/day01/01-ec2.md`
+
+```text
+Scene: In an IT office, three stickmen debate EC2 choices. One stickman points at a whiteboard decision tree made of icons: CPU-heavy -> “C” badge icon, memory-heavy -> “R/X” badge icon, bursty -> “T” badge icon (use simple letter badges as abstract icons, no readable words). Another stickman holds a tiny hourglass + coin icon to imply cost/perf tradeoff. In the corner, a “credit meter” icon drains to empty with a red warning triangle to hint burst credits. Friendly, casual, but clear.
+```
+
+### `aws-saa/week03/day01/02-cloudwatch.md`
+
+```text
+Scene: IT office monitoring station. Three stickmen look at a monitor showing three simple charts (no text): CPU line, disk queue spikes (stacked dots), and a “credit bar” dropping. One stickman points to a checklist board with four icons (CPU, disk, network, credit) to imply cross-checking metrics. Another stickman holds a magnifying glass and a small “aha” lightbulb icon. Clean, minimal, no UI screenshot style.
+```
+
+---
+
+## Week03 / Day02 (Edge caching + network acceleration)
+
+### `aws-saa/week03/day02/00-theory-index.md`
+
+```text
+Scene: IT office whiteboard showing two lanes to “global users” (globe icon). Lane A: CloudFront cache layer (stacked boxes with a snowflake/cache icon) close to users; Lane B: Global Accelerator path (globe -> anycast entry pin -> fast backbone line to endpoint). Three stickmen compare the two with a split-screen vibe: one stickman places a cache icon on the left, another places a routing/path icon on the right. No text, icons and arrows only.
+```
+
+### `aws-saa/week03/day02/01-cloudfront.md`
+
+```text
+Scene: A playful cache-hit/cache-miss illustration in an IT office. Users (small person icons) request a file; the request hits a nearby “edge cache” box (smiley check icon) most of the time, and sometimes goes to an “origin” storage box (longer arrow). Include a small TTL hourglass icon above the cache, and a “broom/erase” icon for invalidation (no text). Three stickmen adjust a simple dial icon (TTL) and smile as the origin load decreases (down arrow).
+```
+
+### `aws-saa/week03/day02/02-global-accelerator.md`
+
+```text
+Scene: Global network path optimization in an IT office. A globe icon with multiple entry pins (anycast vibe) routes traffic to the nearest pin, then a thick “fast backbone” line goes to a server endpoint icon. Add a “fixed IP badge” icon (simple ID card with numbers as abstract dots, no readable text) to hint static IP. Three stickmen: one draws the shortest route, another checks a health icon on endpoints, another holds a shield icon for reliability. No text.
+```
+
+---
+
+## Week03 / Day03 (Storage performance: EBS/EFS)
+
+### `aws-saa/week03/day03/00-theory-index.md`
+
+```text
+Scene: IT office “storage choice” board. Left side: EBS block disk icon with two sliders (IOPS and throughput) and a speedometer. Right side: EFS shared folder icon connected to three server icons (shared lines). A stickman tries to connect two servers to one disk and gets a red “not shareable” symbol, while another stickman happily connects multiple servers to the shared folder with green checks. No text, clear contrast.
+```
+
+### `aws-saa/week03/day03/01-ebs.md`
+
+```text
+Scene: EBS tuning moment in an IT office. A disk icon sits next to a queue icon (stack of waiting dots) that is overflowing; a stickman turns two knobs labeled only by icons (IOPS lightning bolt, throughput water-flow icon). Another stickman watches a chart stabilize (line becomes smooth). Include a small “gp3” and “io2” abstract tag as simple colored chips (no readable words) to imply volume type choices. Casual, clean.
+```
+
+### `aws-saa/week03/day03/02-efs.md`
+
+```text
+Scene: Shared uploads problem in an IT office. Three web-server icons each have a small folder; the folders look inconsistent (warning icons). A stickman replaces them with one central shared folder icon (EFS) connected to all servers with neat lines. Another stickman tears up a “sync script” paper (no text) to show reduced ops pain. Friendly, relief vibe.
+```
+
+---
+
+## Week03 / Day04 (DB performance + caching)
+
+### `aws-saa/week03/day04/00-theory-index.md`
+
+```text
+Scene: IT office “DB performance ladder” board. Three steps shown as icons only: step 1 cache (cache box), step 2 access pattern/index (key + index grid), step 3 read scaling (one DB branching into multiple read nodes). Three stickmen walk up the steps, each carrying an icon: stopwatch (latency), coin (cost), and shield (reliability). No text, crisp and instructive.
+```
+
+### `aws-saa/week03/day04/01-dynamodb.md`
+
+```text
+Scene: DynamoDB access pattern illustration in an IT office. A table is shown as partition boxes; one partition is “hot” with a small flame icon and many arrows hitting it. Another stickman redraws the key design as evenly distributed partitions with balanced arrows. Show Query as a magnifying glass targeting one partition box, and Scan as a sweeping broom passing across all boxes with a red warning triangle (no text). Clear, casual.
+```
+
+### `aws-saa/week03/day04/02-elasticache.md`
+
+```text
+Scene: Read-heavy hot path in an IT office. App icon requests data; most requests go to a cache box first (green check), and only misses go to a DB icon (longer arrow). Add a small “freshness” icon (tiny clock) near the cache to hint invalidation/consistency tradeoff. Three stickmen: one points at reduced DB load (down arrow), another points at a warning icon near the clock, and the third holds a balancing scale icon to show tradeoff. No text.
+```
+
+### `aws-saa/week03/day04/03-aurora.md`
+
+```text
+Scene: Read scaling concept in an IT office. One primary DB icon handles writes (pen icon), and multiple read replica DB icons branch out (eye icon) with arrows to many user icons. A stickman routes read traffic to the read cluster, while another stickman points at an index icon (grid) and a connection pool icon (simple chain links) to show tuning hints. Casual and clear, no text.
+```
+
+---
+
+## Week03 / Day05 (Special Lecture + Week Summary)
+
+### `aws-saa/week03/day05/01-theory.md`
+
+```text
+Scene: Week 3 recap in an IT office. Four stickmen around a big whiteboard “diagnosis order” flow drawn with icons only: cache (cache box) -> DB pattern (key + index grid) -> storage I/O (disk + speedometer) -> compute (CPU chip) -> network path (globe + route line). One stickman marks “trap” with a red warning triangle near “Scan” and “wrong accelerator choice” icons, another marks “best move” with a green check near cache-first. Friendly debrief vibe, no text.
+```
