@@ -62,10 +62,14 @@
 
 ### TODO (Service / Feature)
 
+- (필수) 타입/클래스/옵션이 있는 서비스라면, **누락 없이 표로 전체 정리**하고 표준/대표 선택지는 **굵게** 표시한다.
+  - 예: EC2 instance family/type, EBS volume type, S3 storage class, 구매 옵션 등
+  - 각 항목에 “언제 쓰는가(신호) / 제약 / 비용 드라이버 / 비용 효율 포인트”를 1~2줄로 붙인다.
+
 - When to use / When not to use
 - Key limits & tradeoffs
 - Security & IAM integration
-- Cost drivers
+- Cost drivers (비용 드라이버) + cost-efficient choice (비용 효율적 선택 기준)
 - Common architectures
 - Exam must-know (시험 포인트)
   - Key point: TODO
