@@ -44,6 +44,22 @@ This repository is being used to author AWS SAA (Solutions Architect - Associate
 - 실습: 예상 결과(검증 포인트) + 비용/주의 + Cleanup 포함
 - 퀴즈: 정답+해설, 오답이 왜 오답인지 1~2줄로 명확히
 - 시각화: 최소 1개 다이어그램(복잡한 날은 2~3개)
+- 가독성: TL;DR → 결정 규칙 → 근거/예시 → 정리 흐름 유지(가이드는 `WRITING_GUIDE.md`)
+- VAKOG(멀티모달): 세션 단위로 V/A/K/O/G 요소를 최소 1개씩 포함(가이드는 `VAKOG.md`)
+
+## Writing Style (요약)
+
+- 결론을 먼저 쓴다(TL;DR 1줄).
+- 기술 핵심(Core)은 짧고 매끈하게, 비유/설명(Explain)은 편안한 대화체로 쓴다(`WRITING_GUIDE.md`).
+- 용어는 첫 등장에만 1줄로 정의한다.
+- 문단은 3~5줄, 한 문단에 한 주장.
+- “무조건/항상” 대신 조건과 예외를 쓴다.
+
+## VAKOG 운영 규칙 (요약)
+
+- 문서는 학습자를 유형으로 분류하지 않는다. VAKOG는 “콘텐츠 설계 체크리스트”로만 사용한다.
+- 각 day README에 `## VAKOG` 블록을 추가하고, 해당 day의 theory/handson/quiz에서 실제로 충족되게 만든다.
+- Skill(외부) 기반 산출물도 결과물에 VAKOG 섹션을 덧붙여 일관성을 유지한다(상세: `VAKOG.md`).
 
 ## Mistake Prevention Log
 

@@ -1,8 +1,18 @@
 # Hands-on Lab
 
+## TL;DR (무엇을 만들고, 무엇이 보이면 성공인가)
+
+- TODO (기술 핵심만: 최종 상태 1줄 + 검증 신호 1줄)
+
 ## Goal
 
 - TODO
+
+## VAKOG Cues (for the lab)
+
+- A(Auditory): TODO (여기서 멈추고 설명하기 프롬프트 1~2개)
+- O(Olfactory, smell test): TODO (정상/비정상 신호 3개)
+- G(Gustatory, taste test): TODO (1~3분 중간 체크포인트 1개)
 
 ## Prereqs
 
@@ -41,4 +51,3 @@
 ## Cleanup
 
 1. TODO
-

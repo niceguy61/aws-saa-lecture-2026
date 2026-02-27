@@ -1,5 +1,14 @@
 # Theory
 
+## TL;DR (한 줄 결론)
+
+- IAM은 “Allow 목록”이 아니라 **정책 평가 규칙 + 상한선(SCP/boundary) + 리소스 정책**의 조합이다. 그래서 AccessDenied는 대부분 “Allow를 더 붙이면 된다”가 아니다.
+
+## Why This Matters (시험/실무에서 걸리는 지점)
+
+- 시험 문제는 자주 이렇게 출제된다: “Allow를 줬는데 왜 안 돼요?” → 정답은 대개 **Explicit Deny / SCP / permissions boundary / resource policy / trust policy** 쪽에 있다.
+- 실무에서도 키 공유는 사고로 이어진다. 그래서 “Role + STS 임시 자격 증명”이 기본 패턴이다.
+
 ## Exam Guide Mapping
 
 - Domain: Domain 1: Design Secure Architectures
@@ -8,21 +17,25 @@
 
 ## Core Concepts
 
-- Authentication vs Authorization
-  - 인증: “누구인가” 확인 (예: IAM Identity Center로 IdP 연동)
-  - 인가: “무엇을 할 수 있는가” 결정 (예: IAM 정책 평가)
-- Policy types (시험 빈출)
-  - Identity-based policy: 사용자/그룹/역할에 부여
-  - Resource-based policy: 리소스에 부여 (예: S3 bucket policy, KMS key policy)
-  - Permissions boundary: “최대 권한 상한선” (특히 역할/사용자에 적용)
-  - SCP(Organizations): 계정/OU 단위 “최대 허용 상한선” (권한을 ‘부여’하지는 않음)
-- Policy evaluation 핵심
-  - 기본은 Deny
-  - Explicit Deny 는 항상 승리
-  - Allow 가 있어야만 통과
-  - 여러 정책이 겹칠 때, “경계(SCP/Boundary)”가 최종 권한을 제한
+IAM을 외우는 가장 쉬운 방식은 “용어”가 아니라 “질문”으로 잡는 것이다.
+
+- 인증(Authentication): “누구인가?” (예: Identity Center로 SSO)
+- 인가(Authorization): “무엇을 할 수 있나?” (예: IAM 정책 평가)
+
+정책은 크게 4종류가 핵심이다(시험 빈출).
+
+- Identity-based policy: 사용자/그룹/역할에 부착
+- Resource-based policy: 리소스에 부착 (예: S3 bucket policy, KMS key policy)
+- Permissions boundary: **identity의 최대 권한 상한선**(부여가 아니라 제한)
+- SCP(Organizations): **계정/OU의 최대 권한 상한선**(부여가 아니라 제한)
 
 ![IAM policy evaluation (order and boundaries)](../../assets/core/iam-evaluation.svg)
+
+## Decision Rules (정답을 가르는 규칙 3개)
+
+1. 기본은 Deny다. → **Allow가 없으면 무조건 Deny**
+2. Explicit Deny는 항상 이긴다. → Allow가 10개 있어도 Deny 하나면 끝
+3. 상한선은 뚫을 수 없다. → **SCP/boundary에 막히면 IAM Allow로는 풀 수 없다**
 
 ## Deep Dive
 
@@ -103,6 +116,13 @@ flowchart LR
   SCP1[SCP] -. limits .- OU2
 ```
 
+## Smell Test (헷갈리는 지점 / 레드 플래그)
+
+- “키를 공유하자”가 보이면 거의 틀렸다 → 보통 **AssumeRole**이 정답 방향
+- “SCP로 Allow했으니 됐다” → SCP는 부여가 아니라 **상한선**이다
+- “trust policy에 S3 권한을 넣자” → trust는 “누가 Assume”, permission은 “Assume 후 무엇을”
+- “S3를 SG로 막자” → S3는 SG 대상이 아니다(정책/엔드포인트 관점)
+
 ## Quick Comparison Table
 
 | Topic | Option 1 | Option 2 | Notes |
@@ -118,3 +138,10 @@ flowchart LR
 - S3 접근을 막고 싶은데 security group으로 해결하려 함: S3는 SG 대상이 아님(대신 bucket policy/VPC endpoint policy)
 - Cross-account에서 “액세스 키 공유”가 정답처럼 보이면 의심: 대부분 AssumeRole + trust policy
 - Role trust policy와 permission policy를 혼동: trust는 “누가 Assume”, permission은 “Assume 후 무엇을”
+
+## Taste Test (1~2분)
+
+아래 문장 2개를 “정답/오답”으로만 판정해보자(이유는 한 줄로).
+
+1) “SCP에서 Allow 했으니 이제 접근 가능하다.”  
+2) “교차 계정 운영은 access key 공유가 가장 단순하다.”

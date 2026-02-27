@@ -1,9 +1,24 @@
 # Theory
 
+## TL;DR (한 줄 결론)
+
+- TODO (기술 핵심만: 오늘의 “선택 기준/규칙” 1줄)
+
+## Why This Matters (시험/실무에서 걸리는 지점)
+
+- TODO (Explain: 편안한 대화체로, 함정/비용/보안/운영 포인트 1~3개)
+
 ## Exam Guide Mapping
 
 - Domain: TODO
 - Objectives: TODO (시험 가이드 문구를 그대로 붙이지 말고, 의미 단위로 요약)
+
+## VAKOG Anchors
+
+- V(Visual): TODO (그림/다이어그램/표 1개 이상)
+- A(Auditory): TODO (토크 트랙 3~6줄 + 토론 질문 1개)
+- O(Olfactory, smell test): TODO (레드 플래그 3~5개)
+- G(Gustatory, taste test): TODO (1~3분 미니 확인 1개)
 
 ## Core Concepts
 

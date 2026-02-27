@@ -1,5 +1,9 @@
 # Quiz (Mock Questions) - Day 01
 
+## TL;DR (오늘의 규칙)
+
+- “키 공유/루트 사용”이 보이면 일단 의심하고, **Role + STS AssumeRole + (필요 시) boundary/SCP**로 답을 좁힌다.
+
 ## Questions
 
 ### Q1
@@ -12,7 +16,7 @@ C. 개발 계정에서 루트 사용자로 로그인해 필요한 작업을 수�
 D. 모든 계정을 하나로 합쳐 계정 간 이동을 없앤다  
 
 **Answer:** B  
-**Explanation:** 교차 계정 액세스는 역할 + trust policy + STS 임시 자격 증명이 표준이다. 키 공유/루트 사용은 보안 모범사례에 위배된다.  
+**Explanation:** 규칙: 교차 계정은 **AssumeRole(임시 자격 증명)** 이 기본이다. 키 공유/루트 사용은 회수/감사/노출 위험 때문에 모범사례가 아니다.  
 **Tags:** `domain:1` `services:IAM,STS`
 
 ### Q2
@@ -25,7 +29,7 @@ C. IAM 역할을 인스턴스 프로파일로 연결하고 필요한 권한만 �
 D. S3 버킷을 퍼블릭으로 열어 접근한다  
 
 **Answer:** C  
-**Explanation:** 워크로드 권한은 IAM Role로 위임하고 장기 키를 피한다.  
+**Explanation:** 규칙: 워크로드는 **IAM Role(인스턴스 프로파일/태스크 role)** 로 권한을 받는다. 장기 키 저장은 사고로 이어진다.  
 **Tags:** `domain:1` `services:IAM,EC2`
 
 ### Q3
@@ -38,7 +42,7 @@ C. SCP는 리전별로만 적용된다
 D. SCP는 루트 사용자에게는 절대 적용되지 않는다  
 
 **Answer:** B  
-**Explanation:** SCP는 상한선이다. 상위에서 막으면 하위 Allow로 해제할 수 없다.  
+**Explanation:** 규칙: SCP는 **부여가 아니라 상한선**이다. 상위에서 막히면 IAM Allow로 풀 수 없다.  
 **Tags:** `domain:1` `services:Organizations`
 
 ### Q4
@@ -51,7 +55,7 @@ C. 보안 그룹에서 인바운드 443만 허용한다
 D. Route 53 레코드를 공유한다  
 
 **Answer:** B  
-**Explanation:** 교차 계정 리소스 공유는 resource-based policy가 기본 패턴이다.  
+**Explanation:** 규칙: 교차 계정 “리소스 공유”는 **resource-based policy**(예: bucket policy)로 푸는 경우가 많다.  
 **Tags:** `domain:1` `services:S3,IAM`
 
 ### Q5
@@ -64,7 +68,7 @@ C. 무조건 Deny
 D. SCP가 없으면 Allow  
 
 **Answer:** C  
-**Explanation:** 정책 평가에서 Explicit Deny가 최우선이다.  
+**Explanation:** 규칙: **Explicit Deny가 최우선**이다. Allow가 있어도 Deny 하나면 실패다.  
 **Tags:** `domain:1` `services:IAM`
 
 ### Q6
@@ -77,7 +81,7 @@ C. 액세스 키를 이메일로 전달
 D. 루트 사용자로만 접근 허용  
 
 **Answer:** A  
-**Explanation:** ExternalId는 제3자 교차 계정 AssumeRole에서 confused deputy 완화에 사용된다.  
+**Explanation:** 규칙: 제3자 교차 계정 AssumeRole은 **ExternalId**로 confused deputy 위험을 낮춘다.  
 **Tags:** `domain:1` `services:STS`
 
 ### Q7
@@ -90,7 +94,7 @@ C. Permissions boundary
 D. AWS access key  
 
 **Answer:** C  
-**Explanation:** Permissions boundary는 identity에 대해 최대 권한 상한선을 강제한다.  
+**Explanation:** 규칙: Permissions boundary는 identity의 **최대 권한 상한선**이다(부여가 아니라 제한).  
 **Tags:** `domain:1` `services:IAM`
 
 ### Q8
@@ -103,7 +107,7 @@ C. 버킷에 접근 가능한 IP 대역
 D. CloudTrail 로그 저장 위치  
 
 **Answer:** B  
-**Explanation:** trust policy는 “Assume 가능한 주체”를, permission policy는 “Assume 후 권한”을 정의한다.  
+**Explanation:** 규칙: trust는 “누가 Assume?”, permission은 “Assume 후 무엇을?”. 둘을 섞으면 설계가 꼬인다.  
 **Tags:** `domain:1` `services:IAM,STS`
 
 ### Q9 (Multiple response)
@@ -116,7 +120,7 @@ C. 최소 권한 원칙 적용
 D. 워크로드 권한은 IAM role로 위임  
 
 **Answer:** A, C, D  
-**Explanation:** MFA/least privilege/role 기반 위임은 모범사례다. 키 공유는 안티패턴이다.  
+**Explanation:** 규칙: 루트 MFA, 최소 권한, role 위임은 모범사례다. 키 공유는 안티패턴이다.  
 **Tags:** `domain:1` `services:IAM`
 
 ### Q10
@@ -129,7 +133,7 @@ C. S3 버킷 이름을 암호화한다
 D. VPC 라우팅을 변경한다  
 
 **Answer:** B  
-**Explanation:** session policy는 AssumeRole로 발급된 세션 권한을 “더 좁게” 만들 수 있다.  
+**Explanation:** 규칙: session policy는 AssumeRole 세션의 권한을 **추가로 제한**하는 도구다(확장 아님).  
 **Tags:** `domain:1` `services:STS`
 
 ### Q11
@@ -142,7 +146,7 @@ C. 그룹은 STS로 임시 자격 증명을 발급한다
 D. 그룹은 SCP를 대체한다  
 
 **Answer:** B  
-**Explanation:** 그룹은 사용자에게 정책을 묶어 적용하기 위한 관리 단위다.  
+**Explanation:** 규칙: 그룹은 “권한을 묶어서 사용자에 적용”하는 관리 단위다. 리소스에 직접 붙지 않는다.  
 **Tags:** `domain:1` `services:IAM`
 
 ### Q12
@@ -155,6 +159,10 @@ C. 루트 사용자 공유
 D. 모든 버킷을 퍼블릭으로 전환  
 
 **Answer:** B  
-**Explanation:** RBAC + AssumeRole은 분리/감사/회수 관점에서 유리하며 시험에 자주 등장한다.  
+**Explanation:** 규칙: 역할(RBAC)로 권한을 묶고, 필요할 때 AssumeRole로 전환하는 게 분리/감사/회수에 유리하다.  
 **Tags:** `domain:1` `services:IAM,STS`
 
+## Debrief (말로 설명해보기)
+
+- Q1의 정답을 “키 공유 금지” 관점에서 30초로 설명해보면?
+- “Allow를 줬는데 안 됨” 상황에서, 오늘 배운 규칙 3개 중 무엇부터 의심할까?

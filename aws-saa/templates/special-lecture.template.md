@@ -1,8 +1,19 @@
 # Special Lecture - Title
 
+## TL;DR (이 특강의 선택 기준)
+
+- TODO (기술 핵심만: Choose-this-not-that의 규칙 1줄)
+
 ## Why This Matters On The Exam
 
 - TODO (출제 빈도/자주 나오는 함정/선택 기준)
+
+## VAKOG Anchors
+
+- V(Visual): TODO (비교표/다이어그램)
+- A(Auditory): TODO (토크 트랙 3~6줄 + 토론 질문 1개)
+- O(Olfactory, smell test): TODO (레드 플래그/안티패턴 3~5개)
+- G(Gustatory, taste test): TODO (1~3분 미니 확인 1개)
 
 ## Services In Scope (Top 10~15)
 
@@ -58,4 +69,3 @@ D. TODO
 **Explanation:** TODO  
 
 **Tags:** `domain:TODO` `services:TODO`
-

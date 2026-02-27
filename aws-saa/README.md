@@ -7,6 +7,8 @@
 - References: `aws-saa/references/exam-guide.md`
 - Exam keypoints: `aws-saa/exam-keypoints.md`
 - Templates: `aws-saa/templates/`
+- Writing guide: `WRITING_GUIDE.md`
+- VAKOG guide: `VAKOG.md`
 - Week 1 (Domain 1): `aws-saa/week01-domain01-secure-architectures/README.md`
 - Week 2 (Domain 2): `aws-saa/week02-domain02-resilient-architectures/README.md`
 - Week 3 (Domain 3): `aws-saa/week03-domain03-high-performing-architectures/README.md`

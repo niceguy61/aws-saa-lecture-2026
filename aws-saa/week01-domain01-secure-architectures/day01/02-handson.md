@@ -1,10 +1,20 @@
 # Hands-on Lab: IAM Role Switching + Least Privilege (STS)
 
+## TL;DR (무엇이 보이면 성공인가)
+
+- `allowed/`는 읽히고 `denied/`는 막히면 성공이다. 그리고 “누가 호출했는지(Caller identity)”가 **AssumeRole 한 role ARN**으로 바뀌어야 한다.
+
 ## Goal
 
 - S3의 “특정 prefix만 읽기” 권한을 IAM 정책으로 구현한다.
 - STS AssumeRole로 임시 자격 증명을 발급받아 권한이 실제로 제한되는지 검증한다.
 - Session policy로 AssumeRole 이후 권한을 추가로 제한하는 패턴을 확인한다.
+
+## Success Signals (먼저 확인할 것)
+
+- Console role switching 후 `allowed/allowed.txt` 다운로드는 성공한다.
+- `denied/denied.txt`는 `AccessDenied`가 뜬다(“막히는 게 정상”).
+- (CLI 사용 시) `aws sts get-caller-identity`의 ARN이 AssumeRole 세션으로 보인다.
 
 ## Prereqs
 
@@ -138,6 +148,7 @@ aws s3 cp "s3://$BUCKET/allowed/allowed.txt" - || true
 - S3 버킷 이름 중복: 버킷은 글로벌 유일해야 한다.
 - AssumeRole 실패: trust policy의 Principal/Action을 확인한다.
 - `jq` 없음: CloudShell에는 보통 있지만, 없으면 콘솔/다른 파싱 방법을 사용한다.
+- “List는 되는데 GetObject는 안 됨”: `s3:ListBucket`와 `s3:GetObject`는 리소스 ARN이 다르다(버킷 vs 오브젝트).
 
 ## Cleanup
 
