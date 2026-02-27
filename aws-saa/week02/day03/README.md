@@ -14,12 +14,10 @@
 
 ## Timebox (4h)
 
-- Theory: 2h
-- Hands-on (console): 2h
+- Theory + mini-action: 4h
 
 ## Exam-Style Design Questions
 
 - “실수로 삭제/덮어쓰기” 방지를 위해 S3에서 어떤 기능이 정답 후보인가?
 - “다른 버킷/리전에 복제”가 요구되면 어떤 설정이 필수인가?
 - 백업은 RPO/RTO 요구와 어떤 식으로 연결되는가?
-

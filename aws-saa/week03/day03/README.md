@@ -14,12 +14,10 @@
 
 ## Timebox (4h)
 
-- Theory: 2h
-- Hands-on (console): 2h
+- Theory + mini-action: 4h
 
 ## Exam-Style Design Questions
 
 - “IOPS가 병목” 문장에 어떤 선택지가 매핑되는가?
 - “공유 파일 시스템” 요구가 있을 때 EBS가 아니라 EFS가 되는 이유는?
 - gp3의 장점(비용/성능 분리)을 설명할 수 있는가?
-

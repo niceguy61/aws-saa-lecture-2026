@@ -5,7 +5,7 @@
 ## Outcomes
 
 - CloudFront/GA, ElastiCache/DAX, DynamoDB/Aurora 같은 비교 포인트를 정리한다.
-- 통합 미니 랩으로 CloudFront + S3(OAC) 캐싱 패턴을 콘솔로 구성한다.
+- 케이스 기반 미니 시뮬레이션으로 CloudFront + S3(OAC) 캐싱 패턴 흐름을 따라간다.
 - 성능 문제를 “어디를 먼저 의심할지” 진단 순서로 설명한다.
 
 ## Services In Scope (Top set)
@@ -19,8 +19,7 @@
 
 ## Timebox (4h)
 
-- Special lecture (theory): 2h 30m
-- Integrated mini lab (console): 1h
+- Special lecture + case walkthrough (theory): 3h 30m
 - Case quiz + review: 30m
 
 ## Reading
@@ -32,4 +31,3 @@
 - “전 세계 사용자” 지연시간 이슈에서 CloudFront vs Global Accelerator 중 무엇을 고를까?
 - DynamoDB 성능 이슈를 “키 설계/GSI/핫 파티션” 관점으로 진단할 수 있는가?
 - Lambda 동시성 제한이 성능/가용성에 미치는 영향을 설명할 수 있는가?
-

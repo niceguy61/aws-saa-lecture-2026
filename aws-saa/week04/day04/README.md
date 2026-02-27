@@ -13,12 +13,10 @@
 
 ## Timebox (4h)
 
-- Theory: 2h 30m
-- Hands-on (console): 1h 30m
+- Theory + mini-action: 4h
 
 ## Exam-Style Design Questions
 
 - “프라이빗 서브넷 -> S3” 요구에서 NAT 비용을 줄이려면?
 - CloudFront가 비용 최적화 정답이 되는 신호는?
 - 교차 AZ/리전 트래픽이 비용 드라이버가 되는 신호는?
-

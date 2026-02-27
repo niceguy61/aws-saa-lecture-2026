@@ -16,12 +16,11 @@
 
 ## Timebox (4h)
 
-- Theory: 2h 30m
-- Hands-on: 1h 30m
+- Theory + mini-action: 4h
 
 ## Flow (읽는 순서)
 
-- 왜 IAM/STS가 시험에서 “정답을 가르는 단서”가 자주 되는지 → 정책 평가 규칙 3개 → AssumeRole 패턴 → 상한선(SCP/boundary) → 실습으로 손에 붙이기
+- 왜 IAM/STS가 시험에서 “정답을 가르는 단서”가 자주 되는지 → 정책 평가 규칙 3개 → AssumeRole 패턴 → 상한선(SCP/boundary) → 예시로 손에 붙이기
 
 ## Exam-Style Design Questions
 

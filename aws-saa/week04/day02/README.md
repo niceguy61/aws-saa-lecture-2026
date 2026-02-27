@@ -14,12 +14,10 @@
 
 ## Timebox (4h)
 
-- Theory: 3h
-- Hands-on (console): 1h
+- Theory + mini-action: 4h
 
 ## Exam-Style Design Questions
 
 - “중단 허용 배치” 문장이 있으면 어떤 구매 옵션이 정답 후보가 되는가?
 - “1~3년 사용량이 예측 가능” 문장이 있으면 어떤 옵션이 정답 후보가 되는가?
 - right sizing은 “무엇을 보고” 결정해야 하는가(지표/측정)?
-

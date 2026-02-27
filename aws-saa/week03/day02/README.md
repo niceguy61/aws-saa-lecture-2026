@@ -13,12 +13,10 @@
 
 ## Timebox (4h)
 
-- Theory: 2h
-- Hands-on (console): 2h
+- Theory + mini-action: 4h
 
 ## Exam-Style Design Questions
 
 - 전 세계 사용자 지연을 줄이려면 CloudFront가 정답인 신호는?
 - 쿼리 스트링을 캐시 키에 넣으면 어떤 트레이드오프가 생기는가?
 - Global Accelerator와 CloudFront 중 무엇이 더 적절한가(요구 문장 기반)?
-

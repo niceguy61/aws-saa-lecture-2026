@@ -13,12 +13,10 @@
 
 ## Timebox (4h)
 
-- Theory: 2h
-- Hands-on (console): 2h
+- Theory + mini-action: 4h
 
 ## Exam-Style Design Questions
 
 - “장기 보관 + 가끔 조회” 요구에서 어떤 클래스가 후보가 되는가?
 - “예측하기 어려운 액세스 패턴” 문장이 있으면 어떤 선택지가 후보가 되는가?
 - prefix 기반으로 lifecycle을 나누는 이유는?
-

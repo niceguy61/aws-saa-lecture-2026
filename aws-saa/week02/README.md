@@ -39,7 +39,7 @@
 - Day 02: ALB/NLB + Auto Scaling + health checks
 - Day 03: Storage resilience (S3/EBS/EFS) + backup
 - Day 04: Database resilience (RDS/Aurora/DynamoDB)
-- Day 05: Special Lecture + Week Summary (Top 서비스 비교/함정/대안 + 통합 미니 랩 + 케이스 퀴즈)
+- Day 05: Special Lecture + Week Summary (Top 서비스 비교/함정/대안 + 케이스 퀴즈)
 
 ## Special Lecture Pack (Top Services Deep Dive)
 

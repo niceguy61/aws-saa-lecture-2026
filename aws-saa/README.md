@@ -16,15 +16,13 @@
 
 ## Daily Timebox (Default)
 
-- Theory: 2h
-- Hands-on: 2h
-- Quiz/Review: hands-on 직후 20~30분 포함(필요 시 이론/실습 내로 흡수)
+- Theory + mini-action: 3h 30m ~ 4h
+- Quiz/Review: 15~30m (필요 시 포함)
 
 ## Weekly Day 05 (Summary / Special Lecture)
 
 - 각 주차 Day05는 요약/정리 세션으로 운영
-  - Special lecture (theory): 2h 30m
-  - Integrated mini lab (console): 1h
+  - Special lecture + case walkthrough (theory): 3h 30m
   - Case quiz + review: 30m
 
 ## Mermaid Lint

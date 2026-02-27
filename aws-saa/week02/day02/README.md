@@ -14,12 +14,10 @@
 
 ## Timebox (4h)
 
-- Theory: 2h
-- Hands-on (console): 2h
+- Theory + mini-action: 4h
 
 ## Exam-Style Design Questions
 
 - “HTTP path 기반 라우팅” 요구가 있을 때 정답 후보는?
 - “초저지연 TCP” 요구가 있을 때 ALB가 아니라 NLB가 되는 신호는?
 - Auto Scaling과 ELB를 조합할 때 헬스체크는 어디서/무엇을 기준으로 하는가?
-

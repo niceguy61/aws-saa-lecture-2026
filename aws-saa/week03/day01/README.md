@@ -15,12 +15,10 @@
 
 ## Timebox (4h)
 
-- Theory: 2h 30m
-- Hands-on (console): 1h 30m
+- Theory + mini-action: 4h
 
 ## Exam-Style Design Questions
 
 - “지속적인 고CPU” 워크로드에서 T 계열이 오답이 되는 신호는?
 - “처리량”을 높여야 할 때 스케일업 vs 스케일아웃 중 어떤 선택이 자연스러운가?
 - 성능 문제에서 CloudWatch로 무엇을 먼저 확인할까?
-

@@ -16,12 +16,10 @@
 
 ## Timebox (4h)
 
-- Theory: 2h
-- Hands-on (console): 2h
+- Theory + mini-action: 4h
 
 ## Exam-Style Design Questions
 
 - KMS에서 “key policy vs IAM policy” 중 무엇이 실제로 막고 있는지 어떻게 판단할까?
 - 애플리케이션 시크릿은 Secrets Manager가 정답인 경우가 많다. 그 이유(기능/운영/보안)는?
 - S3 객체를 SSE-KMS로 암호화했을 때, 어떤 권한들이 함께 필요해지는가?
-

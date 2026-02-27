@@ -13,12 +13,10 @@
 
 ## Timebox (4h)
 
-- Theory: 3h
-- Hands-on (console): 1h
+- Theory + mini-action: 4h
 
 ## Exam-Style Design Questions
 
 - “장애 조치”가 필요한 경우 Route 53에서 어떤 라우팅 정책이 자연스러운가?
 - RPO/RTO 요구가 달라지면 DR 전략(backup/restore vs warm standby 등)은 어떻게 바뀌는가?
 - “가용성”과 “확장성”은 같은 요구사항인가?
-
