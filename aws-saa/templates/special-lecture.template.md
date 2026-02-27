@@ -14,11 +14,11 @@
 
 ## Exam Guide (Badges)
 
-![Domain](https://img.shields.io/badge/Domain-TODO-0ea5e9?style=flat&logo=amazonaws&logoColor=white)
-![Focus](https://img.shields.io/badge/Focus-TODO-22c55e?style=flat&logo=amazonaws&logoColor=white)
-![Service: TODO](https://img.shields.io/badge/Service-TODO-8b5cf6?style=flat&logo=amazonaws&logoColor=white)
-![Service: TODO](https://img.shields.io/badge/Service-TODO-8b5cf6?style=flat&logo=amazonaws&logoColor=white)
-![Service: TODO](https://img.shields.io/badge/Service-TODO-8b5cf6?style=flat&logo=amazonaws&logoColor=white)
+![Domain](https://img.shields.io/badge/Domain-TODO-0ea5e9?style=flat&logo=amazonwebservices&logoColor=white)
+![Focus](https://img.shields.io/badge/Focus-TODO-22c55e?style=flat&logo=amazonwebservices&logoColor=white)
+![Service: TODO](https://img.shields.io/badge/Service-TODO-8b5cf6?style=flat&logo=amazonwebservices&logoColor=white)
+![Service: TODO](https://img.shields.io/badge/Service-TODO-8b5cf6?style=flat&logo=amazonwebservices&logoColor=white)
+![Service: TODO](https://img.shields.io/badge/Service-TODO-8b5cf6?style=flat&logo=amazonwebservices&logoColor=white)
 
 ## Why This Matters On The Exam
 

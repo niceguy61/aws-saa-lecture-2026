@@ -2,13 +2,13 @@
 
 ## Exam Guide (Badges)
 
-![Domain](https://img.shields.io/badge/Domain-2-0ea5e9?style=flat&logo=amazonaws&logoColor=white)
-![Service: Route%2053](https://img.shields.io/badge/Service-Route%2053-8b5cf6?style=flat&logo=amazonaws&logoColor=white)
-![Service: ALB](https://img.shields.io/badge/Service-ALB-8b5cf6?style=flat&logo=amazonaws&logoColor=white)
-![Service: Auto%20Scaling](https://img.shields.io/badge/Service-Auto%20Scaling-8b5cf6?style=flat&logo=amazonaws&logoColor=white)
-![Service: S3](https://img.shields.io/badge/Service-S3-8b5cf6?style=flat&logo=amazonaws&logoColor=white)
-![Service: RDS](https://img.shields.io/badge/Service-RDS-8b5cf6?style=flat&logo=amazonaws&logoColor=white)
-![Service: SQS](https://img.shields.io/badge/Service-SQS-8b5cf6?style=flat&logo=amazonaws&logoColor=white)
+![Domain](https://img.shields.io/badge/Domain-2-0ea5e9?style=flat&logo=amazonwebservices&logoColor=white)
+![Service: Route%2053](https://img.shields.io/badge/Service-Route%2053-8b5cf6?style=flat&logo=amazonroute53&logoColor=white)
+![Service: ALB](https://img.shields.io/badge/Service-ALB-8b5cf6?style=flat&logo=amazonwebservices&logoColor=white)
+![Service: Auto%20Scaling](https://img.shields.io/badge/Service-Auto%20Scaling-8b5cf6?style=flat&logo=amazonwebservices&logoColor=white)
+![Service: S3](https://img.shields.io/badge/Service-S3-8b5cf6?style=flat&logo=amazons3&logoColor=white)
+![Service: RDS](https://img.shields.io/badge/Service-RDS-8b5cf6?style=flat&logo=amazonrds&logoColor=white)
+![Service: SQS](https://img.shields.io/badge/Service-SQS-8b5cf6?style=flat&logo=amazonsqs&logoColor=white)
 
 ## Goals
 

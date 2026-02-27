@@ -46,7 +46,7 @@
 ## Exam Guide 뱃지(shields.io) 규칙
 
 - **짧고 이쁘게**: Domain/Task는 1개씩, 서비스는 **서비스별 뱃지로 쪼개서 3~6개**만 붙인다.
-- 아이콘: 기본은 `logo=amazonaws`로 통일한다(서비스별 로고는 “있으면” 사용).
+- 아이콘: 기본은 `logo=amazonwebservices`로 통일한다(서비스별 로고는 “있으면” 사용).
 - 공백은 `%20`으로 URL 인코딩한다(예: `Route%2053`, `VPC%20Endpoints`).
 
 ## Skill(외부) 산출물에도 적용
