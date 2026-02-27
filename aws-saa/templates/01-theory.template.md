@@ -1,13 +1,34 @@
 # TODO - (서비스/주제)
 
-## Why This Matters (시험/실무에서 걸리는 지점)
+## 소개 (이 서비스/주제는 무엇인가?)
 
-- TODO (Explain: 편안한 대화체로, 함정/비용/보안/운영 포인트 1~3개)
+- TODO (1~2문장)
 
-## Exam Guide Mapping
+## Impact 범위 (어디에 영향을 주나?)
+
+- Security: TODO
+- Cost: TODO
+- Reliability: TODO
+- Performance: TODO
+- Operations: TODO
+
+## Exam Guide (Badges)
+
+![Domain](https://img.shields.io/badge/Domain-TODO-0ea5e9?style=flat)
+![Task](https://img.shields.io/badge/Task-TODO-22c55e?style=flat)
+![Services](https://img.shields.io/badge/Services-TODO-8b5cf6?style=flat)
+
+<details>
+<summary>Exam guide mapping (details)</summary>
 
 - Domain: TODO
 - Objectives: TODO (시험 가이드 문구를 그대로 붙이지 말고, 의미 단위로 요약)
+
+</details>
+
+## Why This Matters (시험/실무에서 걸리는 지점)
+
+- TODO (Explain: 편안한 대화체로, 함정/비용/보안/운영 포인트 1~3개)
 
 ## VAKOG Anchors
 

@@ -1,15 +1,34 @@
 # IAM/STS 기초
 
+## 소개 (이게 뭔가요?)
+
+- IAM은 “누가 무엇을 할 수 있는지”를 정책으로 정의하는 접근 제어 계층이다.
+- STS는 역할(Role)을 Assume 해서 “임시 자격 증명”으로 접근하게 만들어 키 공유를 없앤다.
+
+## Impact 범위 (어디에 영향을 주나?)
+
+- Security: 최소 권한/키 공유 금지/감사(CloudTrail)까지 설계에 직결
+- Operations: AccessDenied 트러블슈팅(정책 평가/경계/리소스 정책)을 좌우
+- Reliability/Cost/Performance: 직접 기능은 아니지만, “권한/설정 실수”가 장애/비용 폭탄으로 이어질 수 있음
+
+## Exam Guide (Badges)
+
+![Domain](https://img.shields.io/badge/Domain-1-0ea5e9?style=flat)
+![Task](https://img.shields.io/badge/Task-1.1%20Security%20access%20design-22c55e?style=flat)
+![Services](https://img.shields.io/badge/Services-IAM%2C%20STS%2C%20Organizations-8b5cf6?style=flat)
+
+<details>
+<summary>Exam guide mapping (details)</summary>
+
+- Domain: Domain 1: Design Secure Architectures
+- Task focus: 1.1 AWS 리소스에 대한 보안 액세스 설계 (IAM, STS, 교차 계정, SCP, 리소스 정책)
+
+</details>
+
 ## Why This Matters (시험/실무에서 걸리는 지점)
 
 - 시험 문제는 자주 이렇게 출제된다: “Allow를 줬는데 왜 안 돼요?” → 정답은 대개 **Explicit Deny / SCP / permissions boundary / resource policy / trust policy** 쪽에 있다.
 - 실무에서도 키 공유는 사고로 이어진다. 그래서 “Role + STS 임시 자격 증명”이 기본 패턴이다.
-
-## Exam Guide Mapping
-
-- Domain: Domain 1: Design Secure Architectures
-- Task focus:
-  - 1.1 AWS 리소스에 대한 보안 액세스 설계 (IAM, STS, 교차 계정, SCP, 리소스 정책)
 
 ## Core Concepts
 

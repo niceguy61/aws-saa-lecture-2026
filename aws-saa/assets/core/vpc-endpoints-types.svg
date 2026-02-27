@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="980" height="420" viewBox="0 0 980 420" role="img" aria-label="VPC endpoints: gateway vs interface (PrivateLink)">
+<svg xmlns="http://www.w3.org/2000/svg" width="980" height="420" viewBox="0 0 980 420" role="img" aria-label="VPC 엔드포인트: Gateway vs Interface(PrivateLink)">
   <defs>
     <style>
       .bg { fill: #fbfbf7; }
@@ -18,7 +18,7 @@
   </defs>
 
   <rect class="bg" x="0" y="0" width="980" height="420" rx="18"/>
-  <text class="title" x="28" y="42">VPC Endpoints: Gateway vs Interface (PrivateLink)</text>
+  <text class="title" x="28" y="42">VPC 엔드포인트: Gateway vs Interface (PrivateLink)</text>
 
   <!-- VPC -->
   <rect class="vpc" x="28" y="70" width="660" height="320" rx="16"/>
@@ -26,25 +26,25 @@
 
   <!-- Private subnet -->
   <rect class="subnet" x="48" y="120" width="300" height="240" rx="14"/>
-  <text class="text" x="68" y="148">Private subnet</text>
+  <text class="text" x="68" y="148">프라이빗 서브넷</text>
   <rect class="box" x="78" y="175" width="250" height="70" rx="12"/>
-  <text class="text" x="98" y="215">Workload (EC2/ECS/Lambda)</text>
+  <text class="text" x="98" y="215">워크로드 (EC2/ECS/Lambda)</text>
 
   <!-- Interface endpoint -->
   <rect class="muted" x="78" y="265" width="250" height="70" rx="12"/>
-  <text class="text" x="98" y="296">Interface endpoint (ENI)</text>
-  <text class="small" x="98" y="318">Has security group</text>
+  <text class="text" x="98" y="296">인터페이스 엔드포인트 (ENI)</text>
+  <text class="small" x="98" y="318">보안 그룹 있음</text>
 
   <!-- Route table + gateway endpoint -->
   <rect class="box" x="380" y="150" width="280" height="110" rx="14"/>
-  <text class="text" x="400" y="182">Route table</text>
-  <text class="small" x="400" y="206">+ Gateway endpoint routes</text>
-  <text class="small" x="400" y="228">S3, DynamoDB only</text>
+  <text class="text" x="400" y="182">라우트 테이블</text>
+  <text class="small" x="400" y="206">+ 게이트웨이 엔드포인트 라우트</text>
+  <text class="small" x="400" y="228">S3/DynamoDB 전용</text>
 
   <!-- NAT path (not recommended) -->
   <rect class="box" x="380" y="285" width="280" height="80" rx="14"/>
-  <text class="text" x="400" y="318">NAT Gateway path</text>
-  <text class="small" x="400" y="340">Internet egress + cost</text>
+  <text class="text" x="400" y="318">NAT Gateway 경로</text>
+  <text class="small" x="400" y="340">인터넷 egress + 비용</text>
 
   <!-- AWS services (outside VPC) -->
   <rect class="muted" x="720" y="130" width="230" height="90" rx="14"/>
@@ -52,12 +52,12 @@
   <text class="small" x="740" y="188">Gateway endpoint</text>
 
   <rect class="muted" x="720" y="255" width="230" height="90" rx="14"/>
-  <text class="text" x="740" y="290">Other AWS services</text>
+  <text class="text" x="740" y="290">기타 AWS 서비스</text>
   <text class="small" x="740" y="313">Interface endpoint</text>
 
   <!-- Arrows -->
   <path class="arrow" d="M 328 210 L 380 210"/>
-  <text class="small" x="334" y="198">to S3/DDB</text>
+  <text class="small" x="334" y="198">S3/DDB로</text>
   <path class="arrow" d="M 660 200 L 720 175"/>
 
   <path class="arrow" d="M 328 300 L 720 300"/>
@@ -65,8 +65,7 @@
 
   <path class="arrow dash" d="M 328 235 L 380 318"/>
   <path class="arrow dash" d="M 660 318 L 720 318"/>
-  <text class="small" x="408" y="278">avoid if endpoint fits</text>
+  <text class="small" x="408" y="278">엔드포인트로 되면 NAT는 피하기</text>
 
-  <text class="small" x="28" y="406">Exam intuition: "private access, reduce NAT cost, avoid internet path" strongly hints VPC endpoints. S3/DynamoDB are gateway; most others are interface.</text>
+  <text class="small" x="28" y="406">시험 감각: “프라이빗 접근/NAT 비용 절감/인터넷 경로 회피”는 VPC 엔드포인트 힌트다. S3/DynamoDB는 gateway, 대부분은 interface다.</text>
 </svg>
-

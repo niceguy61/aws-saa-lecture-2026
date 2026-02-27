@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="980" height="360" viewBox="0 0 980 360" role="img" aria-label="S3 versioning and replication (SRR/CRR) prerequisites">
+<svg xmlns="http://www.w3.org/2000/svg" width="980" height="360" viewBox="0 0 980 360" role="img" aria-label="S3 버저닝과 복제(SRR/CRR) 전제조건">
   <defs>
     <style>
       .bg { fill: #fbfbf7; }
@@ -15,24 +15,23 @@
   </defs>
 
   <rect class="bg" x="0" y="0" width="980" height="360" rx="18"/>
-  <text class="title" x="28" y="42">S3: Versioning for rollback + Replication for DR (SRR/CRR)</text>
+  <text class="title" x="28" y="42">S3: Versioning(롤백) + Replication(DR) (SRR/CRR)</text>
 
   <rect class="box" x="60" y="90" width="360" height="220" rx="14"/>
-  <text class="text" x="80" y="124">Source bucket</text>
-  <text class="small" x="80" y="152">Versioning: ON (required)</text>
+  <text class="text" x="80" y="124">소스 버킷</text>
+  <text class="small" x="80" y="152">Versioning: ON (필수)</text>
   <rect class="muted" x="90" y="175" width="300" height="46" rx="10"/>
-  <text class="small" x="104" y="204">obj.txt: v1, v2, delete marker</text>
+  <text class="small" x="104" y="204">obj.txt: v1, v2, delete marker(삭제 마커)</text>
 
   <rect class="box" x="560" y="90" width="360" height="220" rx="14"/>
-  <text class="text" x="580" y="124">Destination bucket</text>
-  <text class="small" x="580" y="152">Versioning: ON (required)</text>
+  <text class="text" x="580" y="124">대상 버킷</text>
+  <text class="small" x="580" y="152">Versioning: ON (필수)</text>
   <rect class="muted" x="590" y="175" width="300" height="46" rx="10"/>
-  <text class="small" x="604" y="204">Replicated versions</text>
+  <text class="small" x="604" y="204">복제된 버전</text>
 
   <path class="arrow" d="M 420 200 L 560 200"/>
-  <text class="small" x="440" y="186">SRR/CRR replication</text>
+  <text class="small" x="440" y="186">SRR/CRR 복제</text>
 
   <rect class="muted" x="60" y="320" width="860" height="28" rx="10"/>
-  <text class="small" x="76" y="340">Exam intuition: "accidental deletion/overwrite" => Versioning. "region-level DR / compliance copy" => Replication. Both buckets must have Versioning enabled.</text>
+  <text class="small" x="76" y="340">시험 감각: “실수 삭제/덮어쓰기” ⇒ Versioning. “리전 단위 DR/컴플라이언스 복제본” ⇒ Replication. 두 버킷 모두 Versioning이 켜져야 한다.</text>
 </svg>
-

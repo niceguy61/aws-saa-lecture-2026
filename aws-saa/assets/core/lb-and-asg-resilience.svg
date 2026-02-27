@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="980" height="420" viewBox="0 0 980 420" role="img" aria-label="ALB vs NLB and Auto Scaling self-healing">
+<svg xmlns="http://www.w3.org/2000/svg" width="980" height="420" viewBox="0 0 980 420" role="img" aria-label="ALB vs NLB 그리고 Auto Scaling 자가 치유">
   <defs>
     <style>
       .bg { fill: #fbfbf7; }
@@ -16,29 +16,29 @@
   </defs>
 
   <rect class="bg" x="0" y="0" width="980" height="420" rx="18"/>
-  <text class="title" x="28" y="42">Resilience building blocks: Load Balancer choice + Auto Scaling self-healing</text>
+  <text class="title" x="28" y="42">복원력 빌딩 블록: 로드밸런서 선택 + Auto Scaling 자가 치유</text>
 
   <!-- Users -->
   <rect class="box" x="40" y="110" width="160" height="70" rx="14"/>
-  <text class="text" x="70" y="150">Users</text>
+  <text class="text" x="70" y="150">사용자</text>
 
   <!-- ALB -->
   <rect class="muted" x="260" y="90" width="240" height="110" rx="14"/>
   <text class="text" x="280" y="126">ALB (L7)</text>
-  <text class="small" x="280" y="152">host/path routing</text>
-  <text class="small" x="280" y="172">HTTP features</text>
+  <text class="small" x="280" y="152">호스트/경로 라우팅</text>
+  <text class="small" x="280" y="172">HTTP 기능</text>
 
   <!-- NLB -->
   <rect class="muted" x="260" y="230" width="240" height="110" rx="14"/>
   <text class="text" x="280" y="266">NLB (L4)</text>
-  <text class="small" x="280" y="292">TCP/UDP, high perf</text>
-  <text class="small" x="280" y="312">static IP requirement</text>
+  <text class="small" x="280" y="292">TCP/UDP, 고성능</text>
+  <text class="small" x="280" y="312">고정 IP 요구</text>
 
   <!-- Target group / ASG -->
   <rect class="box" x="560" y="120" width="380" height="240" rx="14"/>
-  <text class="text" x="580" y="154">Target group + Auto Scaling Group</text>
-  <text class="small" x="580" y="178">Scale out/in (min/desired/max)</text>
-  <text class="small" x="580" y="198">Replace unhealthy instances</text>
+  <text class="text" x="580" y="154">타깃 그룹 + Auto Scaling 그룹</text>
+  <text class="small" x="580" y="178">스케일 아웃/인 (min/desired/max)</text>
+  <text class="small" x="580" y="198">비정상 인스턴스 교체</text>
 
   <rect class="muted" x="600" y="220" width="120" height="70" rx="12"/>
   <text class="text" x="620" y="258">EC2 A</text>
@@ -47,7 +47,7 @@
   <text class="text" x="760" y="258">EC2 B</text>
 
   <rect class="muted" x="670" y="310" width="200" height="36" rx="10"/>
-  <text class="small" x="682" y="333">Health check -> replace</text>
+  <text class="small" x="682" y="333">헬스체크 → 교체</text>
 
   <!-- arrows -->
   <path class="arrow" d="M 200 145 L 260 145"/>
@@ -60,6 +60,5 @@
 
   <!-- failure note -->
   <path class="arrow dash" d="M 660 220 C 650 250, 640 270, 630 300"/>
-  <text class="small" x="520" y="396">Exam intuition: "L7 routing rules" => ALB. "static IP / TCP / extreme throughput" => NLB. "auto recovery" => ASG + health checks.</text>
+  <text class="small" x="520" y="396">시험 감각: “L7 라우팅 규칙” ⇒ ALB. “고정 IP/TCP/극단적 처리량” ⇒ NLB. “자동 복구” ⇒ ASG + 헬스체크.</text>
 </svg>
-
