@@ -3,11 +3,11 @@
 ## Exam Guide (Badges)
 
 ![Domain](https://img.shields.io/badge/Domain-3-0ea5e9?style=flat&logo=amazonwebservices&logoColor=white)
-![Service: EC2](https://img.shields.io/badge/Service-EC2-8b5cf6?style=flat&logo=amazonec2&logoColor=white)
+![Service: EC2](https://img.shields.io/badge/Service-EC2-8b5cf6?style=flat&logo=amazonwebservices&logoColor=white)
 ![Service: CloudFront](https://img.shields.io/badge/Service-CloudFront-8b5cf6?style=flat&logo=amazonwebservices&logoColor=white)
-![Service: DynamoDB](https://img.shields.io/badge/Service-DynamoDB-8b5cf6?style=flat&logo=amazondynamodb&logoColor=white)
-![Service: ElastiCache](https://img.shields.io/badge/Service-ElastiCache-8b5cf6?style=flat&logo=amazonelasticache&logoColor=white)
-![Service: Lambda](https://img.shields.io/badge/Service-Lambda-8b5cf6?style=flat&logo=awslambda&logoColor=white)
+![Service: DynamoDB](https://img.shields.io/badge/Service-DynamoDB-8b5cf6?style=flat&logo=amazonwebservices&logoColor=white)
+![Service: ElastiCache](https://img.shields.io/badge/Service-ElastiCache-8b5cf6?style=flat&logo=amazonwebservices&logoColor=white)
+![Service: Lambda](https://img.shields.io/badge/Service-Lambda-8b5cf6?style=flat&logo=amazonwebservices&logoColor=white)
 ![Service: EBS](https://img.shields.io/badge/Service-EBS-8b5cf6?style=flat&logo=amazonwebservices&logoColor=white)
 
 ## Goals

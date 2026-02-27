@@ -3,11 +3,11 @@
 ## Exam Guide (Badges)
 
 ![Domain](https://img.shields.io/badge/Domain-1-0ea5e9?style=flat&logo=amazonwebservices&logoColor=white)
-![Service: IAM](https://img.shields.io/badge/Service-IAM-8b5cf6?style=flat&logo=amazoniam&logoColor=white)
+![Service: IAM](https://img.shields.io/badge/Service-IAM-8b5cf6?style=flat&logo=amazonwebservices&logoColor=white)
 ![Service: STS](https://img.shields.io/badge/Service-STS-8b5cf6?style=flat&logo=amazonwebservices&logoColor=white)
 ![Service: KMS](https://img.shields.io/badge/Service-KMS-8b5cf6?style=flat&logo=amazonwebservices&logoColor=white)
 ![Service: CloudTrail](https://img.shields.io/badge/Service-CloudTrail-8b5cf6?style=flat&logo=amazonwebservices&logoColor=white)
-![Service: Organizations](https://img.shields.io/badge/Service-Organizations-8b5cf6?style=flat&logo=awsorganizations&logoColor=white)
+![Service: Organizations](https://img.shields.io/badge/Service-Organizations-8b5cf6?style=flat&logo=amazonwebservices&logoColor=white)
 ![Service: VPC%20Endpoints](https://img.shields.io/badge/Service-VPC%20Endpoints-8b5cf6?style=flat&logo=amazonwebservices&logoColor=white)
 
 ## Goals

@@ -15,9 +15,9 @@
 
 ![Domain](https://img.shields.io/badge/Domain-1-0ea5e9?style=flat&logo=amazonwebservices&logoColor=white)
 ![Task](https://img.shields.io/badge/Task-1.1%20Security%20access%20design-22c55e?style=flat&logo=amazonwebservices&logoColor=white)
-![Service: IAM](https://img.shields.io/badge/Service-IAM-8b5cf6?style=flat&logo=amazoniam&logoColor=white)
+![Service: IAM](https://img.shields.io/badge/Service-IAM-8b5cf6?style=flat&logo=amazonwebservices&logoColor=white)
 ![Service: STS](https://img.shields.io/badge/Service-STS-8b5cf6?style=flat&logo=amazonwebservices&logoColor=white)
-![Service: Organizations](https://img.shields.io/badge/Service-Organizations-8b5cf6?style=flat&logo=awsorganizations&logoColor=white)
+![Service: Organizations](https://img.shields.io/badge/Service-Organizations-8b5cf6?style=flat&logo=amazonwebservices&logoColor=white)
 
 <details>
 <summary>Exam guide mapping (details)</summary>

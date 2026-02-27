@@ -47,6 +47,10 @@
 
 - **짧고 이쁘게**: Domain/Task는 1개씩, 서비스는 **서비스별 뱃지로 쪼개서 3~6개**만 붙인다.
 - 아이콘: 기본은 `logo=amazonwebservices`로 통일한다(서비스별 로고는 “있으면” 사용).
+- `logo=`가 안 보이면 **슬러그가 틀린 것**이다: Shields의 로고 이름은 Simple Icons의 `icons/*.svg` **파일명(확장자 제외)**을 그대로 쓴다.
+  - 예: AWS는 보통 `aws`가 아니라 `amazonwebservices` 계열 슬러그다(정확한 파일명은 Simple Icons 목록에서 확인).
+  - 참고: https://github.com/simple-icons/simple-icons/tree/develop/icons
+- 현실적으로 **AWS “서비스” 아이콘은 Simple Icons에 없는 경우가 많다** → 서비스 뱃지는 텍스트 중심 + AWS 공통 로고로 가고, 정말 필요하면 별도 이미지(로컬 SVG)로 보완한다.
 - 공백은 `%20`으로 URL 인코딩한다(예: `Route%2053`, `VPC%20Endpoints`).
 
 ## Skill(외부) 산출물에도 적용

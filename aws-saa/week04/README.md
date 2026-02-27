@@ -6,7 +6,7 @@
 ![Service: Budgets](https://img.shields.io/badge/Service-Budgets-8b5cf6?style=flat&logo=amazonwebservices&logoColor=white)
 ![Service: Cost%20Explorer](https://img.shields.io/badge/Service-Cost%20Explorer-8b5cf6?style=flat&logo=amazonwebservices&logoColor=white)
 ![Service: Savings%20Plans](https://img.shields.io/badge/Service-Savings%20Plans-8b5cf6?style=flat&logo=amazonwebservices&logoColor=white)
-![Service: S3](https://img.shields.io/badge/Service-S3-8b5cf6?style=flat&logo=amazons3&logoColor=white)
+![Service: S3](https://img.shields.io/badge/Service-S3-8b5cf6?style=flat&logo=amazonwebservices&logoColor=white)
 ![Service: NAT%20Gateway](https://img.shields.io/badge/Service-NAT%20Gateway-8b5cf6?style=flat&logo=amazonwebservices&logoColor=white)
 ![Service: VPC%20Endpoints](https://img.shields.io/badge/Service-VPC%20Endpoints-8b5cf6?style=flat&logo=amazonwebservices&logoColor=white)
 
