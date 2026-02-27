@@ -105,6 +105,16 @@ Scene: Network path metaphor in an IT office. A private tunnel connects a desk a
 
 ---
 
+## Week01 / Day05 (Special Lecture + Week Summary)
+
+### `aws-saa/week01/day05/01-theory.md`
+
+```text
+Scene: Week summary review in an IT office. Four stickmen around a big whiteboard “battle map” of secure architecture patterns made only of icons and arrows (no text). Show grouped icon clusters: access control (lock + ID card), data protection (key vault + secret box), audit/compliance (timeline + checklist), private connectivity (tunnel + shield). One stickman points at a “trap” area with a red warning triangle icon, another marks “best choice” with a green check icon. Casual, debrief vibe like a friendly retro meeting.
+```
+
+---
+
 ## Week02 / Day01 (Resilience basics)
 
 ### `aws-saa/week02/day01/01-route53-routing.md`
@@ -173,3 +183,12 @@ Scene: Database topology in an IT office. One primary database icon has a standb
 Scene: Timeline rollback in an IT office. A NoSQL table icon has a time slider/rewind control; after an accidental update (oops icon), the table returns to an earlier point (rewind). Three stickmen celebrate the rollback. No text, friendly and clear.
 ```
 
+---
+
+## Week02 / Day05 (Special Lecture + Week Summary)
+
+### `aws-saa/week02/day05/01-theory.md`
+
+```text
+Scene: Resilience patterns recap in an IT office. Four stickmen run a “system resilience rehearsal” on a whiteboard made of icons only (no text): traffic routing (signpost + heartbeat), self-healing (thermostat + replace icon), decoupling (queue box buffering a spike wave), and DR strategy menu (archive vs dual-site icons). One stickman places a small clock + database icon to represent RPO/RTO, while another highlights retry/DLQ with a loop arrow and a dead-letter box icon. Friendly, energetic summary vibe.
+```
