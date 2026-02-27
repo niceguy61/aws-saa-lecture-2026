@@ -58,28 +58,15 @@
 - 권장: SVG/다이어그램 라벨은 한글로(반드시 필요한 영어 용어만 괄호로).
 - TODO
 
-## Deep Dive
+## Service Chapters (서비스별로 분리)
 
-### Service A
+- Day에 서비스가 여러 개면 `theory/*.md`로 쪼개서 작성한다.
+- `01-theory.md`는 **개요/규칙/흐름**만 잡고, 깊은 내용은 챕터 파일로 보낸다.
+- 링크 예시:
+  - `[KMS (key policy의 관문)](theory/10-kms.md)`
+  - `[Secrets Manager vs Parameter Store](theory/20-secrets.md)`
 
-- When to use / When not to use
-- Key limits & tradeoffs
-- Security & IAM
-- Cost drivers
-- Common architectures
-- Exam must-know (시험 포인트)
-  - Key point: TODO
-  - Why: TODO (근거/원리 1~2줄)
-  - Alternative: TODO (제약을 넘기 위한 대안 서비스/패턴)
-
-```mermaid
-flowchart LR
-  A[Client] --> B[Service A]
-```
-
-### Service B
-
-- TODO
+> 참고: `theory/` 폴더 안 파일에서 `assets/`를 참조할 때는 상대경로가 한 단계 더 깊다(예: `../../../assets/core/...`).
 
 ## Quick Comparison Table
 

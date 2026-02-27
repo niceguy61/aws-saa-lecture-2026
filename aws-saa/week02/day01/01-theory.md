@@ -56,36 +56,12 @@
 
 ![DR strategies by RPO/RTO](../../assets/core/dr-rpo-rto-strategies.svg)
 
-## Route 53 Routing Policies (시험 빈출)
+## Service Chapters (서비스별로 읽기)
 
-- Simple: 단순 라우팅(대개 정답 후보가 아님)
-- Weighted: 점진 배포/AB 테스트/트래픽 분산
-- Failover: 헬스체크 기반 primary/secondary 장애 조치
-- Latency: 지연 시간 기준으로 가까운 리전에 라우팅(글로벌)
-- Geolocation/Geoproximity: 위치 기반 요구가 있을 때
+- [Route 53 Routing Policies (시험 빈출)](theory/10-route53-routing.md)
+- [DR Strategy Menu (개념)](theory/20-dr-strategies.md)
 
-```mermaid
-flowchart LR
-  U[Users] --> R53[Route 53]
-  R53 -->|Weighted| A[Endpoint A]
-  R53 -->|Weighted| B[Endpoint B]
-```
-
-## DR Strategy Menu (개념)
-
-- Backup/Restore: 비용 낮음, RTO 큼
-- Pilot light: 핵심만 상시 유지, RTO 중간
-- Warm standby: 축소된 운영 환경 유지, RTO 작음
-- Multi-site active/active: 비용 큼, RTO 매우 작음
-
-```mermaid
-flowchart TB
-  Req[RPO and RTO requirement] --> Menu{Pick strategy}
-  Menu --> BR[Backup restore]
-  Menu --> PL[Pilot light]
-  Menu --> WS[Warm standby]
-  Menu --> AA[Active active]
-```
+> Route 53과 DR은 둘 다 “장애를 전제로 선택하는 규칙”이라, 챕터로 분리해두면 복습이 편하다.
 
 ## Exam must-know (요약)
 

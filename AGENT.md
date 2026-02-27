@@ -33,7 +33,8 @@ This repository is being used to author AWS SAA (Solutions Architect - Associate
 - 주차별 폴더: `aws-saa/weekNN/`
 - 일자별 폴더: `aws-saa/weekNN/dayDD/`
   - `README.md` (목표/타임박스/서비스 범위)
-  - `01-theory.md`
+  - `01-theory.md` (Day 개요 + 읽는 순서 + 챕터 링크)
+  - `theory/` (선택: 서비스별 챕터, 예: `theory/10-iam.md`)
   - `02-handson.md`
   - `03-quiz.md`
 

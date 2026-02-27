@@ -64,84 +64,14 @@ IAM을 외우는 가장 쉬운 방식은 “용어”가 아니라 “질문”�
 2. Explicit Deny는 항상 이긴다. → Allow가 10개 있어도 Deny 하나면 끝
 3. 상한선은 뚫을 수 없다. → **SCP/boundary에 막히면 IAM Allow로는 풀 수 없다**
 
-## Deep Dive
+## Service Chapters (서비스별로 읽기)
 
-### IAM: Least Privilege 를 설계하는 단위
+- [IAM: Least Privilege 를 설계하는 단위](theory/10-iam.md)
+- [STS: AssumeRole 로 “키 공유”를 제거한다](theory/20-sts.md)
+- [Organizations/SCP: 멀티계정의 “상한선”](theory/30-organizations-scp.md)
+- [IAM Identity Center: SSO/페더레이션 관점(개요)](theory/40-identity-center.md)
 
-- When to use
-  - 권한을 “사람(Identity)” 또는 “워크로드(역할)”에 부여해야 할 때
-  - 서비스 간 호출(예: Lambda -> S3)에 장기 키 없이 권한을 위임해야 할 때
-- When not to use
-  - 애플리케이션 코드에 액세스 키를 하드코딩하는 방식으로 IAM을 쓰지 않는다.
-- 핵심 모델
-  - Principal(주체) = 사용자/역할/서비스(예: ec2.amazonaws.com)
-  - Action/Resource/Condition으로 정책을 구성
-  - ABAC: 태그 기반 조건(`aws:ResourceTag/*`, `aws:PrincipalTag/*`)으로 확장
-- 시험에서 자주 헷갈리는 포인트
-  - “그룹은 리소스에 붙지 않는다.” 그룹은 사용자 권한 관리를 위한 컨테이너다.
-  - “역할(role)은 임시 자격 증명”을 통해 사용된다. (STS)
-- Exam must-know (포인트 + Why + 대안)
-  - Key point: “AccessDenied”는 대부분 “Allow가 없어서”가 아니라 “Explicit Deny/경계/리소스 정책”에 막힌 케이스다.
-  - Why: 정책 평가는 기본 Deny이며, Explicit Deny는 어떤 Allow보다 우선한다. 또한 SCP/permissions boundary 같은 상한선은 IAM Allow로 뚫을 수 없다.
-  - Alternative: 교차 계정/워크로드 접근은 액세스 키 공유가 아니라 STS AssumeRole(=role 기반 임시 자격증명)로 설계한다.
-
-```mermaid
-flowchart TB
-  P[Principal] --> REQ[API Request]
-  REQ --> EVAL[Policy Evaluation]
-  EVAL -->|Explicit Deny| DENY[Deny]
-  EVAL -->|No Allow| DENY
-  EVAL -->|Allowed and within boundaries| ALLOW[Allow]
-  subgraph B["Permission boundaries"]
-    SCP["SCP: Org > OU > Account"]
-    PB["Permissions boundary: user or role"]
-  end
-  EVAL --- SCP
-  EVAL --- PB
-```
-
-### STS: AssumeRole 로 “키 공유”를 제거한다
-
-- What it is
-  - 역할을 인수(Assume)해 “임시” 액세스 키/시크릿/세션 토큰을 발급받는 서비스
-- When to use
-  - 교차 계정 액세스 (prod 계정 리소스를 ops 계정에서 관리)
-  - 임시 권한 부여 (운영자 on-call, break-glass)
-  - 워크로드가 다른 서비스에 접근 (권한 위임)
-- Security deep points (시험 포인트)
-  - Trust policy(역할 신뢰 정책)가 “누가 이 역할을 Assume할 수 있는지”를 정의
-  - ExternalId: 제3자(파트너) 교차계정 접근에서 confused deputy 완화
-  - Session policy: AssumeRole 시점에 권한을 “추가로 제한”할 수 있음
-
-```mermaid
-sequenceDiagram
-  participant U as User and workload
-  participant STS as AWS STS
-  participant S as AWS Service e.g. S3
-  U->>STS: AssumeRole roleArn, externalId?, sessionPolicy?
-  STS-->>U: Temp creds accessKeyId, secret, sessionToken
-  U->>S: API calls signed with temp creds
-  S-->>U: Authorized / AccessDenied
-```
-
-### Organizations/SCP: 멀티계정의 “상한선”
-
-- SCP는 “허용 가능한 최대 범위”를 제한한다.
-- SCP는 권한을 부여하지 않는다. (SCP로 Allow 해도 IAM에 Allow가 없으면 Deny)
-- 권장 멀티계정 기본 형태(개념)
-  - Security/Log archive 계정 분리
-  - Workload 계정(prod/stage/dev) 분리
-
-```mermaid
-flowchart LR
-  Root[Org Root] --> OU1[OU - Security]
-  Root --> OU2[OU - Workloads]
-  OU2 --> A1[Account - prod]
-  OU2 --> A2[Account - dev]
-  OU1 --> S1[Account - log-archive]
-  OU1 --> S2[Account - security]
-  SCP1[SCP] -. limits .- OU2
-```
+> Deep Dive는 서비스별 챕터로 분리했다. 먼저 규칙(Decision Rules)을 읽고, 필요한 챕터를 골라 깊게 들어가면 흐름이 끊기지 않는다.
 
 ## Smell Test (헷갈리는 지점 / 레드 플래그)
 

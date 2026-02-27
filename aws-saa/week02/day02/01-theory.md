@@ -53,45 +53,12 @@
 
 ![ALB vs NLB and ASG self-healing](../../assets/core/lb-and-asg-resilience.svg)
 
-## Deep Dive
+## Service Chapters (서비스별로 읽기)
 
-### ALB vs NLB (시험형 구분)
+- [ALB vs NLB (시험형 구분)](theory/10-alb-vs-nlb.md)
+- [Auto Scaling = “확장 + 복구”의 엔진](theory/20-auto-scaling.md)
 
-| Topic | ALB | NLB |
-|---|---|---|
-| Layer | L7 | L4 |
-| Routing | host/path 기반 | 주로 포트/프로토콜 |
-| Use case | 웹/API, 라우팅 규칙 | TCP/UDP, 고성능, 고정 IP 요구(케이스) |
-
-```mermaid
-flowchart LR
-  U[Users] --> ALB[ALB]
-  ALB --> TG[Target Group]
-  TG --> EC2a[EC2]
-  TG --> EC2b[EC2]
-```
-
-#### Exam must-know (포인트 + Why + 대안)
-
-- Key point: “host/path 라우팅, HTTP 헤더, WAF 연동” 문장이 있으면 ALB가 정답 후보로 올라간다.
-- Why: ALB는 L7에서 요청 내용을 해석해 규칙 기반 라우팅을 제공한다.
-- Alternative: “정적 IP, TCP/UDP, 매우 높은 처리량”이 요구면 NLB가 자연스럽다.
-
-### Auto Scaling = “확장 + 복구”의 엔진
-
-- 구성요소
-  - Launch template/config: 인스턴스 표준(AMI/타입/보안그룹/user data)
-  - Auto Scaling group: min/desired/max, AZ 분산
-  - Health checks: EC2 + (옵션) ELB health check
-- 시험 함정
-  - “원하는 가용성”이 있으면 Multi-AZ + ASG가 기본 정답 후보
-  - 헬스체크 실패 시 “교체/제외”를 통해 자가 치유가 일어난다
-
-#### Exam must-know (포인트 + Why + 대안)
-
-- Key point: “장애 자동 복구” 문장은 ASG + health check(EC2/ELB) 조합으로 푸는 경우가 많다.
-- Why: 실패한 인스턴스를 자동으로 감지하고 교체할 수 있는 메커니즘이 있어야 ‘운영자가 수동으로 재기동’ 패턴을 제거할 수 있다.
-- Alternative: 워크로드가 서버리스면(예: Lambda) 인스턴스 복구가 아니라 “동시성/재시도/큐”로 복원력을 설계한다.
+> 로드밸런서 선택과 자가 치유(ASG)는 서로 다른 축이라, 챕터로 나눠놓으면 복습이 쉬워진다.
 
 ## Exam Traps
 
