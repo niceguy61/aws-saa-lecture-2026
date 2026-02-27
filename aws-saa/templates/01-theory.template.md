@@ -14,9 +14,9 @@
 
 ## Exam Guide (Badges)
 
-![Domain](https://img.shields.io/badge/Domain-TODO-0ea5e9?style=flat)
-![Task](https://img.shields.io/badge/Task-TODO-22c55e?style=flat)
-![Services](https://img.shields.io/badge/Services-TODO-8b5cf6?style=flat)
+![Domain](https://img.shields.io/badge/Domain-TODO-0ea5e9?style=flat&logo=amazonaws&logoColor=white)
+![Task](https://img.shields.io/badge/Task-TODO-22c55e?style=flat&logo=amazonaws&logoColor=white)
+![Services](https://img.shields.io/badge/Services-TODO-8b5cf6?style=flat&logo=amazonaws&logoColor=white)
 
 <details>
 <summary>Exam guide mapping (details)</summary>
