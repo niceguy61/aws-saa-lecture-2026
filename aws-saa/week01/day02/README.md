@@ -54,7 +54,7 @@ flowchart LR
 
 ## Quiz
 
-- [Day 02 Quiz](03-quiz.md)
+- [Day 02 Quiz](04-quiz.md)
 
 ## Back
 

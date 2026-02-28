@@ -47,7 +47,7 @@ flowchart LR
 
 ## Quiz
 
-- `03-quiz.md`
+- `0{n}-quiz.md` (이 Day 폴더에서 가장 마지막 번호)
 
 ## Back
 

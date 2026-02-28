@@ -1,4 +1,4 @@
-﻿# 03-quiz - Week 03 Day 04 (DynamoDB / ElastiCache / Aurora)
+# 04-quiz - Week 03 Day 04 (DynamoDB / ElastiCache / Aurora)
 
 - 문항 수: 5 (Day 규칙)
 - 4지선다 = 정답 1개 / 5지선다 = 정답 2개(복수정답)

@@ -1,4 +1,4 @@
-﻿# 03-quiz - Week 03 Day 01 (EC2 Sizing / CloudWatch Bottleneck)
+# 03-quiz - Week 03 Day 01 (EC2 Sizing / CloudWatch Bottleneck)
 
 - 문항 수: 5 (Day 규칙)
 - 4지선다 = 정답 1개 / 5지선다 = 정답 2개(복수정답)

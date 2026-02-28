@@ -1,4 +1,4 @@
-﻿# 03-quiz - Week 01 Day 02 (KMS / Secrets / S3 SSE-KMS)
+# 04-quiz - Week 01 Day 02 (KMS / Secrets / S3 SSE-KMS)
 
 - 문항 수: 5 (Day 규칙)
 - 4지선다 = 정답 1개 / 5지선다 = 정답 2개(복수정답)

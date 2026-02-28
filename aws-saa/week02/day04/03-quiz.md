@@ -1,4 +1,4 @@
-﻿# 03-quiz - Week 02 Day 04 (RDS/Aurora: Multi-AZ vs Read Replica / DynamoDB PITR)
+# 03-quiz - Week 02 Day 04 (RDS/Aurora: Multi-AZ vs Read Replica / DynamoDB PITR)
 
 - 문항 수: 5 (Day 규칙)
 - 4지선다 = 정답 1개 / 5지선다 = 정답 2개(복수정답)

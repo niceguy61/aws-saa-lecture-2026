@@ -1,4 +1,4 @@
-﻿# 03-quiz - Week 02 Day 01 (Route 53 Routing / DR Strategies)
+# 03-quiz - Week 02 Day 01 (Route 53 Routing / DR Strategies)
 
 - 문항 수: 5 (Day 규칙)
 - 4지선다 = 정답 1개 / 5지선다 = 정답 2개(복수정답)

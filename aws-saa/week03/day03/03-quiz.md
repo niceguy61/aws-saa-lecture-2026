@@ -1,4 +1,4 @@
-﻿# 03-quiz - Week 03 Day 03 (EBS Performance / EFS Shared Files)
+# 03-quiz - Week 03 Day 03 (EBS Performance / EFS Shared Files)
 
 - 문항 수: 5 (Day 규칙)
 - 4지선다 = 정답 1개 / 5지선다 = 정답 2개(복수정답)

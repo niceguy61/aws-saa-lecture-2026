@@ -1,4 +1,4 @@
-﻿# 03-quiz - Week 04 Day 02 (EC2 Purchase Options / Right Sizing / Auto Scaling)
+# 03-quiz - Week 04 Day 02 (EC2 Purchase Options / Right Sizing / Auto Scaling)
 
 - 문항 수: 5 (Day 규칙)
 - 4지선다 = 정답 1개 / 5지선다 = 정답 2개(복수정답)
