@@ -23,18 +23,18 @@
 
 ```mermaid
 flowchart LR
-  A[0-10m: 워밍업(실수 복구 vs DR)] --> B[10-130m: Reading]
-  B --> C[130-160m: 미니 정리(전제조건 체크)]
-  C --> D[160-210m: Trap drill(Versioning/Replication 혼동)]
-  D --> E[210-240m: Quiz]
+  A["0-10m: 워밍업(실수 복구 vs DR)"] --> B["10-130m: Reading"]
+  B --> C["130-160m: 미니 정리(전제조건 체크)"]
+  C --> D["160-210m: Trap drill(Versioning/Replication 혼동)"]
+  D --> E["210-240m: Quiz"]
 ```
 
 ## Flow (서비스 연결 흐름)
 
 ```mermaid
 flowchart LR
-  Mistake[실수/삭제/덮어쓰기] --> V[S3 Versioning]
-  DR[리전/규제/원격 요구] --> R[S3 Replication<br/>(SRR/CRR)]
+  Mistake["실수/삭제/덮어쓰기"] --> V[S3 Versioning]
+  DR["리전/규제/원격 요구"] --> R["S3 Replication<br/>(SRR/CRR)"]
   Block[블록 스토리지 백업] --> Snap[EBS Snapshot]
   V --> Restore[복구]
   R --> Restore

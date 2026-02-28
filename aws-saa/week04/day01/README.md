@@ -25,20 +25,20 @@
 
 ```mermaid
 flowchart LR
-  A[0-10m: 워밍업(비용 질문 3개)] --> B[10-140m: Reading]
-  B --> C[140-170m: 미니 정리(태그 설계)]
-  C --> D[170-210m: Trap drill(가시화 없이 절약)]
-  D --> E[210-240m: Quiz]
+  A["0-10m: 워밍업(비용 질문 3개)"] --> B["10-140m: Reading"]
+  B --> C["140-170m: 미니 정리(태그 설계)"]
+  C --> D["170-210m: Trap drill(가시화 없이 절약)"]
+  D --> E["210-240m: Quiz"]
 ```
 
 ## Flow (서비스 연결 흐름)
 
 ```mermaid
 flowchart LR
-  Spend[사용량/비용 발생] --> Tags[Cost allocation tags]
-  Tags --> CE[Cost Explorer<br/>(분해/가시화)]
-  CE --> Budget[AWS Budgets<br/>(알림/통제)]
-  Budget --> Action[대응(리사이즈/정책/운영)]
+  Spend["사용량/비용 발생"] --> Tags[Cost allocation tags]
+  Tags --> CE["Cost Explorer<br/>(분해/가시화)"]
+  CE --> Budget["AWS Budgets<br/>(알림/통제)"]
+  Budget --> Action["대응(리사이즈/정책/운영)"]
 ```
 
 ## Reading (서비스별 theory)

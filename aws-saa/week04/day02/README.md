@@ -25,19 +25,19 @@
 
 ```mermaid
 flowchart LR
-  A[0-10m: 워밍업(예측/중단/스파이크)] --> B[10-120m: Reading]
-  B --> C[120-160m: 미니 정리(옵션 선택표)]
-  C --> D[160-210m: Trap drill(Spot/RI 오남용)]
-  D --> E[210-240m: Quiz]
+  A["0-10m: 워밍업(예측/중단/스파이크)"] --> B["10-120m: Reading"]
+  B --> C["120-160m: 미니 정리(옵션 선택표)"]
+  C --> D["160-210m: Trap drill(Spot/RI 오남용)"]
+  D --> E["210-240m: Quiz"]
 ```
 
 ## Flow (서비스 연결 흐름)
 
 ```mermaid
 flowchart LR
-  Signal[요구 신호] --> Opt[EC2 구매 옵션<br/>(RI/SP/Spot/On-Demand)]
+  Signal[요구 신호] --> Opt["EC2 구매 옵션<br/>(RI/SP/Spot/On-Demand)"]
   Opt --> Size[right sizing]
-  Size --> ASG[Auto Scaling<br/>(scheduled/mixed)]
+  Size --> ASG["Auto Scaling<br/>(scheduled/mixed)"]
   ASG --> Bill[비용 최적화]
 ```
 

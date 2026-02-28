@@ -52,7 +52,7 @@
 flowchart LR
   Problem[성능 이슈] --> CW[CloudWatch 지표]
   CW --> CPU[CPU 높음?]
-  CW --> IO[EBS Queue/지연?]
+  CW --> IO["EBS Queue/지연?"]
   CW --> NET[네트워크 포화?]
   CW --> T[T 크레딧 소진?]
 ```

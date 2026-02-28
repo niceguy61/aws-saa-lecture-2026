@@ -25,10 +25,10 @@ S3 비용은 종종 “갑자기 많이 나왔다”로 체감되는데, 사실�
 
 ```mermaid
 flowchart LR
-  A[0-10m: 워밍업(액세스/복구/비용)] --> B[10-140m: Reading]
-  B --> C[140-170m: 미니 정리(전환/만료 패턴)]
-  C --> D[170-210m: Trap drill(아카이브 함정)]
-  D --> E[210-240m: Quiz]
+  A["0-10m: 워밍업(액세스/복구/비용)"] --> B["10-140m: Reading"]
+  B --> C["140-170m: 미니 정리(전환/만료 패턴)"]
+  C --> D["170-210m: Trap drill(아카이브 함정)"]
+  D --> E["210-240m: Quiz"]
 ```
 
 ## Flow (서비스 연결 흐름)
@@ -36,8 +36,8 @@ flowchart LR
 ```mermaid
 flowchart LR
   Data[S3 데이터] --> Class[S3 storage class 선택]
-  Class --> LC[Lifecycle rule<br/>(전환/만료 자동화)]
-  Class --> IT[Intelligent-Tiering<br/>(예측 어려움)]
+  Class --> LC["Lifecycle rule<br/>(전환/만료 자동화)"]
+  Class --> IT["Intelligent-Tiering<br/>(예측 어려움)"]
   LC --> Bill[비용 최적화]
   IT --> Bill
 ```

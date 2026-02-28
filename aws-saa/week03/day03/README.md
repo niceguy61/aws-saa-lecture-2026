@@ -25,10 +25,10 @@
 
 ```mermaid
 flowchart LR
-  A[0-10m: 워밍업(블록 vs 파일)] --> B[10-120m: Reading]
-  B --> C[120-150m: 미니 정리(gp3/io2 신호)]
-  C --> D[150-210m: Trap drill(EBS/EFS 혼동)]
-  D --> E[210-240m: Quiz]
+  A["0-10m: 워밍업(블록 vs 파일)"] --> B["10-120m: Reading"]
+  B --> C["120-150m: 미니 정리(gp3/io2 신호)"]
+  C --> D["150-210m: Trap drill(EBS/EFS 혼동)"]
+  D --> E["210-240m: Quiz"]
 ```
 
 ## Flow (서비스 연결 흐름)
@@ -36,9 +36,9 @@ flowchart LR
 ```mermaid
 flowchart LR
   Need[요구사항] --> Share{여러 인스턴스 공유?}
-  Share -- Yes --> EFS[EFS<br/>(공유 파일)]
+  Share -- Yes --> EFS["EFS<br/>(공유 파일)"]
   Share -- No --> Perf{IOPS/처리량 조절?}
-  Perf -- Yes --> EBS[EBS gp3/io2<br/>(성능 튜닝)]
+  Perf -- Yes --> EBS["EBS gp3/io2<br/>(성능 튜닝)"]
   Perf -- No --> EBS
 ```
 

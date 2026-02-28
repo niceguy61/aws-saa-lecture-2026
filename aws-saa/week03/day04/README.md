@@ -25,10 +25,10 @@ DB 성능 이슈는 늘 비슷한 그림으로 시작합니다. “읽기가 느
 
 ```mermaid
 flowchart LR
-  A[0-10m: 워밍업(모델링/확장/캐시)] --> B[10-140m: Reading]
-  B --> C[140-160m: 미니 정리(신호 매칭)]
-  C --> D[160-210m: Trap drill(캐시/DB 혼동)]
-  D --> E[210-240m: Quiz]
+  A["0-10m: 워밍업(모델링/확장/캐시)"] --> B["10-140m: Reading"]
+  B --> C["140-160m: 미니 정리(신호 매칭)"]
+  C --> D["160-210m: Trap drill(캐시/DB 혼동)"]
+  D --> E["210-240m: Quiz"]
 ```
 
 ## Flow (서비스 연결 흐름)
@@ -36,8 +36,8 @@ flowchart LR
 ```mermaid
 flowchart LR
   App[App] --> DB{DB 선택/패턴}
-  DB --> DDB[DynamoDB<br/>(키/Query/GSI)]
-  DB --> AUR[Aurora<br/>(읽기 확장 패턴)]
+  DB --> DDB["DynamoDB<br/>(키/Query/GSI)"]
+  DB --> AUR["Aurora<br/>(읽기 확장 패턴)"]
   App --> Hot[반복 읽기 핫패스] --> Cache[ElastiCache]
   Cache --> DB
 ```

@@ -42,9 +42,9 @@ pie showData
 
 ```mermaid
 flowchart LR
-  A[Read exam guide] --> B[Prep: theory + drills]
-  B --> C[Schedule via AWS Certification / Pearson VUE]
-  C --> D[Take exam: test center / online]
+  A[Read exam guide] --> B["Prep: theory + drills"]
+  B --> C["Schedule via AWS Certification / Pearson VUE"]
+  C --> D["Take exam: test center / online"]
   D --> E[Score report]
   E --> F[Review traps & weak areas]
   F --> B

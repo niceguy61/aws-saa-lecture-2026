@@ -23,21 +23,21 @@
 
 ```mermaid
 flowchart LR
-  A[0-10m: 워밍업(행위/상태/탐지)] --> B[10-120m: Reading]
-  B --> C[120-150m: 미니 정리(문장 신호 매칭)]
-  C --> D[150-210m: Trap drill(CloudTrail/Config 혼동)]
-  D --> E[210-240m: Quiz]
+  A["0-10m: 워밍업(행위/상태/탐지)"] --> B["10-120m: Reading"]
+  B --> C["120-150m: 미니 정리(문장 신호 매칭)"]
+  C --> D["150-210m: Trap drill(CloudTrail/Config 혼동)"]
+  D --> E["210-240m: Quiz"]
 ```
 
 ## Flow (서비스 연결 흐름)
 
 ```mermaid
 flowchart LR
-  Q1[누가/언제/무엇을?] --> CT[CloudTrail<br/>(행위)]
-  Q2[현재/과거 설정은?] --> CFG[AWS Config<br/>(상태/준수)]
-  CT --> GD[GuardDuty<br/>(위협 탐지)]
-  GD --> SH[Security Hub<br/>(findings 집계)]
-  INS[Inspector<br/>(취약점)] --> SH
+  Q1["누가/언제/무엇을?"] --> CT["CloudTrail<br/>(행위)"]
+  Q2["현재/과거 설정은?"] --> CFG["AWS Config<br/>(상태/준수)"]
+  CT --> GD["GuardDuty<br/>(위협 탐지)"]
+  GD --> SH["Security Hub<br/>(findings 집계)"]
+  INS["Inspector<br/>(취약점)"] --> SH
 ```
 
 ## Reading (서비스별 theory)

@@ -25,20 +25,20 @@
 
 ```mermaid
 flowchart LR
-  A[0-10m: 워밍업(병목 축 4개)] --> B[10-120m: Reading]
-  B --> C[120-150m: 미니 정리(T 인스턴스 함정)]
-  C --> D[150-210m: Trap drill(사이징 vs 관측)]
-  D --> E[210-240m: Quiz]
+  A["0-10m: 워밍업(병목 축 4개)"] --> B["10-120m: Reading"]
+  B --> C["120-150m: 미니 정리(T 인스턴스 함정)"]
+  C --> D["150-210m: Trap drill(사이징 vs 관측)"]
+  D --> E["210-240m: Quiz"]
 ```
 
 ## Flow (서비스 연결 흐름)
 
 ```mermaid
 flowchart LR
-  Symptom[느림/지연/타임아웃] --> CW[CloudWatch 지표 확인]
+  Symptom["느림/지연/타임아웃"] --> CW[CloudWatch 지표 확인]
   CW --> Axis[병목 축 결정]
-  Axis --> EC2[EC2 패밀리/타입 선택]
-  EC2 --> T[Burstable(T) 사용 여부]
+  Axis --> EC2["EC2 패밀리/타입 선택"]
+  EC2 --> T["Burstable(T) 사용 여부"]
 ```
 
 ## Reading (서비스별 theory)

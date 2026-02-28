@@ -23,9 +23,9 @@
 
 ```mermaid
 flowchart LR
-  A[0-15m: 워밍업(비용 신호 10개)] --> B[15-195m: Special lecture pack]
-  B --> C[195-225m: 케이스 워크스루]
-  C --> D[225-240m: Quiz]
+  A["0-15m: 워밍업(비용 신호 10개)"] --> B["15-195m: Special lecture pack"]
+  B --> C["195-225m: 케이스 워크스루"]
+  C --> D["225-240m: Quiz"]
 ```
 
 ## Flow (서비스 연결 흐름)
@@ -35,10 +35,10 @@ flowchart LR
   Vis[가시화] --> CE[Cost Explorer]
   Vis --> Tags[Cost allocation tags]
   Vis --> Bud[AWS Budgets]
-  Compute[컴퓨트] --> Opt[RI/SP/Spot]
-  Compute --> RS[right sizing/ASG]
+  Compute[컴퓨트] --> Opt["RI/SP/Spot"]
+  Compute --> RS["right sizing/ASG"]
   S3[S3 비용] --> Class[storage class]
-  S3 --> LC[Lifecycle/Intelligent-Tiering]
+  S3 --> LC["Lifecycle/Intelligent-Tiering"]
   Net[네트워크 비용] --> EP[VPC Endpoints vs NAT]
   Net --> CF[CloudFront cache]
 ```

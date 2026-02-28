@@ -43,7 +43,7 @@
 ```mermaid
 flowchart TB
   Sig[Workload signals] --> Steady[예측 가능 1~3년 -> RI or SP]
-  Sig --> Burst[스파이크/변동 -> On-Demand + ASG]
+  Sig --> Burst["스파이크/변동 -> On-Demand + ASG"]
   Sig --> Batch[중단 허용 -> Spot]
 ```
 

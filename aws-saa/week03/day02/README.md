@@ -25,10 +25,10 @@ CloudFront를 쓸 때도 “켜면 빨라진다”로 끝나지 않습니다. �
 
 ```mermaid
 flowchart LR
-  A[0-10m: 워밍업(캐시 vs 경로)] --> B[10-120m: Reading]
-  B --> C[120-150m: 미니 정리(TTL/캐시 키)]
-  C --> D[150-210m: Trap drill(GA를 캐시로 착각)]
-  D --> E[210-240m: Quiz]
+  A["0-10m: 워밍업(캐시 vs 경로)"] --> B["10-120m: Reading"]
+  B --> C["120-150m: 미니 정리(TTL/캐시 키)"]
+  C --> D["150-210m: Trap drill(GA를 캐시로 착각)"]
+  D --> E["210-240m: Quiz"]
 ```
 
 ## Flow (서비스 연결 흐름)
@@ -36,8 +36,8 @@ flowchart LR
 ```mermaid
 flowchart LR
   Users[Global users] --> Choice{캐시 가능?}
-  Choice -- Yes --> CF[CloudFront<br/>(엣지 캐시)]
-  Choice -- No --> GA[Global Accelerator<br/>(경로 최적화)]
+  Choice -- Yes --> CF["CloudFront<br/>(엣지 캐시)"]
+  Choice -- No --> GA["Global Accelerator<br/>(경로 최적화)"]
   CF --> Origin[Origin]
   GA --> Origin
 ```

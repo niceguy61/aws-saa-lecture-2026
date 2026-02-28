@@ -25,20 +25,20 @@ NoSQL 쪽도 마찬가지예요. DynamoDB에서 “실수로 데이터가 삭제
 
 ```mermaid
 flowchart LR
-  A[0-10m: 워밍업(HA vs 확장 vs 복구)] --> B[10-120m: Reading]
-  B --> C[120-150m: 미니 정리(Multi-AZ/Replica)]
-  C --> D[150-210m: Trap drill(축 혼동)]
-  D --> E[210-240m: Quiz]
+  A["0-10m: 워밍업(HA vs 확장 vs 복구)"] --> B["10-120m: Reading"]
+  B --> C["120-150m: 미니 정리(Multi-AZ/Replica)"]
+  C --> D["150-210m: Trap drill(축 혼동)"]
+  D --> E["210-240m: Quiz"]
 ```
 
 ## Flow (서비스 연결 흐름)
 
 ```mermaid
 flowchart LR
-  Write[Write] --> DB[(RDS/Aurora)]
-  DB --> MAZ[Multi-AZ<br/>(HA/Failover)]
-  DB --> RR[Read Replica<br/>(Read scale)]
-  NoSQL[(DynamoDB)] --> PITR[PITR/복구]
+  Write[Write] --> DB["(RDS/Aurora)"]
+  DB --> MAZ["Multi-AZ<br/>(HA/Failover)"]
+  DB --> RR["Read Replica<br/>(Read scale)"]
+  NoSQL["(DynamoDB)"] --> PITR["PITR/복구"]
 ```
 
 ## Reading (서비스별 theory)

@@ -25,17 +25,17 @@
 
 ```mermaid
 flowchart LR
-  A[0-10m: 워밍업(문장 신호: ALB vs NLB)] --> B[10-120m: Reading]
-  B --> C[120-150m: 미니 정리(health check 흐름)]
-  C --> D[150-210m: Trap drill(스케일/치유 혼동)]
-  D --> E[210-240m: Quiz]
+  A["0-10m: 워밍업(문장 신호: ALB vs NLB)"] --> B["10-120m: Reading"]
+  B --> C["120-150m: 미니 정리(health check 흐름)"]
+  C --> D["150-210m: Trap drill(스케일/치유 혼동)"]
+  D --> E["210-240m: Quiz"]
 ```
 
 ## Flow (서비스 연결 흐름)
 
 ```mermaid
 flowchart LR
-  Client[Client] --> ELB[ALB / NLB]
+  Client[Client] --> ELB["ALB / NLB"]
   ELB --> TG[Target Group]
   TG --> ASG[Auto Scaling Group]
   ASG --> EC2A[EC2 instance A]

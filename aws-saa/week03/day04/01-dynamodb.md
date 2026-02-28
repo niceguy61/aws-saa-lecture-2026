@@ -52,8 +52,8 @@
 
 ```mermaid
 flowchart TB
-  Q[Query: 키 기반] --> Fast[빠른 경로]
-  S[Scan: 전체 탐색] --> Slow[느리고 비싸다]
+  Q["Query: 키 기반"] --> Fast[빠른 경로]
+  S["Scan: 전체 탐색"] --> Slow[느리고 비싸다]
   Need[새 조회 조건 필요] --> GSI[GSI 추가]
 ```
 

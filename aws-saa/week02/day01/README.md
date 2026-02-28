@@ -25,18 +25,18 @@
 
 ```mermaid
 flowchart LR
-  A[0-10m: 워밍업(RPO/RTO 2줄)] --> B[10-120m: Reading]
-  B --> C[120-160m: 미니 정리(DR 메뉴판)]
-  C --> D[160-210m: Trap drill(Route 53 정책 소거)]
-  D --> E[210-240m: Quiz]
+  A["0-10m: 워밍업(RPO/RTO 2줄)"] --> B["10-120m: Reading"]
+  B --> C["120-160m: 미니 정리(DR 메뉴판)"]
+  C --> D["160-210m: Trap drill(Route 53 정책 소거)"]
+  D --> E["210-240m: Quiz"]
 ```
 
 ## Flow (서비스 연결 흐름)
 
 ```mermaid
 flowchart LR
-  Req[비즈니스 요구(RPO/RTO)] --> DR[DR 전략 선택]
-  DR --> Target[복구 타겟(다른 AZ/리전/계정)]
+  Req["비즈니스 요구(RPO/RTO)"] --> DR[DR 전략 선택]
+  DR --> Target["복구 타겟(다른 AZ/리전/계정)"]
   Client[사용자 요청] --> R53[Route 53 라우팅]
   R53 --> Primary[Primary]
   R53 --> Secondary[Secondary]

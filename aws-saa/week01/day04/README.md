@@ -23,22 +23,22 @@
 
 ```mermaid
 flowchart LR
-  A[0-10m: 워밍업(SG vs NACL 한 줄)] --> B[10-110m: Reading]
-  B --> C[110-150m: 미니 정리(Gateway vs Interface)]
-  C --> D[150-210m: Trap drill(NAT/Endpoint 착각)]
-  D --> E[210-240m: Quiz]
+  A["0-10m: 워밍업(SG vs NACL 한 줄)"] --> B["10-110m: Reading"]
+  B --> C["110-150m: 미니 정리(Gateway vs Interface)"]
+  C --> D["150-210m: Trap drill(NAT/Endpoint 착각)"]
+  D --> E["210-240m: Quiz"]
 ```
 
 ## Flow (서비스 연결 흐름)
 
 ```mermaid
 flowchart LR
-  EC2[EC2/ENI] --> SG[Security Group<br/>(stateful)]
-  EC2 --> NACL[NACL<br/>(stateless)]
+  EC2["EC2/ENI"] --> SG["Security Group<br/>(stateful)"]
+  EC2 --> NACL["NACL<br/>(stateless)"]
   EC2 --> Out[Outbound to AWS services]
-  Out --> GW[VPC Endpoint (Gateway)<br/>(S3/DynamoDB)]
-  Out --> IF[VPC Endpoint (Interface)<br/>(PrivateLink)]
-  Out --> NAT[NAT Gateway<br/>(인터넷 경유/비용)]
+  Out --> GW["VPC Endpoint (Gateway)<br/>(S3/DynamoDB)"]
+  Out --> IF["VPC Endpoint (Interface)<br/>(PrivateLink)"]
+  Out --> NAT["NAT Gateway<br/>(인터넷 경유/비용)"]
 ```
 
 ## Reading (서비스별 theory)

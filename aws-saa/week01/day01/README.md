@@ -23,22 +23,22 @@
 
 ```mermaid
 flowchart LR
-  A[0-10m: 워밍업(정책 평가 3줄)] --> B[10-120m: Reading]
-  B --> C[120-150m: 미니 실습(AssumeRole 흐름 상상)]
-  C --> D[150-210m: Trap drill(상한선/Trust 혼동)]
-  D --> E[210-240m: Quiz]
+  A["0-10m: 워밍업(정책 평가 3줄)"] --> B["10-120m: Reading"]
+  B --> C["120-150m: 미니 실습(AssumeRole 흐름 상상)"]
+  C --> D["150-210m: Trap drill(상한선/Trust 혼동)"]
+  D --> E["210-240m: Quiz"]
 ```
 
 ## Flow (서비스 연결 흐름)
 
 ```mermaid
 flowchart LR
-  U[사용자/워크로드 요청] --> I[IAM 정책 평가<br/>(Deny/Allow/조건)]
-  I --> B[Boundary/SCP 확인<br/>(상한선)]
-  U --> SSO[IAM Identity Center<br/>(SSO 입구)]
+  U["사용자/워크로드 요청"] --> I["IAM 정책 평가<br/>(Deny/Allow/조건)"]
+  I --> B["Boundary/SCP 확인<br/>(상한선)"]
+  U --> SSO["IAM Identity Center<br/>(SSO 입구)"]
   SSO --> R[Role]
-  R --> STS[STS AssumeRole<br/>(임시 자격 증명)]
-  STS --> A[타 계정/리소스 접근]
+  R --> STS["STS AssumeRole<br/>(임시 자격 증명)"]
+  STS --> A["타 계정/리소스 접근"]
 ```
 
 ## Reading (서비스별 theory)

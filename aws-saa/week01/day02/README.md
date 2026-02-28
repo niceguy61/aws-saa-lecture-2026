@@ -23,10 +23,10 @@
 
 ```mermaid
 flowchart LR
-  A[0-10m: 워밍업(암호화/접근/감사 3종 세트)] --> B[10-130m: Reading]
-  B --> C[130-160m: 미니 정리(Secrets vs Parameter)]
-  C --> D[160-210m: Trap drill(SSE-KMS AccessDenied)]
-  D --> E[210-240m: Quiz]
+  A["0-10m: 워밍업(암호화/접근/감사 3종 세트)"] --> B["10-130m: Reading"]
+  B --> C["130-160m: 미니 정리(Secrets vs Parameter)"]
+  C --> D["160-210m: Trap drill(SSE-KMS AccessDenied)"]
+  D --> E["210-240m: Quiz"]
 ```
 
 ## Flow (서비스 연결 흐름)
@@ -34,8 +34,8 @@ flowchart LR
 ```mermaid
 flowchart LR
   App[애플리케이션] --> Sec[시크릿 저장]
-  Sec --> SM[Secrets Manager<br/>(rotation/통합)]
-  Sec --> PS[SSM Parameter Store<br/>(SecureString)]
+  Sec --> SM["Secrets Manager<br/>(rotation/통합)"]
+  Sec --> PS["SSM Parameter Store<br/>(SecureString)"]
   App --> S3[S3 객체 저장]
   S3 --> SSE[SSE-KMS]
   SSE --> KMS[KMS key policy가 관문]

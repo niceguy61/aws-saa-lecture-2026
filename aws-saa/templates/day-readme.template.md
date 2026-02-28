@@ -20,19 +20,19 @@ TODO: (스토리 본문)
 
 ```mermaid
 flowchart LR
-  A[0-10m: 워밍업] --> B[10-110m: Reading]
-  B --> C[110-140m: mini-action]
-  C --> D[140-200m: Trap drill]
-  D --> E[200-240m: Quiz]
+  A["0-10m: 워밍업"] --> B["10-110m: Reading"]
+  B --> C["110-140m: mini-action"]
+  C --> D["140-200m: Trap drill"]
+  D --> E["200-240m: Quiz"]
 ```
 
 ## Flow (서비스 연결 흐름)
 
 ```mermaid
 flowchart LR
-  A[TODO: 문제 신호] --> B[TODO: Service A]
-  B --> C[TODO: Service B]
-  C --> D[TODO: 결과/효과]
+  A["TODO: 문제 신호"] --> B["TODO: Service A"]
+  B --> C["TODO: Service B"]
+  C --> D["TODO: 결과/효과"]
 ```
 
 ## Reading (서비스별 theory)

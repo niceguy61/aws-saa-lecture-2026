@@ -21,21 +21,21 @@
 
 ```mermaid
 flowchart LR
-  A[0-15m: 워밍업(이번 주 함정 5개)] --> B[15-195m: Special lecture pack]
-  B --> C[195-225m: 케이스 워크스루]
-  C --> D[225-240m: Quiz]
+  A["0-15m: 워밍업(이번 주 함정 5개)"] --> B["15-195m: Special lecture pack"]
+  B --> C["195-225m: 케이스 워크스루"]
+  C --> D["225-240m: Quiz"]
 ```
 
 ## Flow (서비스 연결 흐름)
 
 ```mermaid
 flowchart LR
-  Entry[사람/워크로드 입구] --> IAM[IAM 최소권한]
+  Entry["사람/워크로드 입구"] --> IAM[IAM 최소권한]
   Entry --> STS[STS AssumeRole]
-  Org[멀티 계정] --> SCP[Organizations / SCP]
+  Org[멀티 계정] --> SCP["Organizations / SCP"]
   Data[데이터 보호] --> KMS[KMS]
-  Data --> Sec[Secrets Manager / Parameter Store]
-  Audit[감사/준수] --> CT[CloudTrail]
+  Data --> Sec["Secrets Manager / Parameter Store"]
+  Audit["감사/준수"] --> CT[CloudTrail]
   Audit --> CFG[Config]
 ```
 

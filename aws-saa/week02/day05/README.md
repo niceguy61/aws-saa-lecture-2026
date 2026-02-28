@@ -21,21 +21,21 @@
 
 ```mermaid
 flowchart LR
-  A[0-15m: 워밍업(이번 주 신호 10개)] --> B[15-195m: Special lecture pack]
-  B --> C[195-225m: 케이스 워크스루]
-  C --> D[225-240m: Quiz]
+  A["0-15m: 워밍업(이번 주 신호 10개)"] --> B["15-195m: Special lecture pack"]
+  B --> C["195-225m: 케이스 워크스루"]
+  C --> D["225-240m: Quiz"]
 ```
 
 ## Flow (서비스 연결 흐름)
 
 ```mermaid
 flowchart LR
-  Req[요구(RPO/RTO/HA/Scale)] --> DR[DR 전략]
+  Req["요구(RPO/RTO/HA/Scale)"] --> DR[DR 전략]
   DR --> R53[Route 53 라우팅]
-  R53 --> ELB[ALB/NLB]
+  R53 --> ELB["ALB/NLB"]
   ELB --> ASG[Auto Scaling]
   Store[스토리지] --> S3V[S3 Versioning]
-  Store --> S3R[S3 SRR/CRR]
+  Store --> S3R["S3 SRR/CRR"]
   Store --> Snap[EBS Snapshot]
   DB[DB] --> MAZ[Multi-AZ]
   DB --> RR[Read Replica]

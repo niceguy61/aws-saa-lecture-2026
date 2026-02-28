@@ -23,9 +23,9 @@
 
 ```mermaid
 flowchart LR
-  A[0-15m: 워밍업(병목 축/신호 10개)] --> B[15-195m: Special lecture pack]
-  B --> C[195-225m: 케이스 워크스루]
-  C --> D[225-240m: Quiz]
+  A["0-15m: 워밍업(병목 축/신호 10개)"] --> B["15-195m: Special lecture pack"]
+  B --> C["195-225m: 케이스 워크스루"]
+  C --> D["225-240m: Quiz"]
 ```
 
 ## Flow (서비스 연결 흐름)
@@ -33,10 +33,10 @@ flowchart LR
 ```mermaid
 flowchart LR
   Measure[CloudWatch 측정] --> Axis[병목 축 결정]
-  Axis --> Compute[EC2 사이징/T 함정]
+  Axis --> Compute["EC2 사이징/T 함정"]
   Axis --> Edge[CloudFront vs Global Accelerator]
   Axis --> Storage[EBS vs EFS]
-  Axis --> DB[DynamoDB/Aurora/ElastiCache]
+  Axis --> DB["DynamoDB/Aurora/ElastiCache"]
 ```
 
 ## Reading
