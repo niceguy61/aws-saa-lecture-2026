@@ -1,4 +1,6 @@
-# kdt_devops_lecture_2026
+# AWS Certification Lecture Materials
+
+AWS SAA(SAA-C03) 중심으로 정리된 강의/학습 자료 모음입니다.
 
 ## Authoring Guides
 
