@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="980" height="380" viewBox="0 0 980 380" role="img" aria-label="네트워크 비용 레버: NAT vs VPC 엔드포인트 vs CloudFront">
+  <defs>
+    <style>
+      .bg { fill: #fbfbf7; }
+      .box { fill: #ffffff; stroke: #1f2937; stroke-width: 2; }
+      .muted { fill: #f3f4f6; stroke: #1f2937; stroke-width: 2; }
+      .title { font: 700 18px ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial; fill: #111827; }
+      .text { font: 14px ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial; fill: #111827; }
+      .small { font: 12px ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial; fill: #111827; }
+      .arrow { stroke: #111827; stroke-width: 2; fill: none; marker-end: url(#m); }
+      .dash { stroke-dasharray: 6 6; }
+    </style>
+    <marker id="m" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#111827"/>
+    </marker>
+  </defs>
+
+  <rect class="bg" x="0" y="0" width="980" height="380" rx="18"/>
+  <text class="title" x="28" y="42">네트워크 비용: S3/DDB는 NAT를 피하고, 다운로드는 엣지 캐시를 쓴다</text>
+
+  <rect class="box" x="60" y="110" width="240" height="90" rx="14"/>
+  <text class="text" x="80" y="150">프라이빗 서브넷 앱</text>
+  <text class="small" x="80" y="172">egress 비용 드라이버</text>
+
+  <rect class="muted" x="340" y="90" width="200" height="90" rx="14"/>
+  <text class="text" x="360" y="130">NAT Gateway</text>
+  <text class="small" x="360" y="152">편하지만 비용이 날 수 있음</text>
+
+  <rect class="muted" x="340" y="200" width="200" height="90" rx="14"/>
+  <text class="text" x="360" y="240">VPC endpoint</text>
+  <text class="small" x="360" y="262">프라이빗 경로</text>
+
+  <rect class="muted" x="600" y="90" width="160" height="90" rx="14"/>
+  <text class="text" x="620" y="130">인터넷</text>
+  <text class="small" x="620" y="152">egress</text>
+
+  <rect class="muted" x="800" y="110" width="140" height="90" rx="14"/>
+  <text class="text" x="820" y="150">S3</text>
+
+  <rect class="muted" x="600" y="220" width="160" height="90" rx="14"/>
+  <text class="text" x="620" y="260">CloudFront</text>
+  <text class="small" x="620" y="282">전송량 감소</text>
+
+  <path class="arrow dash" d="M 300 150 L 340 130"/>
+  <path class="arrow dash" d="M 540 130 L 600 130"/>
+  <path class="arrow dash" d="M 760 150 L 800 150"/>
+
+  <path class="arrow" d="M 300 150 L 340 245"/>
+  <path class="arrow" d="M 540 245 L 800 150"/>
+  <text class="small" x="350" y="214">S3/DDB는 이쪽 선호</text>
+
+  <path class="arrow" d="M 800 150 L 600 265"/>
+  <text class="small" x="620" y="206">다운로드</text>
+
+  <text class="small" x="28" y="360">시험 감각: 프라이빗 서브넷 앱이 주로 S3와 통신하면, 비용/보안 측면에서 “S3 gateway endpoint”가 NAT보다 자주 유리하다.</text>
+</svg>

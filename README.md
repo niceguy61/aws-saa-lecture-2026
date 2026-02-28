@@ -1,38 +1,15 @@
-# DevOps Lecture Scaffold Generator
+# kdt_devops_lecture_2026
 
-This repo produces daily DevOps lecture materials based on the steering rules in `.kiro/steering/`.
+## Authoring Guides
 
-## What It Generates
+- Main operating notes: `AGENT.md`
+- Readable writing style: `WRITING_GUIDE.md`
+- VAKOG (multi-modal checklist): `VAKOG.md`
 
-For each day, it generates a scaffold that follows EARS rules:
-- Service Understanding
-- Deep Dive
-- Hands-on Lab (7+ steps)
-- Quiz (5+ questions)
+## AWS SAA Materials
 
-Output layout:
-- `lectures/week{N}/day{M}/`
+- `aws-saa/README.md`
 
-## Commands
+## AWS OT Materials
 
-Generate scaffolds:
-```bash
-python -m src.cli generate --week 1 --day 2
-```
-
-Validate a day folder:
-```bash
-python -m src.cli validate --week 1 --day 2
-```
-
-PowerShell helpers:
-```powershell
-.\scripts\generate_scaffold.ps1 -Week 1 -Day 2
-.\scripts\validate_scaffold.ps1 -Week 1 -Day 2
-```
-
-## Notes
-
-- The scaffolds are intentionally lightweight templates to guarantee structure compliance.
-- Fill in the content manually or extend the generator later with an LLM/RAG layer.
-
+- `aws-ot/README.md`

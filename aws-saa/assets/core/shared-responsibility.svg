@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="520" viewBox="0 0 1000 520">
+  <defs>
+    <style>
+      .bg { fill: #ffffff; }
+      .box { fill: #f7f7f9; stroke: #1f2937; stroke-width: 2; }
+      .box2 { fill: #eef2ff; stroke: #1f2937; stroke-width: 2; }
+      .h { font: 700 22px sans-serif; fill: #111827; }
+      .t { font: 16px sans-serif; fill: #111827; }
+      .s { font: 13px sans-serif; fill: #374151; }
+      .lbl { font: 700 16px sans-serif; fill: #111827; }
+      .line { stroke: #111827; stroke-width: 2; }
+    </style>
+  </defs>
+  <rect class="bg" x="0" y="0" width="1000" height="520"/>
+
+  <text class="h" x="40" y="45">공유 책임 모델 (AWS가 “인프라만”은 아닌 이유)</text>
+
+  <rect class="box" x="40" y="80" width="440" height="380" rx="14"/>
+  <rect class="box2" x="520" y="80" width="440" height="380" rx="14"/>
+
+  <text class="lbl" x="60" y="115">고객 책임(Customer)</text>
+  <text class="lbl" x="540" y="115">AWS 책임</text>
+
+  <text class="t" x="60" y="155">- ID/접근 제어 (IAM)</text>
+  <text class="t" x="60" y="185">- 데이터 분류와 암호화 선택</text>
+  <text class="t" x="60" y="215">- 네트워크/서비스 설정</text>
+  <text class="t" x="60" y="245">- 애플리케이션 코드/의존성/시크릿</text>
+  <text class="t" x="60" y="275">- 모니터링/대응/비용 가드레일</text>
+
+  <text class="t" x="540" y="155">- 물리 데이터센터</text>
+  <text class="t" x="540" y="185">- 하드웨어/가상화 계층</text>
+  <text class="t" x="540" y="215">- 핵심 관리형 서비스 가용성</text>
+  <text class="t" x="540" y="245">- 글로벌 인프라 운영</text>
+
+  <line class="line" x1="500" y1="80" x2="500" y2="460"/>
+
+  <text class="s" x="40" y="500">핵심: 사고의 대부분은 하드웨어가 아니라 설정/권한 실수에서 시작한다.</text>
+</svg>

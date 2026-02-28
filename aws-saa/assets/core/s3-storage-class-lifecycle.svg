@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="980" height="360" viewBox="0 0 980 360" role="img" aria-label="S3 스토리지 클래스와 라이프사이클 전환(접근 패턴/복구 요구)">
+  <defs>
+    <style>
+      .bg { fill: #fbfbf7; }
+      .box { fill: #ffffff; stroke: #1f2937; stroke-width: 2; }
+      .muted { fill: #f3f4f6; stroke: #1f2937; stroke-width: 2; }
+      .title { font: 700 18px ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial; fill: #111827; }
+      .text { font: 14px ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial; fill: #111827; }
+      .small { font: 12px ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial; fill: #111827; }
+      .arrow { stroke: #111827; stroke-width: 2; fill: none; marker-end: url(#m); }
+    </style>
+    <marker id="m" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#111827"/>
+    </marker>
+  </defs>
+
+  <rect class="bg" x="0" y="0" width="980" height="360" rx="18"/>
+  <text class="title" x="28" y="42">S3 비용 최적화: 스토리지 클래스 + 라이프사이클(복구 시간도 요구사항)</text>
+
+  <rect class="muted" x="60" y="110" width="190" height="70" rx="14"/>
+  <text class="text" x="80" y="150">Standard</text>
+  <text class="small" x="80" y="172">핫 액세스</text>
+
+  <rect class="muted" x="300" y="110" width="190" height="70" rx="14"/>
+  <text class="text" x="320" y="150">Standard-IA</text>
+  <text class="small" x="320" y="172">웜 액세스</text>
+
+  <rect class="muted" x="540" y="110" width="190" height="70" rx="14"/>
+  <text class="text" x="560" y="150">Glacier</text>
+  <text class="small" x="560" y="172">콜드, 복구 트레이드오프</text>
+
+  <rect class="box" x="780" y="95" width="170" height="100" rx="14"/>
+  <text class="text" x="800" y="132">라이프사이클 규칙</text>
+  <text class="small" x="800" y="156">전환 + 만료</text>
+
+  <path class="arrow" d="M 250 145 L 300 145"/>
+  <path class="arrow" d="M 490 145 L 540 145"/>
+  <path class="arrow" d="M 730 145 L 780 145"/>
+
+  <rect class="box" x="60" y="220" width="890" height="90" rx="14"/>
+  <text class="text" x="80" y="252">결정 신호</text>
+  <text class="small" x="80" y="278">“복구가 즉시”가 요구사항이면 deep archive 계열 답은 피한다. “거의 안 읽고, 복구를 기다릴 수 있으면” Glacier 계열이 가능해진다.</text>
+
+  <text class="small" x="28" y="340">시험 감각: 기본값으로 전부 Glacier로 옮기지 않는다. 복구 시간/비용도 요구사항의 일부다.</text>
+</svg>

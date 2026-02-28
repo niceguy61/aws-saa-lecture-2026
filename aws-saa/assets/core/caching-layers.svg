@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="980" height="400" viewBox="0 0 980 400" role="img" aria-label="캐시 계층: CloudFront, 앱 캐시, 데이터베이스">
+  <defs>
+    <style>
+      .bg { fill: #fbfbf7; }
+      .box { fill: #ffffff; stroke: #1f2937; stroke-width: 2; }
+      .muted { fill: #f3f4f6; stroke: #1f2937; stroke-width: 2; }
+      .title { font: 700 18px ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial; fill: #111827; }
+      .text { font: 14px ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial; fill: #111827; }
+      .small { font: 12px ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial; fill: #111827; }
+      .arrow { stroke: #111827; stroke-width: 2; fill: none; marker-end: url(#m); }
+      .dash { stroke-dasharray: 6 6; }
+    </style>
+    <marker id="m" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#111827"/>
+    </marker>
+  </defs>
+
+  <rect class="bg" x="0" y="0" width="980" height="400" rx="18"/>
+  <text class="title" x="28" y="42">캐시 우선: 호출을 줄이고, 오리진을 확장한다(성능/비용)</text>
+
+  <rect class="box" x="40" y="130" width="140" height="70" rx="14"/>
+  <text class="text" x="70" y="170">사용자</text>
+
+  <rect class="muted" x="220" y="110" width="220" height="110" rx="14"/>
+  <text class="text" x="242" y="146">CloudFront</text>
+  <text class="small" x="242" y="170">엣지 캐시(TTL/키)</text>
+  <text class="small" x="242" y="190">hit → 오리진 호출 없음</text>
+
+  <rect class="box" x="500" y="95" width="200" height="140" rx="14"/>
+  <text class="text" x="520" y="128">Origin (ALB/S3/API)</text>
+  <text class="small" x="520" y="152">cache miss 경로</text>
+
+  <rect class="muted" x="500" y="260" width="200" height="90" rx="14"/>
+  <text class="text" x="520" y="295">앱 캐시</text>
+  <text class="small" x="520" y="318">ElastiCache / DAX</text>
+
+  <rect class="box" x="760" y="220" width="170" height="130" rx="14"/>
+  <text class="text" x="782" y="258">데이터베이스</text>
+  <text class="small" x="782" y="282">RDS / DynamoDB</text>
+
+  <path class="arrow" d="M 180 165 L 220 165"/>
+  <path class="arrow" d="M 440 165 L 500 165"/>
+  <path class="arrow dash" d="M 440 165 C 520 220, 610 240, 760 260"/>
+  <text class="small" x="460" y="240">miss</text>
+
+  <path class="arrow" d="M 600 235 L 600 260"/>
+  <path class="arrow dash" d="M 700 305 L 760 285"/>
+  <text class="small" x="706" y="316">miss</text>
+
+  <text class="small" x="28" y="386">시험 감각: 캐시 가능한 콘텐츠면 CloudFront가 레버리지가 큰 답이다. DB 읽기 핫패스는 DB를 키우기보다 ElastiCache/DAX가 이길 수 있다.</text>
+</svg>

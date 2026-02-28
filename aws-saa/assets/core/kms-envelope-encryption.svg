@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="980" height="360" viewBox="0 0 980 360" role="img" aria-label="KMS 봉투(Envelope) 암호화와 서비스 통합 흐름">
+  <defs>
+    <style>
+      .bg { fill: #fbfbf7; }
+      .box { fill: #ffffff; stroke: #1f2937; stroke-width: 2; }
+      .muted { fill: #f3f4f6; stroke: #1f2937; stroke-width: 2; }
+      .title { font: 700 18px ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial; fill: #111827; }
+      .text { font: 14px ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial; fill: #111827; }
+      .small { font: 12px ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial; fill: #111827; }
+      .arrow { stroke: #111827; stroke-width: 2; fill: none; marker-end: url(#m); }
+    </style>
+    <marker id="m" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#111827"/>
+    </marker>
+  </defs>
+
+  <rect class="bg" x="0" y="0" width="980" height="360" rx="18"/>
+
+  <text class="title" x="28" y="42">KMS: 봉투(Envelope) 암호화 (왜 key policy가 중요한가)</text>
+
+  <!-- KMS -->
+  <rect class="muted" x="700" y="88" width="250" height="220" rx="14"/>
+  <text class="text" x="720" y="122">AWS KMS</text>
+  <text class="small" x="720" y="148">1) GenerateDataKey</text>
+  <text class="small" x="720" y="170">2) Decrypt (data key)</text>
+  <text class="small" x="720" y="196">Key policy가 관문</text>
+
+  <!-- App / Service -->
+  <rect class="box" x="28" y="88" width="290" height="220" rx="14"/>
+  <text class="text" x="48" y="122">워크로드 (App / AWS 서비스)</text>
+  <text class="small" x="48" y="148">데이터 키로 로컬에서 데이터 암호화</text>
+  <text class="small" x="48" y="170">저장: ciphertext + encrypted data key</text>
+  <text class="small" x="48" y="196">조회: KMS로 data key 복호화</text>
+
+  <!-- Storage -->
+  <rect class="box" x="360" y="148" width="300" height="100" rx="14"/>
+  <text class="text" x="380" y="184">저장소 (S3 / EBS / Secrets)</text>
+  <text class="small" x="380" y="206">암호화된 데이터 + 암호화된 data key 보관</text>
+
+  <!-- Arrows -->
+  <path class="arrow" d="M 318 132 C 430 110, 560 110, 700 132"/>
+  <text class="small" x="388" y="108">GenerateDataKey</text>
+
+  <path class="arrow" d="M 318 228 C 430 250, 560 250, 700 228"/>
+  <text class="small" x="412" y="270">Decrypt (data key)</text>
+
+  <path class="arrow" d="M 318 188 L 360 188"/>
+  <text class="small" x="322" y="176">저장(Put)</text>
+
+  <path class="arrow" d="M 660 188 L 700 188"/>
+  <text class="small" x="668" y="176">KMS API</text>
+
+  <path class="arrow" d="M 360 208 L 318 208"/>
+  <text class="small" x="326" y="222">조회(Get)</text>
+
+  <!-- Footer note -->
+  <text class="small" x="28" y="336">시험 감각: S3/EBS/Secrets는 KMS를 “대신” 호출할 수 있다. S3 정책은 멀쩡한데 AccessDenied면 KMS key policy/권한을 의심한다.</text>
+</svg>

@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="980" height="380" viewBox="0 0 980 380" role="img" aria-label="성능 지표와 흔한 병목 축">
+  <defs>
+    <style>
+      .bg { fill: #fbfbf7; }
+      .box { fill: #ffffff; stroke: #1f2937; stroke-width: 2; }
+      .muted { fill: #f3f4f6; stroke: #1f2937; stroke-width: 2; }
+      .title { font: 700 18px ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial; fill: #111827; }
+      .text { font: 14px ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial; fill: #111827; }
+      .small { font: 12px ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial; fill: #111827; }
+    </style>
+  </defs>
+
+  <rect class="bg" x="0" y="0" width="980" height="380" rx="18"/>
+  <text class="title" x="28" y="42">고성능: 요구사항을 숫자로 바꾸고, 병목을 찾는다</text>
+
+  <rect class="box" x="60" y="90" width="420" height="250" rx="14"/>
+  <text class="text" x="80" y="124">지표로 번역</text>
+  <rect class="muted" x="90" y="145" width="370" height="44" rx="10"/>
+  <text class="text" x="110" y="173">지연시간: p95/p99 (평균 아님)</text>
+  <rect class="muted" x="90" y="200" width="370" height="44" rx="10"/>
+  <text class="text" x="110" y="228">처리량: req/s, MB/s, IOPS</text>
+  <rect class="muted" x="90" y="255" width="370" height="44" rx="10"/>
+  <text class="text" x="110" y="283">동시성: 병렬성 / 제한</text>
+
+  <rect class="box" x="520" y="90" width="400" height="250" rx="14"/>
+  <text class="text" x="540" y="124">흔한 병목</text>
+
+  <rect class="muted" x="550" y="145" width="170" height="70" rx="12"/>
+  <text class="text" x="604" y="185">CPU</text>
+  <text class="small" x="566" y="206">컴퓨트 병목</text>
+
+  <rect class="muted" x="740" y="145" width="170" height="70" rx="12"/>
+  <text class="text" x="786" y="185">메모리</text>
+  <text class="small" x="756" y="206">캐시 / OOM</text>
+
+  <rect class="muted" x="550" y="230" width="170" height="70" rx="12"/>
+  <text class="text" x="596" y="270">네트워크</text>
+  <text class="small" x="566" y="291">RTT / 대역폭</text>
+
+  <rect class="muted" x="740" y="230" width="170" height="70" rx="12"/>
+  <text class="text" x="770" y="270">스토리지 I/O</text>
+  <text class="small" x="756" y="291">IOPS / 처리량</text>
+
+  <text class="small" x="28" y="360">시험 감각: 신호가 캐시/DB/스토리지 I/O/네트워크 경로를 가리키면 “큰 인스턴스 1대로 scale up” 답은 피한다.</text>
+</svg>
