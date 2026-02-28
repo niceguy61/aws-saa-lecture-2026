@@ -36,7 +36,7 @@ AWS Certified Solutions Architect - Associate(SAA-C03) 시험 가이드의 도�
 
 ## Key docs
 
-- Exam guide mapping: `aws-saa/references/exam-guide.md`
+- References: `aws-saa/references/README.md`
 - Exam keypoints (숫자/제한/필살): `aws-saa/exam-keypoints.md`
 - Exam trap bank (연계/유사 서비스/고급 구현): `aws-saa/exam-trap-bank.md`
 - Special lectures (Top services deep dives): `aws-saa/special-lectures/README.md`
