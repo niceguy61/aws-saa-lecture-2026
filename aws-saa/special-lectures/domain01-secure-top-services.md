@@ -75,3 +75,11 @@ D. 루트 사용자로 접근하도록 허용한다
 **Explanation:** ExternalId 조건은 제3자 AssumeRole 시 confused deputy 완화에 사용된다.  
 **Tags:** `domain:1` `services:STS,IAM`
 
+## References
+
+- References index: `../references/README.md`
+- Exam guide (SAA-C03): `../references/exam-guide.md`
+- Glossary: `../references/glossary.md`
+- AWS services list: `../references/aws-services.md`
+- Exam keypoints: `../exam-keypoints.md`
+- Exam trap bank: `../exam-trap-bank.md`

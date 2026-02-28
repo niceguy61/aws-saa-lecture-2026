@@ -61,6 +61,15 @@ Cost Explorer를 열고 먼저 기간을 맞춘 뒤, Group by를 바꿔가며 �
 
 - “원인 분석/그룹핑/추세”면 **Cost Explorer**가 정답 후보다.
 
+## References
+
+- References index: `../../references/README.md`
+- Exam guide (SAA-C03): `../../references/exam-guide.md`
+- Glossary: `../../references/glossary.md`
+- AWS services list: `../../references/aws-services.md`
+- Exam keypoints: `../../exam-keypoints.md`
+- Exam trap bank: `../../exam-trap-bank.md`
+
 ## Back
 
 - `./README.md`

@@ -107,6 +107,15 @@ SSE-KMS는 요청이 많아지면 KMS 호출도 늘 수 있다. “대량 다운
 
 - SSE-KMS에서 막히면 “S3만” 보지 말고 **KMS(권한/키 정책)**를 같이 본다.
 
+## References
+
+- References index: `../../references/README.md`
+- Exam guide (SAA-C03): `../../references/exam-guide.md`
+- Glossary: `../../references/glossary.md`
+- AWS services list: `../../references/aws-services.md`
+- Exam keypoints: `../../exam-keypoints.md`
+- Exam trap bank: `../../exam-trap-bank.md`
+
 ## Back
 
 - `./README.md`

@@ -99,6 +99,15 @@ Spot은 “싸다”만으로는 부족하고, 보통 아래 힌트가 같이 �
 
 - “예측 가능”이면 **RI/SP**, “중단 허용”이면 **Spot**, “스파이크”면 **On-Demand+ASG**가 신호다.
 
+## References
+
+- References index: `../../references/README.md`
+- Exam guide (SAA-C03): `../../references/exam-guide.md`
+- Glossary: `../../references/glossary.md`
+- AWS services list: `../../references/aws-services.md`
+- Exam keypoints: `../../exam-keypoints.md`
+- Exam trap bank: `../../exam-trap-bank.md`
+
 ## Back
 
 - `./README.md`

@@ -74,6 +74,15 @@
 
 - 블록 스토리지 백업/복구는 **EBS snapshot**이 기본 단위다.
 
+## References
+
+- References index: `../../references/README.md`
+- Exam guide (SAA-C03): `../../references/exam-guide.md`
+- Glossary: `../../references/glossary.md`
+- AWS services list: `../../references/aws-services.md`
+- Exam keypoints: `../../exam-keypoints.md`
+- Exam trap bank: `../../exam-trap-bank.md`
+
 ## Back
 
 - `./README.md`

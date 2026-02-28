@@ -60,6 +60,15 @@
 
 - right sizing은 **측정 기반**, 큰 절감은 **비피크 축소(스케줄/자동 확장)**에서 자주 나온다.
 
+## References
+
+- References index: `../../references/README.md`
+- Exam guide (SAA-C03): `../../references/exam-guide.md`
+- Glossary: `../../references/glossary.md`
+- AWS services list: `../../references/aws-services.md`
+- Exam keypoints: `../../exam-keypoints.md`
+- Exam trap bank: `../../exam-trap-bank.md`
+
 ## Back
 
 - `./README.md`

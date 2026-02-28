@@ -58,6 +58,15 @@ flowchart LR
 
 - “프라이빗 → S3 자주 호출 + 비용”이면 **S3 Gateway Endpoint**가 대표 답이다.
 
+## References
+
+- References index: `../../references/README.md`
+- Exam guide (SAA-C03): `../../references/exam-guide.md`
+- Glossary: `../../references/glossary.md`
+- AWS services list: `../../references/aws-services.md`
+- Exam keypoints: `../../exam-keypoints.md`
+- Exam trap bank: `../../exam-trap-bank.md`
+
 ## Back
 
 - `./README.md`

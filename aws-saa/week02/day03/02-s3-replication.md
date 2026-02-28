@@ -112,6 +112,15 @@ Replication은 “원격에 사본이 있어야 한다”는 요구에 직접 �
 
 - “원격 복제/DR/규제” 신호가 있으면 SRR/CRR(+ Versioning 전제)부터 본다.
 
+## References
+
+- References index: `../../references/README.md`
+- Exam guide (SAA-C03): `../../references/exam-guide.md`
+- Glossary: `../../references/glossary.md`
+- AWS services list: `../../references/aws-services.md`
+- Exam keypoints: `../../exam-keypoints.md`
+- Exam trap bank: `../../exam-trap-bank.md`
+
 ## Back
 
 - `./README.md`

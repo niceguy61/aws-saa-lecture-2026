@@ -94,3 +94,12 @@ flowchart LR
 ## TL;DR (한 줄 정리)
 
 - TODO (기술 핵심만: 오늘의 “선택 기준/규칙” 1줄)
+
+## References
+
+- References index: `../references/README.md`
+- Exam guide (SAA-C03): `../references/exam-guide.md`
+- Glossary: `../references/glossary.md`
+- AWS services list: `../references/aws-services.md`
+- Exam keypoints: `../exam-keypoints.md`
+- Exam trap bank: `../exam-trap-bank.md`

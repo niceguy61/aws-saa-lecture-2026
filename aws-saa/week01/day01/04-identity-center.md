@@ -96,6 +96,15 @@ Identity Center 문제는 다음 3가지를 분리하면 헷갈림이 크게 줄
 
 - 사용자는 **SSO로 들어오고**, 실제 권한은 **Role/정책(권한 세트 포함)**로 통제한다고 생각하면 된다.
 
+## References
+
+- References index: `../../references/README.md`
+- Exam guide (SAA-C03): `../../references/exam-guide.md`
+- Glossary: `../../references/glossary.md`
+- AWS services list: `../../references/aws-services.md`
+- Exam keypoints: `../../exam-keypoints.md`
+- Exam trap bank: `../../exam-trap-bank.md`
+
 ## Back
 
 - `./README.md`

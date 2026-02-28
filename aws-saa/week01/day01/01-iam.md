@@ -109,6 +109,15 @@ flowchart TB
 
 - IAM의 정답은 “Allow 더 붙이기”가 아니라 **평가 규칙 + Deny/상한선 + 리소스 정책**을 먼저 보는 것이다.
 
+## References
+
+- References index: `../../references/README.md`
+- Exam guide (SAA-C03): `../../references/exam-guide.md`
+- Glossary: `../../references/glossary.md`
+- AWS services list: `../../references/aws-services.md`
+- Exam keypoints: `../../exam-keypoints.md`
+- Exam trap bank: `../../exam-trap-bank.md`
+
 ## Back
 
 - `./README.md`

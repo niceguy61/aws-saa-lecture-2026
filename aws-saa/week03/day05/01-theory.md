@@ -94,3 +94,12 @@ flowchart LR
 ## TL;DR (한 줄 정리)
 
 - Domain 3는 “서비스 하나”가 아니라 **병목 축(캐시→DB 패턴→스토리지 I/O→컴퓨트→네트워크 경로)**으로 진단해서 선택하는 도메인이다.
+
+## References
+
+- References index: `../../references/README.md`
+- Exam guide (SAA-C03): `../../references/exam-guide.md`
+- Glossary: `../../references/glossary.md`
+- AWS services list: `../../references/aws-services.md`
+- Exam keypoints: `../../exam-keypoints.md`
+- Exam trap bank: `../../exam-trap-bank.md`

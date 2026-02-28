@@ -88,6 +88,15 @@ DB 문제는 겉으로는 둘 다 “느리다/불안하다”로 보이지만, 
 
 - “failover”면 **Multi-AZ**, “read-heavy”면 **Read replica**다.
 
+## References
+
+- References index: `../../references/README.md`
+- Exam guide (SAA-C03): `../../references/exam-guide.md`
+- Glossary: `../../references/glossary.md`
+- AWS services list: `../../references/aws-services.md`
+- Exam keypoints: `../../exam-keypoints.md`
+- Exam trap bank: `../../exam-trap-bank.md`
+
 ## Back
 
 - `./README.md`

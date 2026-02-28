@@ -62,6 +62,15 @@
 
 - “여러 인스턴스가 같은 파일을 공유”하면 **EFS**, “인스턴스에 붙는 블록 I/O 튜닝”이면 **EBS(gp3/io2)**가 신호다.
 
+## References
+
+- References index: `../../references/README.md`
+- Exam guide (SAA-C03): `../../references/exam-guide.md`
+- Glossary: `../../references/glossary.md`
+- AWS services list: `../../references/aws-services.md`
+- Exam keypoints: `../../exam-keypoints.md`
+- Exam trap bank: `../../exam-trap-bank.md`
+
 ## Back
 
 - `./README.md`

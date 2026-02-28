@@ -112,6 +112,15 @@ flowchart LR
 
 - CloudFront는 **TTL(신선도) + 캐시 키(히트율) + 무효화(비용/운영)**를 요구 신호에 맞춰 조절하는 문제다.
 
+## References
+
+- References index: `../../references/README.md`
+- Exam guide (SAA-C03): `../../references/exam-guide.md`
+- Glossary: `../../references/glossary.md`
+- AWS services list: `../../references/aws-services.md`
+- Exam keypoints: `../../exam-keypoints.md`
+- Exam trap bank: `../../exam-trap-bank.md`
+
 ## Back
 
 - `./README.md`

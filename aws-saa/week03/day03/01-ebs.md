@@ -103,6 +103,15 @@ flowchart LR
 
 - EBS는 **용량이 아니라 IOPS/처리량**이 핵심이고, “튜닝”이면 **gp3**, “일관된 고IOPS”면 **io2**가 신호다.
 
+## References
+
+- References index: `../../references/README.md`
+- Exam guide (SAA-C03): `../../references/exam-guide.md`
+- Glossary: `../../references/glossary.md`
+- AWS services list: `../../references/aws-services.md`
+- Exam keypoints: `../../exam-keypoints.md`
+- Exam trap bank: `../../exam-trap-bank.md`
+
 ## Back
 
 - `./README.md`

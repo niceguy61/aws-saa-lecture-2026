@@ -62,6 +62,15 @@
 
 - 관계형 DB에서 “읽기 확장” 신호가 보이면 **Aurora/RDS Read replica(리드 엔드포인트)**가 대표 후보가 된다.
 
+## References
+
+- References index: `../../references/README.md`
+- Exam guide (SAA-C03): `../../references/exam-guide.md`
+- Glossary: `../../references/glossary.md`
+- AWS services list: `../../references/aws-services.md`
+- Exam keypoints: `../../exam-keypoints.md`
+- Exam trap bank: `../../exam-trap-bank.md`
+
 ## Back
 
 - `./README.md`

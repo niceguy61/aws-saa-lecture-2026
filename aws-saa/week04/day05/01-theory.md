@@ -87,3 +87,12 @@ flowchart LR
 ## TL;DR (한 줄 정리)
 
 - Domain 4는 **가시화 → 드라이버 분류(Compute/Storage/Network) → 대안 비교(요구사항 유지)** 순서로 푸는 문제다.
+
+## References
+
+- References index: `../../references/README.md`
+- Exam guide (SAA-C03): `../../references/exam-guide.md`
+- Glossary: `../../references/glossary.md`
+- AWS services list: `../../references/aws-services.md`
+- Exam keypoints: `../../exam-keypoints.md`
+- Exam trap bank: `../../exam-trap-bank.md`

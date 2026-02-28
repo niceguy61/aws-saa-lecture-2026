@@ -107,6 +107,15 @@ ASG는 크게 두 가지를 한다.
 
 - 자가 치유는 **헬스체크 → 제외/교체** 흐름으로 만든다(ASG + health check).
 
+## References
+
+- References index: `../../references/README.md`
+- Exam guide (SAA-C03): `../../references/exam-guide.md`
+- Glossary: `../../references/glossary.md`
+- AWS services list: `../../references/aws-services.md`
+- Exam keypoints: `../../exam-keypoints.md`
+- Exam trap bank: `../../exam-trap-bank.md`
+
 ## Back
 
 - `./README.md`

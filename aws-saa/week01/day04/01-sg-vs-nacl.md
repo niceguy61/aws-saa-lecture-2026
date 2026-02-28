@@ -111,6 +111,15 @@ NACL은 **stateless**라서 “요청 트래픽을 허용”하는 것만으로 
 
 - **SG는 상태 저장(ENI 단위)**, **NACL은 무상태(서브넷 단위)**다.
 
+## References
+
+- References index: `../../references/README.md`
+- Exam guide (SAA-C03): `../../references/exam-guide.md`
+- Glossary: `../../references/glossary.md`
+- AWS services list: `../../references/aws-services.md`
+- Exam keypoints: `../../exam-keypoints.md`
+- Exam trap bank: `../../exam-trap-bank.md`
+
 ## Back
 
 - `./README.md`

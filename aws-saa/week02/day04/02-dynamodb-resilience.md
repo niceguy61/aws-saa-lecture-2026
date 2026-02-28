@@ -77,6 +77,15 @@ DynamoDB는 관리형 서비스라 “AZ 내구가 기본”이라는 문장이 
 
 - “실수 복구/롤백” 신호가 있으면 DynamoDB는 **PITR**이 정답 후보로 올라간다.
 
+## References
+
+- References index: `../../references/README.md`
+- Exam guide (SAA-C03): `../../references/exam-guide.md`
+- Glossary: `../../references/glossary.md`
+- AWS services list: `../../references/aws-services.md`
+- Exam keypoints: `../../exam-keypoints.md`
+- Exam trap bank: `../../exam-trap-bank.md`
+
 ## Back
 
 - `./README.md`

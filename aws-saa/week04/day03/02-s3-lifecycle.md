@@ -55,6 +55,15 @@ flowchart LR
 
 - 비용 최적화는 **수동이 아니라 라이프사이클(정책)**로 고정하는 게 핵심이다.
 
+## References
+
+- References index: `../../references/README.md`
+- Exam guide (SAA-C03): `../../references/exam-guide.md`
+- Glossary: `../../references/glossary.md`
+- AWS services list: `../../references/aws-services.md`
+- Exam keypoints: `../../exam-keypoints.md`
+- Exam trap bank: `../../exam-trap-bank.md`
+
 ## Back
 
 - `./README.md`

@@ -102,3 +102,12 @@ flowchart LR
 ## TL;DR (한 줄 정리)
 
 - Domain 2는 **라우팅/헬스체크 + 자가 치유(ASG) + 디커플링(메시징) + DR(RPO/RTO)**를 요구 신호에 맞춰 조합하는 도메인이다.
+
+## References
+
+- References index: `../../references/README.md`
+- Exam guide (SAA-C03): `../../references/exam-guide.md`
+- Glossary: `../../references/glossary.md`
+- AWS services list: `../../references/aws-services.md`
+- Exam keypoints: `../../exam-keypoints.md`
+- Exam trap bank: `../../exam-trap-bank.md`

@@ -90,6 +90,15 @@ flowchart LR
 
 - “사설 경로/비용 절감”이면 **VPC Endpoints(필요 시 PrivateLink)**가 NAT보다 먼저다.
 
+## References
+
+- References index: `../../references/README.md`
+- Exam guide (SAA-C03): `../../references/exam-guide.md`
+- Glossary: `../../references/glossary.md`
+- AWS services list: `../../references/aws-services.md`
+- Exam keypoints: `../../exam-keypoints.md`
+- Exam trap bank: `../../exam-trap-bank.md`
+
 ## Back
 
 - `./README.md`

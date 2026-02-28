@@ -102,6 +102,15 @@ flowchart LR
 
 - “탐지/알림/집계”는 CloudTrail 자체가 아니라 **GuardDuty → Security Hub** 같은 계층을 붙여서 푼다.
 
+## References
+
+- References index: `../../references/README.md`
+- Exam guide (SAA-C03): `../../references/exam-guide.md`
+- Glossary: `../../references/glossary.md`
+- AWS services list: `../../references/aws-services.md`
+- Exam keypoints: `../../exam-keypoints.md`
+- Exam trap bank: `../../exam-trap-bank.md`
+
 ## Back
 
 - `./README.md`

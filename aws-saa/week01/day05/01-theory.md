@@ -127,3 +127,12 @@ flowchart LR
 ## TL;DR (한 줄 정리)
 
 - Domain 1은 결국 **권한 경계(IAM/SCP) + 데이터 보호(KMS/Secrets) + 감사(CloudTrail/Config) + 사설 경로(Endpoints)**를 요구사항 신호에 맞춰 조합하는 게임이다.
+
+## References
+
+- References index: `../../references/README.md`
+- Exam guide (SAA-C03): `../../references/exam-guide.md`
+- Glossary: `../../references/glossary.md`
+- AWS services list: `../../references/aws-services.md`
+- Exam keypoints: `../../exam-keypoints.md`
+- Exam trap bank: `../../exam-trap-bank.md`

@@ -70,6 +70,15 @@
 
 - Global Accelerator는 **캐시가 아니라 Anycast 기반 경로 최적화/고정 IP/헬스 전환**이 핵심이다.
 
+## References
+
+- References index: `../../references/README.md`
+- Exam guide (SAA-C03): `../../references/exam-guide.md`
+- Glossary: `../../references/glossary.md`
+- AWS services list: `../../references/aws-services.md`
+- Exam keypoints: `../../exam-keypoints.md`
+- Exam trap bank: `../../exam-trap-bank.md`
+
 ## Back
 
 - `./README.md`

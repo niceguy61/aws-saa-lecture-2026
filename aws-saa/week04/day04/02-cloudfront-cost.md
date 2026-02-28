@@ -49,6 +49,15 @@ CloudFront를 붙이면 엣지에서 캐시 hit가 나면서 오리진 요청과
 
 - “글로벌 + 정적/캐시 가능 + 전송/요청 비용”이면 **CloudFront**가 후보로 올라간다.
 
+## References
+
+- References index: `../../references/README.md`
+- Exam guide (SAA-C03): `../../references/exam-guide.md`
+- Glossary: `../../references/glossary.md`
+- AWS services list: `../../references/aws-services.md`
+- Exam keypoints: `../../exam-keypoints.md`
+- Exam trap bank: `../../exam-trap-bank.md`
+
 ## Back
 
 - `./README.md`

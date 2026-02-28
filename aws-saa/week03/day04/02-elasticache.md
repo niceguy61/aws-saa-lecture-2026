@@ -72,6 +72,15 @@ flowchart LR
 
 - 반복 읽기 핫패스면 **ElastiCache**가 강력하지만, **무효화/일관성 요구**가 정답을 가른다.
 
+## References
+
+- References index: `../../references/README.md`
+- Exam guide (SAA-C03): `../../references/exam-guide.md`
+- Glossary: `../../references/glossary.md`
+- AWS services list: `../../references/aws-services.md`
+- Exam keypoints: `../../exam-keypoints.md`
+- Exam trap bank: `../../exam-trap-bank.md`
+
 ## Back
 
 - `./README.md`
