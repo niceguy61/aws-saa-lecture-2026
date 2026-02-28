@@ -19,11 +19,16 @@ TODO: (스토리 본문)
 ## Timeline (오늘 학습 타임라인)
 
 ```mermaid
-flowchart LR
-  A["0-10m: 워밍업"] --> B["10-110m: Reading"]
-  B --> C["110-140m: mini-action"]
-  C --> D["140-200m: Trap drill"]
-  D --> E["200-240m: Quiz"]
+gantt
+  title Learning Timeline
+  dateFormat  HH:mm
+  axisFormat  %H:%M
+  section Day
+  Warmup :t1, 00:00, 10m
+  Reading :t2, after t1, 110m
+  mini-action :t3, after t2, 30m
+  Trap drill :t4, after t3, 60m
+  Quiz :t5, after t4, 30m
 ```
 
 ## Flow (서비스 연결 흐름)

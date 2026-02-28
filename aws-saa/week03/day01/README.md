@@ -24,11 +24,16 @@
 ## Timeline (오늘 학습 타임라인)
 
 ```mermaid
-flowchart LR
-  A["0-10m: 워밍업(병목 축 4개)"] --> B["10-120m: Reading"]
-  B --> C["120-150m: 미니 정리(T 인스턴스 함정)"]
-  C --> D["150-210m: Trap drill(사이징 vs 관측)"]
-  D --> E["210-240m: Quiz"]
+gantt
+  title Learning Timeline
+  dateFormat  HH:mm
+  axisFormat  %H:%M
+  section Day
+  워밍업 - 병목 축 4개 :t1, 00:00, 10m
+  Reading :t2, after t1, 110m
+  미니 정리 - T 인스턴스 함정 :t3, after t2, 30m
+  Trap drill - 사이징 vs 관측 :t4, after t3, 60m
+  Quiz :t5, after t4, 30m
 ```
 
 ## Flow (서비스 연결 흐름)

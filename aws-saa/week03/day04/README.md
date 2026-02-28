@@ -24,11 +24,16 @@ DB 성능 이슈는 늘 비슷한 그림으로 시작합니다. “읽기가 느
 ## Timeline (오늘 학습 타임라인)
 
 ```mermaid
-flowchart LR
-  A["0-10m: 워밍업(모델링/확장/캐시)"] --> B["10-140m: Reading"]
-  B --> C["140-160m: 미니 정리(신호 매칭)"]
-  C --> D["160-210m: Trap drill(캐시/DB 혼동)"]
-  D --> E["210-240m: Quiz"]
+gantt
+  title Learning Timeline
+  dateFormat  HH:mm
+  axisFormat  %H:%M
+  section Day
+  워밍업 - 모델링/확장/캐시 :t1, 00:00, 10m
+  Reading :t2, after t1, 130m
+  미니 정리 - 신호 매칭 :t3, after t2, 20m
+  Trap drill - 캐시/DB 혼동 :t4, after t3, 50m
+  Quiz :t5, after t4, 30m
 ```
 
 ## Flow (서비스 연결 흐름)
