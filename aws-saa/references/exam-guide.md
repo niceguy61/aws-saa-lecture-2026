@@ -46,6 +46,10 @@
 - Exam Prep 과정(핵심 개념/문제 유형/시간 관리)
 - Hands-on(실습) 리소스(Builder Labs 등) 및 관련 트레이닝
 
+참고 링크
+- AWS Skill Builder: https://skillbuilder.aws/
+- SAA 시험 페이지의 “AWS Skill Builder exam prep” 섹션(4-step plan 등으로 바로 이동 가능): https://aws.amazon.com/certification/certified-solutions-architect-associate/
+
 ## 공식 링크 모음
 
 - 시험 페이지(시험 정보/준비 링크 포함): https://aws.amazon.com/certification/certified-solutions-architect-associate/
