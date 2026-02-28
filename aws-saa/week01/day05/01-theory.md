@@ -130,9 +130,24 @@ flowchart LR
 
 ## References
 
-- References index: `../../references/README.md`
-- Exam guide (SAA-C03): `../../references/exam-guide.md`
-- Glossary: `../../references/glossary.md`
-- AWS services list: `../../references/aws-services.md`
-- Exam keypoints: `../../exam-keypoints.md`
-- Exam trap bank: `../../exam-trap-bank.md`
+- Internal references:
+  - [References index](../../references/README.md)
+  - [Exam guide (SAA-C03)](../../references/exam-guide.md)
+  - [Glossary](../../references/glossary.md)
+  - [AWS services list](../../references/aws-services.md)
+  - [Exam keypoints](../../exam-keypoints.md)
+  - [Exam trap bank](../../exam-trap-bank.md)
+
+- Official AWS documentation:
+  - [IAM User Guide](https://docs.aws.amazon.com/IAM/latest/UserGuide/introduction.html)
+  - [STS API Reference](https://docs.aws.amazon.com/STS/latest/APIReference/welcome.html)
+  - [Search: Service Control Policies (SCP)](https://docs.aws.amazon.com/search/doc-search.html?searchQuery=Service%20Control%20Policies%20SCP%20AWS%20Organizations)
+  - [AWS KMS Developer Guide](https://docs.aws.amazon.com/kms/latest/developerguide/overview.html)
+  - [AWS CloudTrail User Guide](https://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-user-guide.html)
+  - [AWS Config Developer Guide](https://docs.aws.amazon.com/config/latest/developerguide/WhatIsConfig.html)
+  - [Amazon VPC User Guide](https://docs.aws.amazon.com/vpc/latest/userguide/what-is-amazon-vpc.html)
+  - [AWS PrivateLink User Guide](https://docs.aws.amazon.com/vpc/latest/privatelink/what-is-privatelink.html)
+  - [Search: security groups vs NACL](https://docs.aws.amazon.com/search/doc-search.html?searchQuery=security%20groups%20vs%20network%20ACLs%20VPC)
+  - [Amazon S3 User Guide](https://docs.aws.amazon.com/AmazonS3/latest/userguide/Welcome.html)
+  - [Search: S3 SSE-KMS](https://docs.aws.amazon.com/search/doc-search.html?searchQuery=S3%20SSE-KMS)
+  - [AWS Secrets Manager User Guide](https://docs.aws.amazon.com/secretsmanager/latest/userguide/intro.html)

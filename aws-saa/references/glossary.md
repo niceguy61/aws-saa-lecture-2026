@@ -4,6 +4,15 @@
 
 더 큰 서비스 목록(공식 목록 + 링크)은 `aws-services.md` 참고.
 
+## Official docs (quick links)
+
+- AWS Documentation (search): https://docs.aws.amazon.com/search/doc-search.html
+- In-scope AWS services & features (SAA-C03): https://docs.aws.amazon.com/ko_kr/aws-certification/latest/examguides/saa-03-in-scope-services.html
+- AWS Well-Architected Framework (official): https://aws.amazon.com/ko/architecture/well-architected/
+- IAM User Guide: https://docs.aws.amazon.com/IAM/latest/UserGuide/introduction.html
+- Amazon VPC User Guide: https://docs.aws.amazon.com/vpc/latest/userguide/what-is-amazon-vpc.html
+- Amazon S3 User Guide: https://docs.aws.amazon.com/AmazonS3/latest/userguide/Welcome.html
+
 ## Framework & Exam
 
 - **Well-Architected Framework (WAF)** ([reference](./well-architected-framework.md)): 6개 Pillar로 워크로드를 점검/개선하는 AWS의 설계 기준.

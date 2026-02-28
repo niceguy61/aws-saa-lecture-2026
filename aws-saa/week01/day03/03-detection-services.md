@@ -104,12 +104,25 @@ flowchart LR
 
 ## References
 
-- References index: `../../references/README.md`
-- Exam guide (SAA-C03): `../../references/exam-guide.md`
-- Glossary: `../../references/glossary.md`
-- AWS services list: `../../references/aws-services.md`
-- Exam keypoints: `../../exam-keypoints.md`
-- Exam trap bank: `../../exam-trap-bank.md`
+- Internal references:
+  - [References index](../../references/README.md)
+  - [Exam guide (SAA-C03)](../../references/exam-guide.md)
+  - [Glossary](../../references/glossary.md)
+  - [AWS services list](../../references/aws-services.md)
+  - [Exam keypoints](../../exam-keypoints.md)
+  - [Exam trap bank](../../exam-trap-bank.md)
+
+- Official AWS documentation:
+  - [AWS KMS Developer Guide](https://docs.aws.amazon.com/kms/latest/developerguide/overview.html)
+  - [AWS CloudTrail User Guide](https://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-user-guide.html)
+  - [AWS Config Developer Guide](https://docs.aws.amazon.com/config/latest/developerguide/WhatIsConfig.html)
+  - [Amazon VPC User Guide](https://docs.aws.amazon.com/vpc/latest/userguide/what-is-amazon-vpc.html)
+  - [Amazon S3 User Guide](https://docs.aws.amazon.com/AmazonS3/latest/userguide/Welcome.html)
+  - [Search: S3 SSE-KMS](https://docs.aws.amazon.com/search/doc-search.html?searchQuery=S3%20SSE-KMS)
+  - [Amazon GuardDuty User Guide](https://docs.aws.amazon.com/guardduty/latest/ug/what-is-guardduty.html)
+  - [Amazon Inspector User Guide](https://docs.aws.amazon.com/inspector/latest/user/what-is-inspector.html)
+  - [AWS Security Hub User Guide](https://docs.aws.amazon.com/securityhub/latest/userguide/what-is-securityhub.html)
+  - [Amazon Macie User Guide](https://docs.aws.amazon.com/macie/latest/user/what-is-macie.html)
 
 ## Back
 

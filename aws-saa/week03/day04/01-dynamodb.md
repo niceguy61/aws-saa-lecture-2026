@@ -113,12 +113,16 @@ DynamoDB는 인스턴스를 키워서 해결하는 DB가 아니라, **조회 경
 
 ## References
 
-- References index: `../../references/README.md`
-- Exam guide (SAA-C03): `../../references/exam-guide.md`
-- Glossary: `../../references/glossary.md`
-- AWS services list: `../../references/aws-services.md`
-- Exam keypoints: `../../exam-keypoints.md`
-- Exam trap bank: `../../exam-trap-bank.md`
+- Internal references:
+  - [References index](../../references/README.md)
+  - [Exam guide (SAA-C03)](../../references/exam-guide.md)
+  - [Glossary](../../references/glossary.md)
+  - [AWS services list](../../references/aws-services.md)
+  - [Exam keypoints](../../exam-keypoints.md)
+  - [Exam trap bank](../../exam-trap-bank.md)
+
+- Official AWS documentation:
+  - [Amazon DynamoDB Developer Guide](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Introduction.html)
 
 ## Back
 

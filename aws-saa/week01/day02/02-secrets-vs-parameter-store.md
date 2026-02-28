@@ -101,12 +101,17 @@
 
 ## References
 
-- References index: `../../references/README.md`
-- Exam guide (SAA-C03): `../../references/exam-guide.md`
-- Glossary: `../../references/glossary.md`
-- AWS services list: `../../references/aws-services.md`
-- Exam keypoints: `../../exam-keypoints.md`
-- Exam trap bank: `../../exam-trap-bank.md`
+- Internal references:
+  - [References index](../../references/README.md)
+  - [Exam guide (SAA-C03)](../../references/exam-guide.md)
+  - [Glossary](../../references/glossary.md)
+  - [AWS services list](../../references/aws-services.md)
+  - [Exam keypoints](../../exam-keypoints.md)
+  - [Exam trap bank](../../exam-trap-bank.md)
+
+- Official AWS documentation:
+  - [AWS Secrets Manager User Guide](https://docs.aws.amazon.com/secretsmanager/latest/userguide/intro.html)
+  - [SSM Parameter Store (Systems Manager)](https://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-parameter-store.html)
 
 ## Back
 

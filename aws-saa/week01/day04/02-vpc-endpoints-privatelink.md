@@ -92,12 +92,18 @@ flowchart LR
 
 ## References
 
-- References index: `../../references/README.md`
-- Exam guide (SAA-C03): `../../references/exam-guide.md`
-- Glossary: `../../references/glossary.md`
-- AWS services list: `../../references/aws-services.md`
-- Exam keypoints: `../../exam-keypoints.md`
-- Exam trap bank: `../../exam-trap-bank.md`
+- Internal references:
+  - [References index](../../references/README.md)
+  - [Exam guide (SAA-C03)](../../references/exam-guide.md)
+  - [Glossary](../../references/glossary.md)
+  - [AWS services list](../../references/aws-services.md)
+  - [Exam keypoints](../../exam-keypoints.md)
+  - [Exam trap bank](../../exam-trap-bank.md)
+
+- Official AWS documentation:
+  - [Amazon VPC User Guide](https://docs.aws.amazon.com/vpc/latest/userguide/what-is-amazon-vpc.html)
+  - [Search: VPC endpoints](https://docs.aws.amazon.com/search/doc-search.html?searchQuery=VPC%20endpoints)
+  - [AWS PrivateLink User Guide](https://docs.aws.amazon.com/vpc/latest/privatelink/what-is-privatelink.html)
 
 ## Back
 

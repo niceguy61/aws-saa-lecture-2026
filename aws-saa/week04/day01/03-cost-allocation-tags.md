@@ -65,12 +65,17 @@
 
 ## References
 
-- References index: `../../references/README.md`
-- Exam guide (SAA-C03): `../../references/exam-guide.md`
-- Glossary: `../../references/glossary.md`
-- AWS services list: `../../references/aws-services.md`
-- Exam keypoints: `../../exam-keypoints.md`
-- Exam trap bank: `../../exam-trap-bank.md`
+- Internal references:
+  - [References index](../../references/README.md)
+  - [Exam guide (SAA-C03)](../../references/exam-guide.md)
+  - [Glossary](../../references/glossary.md)
+  - [AWS services list](../../references/aws-services.md)
+  - [Exam keypoints](../../exam-keypoints.md)
+  - [Exam trap bank](../../exam-trap-bank.md)
+
+- Official AWS documentation:
+  - [Search: AWS Cost Explorer](https://docs.aws.amazon.com/search/doc-search.html?searchQuery=AWS%20Cost%20Explorer)
+  - [Search: cost allocation tags](https://docs.aws.amazon.com/search/doc-search.html?searchQuery=cost%20allocation%20tags)
 
 ## Back
 

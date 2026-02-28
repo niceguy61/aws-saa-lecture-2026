@@ -51,12 +51,16 @@
 
 ## References
 
-- References index: `../../references/README.md`
-- Exam guide (SAA-C03): `../../references/exam-guide.md`
-- Glossary: `../../references/glossary.md`
-- AWS services list: `../../references/aws-services.md`
-- Exam keypoints: `../../exam-keypoints.md`
-- Exam trap bank: `../../exam-trap-bank.md`
+- Internal references:
+  - [References index](../../references/README.md)
+  - [Exam guide (SAA-C03)](../../references/exam-guide.md)
+  - [Glossary](../../references/glossary.md)
+  - [AWS services list](../../references/aws-services.md)
+  - [Exam keypoints](../../exam-keypoints.md)
+  - [Exam trap bank](../../exam-trap-bank.md)
+
+- Official AWS documentation:
+  - [Search in AWS docs: Intelligent-Tiering: 예측이 어려울 때 자동 최적화](https://docs.aws.amazon.com/search/doc-search.html?searchQuery=Intelligent-Tiering%3A%20%EC%98%88%EC%B8%A1%EC%9D%B4%20%EC%96%B4%EB%A0%A4%EC%9A%B8%20%EB%95%8C%20%EC%9E%90%EB%8F%99%20%EC%B5%9C%EC%A0%81%ED%99%94)
 
 ## Back
 

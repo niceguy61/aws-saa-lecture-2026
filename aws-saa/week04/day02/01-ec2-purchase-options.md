@@ -101,12 +101,17 @@ Spot은 “싸다”만으로는 부족하고, 보통 아래 힌트가 같이 �
 
 ## References
 
-- References index: `../../references/README.md`
-- Exam guide (SAA-C03): `../../references/exam-guide.md`
-- Glossary: `../../references/glossary.md`
-- AWS services list: `../../references/aws-services.md`
-- Exam keypoints: `../../exam-keypoints.md`
-- Exam trap bank: `../../exam-trap-bank.md`
+- Internal references:
+  - [References index](../../references/README.md)
+  - [Exam guide (SAA-C03)](../../references/exam-guide.md)
+  - [Glossary](../../references/glossary.md)
+  - [AWS services list](../../references/aws-services.md)
+  - [Exam keypoints](../../exam-keypoints.md)
+  - [Exam trap bank](../../exam-trap-bank.md)
+
+- Official AWS documentation:
+  - [Amazon EC2 User Guide](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/concepts.html)
+  - [Search: EC2 purchase options (RI/Savings Plans/Spot)](https://docs.aws.amazon.com/search/doc-search.html?searchQuery=EC2%20purchase%20options%20Reserved%20Instances%20Savings%20Plans%20Spot)
 
 ## Back
 

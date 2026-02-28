@@ -109,12 +109,16 @@ DR은 리소스를 만들어두는 것만이 아니라, **전환/복구 절차(r
 
 ## References
 
-- References index: `../../references/README.md`
-- Exam guide (SAA-C03): `../../references/exam-guide.md`
-- Glossary: `../../references/glossary.md`
-- AWS services list: `../../references/aws-services.md`
-- Exam keypoints: `../../exam-keypoints.md`
-- Exam trap bank: `../../exam-trap-bank.md`
+- Internal references:
+  - [References index](../../references/README.md)
+  - [Exam guide (SAA-C03)](../../references/exam-guide.md)
+  - [Glossary](../../references/glossary.md)
+  - [AWS services list](../../references/aws-services.md)
+  - [Exam keypoints](../../exam-keypoints.md)
+  - [Exam trap bank](../../exam-trap-bank.md)
+
+- Official AWS documentation:
+  - [Search in AWS docs: DR Strategy Menu (RPO/RTO로 고르는 복구 전략)](https://docs.aws.amazon.com/search/doc-search.html?searchQuery=DR%20Strategy%20Menu%20(RPO%2FRTO%EB%A1%9C%20%EA%B3%A0%EB%A5%B4%EB%8A%94%20%EB%B3%B5%EA%B5%AC%20%EC%A0%84%EB%9E%B5))
 
 ## Back
 

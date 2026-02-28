@@ -26,9 +26,24 @@
 
 ## References
 
-- References index: `../references/README.md`
-- Exam guide (SAA-C03): `../references/exam-guide.md`
-- Glossary: `../references/glossary.md`
-- AWS services list: `../references/aws-services.md`
-- Exam keypoints: `../exam-keypoints.md`
-- Exam trap bank: `../exam-trap-bank.md`
+- Internal references:
+  - [References index](../references/README.md)
+  - [Exam guide (SAA-C03)](../references/exam-guide.md)
+  - [Glossary](../references/glossary.md)
+  - [AWS services list](../references/aws-services.md)
+  - [Exam keypoints](../exam-keypoints.md)
+  - [Exam trap bank](../exam-trap-bank.md)
+
+- Official AWS documentation:
+  - [AWS KMS Developer Guide](https://docs.aws.amazon.com/kms/latest/developerguide/overview.html)
+  - [Amazon VPC User Guide](https://docs.aws.amazon.com/vpc/latest/userguide/what-is-amazon-vpc.html)
+  - [Search: VPC endpoints](https://docs.aws.amazon.com/search/doc-search.html?searchQuery=VPC%20endpoints)
+  - [Amazon S3 User Guide](https://docs.aws.amazon.com/AmazonS3/latest/userguide/Welcome.html)
+  - [Search: S3 lifecycle rules](https://docs.aws.amazon.com/search/doc-search.html?searchQuery=S3%20lifecycle%20rules)
+  - [Search: S3 storage classes](https://docs.aws.amazon.com/search/doc-search.html?searchQuery=S3%20storage%20classes)
+  - [Search: S3 SSE-KMS](https://docs.aws.amazon.com/search/doc-search.html?searchQuery=S3%20SSE-KMS)
+  - [Amazon EC2 User Guide](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/concepts.html)
+  - [Search: EC2 purchase options (RI/Savings Plans/Spot)](https://docs.aws.amazon.com/search/doc-search.html?searchQuery=EC2%20purchase%20options%20Reserved%20Instances%20Savings%20Plans%20Spot)
+  - [Amazon DynamoDB Developer Guide](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Introduction.html)
+  - [Search: AWS Cost Explorer](https://docs.aws.amazon.com/search/doc-search.html?searchQuery=AWS%20Cost%20Explorer)
+  - [Search: AWS Budgets](https://docs.aws.amazon.com/search/doc-search.html?searchQuery=AWS%20Budgets)
