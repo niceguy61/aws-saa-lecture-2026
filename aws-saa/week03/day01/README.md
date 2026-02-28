@@ -2,53 +2,54 @@
 
 ![고객 사례 삽화 - 성능 진단 시작](../../assets/scenario_image/w3d1s0.png)
 
-## Outcomes
+## Quick Links
 
-- 성능 요구사항을 “지연시간/처리량/동시성/예측 가능성”으로 분해한다.
-- EC2 인스턴스 패밀리 선택 기준(컴퓨트/메모리/네트워크/가속기)을 설명한다.
-- burstable(T 계열)에서 “크레딧”이 문제로 이어지는 케이스를 식별한다.
-- CloudWatch 지표를 보고 병목이 CPU인지(또는 다른 곳인지) 1차 판단한다.
+- [오늘의 이야기](#오늘의-이야기)
+- [Timeline](#timeline-오늘-학습-타임라인)
+- [Flow](#flow-서비스-연결-흐름)
+- [Reading](#reading-서비스별-theory)
+- [Quiz](#quiz)
+- [References](../../references/README.md)
 
-## Services In Scope
+## 오늘의 이야기
 
-- EC2 (instance families, burstable basics)
-- CloudWatch (CPUUtilization, CPUCreditBalance 등 지표 관점)
-- (개념) Placement/ENA/EBS-optimized
+“요즘 API가 느려졌어요.” 이 말은 사실 아무것도 말해주지 않습니다. CPU인지, 디스크인지, 네트워크인지, 아니면 그냥 캐시가 깨졌는지부터 나눠야 하죠. 오늘은 그 첫 단추를 ‘사무실 방식’으로 끼우는 날입니다. 먼저 EC2에서 인스턴스를 고를 때, 무작정 큰 걸 올리는 대신 “어떤 병목 축인지”를 보고 패밀리를 고릅니다. 그리고 시험에서 자주 나오는 함정도 같이 챙겨요. Burstable(T) 인스턴스는 크레딧이 떨어지면 성능이 꺾일 수 있고, “평소엔 낮고 가끔만 치솟는” 워크로드에는 좋지만 “항상 높은 부하”에는 불리할 수 있죠. 이런 문장 신호를 놓치면, 실무에서도 ‘가끔 느려짐’ 같은 미스터리를 만들게 됩니다.
 
-## Timebox (4h)
+그 다음은 관측입니다. 감으로 “느린 것 같다”가 아니라, CloudWatch 지표로 1차 진단을 합니다. CPU가 계속 높나, 네트워크가 포화인가, 디스크가 병목인가 같은 것들이 보이기 시작하죠. 오늘은 여기까지가 목표예요. EC2는 단독 서비스가 아니라, 결국 “선택(사이징) + 측정(CloudWatch)”이 한 세트로 굴러갑니다. 이 두 개가 붙으면 성능 문제는 ‘기분’이 아니라 ‘근거’로 이야기할 수 있고, 시험에서도 “측정 없이 튜닝” 같은 선택지를 빠르게 걸러낼 수 있습니다.
 
-- Theory + mini-action: 4h
+실무에서는 이게 바로 커뮤니케이션이 됩니다. “느려요” 대신 “CPU는 여유 있는데 디스크가 병목이에요”라고 말할 수 있으면, 그다음 선택지가 자연스럽게 좁혀지죠. 그리고 시험에서도 같은 방식으로 나옵니다. “관측/지표” 단서가 있으면 CloudWatch를 포함한 선택지가 힘을 얻고, “항상 높은 부하” 같은 신호가 있으면 Burstable(T) 같은 선택지가 흔들립니다. 오늘은 EC2(선택)와 CloudWatch(근거)를 묶어서, 성능 문제를 ‘추측’이 아니라 ‘진단’으로 바꾸는 감각을 만드는 날입니다.
+
+추가로, 지표를 볼 때도 “평균”만 보면 함정에 빠지기 쉽습니다. 실무에서는 p95/p99 같은 꼬리 지연이 문제인 경우가 많고, 시험에서도 “간헐적 지연” 같은 표현으로 힌트를 줍니다. 오늘은 그 힌트를 놓치지 않게, EC2 옵션과 CloudWatch 관측을 같이 굴려보는 느낌으로 정리해봅니다.
+
+## Timeline (오늘 학습 타임라인)
+
+```mermaid
+flowchart LR
+  A[0-10m: 워밍업(병목 축 4개)] --> B[10-120m: Reading]
+  B --> C[120-150m: 미니 정리(T 인스턴스 함정)]
+  C --> D[150-210m: Trap drill(사이징 vs 관측)]
+  D --> E[210-240m: Quiz]
+```
+
+## Flow (서비스 연결 흐름)
+
+```mermaid
+flowchart LR
+  Symptom[느림/지연/타임아웃] --> CW[CloudWatch 지표 확인]
+  CW --> Axis[병목 축 결정]
+  Axis --> EC2[EC2 패밀리/타입 선택]
+  EC2 --> T[Burstable(T) 사용 여부]
+```
 
 ## Reading (서비스별 theory)
 
 - [EC2 인스턴스 패밀리 선택 + Burstable(T) 함정](01-ec2.md)
 - [CloudWatch로 성능 병목 1차 진단하기](02-cloudwatch.md)
 
-## Core Concepts
+## Quiz
 
-- 지표로 번역
-  - 지연시간(latency): p95/p99 (평균만 보면 함정)
-  - 처리량(throughput): req/s, MB/s, IOPS
-  - 동시성(concurrency): 동시 요청/동시 실행
-  - 일관성(predictability): 스파이크 이후에도 유지되는가
-- 병목은 4가지 축으로 수렴
-  - CPU / 메모리 / 네트워크 / 스토리지 I/O
+- [Day 01 Quiz](03-quiz.md)
 
-![성능 지표와 병목 축](../../assets/core/perf-metrics-and-bottlenecks.svg)
+## Back
 
-## Exam Traps (확장)
-
-- 성능 문제 = 무조건 더 큰 인스턴스(scale up)로 끝내는 선택지.
-- T 계열을 “지속 고부하” 워크로드에 쓰는 선택지(크레딧 소진/스로틀링).
-- CPUUtilization 하나만 보고 결론 내리게 유도하는 선택지(추가 지표로 교차 확인).
-- 더 많은 연계/고급 함정: `../../exam-trap-bank.md`
-
-## Exam-Style Design Questions
-
-- “지속적인 고CPU” 워크로드에서 T 계열이 오답이 되는 신호는?
-- “처리량”을 높여야 할 때 스케일업 vs 스케일아웃 중 어떤 선택이 자연스러운가?
-- 성능 문제에서 CloudWatch로 무엇을 먼저 확인할까?
-
-## TL;DR (한 줄 정리)
-
-- 성능 문제는 먼저 **지표(p95/p99/처리량/동시성)로 번역**하고, **병목 축(CPU/메모리/네트워크/스토리지 I/O)**을 맞춘 뒤 서비스 선택으로 들어간다.
+- `../README.md`

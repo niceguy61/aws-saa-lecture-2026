@@ -1,60 +1,49 @@
-# Day NN - README (Day Index)
+# Day NN - TODO (Day Index)
 
-> 이 문서는 Day 인덱스다. 상세 이론은 Day 폴더 바로 아래 `01-*.md` 서비스별 문서로 분리한다.
+![고객 사례 삽화 - TODO](../../assets/scenario_image/wXdYsN.png)
 
-## 소개 (이 Day는 무엇을 묶나?)
+## Quick Links
 
-- TODO (1~2문장)
+- [오늘의 이야기](#오늘의-이야기)
+- [Timeline](#timeline-오늘-학습-타임라인)
+- [Flow](#flow-서비스-연결-흐름)
+- [Reading](#reading-서비스별-theory)
+- [Quiz](#quiz)
 
-## 고객 사례 (스토리, 600~1000자)
+## 오늘의 이야기
 
-> TODO: Day 전체를 관통하는 “상황” 1개(서비스 1개가 아니라 문제 축을 잡아준다)
+> 1000~1200자 내외. Day에 언급되는 모든 서비스를 “사무실 실생활”처럼 자연스럽게 섞어서, 읽기 쉬운 구어체로 서술한다.
 
-## Scenario image (optional)
+TODO: (스토리 본문)
 
-- TODO: `../../assets/scenario_image/wXdYsN.png`
+## Timeline (오늘 학습 타임라인)
 
-## Impact 범위 (어디에 영향을 주나?)
+```mermaid
+flowchart LR
+  A[0-10m: 워밍업] --> B[10-110m: Reading]
+  B --> C[110-140m: mini-action]
+  C --> D[140-200m: Trap drill]
+  D --> E[200-240m: Quiz]
+```
 
-- Security: TODO
-- Cost: TODO
-- Reliability: TODO
-- Performance: TODO
-- Operations: TODO
+## Flow (서비스 연결 흐름)
 
-## Exam Guide (Badges)
-
-![Domain](https://img.shields.io/badge/Domain-TODO-0ea5e9?style=flat&logo=amazonwebservices&logoColor=white)
-![Task](https://img.shields.io/badge/Task-TODO-22c55e?style=flat&logo=amazonwebservices&logoColor=white)
-![Service: TODO](https://img.shields.io/badge/Service-TODO-8b5cf6?style=flat&logo=amazonwebservices&logoColor=white)
-![Service: TODO](https://img.shields.io/badge/Service-TODO-8b5cf6?style=flat&logo=amazonwebservices&logoColor=white)
-![Service: TODO](https://img.shields.io/badge/Service-TODO-8b5cf6?style=flat&logo=amazonwebservices&logoColor=white)
+```mermaid
+flowchart LR
+  A[TODO: 문제 신호] --> B[TODO: Service A]
+  B --> C[TODO: Service B]
+  C --> D[TODO: 결과/효과]
+```
 
 ## Reading (서비스별 theory)
 
 - TODO: `[Service A](01-service-a.md)`
 - TODO: `[Service B](02-service-b.md)`
 
-## Decision Rules (정답을 가르는 규칙 3개)
+## Quiz
 
-1. TODO
-2. TODO
-3. TODO
+- `03-quiz.md`
 
-## Smell Test (레드 플래그 3~5)
+## Back
 
-- TODO
-
-## Exam Traps (확장)
-
-- TODO
-- 더 많은 연계/고급 함정: `../../exam-trap-bank.md`
-
-## Cheat sheets
-
-- `../../exam-keypoints.md`
-- `../../exam-trap-bank.md`
-
-## TL;DR (한 줄 정리)
-
-- TODO
+- `../README.md`

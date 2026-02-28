@@ -2,54 +2,56 @@
 
 ![고객 사례 삽화 - Route 53 라우팅](../../assets/scenario_image/w2d1s1.png)
 
-## Outcomes
+## Quick Links
 
-- 가용성/복구를 RPO/RTO 관점으로 설명하고, 설계 선택에 반영한다.
-- 단일 장애 지점(SPOF)을 찾아 제거하는 기본 패턴(Multi-AZ, decoupling)을 말로 풀 수 있다.
-- Route 53 라우팅 정책(Weighted/Failover/Latency)의 “언제 쓰는가”를 구분한다.
+- [오늘의 이야기](#오늘의-이야기)
+- [Timeline](#timeline-오늘-학습-타임라인)
+- [Flow](#flow-서비스-연결-흐름)
+- [Reading](#reading-서비스별-theory)
+- [Quiz](#quiz)
+- [References](../../references/README.md)
 
-## Services In Scope
+## 오늘의 이야기
 
-- Route 53 (routing policies, health checks 개념)
-- (설계 개념) Multi-AZ, DR patterns
+월요일 아침에 장애 공지가 뜹니다. “주요 리전에서 장애가 나면 서비스가 얼마 안에 복구되어야 하나요?” 이 질문은 기술보다 먼저 **숫자(RPO/RTO)**가 필요해요. RTO가 짧으면 ‘빨리 켜지는’ 설계가 필요하고, RPO가 짧으면 ‘데이터를 얼마나 자주/어디까지’ 복제해야 하는지가 결정되죠. 그래서 오늘은 DR을 감으로 고르지 않고, 메뉴판처럼 RPO/RTO로 고르는 연습을 합니다. 백업/복구, 파일럿 라이트, 웜 스탠바이, 멀티 사이트처럼 선택지가 달라지는 이유를 말로 설명할 수 있으면, 시험에서도 실무에서도 설계가 흔들리지 않습니다.
 
-## Timebox (4h)
+그리고 그 복구 설계가 “사용자에게 실제로 전환되는 순간”은 대개 DNS에서 시작합니다. 여기서 Route 53이 등장하죠. “장애 조치”가 목적이면 Failover, “트래픽을 비율로 나누자”면 Weighted, “가까운 리전으로 보내자”면 Latency 같은 식으로 문장 신호가 있습니다. 결국 오늘의 스토리는 하나로 이어져요. **DR 전략으로 ‘어떻게 살아날지’를 정하고, Route 53 라우팅으로 ‘어떻게 보내줄지’를 결정한다.** 이 두 줄이 붙으면, 복구는 ‘운이 좋으면 되는 것’이 아니라 ‘설계대로 되는 것’이 됩니다.
 
-- Theory + mini-action: 4h
+실무에서는 이게 “전환 버튼”처럼 느껴집니다. 평소에는 Primary로 보내다가, 헬스 체크가 깨지면 Failover로 Secondary로 넘기고, 배포는 Weighted로 조금씩 흘려보내며 위험을 낮추고, 글로벌 사용자는 Latency로 가까운 곳으로 보내는 식이죠. 중요한 건 Route 53이 뭔가를 “복구”해주는 게 아니라, **복구 설계가 준비되어 있을 때 트래픽을 올바른 곳으로 ‘보내는’ 역할**이라는 점입니다. 그래서 오늘은 DR 전략과 라우팅 정책을 따로 외우지 않고, 같은 케이스 안에서 같이 굴리는 그림으로 정리합니다.
+
+그리고 한 가지 더, DNS 전환은 “스위치”가 아니라 “캐시/TTL”의 영향을 받습니다. 장애가 났을 때 즉시 바뀌지 않는 것처럼 보일 수 있고, 그래서 RPO/RTO 요구를 맞추려면 라우팅 정책만이 아니라 전체 복구 흐름(데이터/컴퓨트/전환 지점)을 같이 봐야 해요. 오늘은 이 디테일까지 포함해서 “왜 이 선택지가 정답인지”를 한 문장으로 설명할 수 있게 만드는 걸 목표로 합니다.
+
+## Timeline (오늘 학습 타임라인)
+
+```mermaid
+flowchart LR
+  A[0-10m: 워밍업(RPO/RTO 2줄)] --> B[10-120m: Reading]
+  B --> C[120-160m: 미니 정리(DR 메뉴판)]
+  C --> D[160-210m: Trap drill(Route 53 정책 소거)]
+  D --> E[210-240m: Quiz]
+```
+
+## Flow (서비스 연결 흐름)
+
+```mermaid
+flowchart LR
+  Req[비즈니스 요구(RPO/RTO)] --> DR[DR 전략 선택]
+  DR --> Target[복구 타겟(다른 AZ/리전/계정)]
+  Client[사용자 요청] --> R53[Route 53 라우팅]
+  R53 --> Primary[Primary]
+  R53 --> Secondary[Secondary]
+  DR --> Secondary
+```
 
 ## Reading (서비스별 theory)
 
 - [Route 53 Routing Policies (Failover/Weighted/Latency)](01-route53-routing.md)
 - [DR Strategy Menu (RPO/RTO로 고르는 복구 전략)](02-dr-strategies.md)
 
-## Core Concepts
+## Quiz
 
-- Resilience = “장애를 전제로” 유지되는 시스템 특성
-  - HA(High Availability): 장애가 나도 서비스 지속(또는 빠른 자동 복구)
-  - Fault tolerance: 장애 시에도 기능 유지(더 강한 요구, 비용↑)
-- RPO/RTO
-  - RPO: 허용 가능한 데이터 손실 시점(Recovery Point)
-  - RTO: 허용 가능한 복구 시간(Recovery Time)
-- SPOF 제거 패턴
-  - AZ 분산(Multi-AZ)
-  - stateless + Auto Scaling
-  - decouple(큐/이벤트)
+- [Day 01 Quiz](03-quiz.md)
 
-![DR strategies by RPO/RTO](../../assets/core/dr-rpo-rto-strategies.svg)
+## Back
 
-## Exam Traps (확장)
-
-- “Failover가 필요”한데 Weighted를 고르는 실수(요구 문장에 health check/장애 조치가 있으면 Failover 후보).
-- “Latency 기반” 요구인데 단일 리전 배포로 끝내는 실수.
-- RPO/RTO를 “성능 지표”로 착각하는 선택지.
-- 더 많은 연계/고급 함정: `../../exam-trap-bank.md`
-
-## Exam-Style Design Questions
-
-- “장애 조치”가 필요한 경우 Route 53에서 어떤 라우팅 정책이 자연스러운가?
-- RPO/RTO 요구가 달라지면 DR 전략(backup/restore vs warm standby 등)은 어떻게 바뀌는가?
-- “가용성”과 “확장성”은 같은 요구사항인가?
-
-## TL;DR (한 줄 정리)
-
-- “자동 전환/헬스체크/장애 조치”가 보이면 **Route 53 Failover(+ Health check)**, DR은 **RPO/RTO에 맞춰 전략을 고른다**.
+- `../README.md`

@@ -2,27 +2,44 @@
 
 ![고객 사례 삽화 - IAM 권한 템플릿](../../assets/scenario_image/w1d1s1.png)
 
-## Outcomes
+## Quick Links
 
-- IAM 정책 평가(기본 Deny, Explicit Deny 우선, 경계/상한선)를 “말로” 풀어 설명한다.
-- User/Group/Role, identity policy/resource policy를 구분하고, 상황별로 선택한다.
-- STS AssumeRole이 왜 필요한지(임시/감사/회수)와 보안 포인트(ExternalId, session policy)를 짚는다.
-- Organizations/SCP, permissions boundary가 “권한 상한선”을 만든다는 감각을 잡는다.
+- [오늘의 이야기](#오늘의-이야기)
+- [Timeline](#timeline-오늘-학습-타임라인)
+- [Flow](#flow-서비스-연결-흐름)
+- [Reading](#reading-서비스별-theory)
+- [Quiz](#quiz)
+- [References](../../references/README.md)
 
-## Services In Scope
+## 오늘의 이야기
 
-- IAM (Users/Groups/Roles/Policies, permission boundaries, policy conditions)
-- STS (AssumeRole, temporary credentials, session policy)
-- Organizations (SCP 개념, multi-account strategy)
-- IAM Identity Center(개념: federation/SSO 관점)
+아침에 팀 채널에 “어제까지 되던 배포가 오늘은 `AccessDenied` 난다”는 메시지가 올라옵니다. 누군가 IAM 정책을 하나 더 붙이면 해결될 것 같지만, 이런 날은 오히려 **IAM 정책 평가 순서**부터 다시 봐야 합니다. 기본이 Deny고, Explicit Deny는 무조건 이기고, permissions boundary나 Organizations의 SCP 같은 “상한선”에 걸리면 Allow를 아무리 붙여도 뚫리질 않거든요. 그래서 우리는 먼저 “누가(Principal) / 어디에(리소스) / 어떤 조건으로” 막혔는지부터 정리합니다.
 
-## Timebox (4h)
+그다음은 사람과 시스템을 분리합니다. 사람은 IAM User로 장기 키를 나눠 갖기보다 **IAM Identity Center로 SSO**를 태우고, 역할(Role)로 들어오게 만들죠. 시스템 간 접근이나 교차 계정 운영은 더더욱 **STS AssumeRole**이 기본입니다. “키를 공유하자”는 선택지는 실무에서도 시험에서도 냄새가 납니다. 외부 파트너가 역할을 AssumeRole 하는 시나리오라면, trust policy와 permission policy를 헷갈리지 않게 나누고, 필요하면 ExternalId 같은 조건으로 사고를 줄입니다. 오늘의 결론은 단순해요. 권한 문제는 “정책 더 붙이기”가 아니라 **경계(상한선)와 역할 전환(AssumeRole)로 안전하게 설계**하는 겁니다.
 
-- Theory + mini-action: 4h
+이 흐름을 한 번 더 실무식으로 말해보면 이렇습니다. “사람 로그인”은 Identity Center로 표준화하고, 팀은 그룹으로 묶어서 Role에 붙입니다. “서비스 간 호출”은 STS로 잠깐 빌려 쓰는 자격 증명으로 만들고, 필요하면 session policy로 범위를 더 줄입니다. 그리고 Organizations를 쓰는 순간부터는 SCP가 계정/OU 단위로 상한선을 만들기 때문에, 권한이 안 풀릴 때는 IAM 정책을 붙이기 전에 “우리가 상한선에 걸린 건 아닌지”부터 보는 게 습관이 됩니다. 시험에서도 똑같아요. “SCP로 Allow하자”나 “User 키를 발급하자” 같은 답이 달콤하게 보이면, 그게 바로 오늘 Day에서 잡아야 하는 함정 포인트입니다.
 
-## Flow (읽는 순서)
+## Timeline (오늘 학습 타임라인)
 
-- 왜 IAM/STS가 시험에서 “정답을 가르는 단서”가 자주 되는지 → 정책 평가 규칙 3개 → AssumeRole 패턴 → 상한선(SCP/boundary) → 예시로 손에 붙이기
+```mermaid
+flowchart LR
+  A[0-10m: 워밍업(정책 평가 3줄)] --> B[10-120m: Reading]
+  B --> C[120-150m: 미니 실습(AssumeRole 흐름 상상)]
+  C --> D[150-210m: Trap drill(상한선/Trust 혼동)]
+  D --> E[210-240m: Quiz]
+```
+
+## Flow (서비스 연결 흐름)
+
+```mermaid
+flowchart LR
+  U[사용자/워크로드 요청] --> I[IAM 정책 평가<br/>(Deny/Allow/조건)]
+  I --> B[Boundary/SCP 확인<br/>(상한선)]
+  U --> SSO[IAM Identity Center<br/>(SSO 입구)]
+  SSO --> R[Role]
+  R --> STS[STS AssumeRole<br/>(임시 자격 증명)]
+  STS --> A[타 계정/리소스 접근]
+```
 
 ## Reading (서비스별 theory)
 
@@ -33,52 +50,10 @@
 
 > 먼저 규칙(Decision Rules)을 읽고, 필요한 챕터를 골라 깊게 들어가면 흐름이 덜 끊긴다.
 
-## Decision Rules (정답을 가르는 규칙 3개)
+## Quiz
 
-1. 기본은 Deny다. → **Allow가 없으면 무조건 Deny**
-2. Explicit Deny는 항상 이긴다. → Allow가 10개 있어도 Deny 하나면 끝
-3. 상한선은 뚫을 수 없다. → **SCP/boundary에 막히면 IAM Allow로는 풀 수 없다**
+- [Day 01 Quiz](03-quiz.md)
 
-![IAM policy evaluation (order and boundaries)](../../assets/core/iam-evaluation.svg)
+## Back
 
-## Smell Test (헷갈리는 지점 / 레드 플래그)
-
-- “키를 공유하자”가 보이면 거의 틀렸다 → 보통 **AssumeRole**이 정답 방향
-- “SCP로 Allow했으니 됐다” → SCP는 부여가 아니라 **상한선**이다
-- “trust policy에 S3 권한을 넣자” → trust는 “누가 Assume”, permission은 “Assume 후 무엇을”
-- “S3를 SG로 막자” → S3는 SG 대상이 아니다(정책/엔드포인트 관점)
-
-## Quick Comparison Table
-
-| Topic | Option 1 | Option 2 | Notes |
-|---|---|---|---|
-| 권한 부여 단위 | IAM Role | IAM User | 운영/워크로드는 Role 우선, 장기 키 최소화 |
-| 정책 부착 위치 | Identity policy | Resource policy | 교차계정/리소스 단위 공유는 resource policy가 유리 |
-| 권한 상한선 | SCP | Permission boundary | SCP는 계정/OU 단위, boundary는 identity 단위 |
-| 임시 권한 | STS AssumeRole | 액세스 키 공유 | 시험 정답은 거의 STS 쪽 |
-
-## Exam Traps (확장)
-
-- SCP를 적용했는데 “정책을 붙였는데도” 안 된다: SCP는 상한선, IAM Allow가 별도로 필요
-- S3 접근을 막고 싶은데 security group으로 해결하려 함: S3는 SG 대상이 아님(대신 bucket policy/VPC endpoint policy)
-- Cross-account에서 “액세스 키 공유”가 정답처럼 보이면 의심: 대부분 AssumeRole + trust policy
-- Role trust policy와 permission policy를 혼동: trust는 “누가 Assume”, permission은 “Assume 후 무엇을”
-- 더 많은 연계/고급 함정: `../../exam-trap-bank.md`
-
-## Exam Trap Drill (O/X, 1~2분)
-
-아래 문장 2개를 “정답/오답”으로만 판정해보자(이유는 한 줄로).
-
-1) “SCP에서 Allow 했으니 이제 접근 가능하다.”  
-2) “교차 계정 운영은 access key 공유가 가장 단순하다.”
-
-## Exam-Style Design Questions
-
-- “교차 계정 액세스”가 필요할 때, 사용자 액세스 키 공유 없이 어떻게 설계할까?
-- “특정 S3 prefix만 읽기” 같은 요구사항에서 identity policy vs bucket policy 중 무엇을 선택할까?
-- Organizations에서 SCP를 적용했는데도 액세스가 안 풀린다. 무엇을 먼저 확인할까?
-- 임시 크레덴셜을 써야 하는 이유(키 유출/수명/감사)와 설계 상의 장점은?
-
-## TL;DR (한 줄 정리)
-
-- 키 공유가 보이면 대부분 오답이다: **Role + STS AssumeRole + (필요 시) boundary/SCP**로 “최소 권한 + 임시 자격 증명”을 만든다.
+- `../README.md`

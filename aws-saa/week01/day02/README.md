@@ -2,23 +2,44 @@
 
 ![고객 사례 삽화 - KMS 키 금고와 정책 게이트](../../assets/scenario_image/w1d2s1.png)
 
-## Outcomes
+## Quick Links
 
-- KMS key policy와 IAM policy의 역할을 구분한다(특히 “KMS는 key policy가 핵심”).
-- Secrets Manager vs SSM Parameter Store(특히 SecureString) 선택 기준을 설명한다.
-- S3 SSE-KMS에서 “S3 권한만 줬는데도 AccessDenied”가 나는 이유를 설명한다.
-- 데이터 보호 통제를 “암호화 + 접근 제어 + 감사”로 묶어서 설계한다.
+- [오늘의 이야기](#오늘의-이야기)
+- [Timeline](#timeline-오늘-학습-타임라인)
+- [Flow](#flow-서비스-연결-흐름)
+- [Reading](#reading-서비스별-theory)
+- [Quiz](#quiz)
+- [References](../../references/README.md)
 
-## Services In Scope
+## 오늘의 이야기
 
-- KMS (CMK, key policy, grants 개념)
-- Secrets Manager
-- SSM Parameter Store (SecureString) 비교
-- S3 SSE-KMS (암호화 통합 관점)
+점심쯤 운영 채널에 이런 말이 올라옵니다. “S3에 파일 업로드는 되는데, 다운로드만 하면 또 `AccessDenied`가 떠요.” 그래서 로그를 따라가 보면, S3 권한은 분명히 줬는데도 막혀 있죠. 이럴 때 흔한 함정이 **S3만 보고 끝내는 것**이에요. 오늘의 주인공은 KMS입니다. SSE-KMS는 결국 KMS `Decrypt`/`GenerateDataKey` 같은 호출로 이어지고, 여기서 **KMS key policy**가 관문 역할을 할 수 있습니다. 그래서 “IAM Allow만 있으면 된다”는 생각이 깨지기 시작합니다.
 
-## Timebox (4h)
+그리고 또 하나, 배포 파이프라인에서 시크릿을 어디에 둘지 결정해야 합니다. 그냥 SSM Parameter Store(SecureString)에 넣어도 되지만, rotation이나 운영 편의(자동 교체/통합)가 요구되면 **Secrets Manager**가 더 자연스럽습니다. 반대로 단순 설정값은 Parameter Store가 가볍고요. 오늘은 이렇게 정리하면 편해요. “데이터 보호”는 암호화(KMS)만이 아니라, **시크릿 보관(Secrets Manager/Parameter Store)과 S3 SSE-KMS 같은 통합 지점**에서 권한이 어떻게 엮이는지까지 한 번에 보는 겁니다. 실무에서도 시험에서도, `AccessDenied`는 대개 “권한 하나 더”가 아니라 “경계 하나 더”를 의미하니까요.
 
-- Theory + mini-action: 4h
+특히 KMS는 “키를 어디에 두나”보다 “누가 어떤 조건으로 쓰나”가 더 중요합니다. 키 정책(key policy)이 관문이 되는 순간이 있고, 서비스가 KMS를 대신 호출할 때는 권한이 생각보다 더 촘촘히 맞아야 해요. 그래서 SSE-KMS 문제를 풀 때는 S3 권한만 보지 말고, KMS 권한 경로까지 같이 따라가야 합니다. 시크릿도 마찬가지로, “일단 저장”이 아니라 “교체/감사/권한 분리”까지 포함해서 운영 가능한 형태로 고르는 게 포인트예요. 오늘 Day는 결국 KMS, Secrets Manager, Parameter Store, 그리고 S3 SSE-KMS를 한 줄로 연결해주는 날입니다.
+
+## Timeline (오늘 학습 타임라인)
+
+```mermaid
+flowchart LR
+  A[0-10m: 워밍업(암호화/접근/감사 3종 세트)] --> B[10-130m: Reading]
+  B --> C[130-160m: 미니 정리(Secrets vs Parameter)]
+  C --> D[160-210m: Trap drill(SSE-KMS AccessDenied)]
+  D --> E[210-240m: Quiz]
+```
+
+## Flow (서비스 연결 흐름)
+
+```mermaid
+flowchart LR
+  App[애플리케이션] --> Sec[시크릿 저장]
+  Sec --> SM[Secrets Manager<br/>(rotation/통합)]
+  Sec --> PS[SSM Parameter Store<br/>(SecureString)]
+  App --> S3[S3 객체 저장]
+  S3 --> SSE[SSE-KMS]
+  SSE --> KMS[KMS key policy가 관문]
+```
 
 ## Reading (서비스별 theory)
 
@@ -26,35 +47,10 @@
 - [Secrets Manager vs Parameter Store(SecureString)](02-secrets-vs-parameter-store.md)
 - [S3 SSE-KMS (대행 호출로 인한 AccessDenied 함정)](03-s3-sse-kms.md)
 
-## Core Concepts (암기 대신 구조로)
+## Quiz
 
-- 데이터 보호 통제 3종 세트(시험형 사고)
-  - Encryption at rest: KMS/SSE-KMS/Secrets encryption
-  - Access control: IAM/리소스 정책/경계
-  - Audit: CloudTrail(누가 키/시크릿을 썼는지)
-- KMS가 “정책”에 민감한 이유
-  - 암호화/복호화는 KMS API 호출로 귀결되고, KMS는 key policy를 중심으로 통제한다.
-  - 다른 서비스(S3, EBS, Secrets Manager)가 KMS를 “호출 대행”할 때도 권한 경계가 중요하다.
+- [Day 02 Quiz](03-quiz.md)
 
-![KMS envelope encryption and integration intuition](../../assets/core/kms-envelope-encryption.svg)
+## Back
 
-## Quick Comparison Table
-
-| Scenario | Best choice | Why | Common trap |
-|---|---|---|---|
-| 시크릿 rotation 요구 | Secrets Manager | 운영 기능/통합 | Parameter Store만으로 해결하려 함 |
-| 단순 설정 값 | Parameter Store | 경량/단순 | 시크릿까지 한곳에 무작정 몰기 |
-| S3 객체 보관 암호화 | SSE-KMS | 중앙 키 통제 | S3 권한만 주면 된다고 착각 |
-
-## Exam Traps (확장)
-
-- “KMS는 IAM만 보면 된다”는 오답 유도: key policy가 포인트다.
-- “SSE-KMS는 S3만 권한 주면 된다”는 오답 유도: KMS decrypt 경로가 있다.
-- “시크릿을 S3/코드/환경변수에 저장” 같은 답안이 보이면 거의 오답(요구사항 따라 예외는 있지만 SAA는 대부분 관리형 선택).
-- 더 많은 연계/고급 함정: `../../exam-trap-bank.md`
-
-## Exam-Style Design Questions
-
-- KMS에서 “key policy vs IAM policy” 중 무엇이 실제로 막고 있는지 어떻게 판단할까?
-- 애플리케이션 시크릿은 Secrets Manager가 정답인 경우가 많다. 그 이유(기능/운영/보안)는?
-- S3 객체를 SSE-KMS로 암호화했을 때, 어떤 권한들이 함께 필요해지는가?
+- `../README.md`

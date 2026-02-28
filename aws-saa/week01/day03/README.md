@@ -2,22 +2,43 @@
 
 ![고객 사례 삽화 - CloudTrail 감사 추적](../../assets/scenario_image/w1d3s1.png)
 
-## Outcomes
+## Quick Links
 
-- CloudTrail과 Config의 차이를 “기록 대상/용도”로 구분한다.
-- “누가 무엇을 했나(CloudTrail)” vs “리소스가 어떤 상태였나(Config)”를 시험형 문장으로 설명한다.
-- GuardDuty/Security Hub/Inspector의 역할을 개념 수준에서 연결한다(탐지/집계/취약점).
-- 예시 Trail 설정/로그를 보며, 실제 API 이벤트가 감사 로그로 남는 흐름을 따라간다.
+- [오늘의 이야기](#오늘의-이야기)
+- [Timeline](#timeline-오늘-학습-타임라인)
+- [Flow](#flow-서비스-연결-흐름)
+- [Reading](#reading-서비스별-theory)
+- [Quiz](#quiz)
+- [References](../../references/README.md)
 
-## Services In Scope
+## 오늘의 이야기
 
-- CloudTrail (Event history, Trail, S3 로그 저장)
-- AWS Config (recording/compliance 개념, 예시 수준)
-- GuardDuty / Security Hub / Inspector (탐지/집계/취약점 개념)
+오후에 감사 요청이 하나 들어옵니다. “지난주에 누가 보안 그룹을 열었는지, 그리고 지금도 규칙이 기준을 지키고 있는지 한 번에 보여주세요.” 여기서부터 혼동이 시작되죠. 로그를 잘 켜놨는데도, 질문이 “누가 했나”인지 “상태가 뭐였나”인지 섞여 있으면 답이 느려집니다. 오늘은 이걸 사무실 언어로 딱 나눠요. **CloudTrail은 행위**입니다. 누가 언제 어떤 API를 호출했는지, 즉 ‘사건의 근거’를 남깁니다. 반면 **AWS Config는 상태**입니다. 리소스가 어떤 설정이었는지, 규칙 위반(compliance)이 있었는지를 쭉 따라가죠.
 
-## Timebox (4h)
+그 위에 “탐지”가 얹힙니다. 이상 징후를 찾아 findings를 만들려면 GuardDuty가 자연스럽고, 여러 계정/리전/서비스에서 올라온 findings를 한눈에 모으고 표준화하려면 Security Hub가 편합니다. 그리고 “취약점 스캔”이라는 단어가 나오면 Inspector가 떠야 해요. 결국 오늘의 실전 포인트는 하나입니다. 문제 문장을 읽고 먼저 분리합니다. **행위는 CloudTrail, 상태·준수는 Config, 위협 탐지는 GuardDuty, 집계는 Security Hub, 취약점은 Inspector.** 이렇게만 나눠도 정답 후보가 확 줄어들고, 실무에서도 “로그를 어디서 봐야 하지?”가 빨리 정리됩니다.
 
-- Theory + mini-action: 4h
+실무에서 자주 하는 실수는 “다 켜두면 되지”로 끝내는 겁니다. CloudTrail을 켠다고 규정 준수가 자동으로 되는 건 아니고(Config rules/준수 평가가 필요), Config를 켠다고 누가 바꿨는지가 자동으로 설명되진 않아요(그건 CloudTrail의 영역). 또 Security Hub는 ‘탐지 엔진’이라기보다 findings를 모으고 기준(표준/컨트롤)에 맞춰 정리하는 역할이 크기 때문에, GuardDuty/Inspector 같은 소스와 함께 보는 그림이 더 자연스럽습니다. 오늘 Day는 이 관계도를 머릿속에 그려놓고, 시험 문장에서 “audit/compliance/detection/vulnerability” 신호가 보일 때 한 번에 매칭하는 감각을 만드는 데 초점을 둡니다.
+
+## Timeline (오늘 학습 타임라인)
+
+```mermaid
+flowchart LR
+  A[0-10m: 워밍업(행위/상태/탐지)] --> B[10-120m: Reading]
+  B --> C[120-150m: 미니 정리(문장 신호 매칭)]
+  C --> D[150-210m: Trap drill(CloudTrail/Config 혼동)]
+  D --> E[210-240m: Quiz]
+```
+
+## Flow (서비스 연결 흐름)
+
+```mermaid
+flowchart LR
+  Q1[누가/언제/무엇을?] --> CT[CloudTrail<br/>(행위)]
+  Q2[현재/과거 설정은?] --> CFG[AWS Config<br/>(상태/준수)]
+  CT --> GD[GuardDuty<br/>(위협 탐지)]
+  GD --> SH[Security Hub<br/>(findings 집계)]
+  INS[Inspector<br/>(취약점)] --> SH
+```
 
 ## Reading (서비스별 theory)
 
@@ -27,36 +48,10 @@
 
 > “행위(CloudTrail) vs 상태(Config) vs 탐지/집계(GuardDuty/Security Hub)”를 분리해서 읽으면 소거가 빨라진다.
 
-## Core Concepts
+## Quiz
 
-- Audit vs Compliance vs Detection
-  - Audit: “누가/언제/무엇을 했는가”를 재구성(CloudTrail)
-  - Compliance/Config state: “리소스가 어떤 구성인지/규칙 위반인지”(Config)
-  - Detection: “이상 행위/위협”을 찾아 findings로 만들고 연결(GuardDuty/Security Hub 등)
+- [Day 03 Quiz](03-quiz.md)
 
-![CloudTrail vs Config vs CloudWatch (audit and observability)](../../assets/core/observability-audit.svg)
+## Back
 
-## Quick Comparison Table
-
-| Question | Best tool | Why |
-|---|---|---|
-| 누가 보안 그룹 인바운드를 열었나 | CloudTrail | API 호출 근거 |
-| 현재 보안 그룹 규칙이 기준 위반인가 | Config | 구성/준수 |
-| 의심스러운 활동을 탐지/알림하고 싶다 | GuardDuty/Security Hub | 탐지/집계 |
-
-## Exam Traps (확장)
-
-- CloudTrail과 Config를 “둘 다 로그니까 동일”로 보는 선택지: 기록 목적이 다르다.
-- “탐지 서비스가 곧 로그 저장소”라는 오해: 탐지는 소스(CloudTrail 등) 위에서 동작한다.
-- 데이터 이벤트/고급 기능을 무조건 켜는 답: 요구사항/비용 트레이드오프를 본다.
-- 더 많은 연계/고급 함정: `../../exam-trap-bank.md`
-
-## Exam-Style Design Questions
-
-- “감사(audit)”와 “준수(compliance)” 요구를 동시에 충족하려면 어떤 조합이 자연스러운가?
-- “누가 보안 그룹을 열었는지”와 “현재 보안 그룹이 어떤 규칙인지”는 같은 질문인가?
-- 탐지 서비스(GuardDuty 등)는 “로그 소스”가 무엇인지(CloudTrail/VPC Flow Logs/DNS 등)와 어떻게 연결되는가?
-
-## TL;DR (한 줄 정리)
-
-- “누가 했나”는 **CloudTrail**, “구성이 어땠나/준수인가”는 **Config**, “이상 징후를 찾고 모아라”는 **GuardDuty + Security Hub(+ Inspector)**로 푼다.
+- `../README.md`
