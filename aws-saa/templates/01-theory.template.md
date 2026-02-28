@@ -74,19 +74,22 @@ flowchart LR
   A[Client] --> B[TODO]
 ```
 
-## Taste Test (1~3분)
-
-- TODO (정답/오답을 빠르게 판정할 수 있는 미니 확인 1개)
-
 ## Quick Comparison Table
 
 | Topic | Option 1 | Option 2 | Notes |
 |---|---|---|---|
 | TODO | TODO | TODO | TODO |
 
-## Exam Traps (5-8)
+## Exam Traps (확장)
 
-- TODO
+- TODO (Core: 서비스 단독 함정 3~5개)
+- TODO (Similar-but-different: 비슷하지만 다른 것 2~4개)
+- TODO (Combo/Advanced: 연계/고급 구현 함정 3~6개)
+- 더 많은 연계/고급 함정: `../exam-trap-bank.md`
+
+## Exam Trap Drill (O/X, 1~3분)
+
+- TODO (정답/오답을 빠르게 판정할 수 있는 미니 확인 1~2개)
 
 ## TL;DR (한 줄 정리)
 

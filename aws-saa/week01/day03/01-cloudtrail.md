@@ -78,12 +78,13 @@ flowchart LR
 |---|---|---|
 | 누가 정책을 바꿨나 | CloudTrail | 행위(API 호출) 근거 |
 
-## Exam Traps (5-8)
+## Exam Traps (확장)
 
+- 더 많은 연계/고급 함정: `../../exam-trap-bank.md`
 - “감사 요구”인데 CloudTrail 대신 앱 로그만 보는 답
 - 데이터 이벤트를 무조건 켜는 답(요구/비용 트레이드오프 무시)
 
-## Taste Test (1~3분)
+## Exam Trap Drill (O/X, 1~3분)
 
 - “누가 보안 그룹을 열었는지 알고 싶다” → 어떤 도구?
 
@@ -93,4 +94,4 @@ flowchart LR
 
 ## Back
 
-- `./00-theory-index.md`
+- `./README.md`

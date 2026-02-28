@@ -97,12 +97,13 @@ DynamoDB는 인스턴스를 키워서 해결하는 DB가 아니라, **조회 경
 | 조건이 키에 없음 | GSI | 새 액세스 패턴 |
 | 전체 탐색 | Scan | 비용/지연 함정 |
 
-## Exam Traps (5-8)
+## Exam Traps (확장)
 
+- 더 많은 연계/고급 함정: `../../exam-trap-bank.md`
 - Query가 가능한데 Scan을 고르는 선택지
 - 핫 파티션 신호가 있는데 키 설계 변경 없이 “무조건 캐시(DAX)”로만 푸는 선택지
 
-## Taste Test (1~3분)
+## Exam Trap Drill (O/X, 1~3분)
 
 - “status로도 조회해야 한다” → Scan이 아니라 무엇을 추가할까요?
 
@@ -112,4 +113,4 @@ DynamoDB는 인스턴스를 키워서 해결하는 DB가 아니라, **조회 경
 
 ## Back
 
-- `./00-theory-index.md`
+- `./README.md`

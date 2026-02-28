@@ -89,12 +89,13 @@ flowchart LR
 | 용량은 그대로, 성능만 | gp3 | IOPS/처리량 조절 |
 | 높은/일관된 IOPS | io2/io1 | 비용↑ 가능 |
 
-## Exam Traps (5-8)
+## Exam Traps (확장)
 
+- 더 많은 연계/고급 함정: `../../exam-trap-bank.md`
 - “공유 파일시스템”인데 EBS를 고르는 선택지
 - “IOPS 병목”인데 스케일업만 고르는 선택지
 
-## Taste Test (1~3분)
+## Exam Trap Drill (O/X, 1~3분)
 
 - “VolumeQueueLength가 올라가고, 읽기/쓰기 지연이 커진다” → gp3 튜닝/ io2 중 무엇이 먼저 떠오르나요?
 
@@ -104,4 +105,4 @@ flowchart LR
 
 ## Back
 
-- `./00-theory-index.md`
+- `./README.md`

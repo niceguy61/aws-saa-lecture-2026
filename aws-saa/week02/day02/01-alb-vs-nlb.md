@@ -97,11 +97,12 @@ flowchart LR
 | host/path 기반 라우팅 | ALB |
 | TCP/UDP + 정적 IP | NLB |
 
-## Exam Traps (5-8)
+## Exam Traps (확장)
 
+- 더 많은 연계/고급 함정: `../../exam-trap-bank.md`
 - L7 기능이 필요한데 NLB를 선택
 
-## Taste Test (1~3분)
+## Exam Trap Drill (O/X, 1~3분)
 
 - “HTTP path 기반 라우팅” → ALB? NLB?
 
@@ -111,4 +112,4 @@ flowchart LR
 
 ## Back
 
-- `./00-theory-index.md`
+- `./README.md`

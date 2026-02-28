@@ -99,11 +99,12 @@ Replication은 “원격에 사본이 있어야 한다”는 요구에 직접 �
 | 원격 복제/리전 DR/규제 | SRR/CRR |
 | 단순 백업 | snapshot/backup |
 
-## Exam Traps (5-8)
+## Exam Traps (확장)
 
+- 더 많은 연계/고급 함정: `../../exam-trap-bank.md`
 - 복제를 원하는데 versioning을 언급하지 않는 답안
 
-## Taste Test (1~3분)
+## Exam Trap Drill (O/X, 1~3분)
 
 - “다른 리전에 복제, 규제 준수” → 무엇이 필수 전제?
 
@@ -113,4 +114,4 @@ Replication은 “원격에 사본이 있어야 한다”는 요구에 직접 �
 
 ## Back
 
-- `./00-theory-index.md`
+- `./README.md`

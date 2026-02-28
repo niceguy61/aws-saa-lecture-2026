@@ -91,13 +91,14 @@ flowchart TB
 | 정책 부착 위치 | Identity policy | Resource policy | 리소스 단위 공유/교차계정은 resource policy 힌트가 자주 등장 |
 | 권한 상한선 | Boundary/SCP | “Allow 더 붙이기” | 상한선에 막히면 Allow는 의미가 없다 |
 
-## Exam Traps (5-8)
+## Exam Traps (확장)
 
+- 더 많은 연계/고급 함정: `../../exam-trap-bank.md`
 - `AccessDenied`를 보면 무조건 Allow를 추가하는 선택지
 - “그룹을 리소스에 붙인다”는 식의 모델 혼동
 - 상한선(SCP/boundary)을 무시하고 정책만 만지는 답안
 
-## Taste Test (1~3분)
+## Exam Trap Drill (O/X, 1~3분)
 
 아래 문장 2개를 “정답/오답”으로만 판정해보자(이유는 한 줄로).
 
@@ -110,4 +111,4 @@ flowchart TB
 
 ## Back
 
-- `./00-theory-index.md`
+- `./README.md`

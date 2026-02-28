@@ -58,12 +58,13 @@ flowchart LR
 | 대표 신호 | 반복 읽기/핫 키 | DynamoDB 읽기 핫패스 |
 | 함정 | 무효화/일관성 | 키 설계 문제는 못 고침 |
 
-## Exam Traps (5-8)
+## Exam Traps (확장)
 
+- 더 많은 연계/고급 함정: `../../exam-trap-bank.md`
 - 최신성 요구가 강한데 캐시를 “무조건” 고르는 선택지
 - 캐시 히트율/무효화 얘기 없이 캐시만 추가하는 선택지
 
-## Taste Test (1~3분)
+## Exam Trap Drill (O/X, 1~3분)
 
 - “동일 데이터 반복 조회가 많고, 몇 분 정도 지연은 허용된다” → 무엇이 먼저 떠오르나요?
 
@@ -73,4 +74,4 @@ flowchart LR
 
 ## Back
 
-- `./00-theory-index.md`
+- `./README.md`

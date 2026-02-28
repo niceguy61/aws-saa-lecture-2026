@@ -8,6 +8,7 @@
 - 또는 수업 중 헷갈리는 선택지가 나오면 바로 참조
 - 주차 Day05는 이 문서를 기반으로 “비교/함정/대안”을 요약하고 케이스 문제로 회수
 - 숫자/제한/필살 구분은 `aws-saa/exam-keypoints.md`를 같이 참고
+- 연계/고급 함정(콤비네이션)은 `aws-saa/exam-trap-bank.md`를 같이 참고
 
 ## Domain Packs
 

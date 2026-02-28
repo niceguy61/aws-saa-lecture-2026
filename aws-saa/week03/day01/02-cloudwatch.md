@@ -88,13 +88,14 @@ flowchart LR
 - CloudWatch는 병목을 ‘맞히는’ 도구가 아니라, 병목 축을 ‘좁히는’ 도구다.
 - “CPU만” 보지 말고 **I/O/네트워크/크레딧**으로 교차 확인한다.
 
-## Exam Traps (5-8)
+## Exam Traps (확장)
 
+- 더 많은 연계/고급 함정: `../../exam-trap-bank.md`
 - CPUUtilization 하나만으로 병목을 단정하는 선택지
 - T 계열인데 크레딧 지표를 무시하는 선택지
 - EBS 병목 신호인데 “네트워크”로만 몰아가는 선택지
 
-## Taste Test (1~3분)
+## Exam Trap Drill (O/X, 1~3분)
 
 - “CPU는 30%인데, VolumeQueueLength가 크게 올라간다” → 병목은 CPU일까요, 스토리지 I/O일까요?
 
@@ -104,4 +105,4 @@ flowchart LR
 
 ## Back
 
-- `./00-theory-index.md`
+- `./README.md`

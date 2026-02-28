@@ -46,12 +46,13 @@
 - Budgets가 아닌 것
   - 상세 원인 분석/그룹핑(이건 Cost Explorer)
 
-## Taste Test (1~3분)
+## Exam Trap Drill (O/X, 1~3분)
 
 - “비용이 일정 수준을 넘기기 전에 이메일로 경고받고 싶다” → 무엇이 먼저 떠오르나요?
 
-## Exam Traps (5-8)
+## Exam Traps (확장)
 
+- 더 많은 연계/고급 함정: `../../exam-trap-bank.md`
 - “알림/임계치” 요구인데 Cost Explorer만 고르는 선택지
 - Budgets를 만들었는데도 “왜 원인을 모르지?”로 끝나는 선택지(역할 혼동)
 
@@ -61,4 +62,4 @@
 
 ## Back
 
-- `./00-theory-index.md`
+- `./README.md`

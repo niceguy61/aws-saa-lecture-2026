@@ -47,12 +47,13 @@ Cost Explorer를 열고 먼저 기간을 맞춘 뒤, Group by를 바꿔가며 �
 - Cost Explorer가 아닌 것
   - 예산 초과 알림/임계치 통제(이건 Budgets)
 
-## Taste Test (1~3분)
+## Exam Trap Drill (O/X, 1~3분)
 
 - “비용이 어느 리전/어느 서비스에서 늘었는지 분석하고 싶다” → 무엇이 먼저 떠오르나요?
 
-## Exam Traps (5-8)
+## Exam Traps (확장)
 
+- 더 많은 연계/고급 함정: `../../exam-trap-bank.md`
 - “초과 알림” 요구인데 Cost Explorer만 제시하는 선택지
 - 태그가 없는데 “팀별 비용을 정확히 본다”는 선택지(가시화 전제가 없다)
 
@@ -62,4 +63,4 @@ Cost Explorer를 열고 먼저 기간을 맞춘 뒤, Group by를 바꿔가며 �
 
 ## Back
 
-- `./00-theory-index.md`
+- `./README.md`

@@ -93,12 +93,13 @@ flowchart LR
 | 상한선 | SCP (OU/계정) | Permissions boundary (identity) | SCP는 조직 단위, boundary는 사용자/역할 단위 |
 | 권한 부여 | IAM policy | SCP | SCP는 부여가 아니다 |
 
-## Exam Traps (5-8)
+## Exam Traps (확장)
 
+- 더 많은 연계/고급 함정: `../../exam-trap-bank.md`
 - SCP Allow로 권한이 생긴다고 착각하는 선택지
 - SCP Deny를 IAM Allow로 뚫으려는 선택지
 
-## Taste Test (1~3분)
+## Exam Trap Drill (O/X, 1~3분)
 
 1) “SCP에서 Allow 했으니 이제 접근 가능하다.” (정답/오답?)  
 2) “SCP가 막고 있는지 확인하려면 IAM 정책만 보면 된다.” (정답/오답?)
@@ -109,4 +110,4 @@ flowchart LR
 
 ## Back
 
-- `./00-theory-index.md`
+- `./README.md`

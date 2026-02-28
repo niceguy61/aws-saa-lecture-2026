@@ -90,4 +90,4 @@ DB 문제는 겉으로는 둘 다 “느리다/불안하다”로 보이지만, 
 
 ## Back
 
-- `./00-theory-index.md`
+- `./README.md`

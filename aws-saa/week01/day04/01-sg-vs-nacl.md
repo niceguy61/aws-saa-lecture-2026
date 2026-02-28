@@ -97,12 +97,13 @@ NACL은 **stateless**라서 “요청 트래픽을 허용”하는 것만으로 
 |---|---|---|
 | 인바운드 열었는데 응답 없음 | NACL 리턴 포트 미허용 | NACL 아웃바운드/리턴 |
 
-## Exam Traps (5-8)
+## Exam Traps (확장)
 
+- 더 많은 연계/고급 함정: `../../exam-trap-bank.md`
 - “SG에 Deny 규칙 추가” 같은 선택지
 - “NACL은 stateful” 같은 선택지
 
-## Taste Test (1~3분)
+## Exam Trap Drill (O/X, 1~3분)
 
 - “리턴 트래픽을 자동 허용”하는 쪽은 SG일까, NACL일까?
 
@@ -112,4 +113,4 @@ NACL은 **stateless**라서 “요청 트래픽을 허용”하는 것만으로 
 
 ## Back
 
-- `./00-theory-index.md`
+- `./README.md`

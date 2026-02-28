@@ -47,8 +47,8 @@
 
 ## Day Plan (5 days)
 
-- Day 01: IAM/STS, least privilege, policy evaluation
-- Day 02: KMS + Secrets (암호화, 키 정책, 시크릿 패턴)
-- Day 03: CloudTrail/Config + detection services (감사/탐지)
-- Day 04: VPC security (SG/NACL) + Private connectivity (Endpoints/PrivateLink)
-- Day 05: Special Lecture + Week Summary (Top 서비스 비교/함정/대안 + 케이스 퀴즈)
+- [Day 01](day01/README.md): IAM/STS, least privilege, policy evaluation
+- [Day 02](day02/README.md): KMS + Secrets (암호화, 키 정책, 시크릿 패턴)
+- [Day 03](day03/README.md): CloudTrail/Config + detection services (감사/탐지)
+- [Day 04](day04/README.md): VPC security (SG/NACL) + Private connectivity (Endpoints/PrivateLink)
+- [Day 05](day05/README.md): Special Lecture + Week Summary (Top 서비스 비교/함정/대안 + 케이스 퀴즈)

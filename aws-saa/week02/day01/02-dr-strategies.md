@@ -94,11 +94,12 @@ DR은 리소스를 만들어두는 것만이 아니라, **전환/복구 절차(r
 | Warm standby | 중간~높음 | 작음 | “빠른 복구”, “축소 운영 유지” |
 | Active/Active | 가장 높음 | 매우 작음 | “다운타임 거의 0” |
 
-## Exam Traps (5-8)
+## Exam Traps (확장)
 
+- 더 많은 연계/고급 함정: `../../exam-trap-bank.md`
 - RTO가 매우 짧은데 Backup/Restore만 고르는 답
 
-## Taste Test (1~3분)
+## Exam Trap Drill (O/X, 1~3분)
 
 - “몇 분 내 복구, 데이터 손실 거의 0” → 어떤 전략 쪽이 더 자연스러운가?
 
@@ -108,4 +109,4 @@ DR은 리소스를 만들어두는 것만이 아니라, **전환/복구 절차(r
 
 ## Back
 
-- `./00-theory-index.md`
+- `./README.md`

@@ -84,12 +84,13 @@ flowchart LR
 | 정책 관문 | Key policy | IAM policy | KMS 문제는 key policy가 관문인 경우가 많다 |
 | 통합 암호화 | SSE-KMS/Secrets 암호화 | 앱 직접 암호화 | 시험에서는 관리형/통합형이 정답 후보가 많다 |
 
-## Exam Traps (5-8)
+## Exam Traps (확장)
 
+- 더 많은 연계/고급 함정: `../../exam-trap-bank.md`
 - “KMS는 IAM만 보면 된다”는 오답 유도(특히 key policy)
 - “SSE-KMS는 S3만 권한 주면 된다”는 오답 유도(대행 호출)
 
-## Taste Test (1~3분)
+## Exam Trap Drill (O/X, 1~3분)
 
 - “S3 GetObject는 Allow인데 SSE-KMS 객체만 AccessDenied” → 어디를 먼저 확인할까?
 
@@ -99,4 +100,4 @@ flowchart LR
 
 ## Back
 
-- `./00-theory-index.md`
+- `./README.md`

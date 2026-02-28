@@ -81,11 +81,12 @@ flowchart TB
 |---|---|---|
 | 현재 구성이 기준 위반인가 | Config | 상태/준수 평가 |
 
-## Exam Traps (5-8)
+## Exam Traps (확장)
 
+- 더 많은 연계/고급 함정: `../../exam-trap-bank.md`
 - “준수”인데 CloudTrail만 고르는 답
 
-## Taste Test (1~3분)
+## Exam Trap Drill (O/X, 1~3분)
 
 - “현재 보안 그룹 규칙이 정책 위반인지” → CloudTrail? Config?
 
@@ -95,4 +96,4 @@ flowchart TB
 
 ## Back
 
-- `./00-theory-index.md`
+- `./README.md`

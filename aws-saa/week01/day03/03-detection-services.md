@@ -89,11 +89,12 @@ flowchart LR
 | 취약점 평가 | Inspector | 취약점/구성 평가 축 |
 | S3 민감정보 탐지 | Macie | 데이터 분류/PII 탐지 |
 
-## Exam Traps (5-8)
+## Exam Traps (확장)
 
+- 더 많은 연계/고급 함정: `../../exam-trap-bank.md`
 - 탐지 서비스를 “로그 저장소”로 착각하게 만드는 선택지
 
-## Taste Test (1~3분)
+## Exam Trap Drill (O/X, 1~3분)
 
 - “의심스러운 활동을 탐지하고 알림” → CloudTrail만으로 충분한가?
 
@@ -103,4 +104,4 @@ flowchart LR
 
 ## Back
 
-- `./00-theory-index.md`
+- `./README.md`

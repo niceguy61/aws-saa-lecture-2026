@@ -44,12 +44,13 @@ flowchart LR
 - Why: 사설 경로로 NAT/인터넷 경유를 줄여 비용/보안을 동시에 개선한다.
 - Alternative: endpoint가 없는 서비스 접근이면 interface endpoint(PrivateLink) 또는 NAT가 후보가 된다.
 
-## Exam Traps (5-8)
+## Exam Traps (확장)
 
+- 더 많은 연계/고급 함정: `../../exam-trap-bank.md`
 - “프라이빗에서 S3 자주 호출”인데 NAT를 무조건 쓰는 선택지
 - endpoint를 만들었는데 route table/정책 검증 없이 끝내는 선택지(동작/비용이 안 바뀜)
 
-## Taste Test (1~3분)
+## Exam Trap Drill (O/X, 1~3분)
 
 - “프라이빗 서브넷의 워커가 S3를 자주 읽는다. NAT 비용이 크다” → 무엇이 먼저 떠오르나요?
 
@@ -59,4 +60,4 @@ flowchart LR
 
 ## Back
 
-- `./00-theory-index.md`
+- `./README.md`

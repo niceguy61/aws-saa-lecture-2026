@@ -98,11 +98,12 @@ sequenceDiagram
 |---|---|
 | 실수 복구(삭제/덮어쓰기) | S3 Versioning |
 
-## Exam Traps (5-8)
+## Exam Traps (확장)
 
+- 더 많은 연계/고급 함정: `../../exam-trap-bank.md`
 - “실수 복구”인데 versioning 언급이 없는 답안
 
-## Taste Test (1~3분)
+## Exam Trap Drill (O/X, 1~3분)
 
 - “실수로 객체가 삭제됐다” → 무엇이 1순위?
 
@@ -112,4 +113,4 @@ sequenceDiagram
 
 ## Back
 
-- `./00-theory-index.md`
+- `./README.md`

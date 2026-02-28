@@ -76,12 +76,13 @@ flowchart LR
 | S3/DDB 사설 접근 | Gateway endpoint | 라우팅 테이블 기반 |
 | 기타 서비스 사설 접근 | Interface endpoint | PrivateLink(ENI) |
 
-## Exam Traps (5-8)
+## Exam Traps (확장)
 
+- 더 많은 연계/고급 함정: `../../exam-trap-bank.md`
 - “S3는 SG로 막는다”는 오답 유도
 - NAT를 무조건 정답으로 고르는 오답
 
-## Taste Test (1~3분)
+## Exam Trap Drill (O/X, 1~3분)
 
 - “프라이빗 서브넷에서 S3 접근, NAT 비용 최소화” → 무엇이 1순위?
 
@@ -91,4 +92,4 @@ flowchart LR
 
 ## Back
 
-- `./00-theory-index.md`
+- `./README.md`

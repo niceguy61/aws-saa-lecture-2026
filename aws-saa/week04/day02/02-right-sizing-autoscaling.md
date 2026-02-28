@@ -46,12 +46,13 @@
   - 피크만 확장, 비피크는 축소
   - Scheduled scaling으로 “야간 0”(워크로드 성격에 따라)
 
-## Exam Traps (5-8)
+## Exam Traps (확장)
 
+- 더 많은 연계/고급 함정: `../../exam-trap-bank.md`
 - “측정/지표” 없이 스펙만 내리는 선택지
 - “비피크가 없다”는데 scheduled scaling을 무리하게 적용하는 선택지
 
-## Taste Test (1~3분)
+## Exam Trap Drill (O/X, 1~3분)
 
 - “업무시간 외에는 트래픽이 거의 없다” → 무엇이 먼저 떠오르나요?
 
@@ -61,4 +62,4 @@
 
 ## Back
 
-- `./00-theory-index.md`
+- `./README.md`

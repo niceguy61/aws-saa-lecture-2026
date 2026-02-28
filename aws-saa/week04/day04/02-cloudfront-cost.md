@@ -35,12 +35,13 @@ CloudFront를 붙이면 엣지에서 캐시 hit가 나면서 오리진 요청과
   - 오리진 요청 수/전송량이 크다
   - 캐시 hit로 오리진 비용을 줄일 수 있다
 
-## Exam Traps (5-8)
+## Exam Traps (확장)
 
+- 더 많은 연계/고급 함정: `../../exam-trap-bank.md`
 - 캐시 불가능(개인화/항상 최신)인데 CloudFront를 무조건 고르는 선택지
 - TTL/무효화/캐시 키를 무시하고 “그냥 CDN”만 붙이는 선택지
 
-## Taste Test (1~3분)
+## Exam Trap Drill (O/X, 1~3분)
 
 - “글로벌 사용자에게 정적 다운로드를 제공한다. 오리진 전송 비용이 크다” → 무엇이 먼저 떠오르나요?
 
@@ -50,4 +51,4 @@ CloudFront를 붙이면 엣지에서 캐시 hit가 나면서 오리진 요청과
 
 ## Back
 
-- `./00-theory-index.md`
+- `./README.md`

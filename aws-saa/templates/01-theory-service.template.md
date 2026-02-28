@@ -1,6 +1,6 @@
 # TODO - (서비스/주제)
 
-> 이 문서는 `00-theory-index.md`에서 링크되는 “서비스별 theory” 문서다(분량/구조는 `01-theory.template.md`와 동일하게 운영).
+> 이 문서는 `README.md`에서 링크되는 “서비스별 theory” 문서다(분량/구조는 `01-theory.template.md`와 동일하게 운영).
 
 ## 소개 (이 서비스/주제는 무엇인가?)
 
@@ -60,13 +60,16 @@
 |---|---|---|---|
 | TODO | TODO | TODO | TODO |
 
-## Exam Traps (5-8)
+## Exam Traps (확장)
 
-- TODO
+- TODO (Core: 서비스 단독 함정 3~5개)
+- TODO (Similar-but-different: 비슷하지만 다른 것 2~4개)
+- TODO (Combo/Advanced: 연계/고급 구현 함정 3~6개)
+- 더 많은 연계/고급 함정: `../exam-trap-bank.md`
 
-## Taste Test (1~3분)
+## Exam Trap Drill (O/X, 1~3분)
 
-- TODO
+- TODO (정답/오답을 빠르게 판정할 수 있는 미니 확인 1~2개)
 
 ## TL;DR (한 줄 정리)
 
@@ -74,4 +77,4 @@
 
 ## Back
 
-- `./00-theory-index.md`
+- `./README.md`

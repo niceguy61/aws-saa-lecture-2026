@@ -85,12 +85,13 @@
 | 시크릿 rotation 요구 | Secrets Manager | 운영 기능/통합 | Parameter Store만으로 해결하려 함 |
 | 단순 설정 값 | Parameter Store | 경량/단순 | 시크릿까지 한곳에 무작정 몰기 |
 
-## Exam Traps (5-8)
+## Exam Traps (확장)
 
+- 더 많은 연계/고급 함정: `../../exam-trap-bank.md`
 - “rotation 요구”가 있는데 Parameter Store만 고르는 답
 - “시크릿을 파일로 배포”하는 답안
 
-## Taste Test (1~3분)
+## Exam Trap Drill (O/X, 1~3분)
 
 - “DB 비밀번호를 30일마다 자동 교체” 요구가 있으면 무엇이 먼저 떠오르나요?
 
@@ -100,4 +101,4 @@
 
 ## Back
 
-- `./00-theory-index.md`
+- `./README.md`

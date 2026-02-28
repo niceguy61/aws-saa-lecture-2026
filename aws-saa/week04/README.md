@@ -34,11 +34,11 @@
 
 ## Day Plan (5 days)
 
-- Day 01: Cost drivers + tagging + Budgets/Cost Explorer
-- Day 02: EC2 pricing models + right sizing/ASG
-- Day 03: S3 storage classes + lifecycle patterns
-- Day 04: Data transfer + NAT vs endpoints + CloudFront caching
-- Day 05: Special Lecture + Week Summary (Top 서비스 비교/함정/대안 + 케이스 퀴즈)
+- [Day 01](day01/README.md): Cost drivers + tagging + Budgets/Cost Explorer
+- [Day 02](day02/README.md): EC2 pricing models + right sizing/ASG
+- [Day 03](day03/README.md): S3 storage classes + lifecycle patterns
+- [Day 04](day04/README.md): Data transfer + NAT vs endpoints + CloudFront caching
+- [Day 05](day05/README.md): Special Lecture + Week Summary (Top 서비스 비교/함정/대안 + 케이스 퀴즈)
 
 ## Special Lecture Pack (Top Services Deep Dive)
 

@@ -83,11 +83,12 @@ Identity Center 문제는 다음 3가지를 분리하면 헷갈림이 크게 줄
 |---|---|---|---|
 | 사용자 관리 | Identity Center (SSO) | IAM User 다수 | 계정이 늘면 IAM User는 운영 비용 폭발 |
 
-## Exam Traps (5-8)
+## Exam Traps (확장)
 
+- 더 많은 연계/고급 함정: `../../exam-trap-bank.md`
 - “SSO 요구”인데 IAM User를 추가로 만들라는 선택지
 
-## Taste Test (1~3분)
+## Exam Trap Drill (O/X, 1~3분)
 
 - “사내 계정으로 AWS 콘솔 접근 + 중앙 권한 할당” → 어떤 서비스가 먼저 떠오르나요?
 
@@ -97,4 +98,4 @@ Identity Center 문제는 다음 3가지를 분리하면 헷갈림이 크게 줄
 
 ## Back
 
-- `./00-theory-index.md`
+- `./README.md`

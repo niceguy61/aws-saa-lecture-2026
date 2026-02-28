@@ -76,4 +76,4 @@
 
 ## Back
 
-- `./00-theory-index.md`
+- `./README.md`

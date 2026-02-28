@@ -97,13 +97,14 @@ sequenceDiagram
 | 임시 권한 | STS AssumeRole | 액세스 키 공유 | 시험 정답은 거의 STS 쪽 |
 | 교차 계정 접근 | Role + trust policy | 사용자 키 발급 | 키는 회수/감사/범위 제한이 어렵다 |
 
-## Exam Traps (5-8)
+## Exam Traps (확장)
 
+- 더 많은 연계/고급 함정: `../../exam-trap-bank.md`
 - trust policy에 “S3 권한”을 넣으려는 선택지(역할 혼동)
 - 교차 계정 운영인데 access key 공유가 정답처럼 보이는 선택지
 - ExternalId가 필요한 시나리오(제3자)인데 아무 장치도 없는 답안
 
-## Taste Test (1~3분)
+## Exam Trap Drill (O/X, 1~3분)
 
 아래 문장을 보고 “어디를 고칠지”만 고르자.
 
@@ -115,4 +116,4 @@ sequenceDiagram
 
 ## Back
 
-- `./00-theory-index.md`
+- `./README.md`

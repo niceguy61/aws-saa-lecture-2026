@@ -48,12 +48,13 @@
 - When not to use
   - 단일 인스턴스의 로컬 초고성능 디스크처럼 쓰려는 요구(요구에 따라 instance store/EBS가 더 적절)
 
-## Exam Traps (5-8)
+## Exam Traps (확장)
 
+- 더 많은 연계/고급 함정: `../../exam-trap-bank.md`
 - “공유 파일시스템”인데 EBS를 고르는 선택지
 - 공유 요구를 “한 대를 파일 서버로”로 풀려는 선택지(운영 리스크)
 
-## Taste Test (1~3분)
+## Exam Trap Drill (O/X, 1~3분)
 
 - “Auto Scaling으로 늘어나는 여러 웹 서버가 같은 업로드 파일을 봐야 한다” → EFS가 먼저 떠오르나요?
 
@@ -63,4 +64,4 @@
 
 ## Back
 
-- `./00-theory-index.md`
+- `./README.md`

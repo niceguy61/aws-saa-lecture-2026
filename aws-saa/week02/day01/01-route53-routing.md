@@ -98,11 +98,12 @@ flowchart LR
 | traffic split | Weighted |
 | lowest latency | Latency |
 
-## Exam Traps (5-8)
+## Exam Traps (확장)
 
+- 더 많은 연계/고급 함정: `../../exam-trap-bank.md`
 - “Failover 요구”인데 Weighted를 고르는 선택지
 
-## Taste Test (1~3분)
+## Exam Trap Drill (O/X, 1~3분)
 
 - “점진 배포로 일부 트래픽만 신규로 보내고 싶다” → 어떤 정책?
 
@@ -112,4 +113,4 @@ flowchart LR
 
 ## Back
 
-- `./00-theory-index.md`
+- `./README.md`

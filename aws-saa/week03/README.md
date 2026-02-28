@@ -35,11 +35,11 @@
 
 ## Day Plan (5 days)
 
-- Day 01: Perf thinking + EC2 sizing patterns
-- Day 02: CloudFront/GA + network performance basics
-- Day 03: Storage performance (EBS/EFS) patterns
-- Day 04: DB performance (Aurora/DynamoDB) + caching
-- Day 05: Special Lecture + Week Summary (Top 서비스 비교/함정/대안 + 케이스 퀴즈)
+- [Day 01](day01/README.md): Perf thinking + EC2 sizing patterns
+- [Day 02](day02/README.md): CloudFront/GA + network performance basics
+- [Day 03](day03/README.md): Storage performance (EBS/EFS) patterns
+- [Day 04](day04/README.md): DB performance (Aurora/DynamoDB) + caching
+- [Day 05](day05/README.md): Special Lecture + Week Summary (Top 서비스 비교/함정/대안 + 케이스 퀴즈)
 
 ## Special Lecture Pack (Top Services Deep Dive)
 

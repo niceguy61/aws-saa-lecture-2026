@@ -35,12 +35,13 @@
   - “액세스 패턴이 예측하기 어렵다”
   - “자동 최적화”
 
-## Exam Traps (5-8)
+## Exam Traps (확장)
 
+- 더 많은 연계/고급 함정: `../../exam-trap-bank.md`
 - 패턴이 명확한데도(항상 핫/항상 콜드) 무조건 Intelligent-Tiering을 고르는 선택지
 - 복구 시간 요구를 무시하고 ‘자동’만 보는 선택지
 
-## Taste Test (1~3분)
+## Exam Trap Drill (O/X, 1~3분)
 
 - “액세스가 들쭉날쭉해서 어떤 클래스로 고정하기 어렵다” → 무엇이 먼저 떠오르나요?
 
@@ -50,4 +51,4 @@
 
 ## Back
 
-- `./00-theory-index.md`
+- `./README.md`

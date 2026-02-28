@@ -97,13 +97,14 @@ flowchart LR
 | Invalidation | 즉시 반영 | 비용/운영 부담↑ |
 | Cache key | 개인화/정확도 | 변종↑면 히트율↓ |
 
-## Exam Traps (5-8)
+## Exam Traps (확장)
 
+- 더 많은 연계/고급 함정: `../../exam-trap-bank.md`
 - “글로벌 정적 콘텐츠”인데 CloudFront 없이 오리진만 키우는 선택지
 - invalidation을 ‘기본’처럼 쓰는 선택지
 - 쿼리 스트링/쿠키를 무조건 캐시 키에 포함시키는 선택지(히트율 붕괴)
 
-## Taste Test (1~3분)
+## Exam Trap Drill (O/X, 1~3분)
 
 - “전 세계 사용자에게 정적 콘텐츠를 빠르게 제공” → CloudFront가 먼저 떠오르나요?
 
@@ -113,4 +114,4 @@ flowchart LR
 
 ## Back
 
-- `./00-theory-index.md`
+- `./README.md`

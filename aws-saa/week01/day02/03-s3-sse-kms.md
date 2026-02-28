@@ -94,11 +94,12 @@ SSE-KMS는 요청이 많아지면 KMS 호출도 늘 수 있다. “대량 다운
 |---|---|---|
 | S3는 Allow인데 AccessDenied | KMS key policy/Decrypt 경로 | 객체의 KMS 키 + key policy |
 
-## Exam Traps (5-8)
+## Exam Traps (확장)
 
+- 더 많은 연계/고급 함정: `../../exam-trap-bank.md`
 - “SSE-KMS인데 S3 권한만 주면 된다”는 오답 유도
 
-## Taste Test (1~3분)
+## Exam Trap Drill (O/X, 1~3분)
 
 - “S3 GetObject는 되는데 SSE-KMS 객체만 안 된다” → KMS 관련해서 무엇을 먼저 볼까?
 
@@ -108,4 +109,4 @@ SSE-KMS는 요청이 많아지면 KMS 호출도 늘 수 있다. “대량 다운
 
 ## Back
 
-- `./00-theory-index.md`
+- `./README.md`

@@ -79,4 +79,4 @@ DynamoDB는 관리형 서비스라 “AZ 내구가 기본”이라는 문장이 
 
 ## Back
 
-- `./00-theory-index.md`
+- `./README.md`

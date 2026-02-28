@@ -41,12 +41,13 @@ flowchart LR
   Data -->|prefix app| Rule2[Different policy]
 ```
 
-## Exam Traps (5-8)
+## Exam Traps (확장)
 
+- 더 많은 연계/고급 함정: `../../exam-trap-bank.md`
 - 전체 버킷에 일괄 전환을 걸어 핫 데이터까지 내려버리는 선택지
 - “자동화” 요구인데 수동 이동/수동 삭제로 푸는 선택지
 
-## Taste Test (1~3분)
+## Exam Trap Drill (O/X, 1~3분)
 
 - “로그는 1년 보관, 90일 지나면 거의 보지 않는다” → 무엇을 자동화할까요?
 
@@ -56,4 +57,4 @@ flowchart LR
 
 ## Back
 
-- `./00-theory-index.md`
+- `./README.md`

@@ -94,11 +94,12 @@ ASG는 크게 두 가지를 한다.
 |---|---|
 | 자동 교체/자가 치유 | ASG + health check |
 
-## Exam Traps (5-8)
+## Exam Traps (확장)
 
+- 더 많은 연계/고급 함정: `../../exam-trap-bank.md`
 - 단일 AZ ASG로 HA를 달성할 수 있다고 착각
 
-## Taste Test (1~3분)
+## Exam Trap Drill (O/X, 1~3분)
 
 - “헬스체크 실패 시 자동으로 교체” → 어떤 서비스 조합?
 
@@ -108,4 +109,4 @@ ASG는 크게 두 가지를 한다.
 
 ## Back
 
-- `./00-theory-index.md`
+- `./README.md`

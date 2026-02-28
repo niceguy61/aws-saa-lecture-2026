@@ -56,12 +56,13 @@
 | 프로토콜 감각 | 주로 HTTP(S) | TCP/UDP |
 | 대표 신호 | 정적/캐시 가능, TTL | 고정 IP, 멀티 리전, 경로 |
 
-## Exam Traps (5-8)
+## Exam Traps (확장)
 
+- 더 많은 연계/고급 함정: `../../exam-trap-bank.md`
 - “캐시 가능한 정적 콘텐츠”인데 GA를 고르는 선택지
 - “고정 IP 화이트리스트” 요구인데 CloudFront만 제시하는 선택지
 
-## Taste Test (1~3분)
+## Exam Trap Drill (O/X, 1~3분)
 
 - “고정 IP가 필요하고, 글로벌 사용자에게 TCP 트래픽 지연을 줄이고 싶다” → GA가 먼저 떠오르나요?
 
@@ -71,4 +72,4 @@
 
 ## Back
 
-- `./00-theory-index.md`
+- `./README.md`
