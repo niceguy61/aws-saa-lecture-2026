@@ -1,62 +1,67 @@
-# AWS SAA (SAA-C03) 4-Week Lecture Materials
+# AWS SAA (SAA-C03) 강의 노트
 
-AWS Certified Solutions Architect - Associate(SAA-C03) 시험 가이드의 도메인 구조를 기준으로 4주로 구성한 강의 노트다.
+AWS Certified Solutions Architect – Associate(SAA-C03) 대비를 위해 4주 과정으로 정리해둔 강의 자료입니다.  
+필요한 날/주차로 바로 이동해서 읽으실 수 있게 “링크 중심”으로 구성해두었습니다.
 
-## Start here
+## 바로가기
 
-- Week 1부터 순서대로: `aws-saa/week01/README.md`
-- 시험 직전 회수(치트시트): `aws-saa/exam-keypoints.md`, `aws-saa/exam-trap-bank.md`
+- 시작(Week 01): [week01/README.md](week01/README.md)
+- 시험 정보(응시/범위/가격): [references/exam-guide.md](references/exam-guide.md)
+- 용어 모음(Glossary): [references/glossary.md](references/glossary.md)
+- 시험 직전 정리(치트시트): [exam-keypoints.md](exam-keypoints.md)
+- 함정 모음(연계/유사 서비스/고급 구현): [exam-trap-bank.md](exam-trap-bank.md)
+- References 인덱스: [references/README.md](references/README.md)
+- Special lectures(요약/회수): [special-lectures/README.md](special-lectures/README.md)
+- 글쓰기 가이드: [../WRITING_GUIDE.md](../WRITING_GUIDE.md)
 
-## Course index (Week → Day)
+## 읽는 방법(부담 없이)
 
-- Week 01 (Domain 1): `aws-saa/week01/README.md`
-  - Day 01: `aws-saa/week01/day01/README.md`
-  - Day 02: `aws-saa/week01/day02/README.md`
-  - Day 03: `aws-saa/week01/day03/README.md`
-  - Day 04: `aws-saa/week01/day04/README.md`
-  - Day 05: `aws-saa/week01/day05/README.md`
-- Week 02 (Domain 2): `aws-saa/week02/README.md`
-  - Day 01: `aws-saa/week02/day01/README.md`
-  - Day 02: `aws-saa/week02/day02/README.md`
-  - Day 03: `aws-saa/week02/day03/README.md`
-  - Day 04: `aws-saa/week02/day04/README.md`
-  - Day 05: `aws-saa/week02/day05/README.md`
-- Week 03 (Domain 3): `aws-saa/week03/README.md`
-  - Day 01: `aws-saa/week03/day01/README.md`
-  - Day 02: `aws-saa/week03/day02/README.md`
-  - Day 03: `aws-saa/week03/day03/README.md`
-  - Day 04: `aws-saa/week03/day04/README.md`
-  - Day 05: `aws-saa/week03/day05/README.md`
-- Week 04 (Domain 4): `aws-saa/week04/README.md`
-  - Day 01: `aws-saa/week04/day01/README.md`
-  - Day 02: `aws-saa/week04/day02/README.md`
-  - Day 03: `aws-saa/week04/day03/README.md`
-  - Day 04: `aws-saa/week04/day04/README.md`
-  - Day 05: `aws-saa/week04/day05/README.md`
+- 각 Day의 [README.md](week01/day01/README.md)는 “오늘의 이야기 + 흐름 + Reading + Quiz” 형태의 인덱스입니다.
+- Reading 링크로 들어가면 서비스별 theory 문서가 있고, 문서 하단에 참고 링크(References)도 붙어 있습니다.
+- 시간이 없으시면 Day 인덱스에서 **Reading → Quiz**만 따라가셔도 됩니다.
 
-## Key docs
+## 4주 커리큘럼 (Week → Day)
 
-- References: `aws-saa/references/README.md`
-- Exam keypoints (숫자/제한/필살): `aws-saa/exam-keypoints.md`
-- Exam trap bank (연계/유사 서비스/고급 구현): `aws-saa/exam-trap-bank.md`
-- Special lectures (Top services deep dives): `aws-saa/special-lectures/README.md`
-- Templates: `aws-saa/templates/`
-- Writing guide: `WRITING_GUIDE.md`
-- VAKOG guide: `VAKOG.md`
+<details open>
+<summary><b>Week 01 — Domain 1 (Secure)</b></summary>
 
-## Repo structure (읽는 흐름)
+- Week index: [week01/README.md](week01/README.md)
+- Day 01: [week01/day01/README.md](week01/day01/README.md)
+- Day 02: [week01/day02/README.md](week01/day02/README.md)
+- Day 03: [week01/day03/README.md](week01/day03/README.md)
+- Day 04: [week01/day04/README.md](week01/day04/README.md)
+- Day 05: [week01/day05/README.md](week01/day05/README.md)
+</details>
 
-- `weekXX/dayYY/README.md`는 그 Day의 인덱스(학습 목표/읽는 순서/핵심 비교/함정)를 담는다.
-- 같은 폴더의 `01-*.md`, `02-*.md`…가 “서비스별 theory” 문서다.
-- 시나리오 이미지(삽화)는 `aws-saa/assets/scenario_image/`에 모아둔다.
+<details>
+<summary><b>Week 02 — Domain 2 (Resilient)</b></summary>
 
-## Timebox (default)
+- Week index: [week02/README.md](week02/README.md)
+- Day 01: [week02/day01/README.md](week02/day01/README.md)
+- Day 02: [week02/day02/README.md](week02/day02/README.md)
+- Day 03: [week02/day03/README.md](week02/day03/README.md)
+- Day 04: [week02/day04/README.md](week02/day04/README.md)
+- Day 05: [week02/day05/README.md](week02/day05/README.md)
+</details>
 
-- Theory + mini-action: 3h 30m ~ 4h
-- Quiz/Review: 15~30m (필요 시 포함)
+<details>
+<summary><b>Week 03 — Domain 3 (High-Performing)</b></summary>
 
-## Mermaid lint
+- Week index: [week03/README.md](week03/README.md)
+- Day 01: [week03/day01/README.md](week03/day01/README.md)
+- Day 02: [week03/day02/README.md](week03/day02/README.md)
+- Day 03: [week03/day03/README.md](week03/day03/README.md)
+- Day 04: [week03/day04/README.md](week03/day04/README.md)
+- Day 05: [week03/day05/README.md](week03/day05/README.md)
+</details>
 
-```powershell
-powershell -File scripts/mermaid_lint.ps1
-```
+<details>
+<summary><b>Week 04 — Domain 4 (Cost-Optimized)</b></summary>
+
+- Week index: [week04/README.md](week04/README.md)
+- Day 01: [week04/day01/README.md](week04/day01/README.md)
+- Day 02: [week04/day02/README.md](week04/day02/README.md)
+- Day 03: [week04/day03/README.md](week04/day03/README.md)
+- Day 04: [week04/day04/README.md](week04/day04/README.md)
+- Day 05: [week04/day05/README.md](week04/day05/README.md)
+</details>
