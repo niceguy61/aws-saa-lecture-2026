@@ -2,6 +2,68 @@
 
 시험 응시/준비에 필요한 “시험 정보(시간/문항/범위/가격/응시 방식/합격점수)”를 한곳에 모아둔 레퍼런스입니다.
 
+## Visual summary (Marp-friendly)
+
+### 시험 개요 (Table)
+
+| Item | Value |
+|---|---|
+| Exam code | `SAA-C03` |
+| Duration | 130 minutes |
+| Questions | 65 |
+| Format | Multiple choice, multiple response |
+| Score range | 100–1000 (scaled) |
+| Passing score | 720 |
+| Scored / Unscored | 50 / 15 |
+| Price | USD 150 (tax 별도) |
+| Delivery | Pearson VUE test center / online proctored |
+
+### 도메인 가중치 (Table)
+
+| Domain | Weight |
+|---|---:|
+| Domain 1: Design Secure Architectures | 30 |
+| Domain 2: Design Resilient Architectures | 26 |
+| Domain 3: Design High-Performing Architectures | 24 |
+| Domain 4: Design Cost-Optimized Architectures | 20 |
+
+### 도메인 가중치 (Mermaid pie)
+
+```mermaid
+pie showData
+  title SAA-C03 Domain Weights (%)
+  "Domain 1: Secure" : 30
+  "Domain 2: Resilient" : 26
+  "Domain 3: High-Performing" : 24
+  "Domain 4: Cost-Optimized" : 20
+```
+
+### 응시 흐름 (Mermaid flowchart)
+
+```mermaid
+flowchart LR
+  A[Read exam guide] --> B[Prep: theory + drills]
+  B --> C[Schedule via AWS Certification / Pearson VUE]
+  C --> D[Take exam: test center / online]
+  D --> E[Score report]
+  E --> F[Review traps & weak areas]
+  F --> B
+```
+
+### 예약/응시 동선 (Mermaid sequence)
+
+```mermaid
+sequenceDiagram
+  participant You as You
+  participant AWS as AWS Certification
+  participant PV as Pearson VUE
+
+  You->>AWS: Sign in / register
+  AWS-->>You: Go to scheduling
+  You->>PV: Choose delivery + time slot
+  PV-->>You: Confirmation / appointment details
+```
+
 ## 시험 개요
 
 - 시험 코드: `SAA-C03` (AWS Certified Solutions Architect – Associate)

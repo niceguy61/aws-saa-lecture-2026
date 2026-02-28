@@ -4,6 +4,10 @@
 
 더 큰 서비스 목록(공식 목록 + 링크)은 `aws-services.md` 참고.
 
+## Framework & Exam
+
+- **Well-Architected Framework (WAF)** ([reference](./well-architected-framework.md)): 6개 Pillar로 워크로드를 점검/개선하는 AWS의 설계 기준.
+
 ## Identity & Security
 
 - **Principal**: “누가 요청했나”(IAM user/role, federated user 등).
