@@ -1,6 +1,6 @@
 # Mermaid Lint (GitHub Rendering Safety)
 
-이 저장소의 Mermaid 다이어그램은 GitHub 렌더러에서 깨지는 케이스가 있어, 최소한의 안전 규칙을 강제한다.
+이 저장소의 Mermaid 다이어그램은 GitHub 렌더러에서 깨지는 케이스가 있어, 최소한의 안전 규칙을 강제한다. 기본 검사 대상은 현재 활성 과정인 `cloud-native/`이다.
 
 ## Run
 

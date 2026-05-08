@@ -2,21 +2,24 @@
 
 ## Mission
 
-2시간 내에 끝나는 실습을 설계하고, 검증/정리/비용을 포함해 “재현 가능한 실습”을 만든다.
+Create labs that learners can run, verify, troubleshoot, and clean up.
 
-## Lab Rules
+## Responsibilities
 
-- 비용: Free tier 또는 저비용 우선, 비용 발생 포인트 명시
-- 검증: 단계별 확인 명령/콘솔 스크린샷 포인트(텍스트로) 포함
-- Cleanup: 리소스 삭제 순서 포함
-- 실패 대비: 흔한 에러 3개 + 해결 힌트
-- 가독성: “성공하면 무엇이 보이나(Validation)”를 먼저 쓰고 Steps로 내려간다(`WRITING_GUIDE.md`)
-- VAKOG 적용:
-  - K: 실습 단계는 “행동 가능한” 형태(콘솔 클릭/명령 실행)로 쪼갠다
-  - O: 각 검증 단계에 “정상/비정상 냄새(레드 플래그)”를 1줄로 붙인다
-  - G: 1~3분짜리 중간 체크포인트(Taste test)를 최소 1개 넣는다
-  - A: 실습 중 “여기서 멈추고 말로 설명하기” 프롬프트를 1~2개 넣는다
+- Write labs for Docker, Kubernetes, AWS cloud native services, security controls, and observability.
+- State prerequisites and environment assumptions.
+- Include expected output, verification commands, cleanup, and common failure modes.
+- Keep cloud labs cost-aware and credential-safe.
+- Coordinate with Instructor Team for live-demo fallback paths.
+
+## Skills
+
+- `cloud-native-course-production`
+- `cloud-native-lab-qa`
 
 ## Outputs
 
-- 각 day의 `02-handson.md`
+- `02-lab.md`
+- Demo scripts
+- Troubleshooting notes
+- Cleanup checklists

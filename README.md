@@ -1,17 +1,33 @@
-# AWS Certification Lecture Materials
+# Cloud Native DevOps Lecture Materials
 
-AWS SAA(SAA-C03) 중심으로 정리된 강의/학습 자료 모음입니다.
+This repository is the working space for a Cloud Native DevOps lecture track.
 
-## Authoring Guides
+The current course focus is practical cloud native engineering:
 
-- Main operating notes: `AGENT.md`
-- Readable writing style: `WRITING_GUIDE.md`
-- VAKOG (multi-modal checklist): `VAKOG.md`
+- Docker and container image workflows
+- Kubernetes architecture, workloads, configuration, and operations
+- Kubernetes networking and ingress
+- Cloud native security
+- Cloud native computing patterns on AWS
+- Observability with metrics, logs, traces, and alerting
+- Production-style hands-on labs and instructor delivery notes
 
-## AWS SAA Materials
+## Current Course
 
-- `aws-saa/README.md`
+- Main course: [cloud-native/README.md](cloud-native/README.md)
+- Team operating model: [cloud-native/teams/README.md](cloud-native/teams/README.md)
+- Visual direction: [cloud-native/design/visual-direction.md](cloud-native/design/visual-direction.md)
+- Stickman image prompts: [IMAGE_PROMPTS_STICKMAN.md](IMAGE_PROMPTS_STICKMAN.md)
 
-## AWS OT Materials
+## Agent Operating Docs
 
-- `aws-ot/README.md`
+- Main orchestrator: [agents/MAIN.md](agents/MAIN.md)
+- Agent and skill matrix: [agents/SKILL_MATRIX.md](agents/SKILL_MATRIX.md)
+- Authoring guide: [AGENT.md](AGENT.md)
+- Writing guide: [WRITING_GUIDE.md](WRITING_GUIDE.md)
+- Learning design guide: [cloud-native/LEARNING_DESIGN.md](cloud-native/LEARNING_DESIGN.md)
+
+## Archived Materials
+
+Previous AWS certification-oriented materials are preserved under [archive/](archive/).
+They are no longer the active course direction.

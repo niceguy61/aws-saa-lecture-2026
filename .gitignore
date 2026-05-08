@@ -1,6 +1,9 @@
 # Local env
 .env
 
+# Local archive
+archive/
+
 # Python
 __pycache__/
 *.pyc

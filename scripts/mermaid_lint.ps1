@@ -1,5 +1,5 @@
 param(
-  [string]$Path = "aws-saa",
+  [string]$Path = "cloud-native",
   [switch]$Strict
 )
 

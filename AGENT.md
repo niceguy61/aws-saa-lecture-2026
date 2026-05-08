@@ -1,78 +1,85 @@
-# Main Agent Operating Notes (AWS SAA Materials)
+# Main Agent Operating Notes (Cloud Native DevOps Materials)
 
-This repository is being used to author AWS SAA (Solutions Architect - Associate) lecture materials.
+This repository is now used to author a Cloud Native DevOps lecture track.
+Previous AWS certification materials are archived under `archive/` and are not the active baseline.
 
 ## Source Of Truth
 
-- Primary: AWS 공식 시험 가이드 PDF (SAA-C03)
-  - https://d1.awsstatic.com/ko_KR/training-and-certification/docs-sa-assoc/AWS-Certified-Solutions-Architect-Associate_Exam-Guide.pdf
-- Secondary: AWS 공식 문서/Well-Architected Framework (필요 시 Deep Dive 근거로 사용)
+- Primary: Kubernetes official documentation, CNCF project documentation, Docker documentation, AWS official documentation, and production-grade cloud native operational practices.
+- Secondary: course team decisions captured in `cloud-native/README.md`, `cloud-native/teams/README.md`, and agent role documents under `agents/`.
+- Visual language: stickman-style scenario images plus clear Mermaid diagrams.
 
 ## Course Shape (Current Decisions)
 
-- 총 4주, 주차별로 도메인 1~4를 순서대로 진행
-- 주 5일(총 20세션) 고정
-- 1일(세션) 4시간 기준
-  - 기본: 이론 2h + 실습 2h
-  - 예외: 이론 비중이 큰 날은 이론 3h + 실습 1h 허용
-- 모든 세션은 다음을 포함
-  - Deep Dive (시험에 나오는 트레이드오프/제약/설계 패턴 포함)
-  - 시각화(mermaid 다이어그램 기본)로 흐름을 설명
-  - 실습(콘솔 위주, 필요 시 CLI는 Optional로 보조 / Free tier/저비용, 정리(Cleanup) 포함)
-  - 실습 후 모의문제(정답/해설/오답 근거 포함)
+- Learner-facing lecture materials under `cloud-native/` must be written in Korean.
+- Keep file names, folder names, commands, and product names in English when that improves tool compatibility or technical accuracy.
+- Target course: 6 weeks, 5 days per week, 30 full-day sessions total.
+- Session length: 8 classroom hours, 09:00 to 18:00.
+- Daily rhythm:
+  - 50-minute lesson blocks
+  - 10-minute breaks
+  - Lunch starts at 13:00
+  - Eight lesson blocks per day
+- Default split:
+  - Theory, concept building, and guided discussion: 5 to 6 hours
+  - Instructor demo, video, or surprising application showcase: 30 to 60 minutes
+  - Hands-on lab or mission: 1 to 2 hours
+  - Review, quiz, and reflection: 30 minutes
+- Every session must include:
+  - A concrete production scenario
+  - One architecture or flow diagram
+  - One hands-on lab, playful mission, instructor demo, or curated media activity
+  - Security, networking, and observability implications when relevant
+  - A short instructor delivery note
 
-## Special Lecture (Top 10~15 Services)
+## Active Course Domains
 
-- 일반 도메인 강의(주 5일)와 별도로 “특강” 문서를 운영
-- 목적: 자주 출제되는 패턴/헷갈리는 비교(유사 서비스) + Best Practice + 대안(트레이드오프)을 한 곳에 모아 Deep Dive
-- 위치: `aws-saa/special-lectures/`
+1. Docker and container foundations
+2. Kubernetes core architecture and workloads
+3. Kubernetes networking
+4. Cloud native security
+5. AWS cloud native computing
+6. Observability and operations
 
-## Output Layout (Conventions)
+## Output Layout
 
-- 코스 루트: `aws-saa/`
-- 주차별 폴더: `aws-saa/weekNN/`
-- 일자별 폴더: `aws-saa/weekNN/dayDD/`
-  - `README.md` (목표/타임박스/서비스 범위)
-  - `00-theory-index.md` (선택: Day theory 인덱스/링크)
-  - `01-<service>.md`, `02-<service>.md` ... (서비스별 theory, 각각 완전한 한 편)
-  - `02-handson.md`
-  - `03-quiz.md`
+- Course root: `cloud-native/`
+- Week folders: `cloud-native/weekNN/`
+- Day folders: `cloud-native/weekNN/dayDD/`
+- Recommended day files:
+  - `README.md` for scenario, goals, timebox, and reading order
+  - `01-theory.md` for core concepts and decision rules
+  - `02-lab.md` for hands-on instructions
+  - `03-instructor-notes.md` for facilitation, timing, and expected mistakes
+  - `04-quiz.md` for review questions
 
-## Quality Gates (Definition Of Done)
+## Quality Gates
 
-- 정확성: “언제/왜 이 서비스를 쓰는가”를 설계 관점으로 설명
-- 시험 적합성: 도메인 목표(시험 가이드)를 명시적으로 매핑
-- 실습: 예상 결과(검증 포인트) + 비용/주의 + Cleanup 포함
-- 퀴즈: 정답+해설, 오답이 왜 오답인지 1~2줄로 명확히
-- 시각화: 최소 1개 다이어그램(복잡한 날은 2~3개)
-- 가독성: TL;DR → 결정 규칙 → 근거/예시 → 정리 흐름 유지(가이드는 `WRITING_GUIDE.md`)
-- VAKOG(멀티모달): 세션 단위로 V/A/K/O/G 요소를 최소 1개씩 포함(가이드는 `VAKOG.md`)
+- Accuracy: Use official docs as the default factual baseline.
+- Practicality: Labs must be runnable on a realistic student machine or clearly state environment requirements.
+- Safety: Labs must avoid real production credentials, unmanaged cloud spend, and destructive shared-cluster actions.
+- Completeness: Labs must include expected output, verification commands, troubleshooting notes, and cleanup.
+- Cloud native fit: Each topic must connect to deployment, scaling, networking, security, or operations.
+- Teaching fit: Each session must include instructor prompts and common learner failure modes.
+- Schedule fit: Each day README must include the 09:00-18:00 block index.
+- Visual fit: Each major concept should have either a Mermaid diagram or stickman scenario image prompt.
+- Learning design: Use See, Explain, Do, Diagnose, Reflect as the default teaching loop.
+- Accessibility: Write for non-CS university students first, then provide optional deep-dive materials for advanced learners.
 
-## Writing Style (요약)
+## Team Model
 
-- 기술 핵심(Core)은 짧고 매끈하게, 비유/설명(Explain)은 편안한 대화체로 쓴다(`WRITING_GUIDE.md`).
-- `## 소개` 다음에는 **고객 사례(스토리, 600~1000자)**를 넣어 “왜 이 서비스가 필요한지”를 상황으로 먼저 이해시키고, 이후에 Impact/규칙으로 정리한다.
-- 한 줄 결론(TL;DR)은 맨 아래에서 “정리”로 고정한다.
-- Exam Guide 뱃지는 shields.io로 짧게, Services는 서비스별 뱃지로 3~6개만 붙인다(`WRITING_GUIDE.md`).
-- 용어는 첫 등장에만 1줄로 정의한다.
-- 문단은 3~5줄, 한 문단에 한 주장.
-- “무조건/항상” 대신 조건과 예외를 쓴다.
-
-## VAKOG 운영 규칙 (요약)
-
-- 문서는 학습자를 유형으로 분류하지 않는다. VAKOG는 “콘텐츠 설계 체크리스트”로만 사용한다.
-- 각 day README에 `## VAKOG` 블록을 추가하고, 해당 day의 theory/handson/quiz에서 실제로 충족되게 만든다.
-- Skill(외부) 기반 산출물도 결과물에 VAKOG 섹션을 덧붙여 일관성을 유지한다(상세: `VAKOG.md`).
+- Content Production Team owns curriculum, theory, labs, quizzes, and visual briefs.
+- Instructor Team owns delivery flow, live demo reliability, classroom troubleshooting, and feedback loops.
+- Design Partner owns the visual system, stickman image consistency, diagrams, slide readability, and worksheet layout.
+- Main Agent coordinates scope, quality, and cross-team handoff.
 
 ## Mistake Prevention Log
 
-실수/수정이 발생하면 아래에 기록하고, 관련 문서(주차/일자/템플릿)를 같이 업데이트한다.
+### 2026-05-08
 
-### 2026-02-26
-
-- 초기 스캐폴드 생성: 4주 x 5일(총 20세션) 기준으로 구성
-- 시험 가이드 도메인/가중치와 주차 매핑 확정(SAA-C03)
-- 실습은 콘솔 위주로 전환
-- Top 10~15 서비스 Deep Dive는 Special Lecture 문서로 분리
-- 각 주차 Day05는 “Special Lecture + Week Summary(이론 2h30 + 미니 랩 1h + 케이스 퀴즈 30m)”로 운영
-- OT는 주차 과정이 아니라 “과정 시작 전 1회” 오리엔테이션이다: `aws-ot/README.md` + `aws-ot/assets/`만 유지(weekNN 구조 재발 방지)
+- Course direction changed from AWS SAA certification prep to Cloud Native DevOps.
+- Archived old AWS certification materials under `archive/`.
+- Active content now belongs under `cloud-native/`.
+- Agent roles must be mapped to content production, instructor delivery, visual design, lab QA, and skill orchestration.
+- VAKOG was removed from the active design method and archived under `archive/VAKOG.md`.
+- Active teaching loop changed to See, Explain, Do, Diagnose, Reflect.
