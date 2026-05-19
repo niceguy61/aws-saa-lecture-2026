@@ -10,10 +10,13 @@
 - `docker version`과 `docker run hello-world`로 설치 상태를 확인한다.
 - Windows에서 WSL 2가 Docker 실습에 왜 중요한지 이해한다.
 
+## 오늘 한 줄 요약
+
+Docker Desktop 설치 확인의 핵심은 앱이 켜졌는지가 아니라 Docker 명령이 엔진과 통신하는지 보는 것이다.
+
 ## 수업 이미지
 
 ![Docker CLI, Engine, Container, WSL 상태를 확인하는 모습](assets/stickman-docker-wsl-check.png)
-
 
 ## 오늘의 흐름
 
