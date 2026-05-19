@@ -24,7 +24,7 @@
 | 14:00-14:50 | 5교시 | [개발 도구 점검: VS Code, 터미널, Git, 브라우저, 계정 상태 확인](05-dev-tool-check.md) |
 | 15:00-15:50 | 6교시 | [Docker Desktop 설치와 확인, Windows 학습자는 WSL 상태 점검](06-docker-desktop-wsl.md) |
 | 16:00-16:50 | 7교시 | [AI 도구 사용 현황 조사와 CLI 기반 coding agent 소개](07-ai-tools-coding-agent.md) |
-| 17:00-17:50 | 8교시 | [Coding agent 예시, 설치 상태 체크, 2일차 준비](08-coding-agent-demo-checkout.md) |
+| 17:00-17:50 | 8교시 | [Day1 핵심 정리와 Live QA](08-coding-agent-demo-checkout.md) |
 
 ## 랩/미션/데모
 

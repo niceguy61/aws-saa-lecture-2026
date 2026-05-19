@@ -34,7 +34,7 @@
 | 14:00-14:50 | 5교시 | [미션 준비: 배포 설명하기](05-mission-prep-explain-deployment.md) |
 | 15:00-15:50 | 6교시 | [팀 미션: 다이어그램과 스토리 만들기](06-team-mission-diagram-story.md) |
 | 16:00-16:50 | 7교시 | [팀별 공유와 피드백](07-team-share-feedback.md) |
-| 17:00-17:50 | 8교시 | [1주차 퀴즈와 Docker 이론 예고](08-week1-quiz-docker-preview.md) |
+| 17:00-17:50 | 8교시 | [Week1 핵심 정리와 Docker Live QA](08-week1-quiz-docker-preview.md) |
 
 ## 랩/미션/데모
 

@@ -18,17 +18,6 @@ Docker Desktop 설치 확인의 핵심은 앱이 켜졌는지가 아니라 Docke
 
 ![Docker CLI, Engine, Container, WSL 상태를 확인하는 모습](assets/stickman-docker-wsl-check.png)
 
-## 오늘의 흐름
-
-| 시간 | 단계 | 진행 |
-|---|---|---|
-| 15:00-15:06 | 5교시 연결 | 터미널이 Docker와 대화하는 구조를 소개한다. |
-| 15:06-15:16 | Docker가 등장한 배경 | VM, 환경 차이, 컨테이너 대중화 흐름을 정리한다. |
-| 15:16-15:28 | Docker Desktop 확인 | 앱 실행, 엔진 상태, 버전 확인을 진행한다. |
-| 15:28-15:38 | hello-world 실행 | 첫 컨테이너 실행과 출력 의미를 정리한다. |
-| 15:38-15:46 | Windows WSL 점검 | WSL 2 상태와 Docker Desktop integration을 확인한다. |
-| 15:46-15:50 | 문제 목록 정리 | 막힌 항목을 유형별로 묶어 다음 조치를 정한다. |
-
 ## 시작 질문
 
 > Docker Desktop을 켰다는 것과 Docker 명령이 된다는 것은 같은 말일까요?

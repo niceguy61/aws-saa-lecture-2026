@@ -36,7 +36,7 @@
 | 14:00-14:50 | 5교시 | [핸즈온: 탐색과 파일 확인 연습](05-lab-explore-files.md) |
 | 15:00-15:50 | 6교시 | [미션: 깨진 명령어 고치기](06-lab-fix-broken-commands.md) |
 | 16:00-16:50 | 7교시 | [에러 메시지가 말하는 것 팀별 해석](07-team-error-interpretation.md) |
-| 17:00-17:50 | 8교시 | [정리와 웹앱 구조 예고](08-wrapup-webapp-preview.md) |
+| 17:00-17:50 | 8교시 | [Day3 핵심 정리와 Live QA](08-wrapup-webapp-preview.md) |
 
 ## 랩/미션/데모
 

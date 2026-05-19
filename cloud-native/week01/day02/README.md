@@ -31,7 +31,7 @@ Day2 실습 앱은 Python 3로 실행한다. 터미널에서 `python3 --version`
 | 14:00-14:50 | 5교시 | [실습 준비: 작은 웹앱 실행](05-lab-run-small-webapp.md) |
 | 15:00-15:50 | 6교시 | [실습: 포트, 요청, 로그 확인](06-lab-port-request-log.md) |
 | 16:00-16:50 | 7교시 | [진단: 앱이 열리지 않는 이유 찾기](07-diagnose-app-not-opening.md) |
-| 17:00-17:50 | 8교시 | [Docker 개념 미리보기: 실행 환경을 포장한다는 것](08-docker-concept-preview.md) |
+| 17:00-17:50 | 8교시 | [Day2 핵심 정리와 Docker 개념 Live QA](08-docker-concept-preview.md) |
 
 ## 랩/미션/데모
 

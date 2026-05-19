@@ -34,7 +34,7 @@
 | 14:00-14:50 | 5교시 | [핸즈온: 눈에 보이는 앱 실패 만들기](05-lab-visible-app-failures.md) |
 | 15:00-15:50 | 6교시 | [시연 앱 증상 진단](06-diagnose-demo-app-symptoms.md) |
 | 16:00-16:50 | 7교시 | [애플리케이션 구조도 그리기](07-draw-application-architecture.md) |
-| 17:00-17:50 | 8교시 | [정리와 Cloud/DevOps 용어 예고](08-wrapup-cloud-devops-preview.md) |
+| 17:00-17:50 | 8교시 | [Day4 핵심 정리와 Live QA](08-wrapup-cloud-devops-preview.md) |
 
 ## 랩/미션/데모
 
