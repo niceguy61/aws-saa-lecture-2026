@@ -1,7 +1,7 @@
 # Main Agent Operating Notes (Cloud Native DevOps Materials)
 
 This repository is now used to author a Cloud Native DevOps lecture track.
-Previous AWS certification materials are archived under `archive/` and are not the active baseline.
+Previous AWS materials are archived under `archive/` and are not the active baseline.
 
 ## Source Of Truth
 
@@ -77,8 +77,8 @@ Previous AWS certification materials are archived under `archive/` and are not t
 
 ### 2026-05-08
 
-- Course direction changed from AWS SAA certification prep to Cloud Native DevOps.
-- Archived old AWS certification materials under `archive/`.
+- Course direction changed from the previous AWS-focused track to Cloud Native DevOps.
+- Archived old AWS materials under `archive/`.
 - Active content now belongs under `cloud-native/`.
 - Agent roles must be mapped to content production, instructor delivery, visual design, lab QA, and skill orchestration.
 - VAKOG was removed from the active design method and archived under `archive/VAKOG.md`.

@@ -29,5 +29,5 @@ The current course focus is practical cloud native engineering:
 
 ## Archived Materials
 
-Previous AWS certification-oriented materials are preserved under [archive/](archive/).
+Previous AWS materials are preserved under [archive/](archive/).
 They are no longer the active course direction.
