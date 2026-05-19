@@ -10,6 +10,11 @@
 - 오늘 설치 상태를 A/B/C로 분류하고 다음 조치를 안다.
 - 2일차에 배울 프로세스, 포트, 로그의 의미를 미리 연결한다.
 
+## 수업 이미지
+
+![Coding agent의 완료 보고를 실제 파일과 출력으로 확인하는 모습](assets/stickman-agent-verification.png)
+
+
 ## 오늘의 흐름
 
 | 시간 | 단계 | 진행 |
@@ -147,10 +152,6 @@ flowchart LR
 ```
 
 C 상태와 공통 에러는 다음 날 시작 전 지원 대상으로 분류한다.
-
-## 수업 이미지
-
-![Coding agent의 완료 보고를 실제 파일과 출력으로 확인하는 모습](assets/stickman-agent-verification.png)
 
 ## 마무리
 

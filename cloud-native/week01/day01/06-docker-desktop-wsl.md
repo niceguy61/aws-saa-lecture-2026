@@ -10,6 +10,11 @@
 - `docker version`과 `docker run hello-world`로 설치 상태를 확인한다.
 - Windows에서 WSL 2가 Docker 실습에 왜 중요한지 이해한다.
 
+## 수업 이미지
+
+![Docker CLI, Engine, Container, WSL 상태를 확인하는 모습](assets/stickman-docker-wsl-check.png)
+
+
 ## 오늘의 흐름
 
 | 시간 | 단계 | 진행 |
@@ -127,7 +132,7 @@ Ubuntu 안에서 `docker` 명령이 동작하면 이후 Linux 기반 실습을 �
 
 ## 활동 - 증상 분류하기
 
-함께 자기 상태를 아래 중 하나로 분류한다.
+자기 상태를 아래 중 하나로 분류한다.
 
 | 코드 | 상태 |
 |---|---|
@@ -138,10 +143,6 @@ Ubuntu 안에서 `docker` 명령이 동작하면 이후 Linux 기반 실습을 �
 | E | 네트워크 또는 계정 문제로 이미지 다운로드 실패 |
 
 A 상태는 준비 완료로 보고, B-E 유형은 원인별로 나누어 해결한다.
-
-## 수업 이미지
-
-![Docker CLI, Engine, Container, WSL 상태를 확인하는 모습](assets/stickman-docker-wsl-check.png)
 
 ## 마무리 질문
 

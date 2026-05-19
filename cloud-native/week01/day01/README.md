@@ -24,11 +24,11 @@
 | 14:00-14:50 | 5교시 | [개발 도구 점검: VS Code, 터미널, Git, 브라우저, 계정 상태 확인](05-dev-tool-check.md) |
 | 15:00-15:50 | 6교시 | [Docker Desktop 설치와 확인, Windows 학습자는 WSL 상태 점검](06-docker-desktop-wsl.md) |
 | 16:00-16:50 | 7교시 | [AI 도구 사용 현황 조사와 CLI 기반 coding agent 소개](07-ai-tools-coding-agent.md) |
-| 17:00-17:50 | 8교시 | [Coding agent 예시 시연, 설치 상태 체크, 2일차 준비](08-coding-agent-demo-checkout.md) |
+| 17:00-17:50 | 8교시 | [Coding agent 예시, 설치 상태 체크, 2일차 준비](08-coding-agent-demo-checkout.md) |
 
 ## 랩/미션/데모
 
-오전에는 자기소개와 기대치 공유로 긴장을 풀고, 과정 운영 방식과 6주 학습 흐름을 큰 그림으로 잡는다. 오후에는 실습 환경을 준비하고, 강사가 CLI 기반 coding agent를 사용해 작은 파일을 만들고 명령을 실행하는 흐름을 시연한다.
+오전에는 자기소개와 기대치 공유로 긴장을 풀고, 과정 운영 방식과 6주 학습 흐름을 큰 그림으로 잡는다. 오후에는 실습 환경을 준비하고, CLI 기반 coding agent가 작은 파일을 만들고 명령을 실행할 때 무엇을 확인해야 하는지 살펴본다.
 
 ## 설치/확인 체크리스트
 
@@ -53,4 +53,4 @@
 - Windows WSL 설치 가이드
 - Docker Desktop 설치 확인 명령
 - CLI coding agent 소개 자료
-- 스틱맨 이미지 브리프: OT에서 각자 쓰는 AI 도구를 공유하는 학생 팀
+- 수업 이미지: OT에서 각자 쓰는 AI 도구를 공유하는 학생 팀
