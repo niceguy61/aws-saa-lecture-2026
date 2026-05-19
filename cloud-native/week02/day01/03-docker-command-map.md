@@ -8,6 +8,10 @@ Docker 명령어를 단순 암기 목록으로 보지 않는다. 오늘은 명�
 
 Docker 명령어는 "image를 가져오고, container를 만들고, 시작하고, 관찰하고, 멈추고, 삭제하는" 상태 전이 도구다.
 
+## 아키텍처 그림
+
+![Docker 명령어와 컨테이너 생명주기](assets/architecture-container-lifecycle.png)
+
 ## 전체 흐름
 
 ```mermaid

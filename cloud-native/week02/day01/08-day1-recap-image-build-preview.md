@@ -19,6 +19,8 @@
 
 ## 오늘의 핵심 다이어그램
 
+![Docker 명령어와 컨테이너 생명주기](assets/architecture-container-lifecycle.png)
+
 ```mermaid
 flowchart TB
     Registry[Registry] -->|docker pull| Image[Image]

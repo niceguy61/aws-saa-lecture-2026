@@ -8,6 +8,10 @@
 
 컨테이너를 운영할 때는 실행 여부, 포트 연결, 로그, 내부 프로세스, 종료 상태를 순서대로 확인한다.
 
+## 아키텍처 그림
+
+![요청, 포트 매핑, 로그, exec 관찰 흐름](assets/architecture-port-logs-exec-flow.png)
+
 ## 관찰 순서
 
 ```mermaid

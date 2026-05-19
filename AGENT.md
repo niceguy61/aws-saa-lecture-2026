@@ -37,6 +37,7 @@ Previous AWS materials are archived under `archive/` and are not the active base
   - Include hands-on labs as a primary learning surface, not a short add-on.
   - Verify hands-on labs with runnable commands, expected output, troubleshooting, and cleanup.
   - Include each service or technology's evolution, industry trend, or operational backstory when it helps students stay engaged.
+  - Include architecture PNG diagrams in addition to any stickman scenario images.
 
 ## Active Course Domains
 
@@ -70,6 +71,7 @@ Previous AWS materials are archived under `archive/` and are not the active base
 - Teaching fit: Each session must include instructor prompts and common learner failure modes.
 - Schedule fit: Each day README must include the 09:00-18:00 block index.
 - Visual fit: Each major concept should have either a Mermaid diagram or stickman scenario image prompt.
+- Week 2+ visual fit: Student-facing materials must embed at least one architecture PNG per day, separate from stickman images.
 - Learning design: Use See, Explain, Do, Diagnose, Reflect as the default teaching loop.
 - Accessibility: Write for non-CS university students first, then provide optional deep-dive materials for advanced learners.
 

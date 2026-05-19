@@ -4,6 +4,10 @@
 
 `nginx:1.27-alpine` 컨테이너를 직접 실행하고, host port와 container port가 어떻게 연결되는지 검증한다.
 
+## 실습 구조
+
+![요청, 포트 매핑, 로그, exec 관찰 흐름](assets/architecture-port-logs-exec-flow.png)
+
 ## 성공 기준
 
 이 실습을 완료하면 다음을 증명할 수 있어야 한다.

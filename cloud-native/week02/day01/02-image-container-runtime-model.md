@@ -8,6 +8,10 @@ Docker를 사용할 때 가장 많이 헷갈리는 부분은 image와 container�
 
 Image는 실행할 재료와 방법을 담은 불변 패키지이고, container는 그 image를 실제 프로세스로 실행한 결과다.
 
+## 아키텍처 그림
+
+![Image, Container, Runtime 구조](assets/architecture-image-container-runtime.png)
+
 ## 네 가지 핵심 단어
 
 | 용어 | 역할 | 비유 | 확인 명령 |

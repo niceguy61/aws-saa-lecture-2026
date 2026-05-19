@@ -4,6 +4,12 @@
 
 컨테이너를 격리된 프로세스와 포장된 실행 환경으로 이해한다. 오늘의 목표는 Docker 명령어를 외우는 것이 아니라, image, container, registry, runtime이 어떤 책임을 나누는지 설명하고 실제 컨테이너를 안전하게 관찰하는 것이다.
 
+## 오늘의 대표 이미지
+
+![Docker가 해결하려는 실행 환경 차이](assets/stickman-docker-env-mismatch.png)
+
+![Image, Container, Runtime 구조](assets/architecture-image-container-runtime.png)
+
 ## 오늘 배울 내용
 
 - Image, Container, Registry, Tag, Runtime의 의미
