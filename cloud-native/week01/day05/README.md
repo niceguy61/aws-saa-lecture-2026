@@ -27,7 +27,7 @@
 | 시간 | 교시 | 인덱스 |
 |---|---|---|
 | 09:00-09:50 | 1교시 | [1주차 복습과 용어 워밍업](01-week1-review-terms-warmup.md) |
-| 10:00-10:50 | 2교시 | [자격증식 암기 없는 Cloud 기초](02-cloud-basics-no-memorization.md) |
+| 10:00-10:50 | 2교시 | [운영 관점으로 보는 Cloud 기초](02-cloud-basics-no-memorization.md) |
 | 11:00-11:50 | 3교시 | [배포, 롤백, 릴리스 이야기](03-deploy-rollback-release.md) |
 | 12:00-12:50 | 4교시 | [DevOps 피드백 루프](04-devops-feedback-loop.md) |
 | 13:00-14:00 | 점심 | 점심시간 |

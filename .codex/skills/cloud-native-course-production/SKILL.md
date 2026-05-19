@@ -35,5 +35,4 @@ Use this skill to produce classroom-ready Cloud Native DevOps materials.
 - Avoid production credentials and unmanaged cloud spend.
 - Include cleanup for every created resource.
 - Connect every topic to deployment, scaling, networking, security, operations, reliability, or cost.
-- Keep AWS material cloud-native and practical, not certification-oriented.
-
+- Keep AWS material cloud-native and practical, centered on deployment and operations scenarios.
