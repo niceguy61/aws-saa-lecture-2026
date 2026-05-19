@@ -4,6 +4,9 @@
 # Local archive
 archive/
 
+# Local validation artifacts
+output/
+
 # Python
 __pycache__/
 *.pyc
@@ -17,3 +20,4 @@ node_modules/
 Thumbs.db
 .vscode/
 
+.omx

@@ -4,28 +4,28 @@
 
 이 시간의 목표는 4-6주차가 왜 “운영” 중심으로 구성되는지 이해하는 것이다. 1-3주차가 앱을 컨테이너로 만들고 Kubernetes에 올리는 길이라면, 4-6주차는 그 서비스를 안전하게 공개하고, 비용과 보안을 고려하고, 문제가 생겼을 때 설명하는 길이다.
 
-이 세션의 끝에서 학생들은 다음을 말할 수 있어야 한다.
+이 세션의 끝에서 우리는 다음을 말할 수 있어야 한다.
 
-- Kubernetes 네트워크와 운영 주제가 왜 뒤에 등장하는지 설명한다.
+- Kubernetes 네트워크와 운영 주제가 왜 뒤에 등장하는지 정리한다.
 - AWS가 단순 서버 대여가 아니라 관리형 서비스와 운영 선택지의 집합임을 이해한다.
 - Observability가 장애 이후에 보는 장식이 아니라 운영의 기본 감각임을 이해한다.
 
-## 진행 흐름
+## 오늘의 흐름
 
 | 시간 | 단계 | 진행 |
 |---|---|---|
 | 12:00-12:06 | 3교시 연결 | Docker/Kubernetes의 역할을 한 문장으로 다시 확인한다. |
 | 12:06-12:18 | Kubernetes 운영으로 확장 | 네트워크, Ingress, 설정, 보안, 배포 전략을 소개한다. |
-| 12:18-12:30 | AWS가 생긴 배경 | 서버 구매에서 API 기반 인프라와 관리형 서비스로 바뀐 흐름을 설명한다. |
-| 12:30-12:40 | Observability의 등장 | 복잡한 분산 시스템에서 로그만으로 부족해진 이유를 설명한다. |
-| 12:40-12:47 | 캡스톤 그림 | “작은 서비스 운영 설계” 산출물을 미리 보여준다. |
+| 12:18-12:30 | AWS가 생긴 배경 | 서버 구매에서 API 기반 인프라와 관리형 서비스로 바뀐 흐름을 정리한다. |
+| 12:30-12:40 | Observability의 등장 | 복잡한 분산 시스템에서 로그만으로 부족해진 이유를 정리한다. |
+| 12:40-12:47 | 캡스톤 그림 | “작은 서비스 운영 설계” 산출물을 미리 살펴본다. |
 | 12:47-12:50 | 오후 설치 연결 | 오후 도구 준비가 왜 4-6주차까지 이어지는지 정리한다. |
 
 ## 시작 질문
 
 > 앱을 Kubernetes에 올리기만 하면 운영이 끝날까요?
 
-예상 답변:
+생각해볼 답:
 
 - 외부에서 접속되어야 한다.
 - HTTPS가 필요하다.
@@ -34,7 +34,7 @@
 - 비용이 든다.
 - 권한과 보안을 챙겨야 한다.
 
-강사는 이 답변을 4-6주차 주제로 연결한다.
+이 답변은 4-6주차 주제와 연결된다.
 
 ## 4주차 - Kubernetes 운영과 네트워크
 
@@ -47,9 +47,7 @@ Kubernetes의 기본 리소스를 알게 되면 다음 질문이 생긴다. Pod�
 - rollout, rollback, readiness, liveness를 통해 배포와 복구를 본다.
 - namespace와 권한의 기본 개념을 소개한다.
 
-강사 멘트:
-
-“Kubernetes에서 가장 많이 헷갈리는 부분은 네트워크입니다. 컨테이너는 떠 있는데 접속이 안 되는 일이 많습니다. 그래서 4주차는 ‘요청이 어디로 지나가는지’ 계속 그리면서 갑니다.”
+Kubernetes에서 가장 많이 헷갈리는 부분은 네트워크입니다. 컨테이너는 떠 있는데 접속이 안 되는 일이 많습니다. 그래서 4주차는 ‘요청이 어디로 지나가는지’ 계속 그리면서 갑니다.
 
 ## 5주차 - AWS와 Cloud Native Computing
 
@@ -90,11 +88,9 @@ flowchart LR
   E --> F["장애 설명과 개선<br/>Capstone"]
 ```
 
-강사 멘트:
-
-- “4주차부터는 실행 성공보다 운영 설명이 중요해집니다.”
-- “AWS는 버튼 누르는 수업이 아니라 선택 기준을 배우는 수업입니다.”
-- “Observability는 장애가 난 뒤에 켜는 화면이 아니라 처음부터 남겨야 하는 신호입니다.”
+- 4주차부터는 실행 성공보다 운영 설명이 중요해집니다.
+- AWS는 버튼 누르는 수업이 아니라 선택 기준을 배우는 수업입니다.
+- Observability는 장애가 난 뒤에 켜는 화면이 아니라 처음부터 남겨야 하는 신호입니다.
 
 ## 업계 변천사로 보는 4-6주차
 
@@ -140,32 +136,19 @@ flowchart LR
 - 장애 상황 1개와 복구 시나리오
 - 비용과 보안에서 조심할 점
 
-## 이미지 브리프 - 스틱맨 장면
+## 수업 이미지
 
-### 장면: 운영 대시보드 앞의 팀
-
-- 이미지 파일: [assets/stickman-operations-board.png](assets/stickman-operations-board.png)
-- 장면: 팀이 큰 보드 앞에서 요청 경로, AWS 리소스, metrics/logs/traces를 함께 본다.
-- 인물: 요청 경로를 가리키는 학생, 비용 표시를 확인하는 학생, 로그를 읽는 학생
-- 기술 오브젝트: Ingress 문, cloud resource 카드, 그래프, 로그 줄, trace 선
-- 감정: 복잡하지만 관찰 가능한 시스템을 함께 운영하는 느낌
-- 반드시 보여줄 것: 운영이 코드 이후의 일이라는 메시지
-- 피할 것: 실제 AWS 서비스 로고, 복잡한 수치
-- Prompt:
-
-```text
-Simple black-and-white stickman illustration on a clean white background. A student team stands in front of an operations board showing a request path, cloud resource cards, a small metric chart, log lines, and a trace line. One student points at the ingress gate, another checks a cost tag, and another reads logs. Minimal line art, classroom-friendly, no brand logos, no dense text.
-```
+![운영 대시보드 앞에서 요청 경로와 운영 신호를 함께 보는 팀](assets/stickman-operations-board.png)
 
 ## 마무리 질문
 
 > 서비스가 “돌아간다”와 서비스가 “운영된다”는 말은 어떻게 다를까?
 
-예상 답안:
+정리 예시:
 
 - 돌아간다는 것은 실행 중이라는 뜻에 가깝다.
 - 운영된다는 것은 접속, 보안, 확장, 관찰, 복구, 비용까지 관리된다는 뜻이다.
 
 ## 다음 교시 연결
 
-“오후에는 말로 본 도구들을 실제 노트북에서 준비합니다. VS Code, 터미널, Git, 브라우저, Docker Desktop, WSL은 앞으로 6주 동안 계속 쓰는 작업대입니다.”
+오후에는 말로 본 도구들을 실제 노트북에서 준비합니다. VS Code, 터미널, Git, 브라우저, Docker Desktop, WSL은 앞으로 6주 동안 계속 쓰는 작업대입니다.

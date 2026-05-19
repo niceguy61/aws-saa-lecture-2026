@@ -4,22 +4,22 @@
 
 이 시간의 목표는 실습에 필요한 기본 도구가 준비되어 있는지 확인하고, 각 도구가 왜 필요한지 이해하는 것이다. 설치 자체보다 중요한 것은 “어떤 일을 할 때 어떤 도구를 여는지”를 아는 것이다.
 
-이 세션의 끝에서 학생들은 다음을 할 수 있어야 한다.
+이 세션의 끝에서 우리는 다음을 할 수 있어야 한다.
 
 - VS Code, 터미널, Git, 브라우저의 역할을 구분한다.
 - 기본 명령으로 설치 상태를 확인한다.
 - 문제가 있을 때 증상과 확인 결과를 기록해 도움을 요청한다.
 
-## 진행 흐름
+## 오늘의 흐름
 
 | 시간 | 단계 | 진행 |
 |---|---|---|
-| 14:00-14:05 | 오후 리셋 | 오전에 배운 “실행, 관찰, 기록”을 설치 점검에 적용한다고 안내한다. |
-| 14:05-14:15 | 도구가 생긴 이유 | 텍스트 편집, 터미널, 버전 관리, 브라우저 개발자 도구의 역사적 역할을 설명한다. |
+| 14:00-14:05 | 오후 리셋 | 오전에 배운 “실행, 관찰, 기록”을 설치 점검에 적용한다고 확인한다. |
+| 14:05-14:15 | 도구가 생긴 이유 | 텍스트 편집, 터미널, 버전 관리, 브라우저 개발자 도구의 역사적 역할을 정리한다. |
 | 14:15-14:30 | 공통 점검 | OS, 브라우저, VS Code, 터미널 실행 상태를 확인한다. |
-| 14:30-14:40 | Git 점검 | `git --version`, 사용자 이름/이메일, 기본 clone 흐름을 설명한다. |
+| 14:30-14:40 | Git 점검 | `git --version`, 사용자 이름/이메일, 기본 clone 흐름을 정리한다. |
 | 14:40-14:47 | 계정/접속 확인 | GitHub, Docker Hub, AWS 계정 필요성을 안내하고 민감정보 규칙을 강조한다. |
-| 14:47-14:50 | 점검표 제출 | 막힌 항목을 체크해 강사가 6교시 지원 우선순위를 정한다. |
+| 14:47-14:50 | 점검표 제출 | 막힌 항목을 체크해 6교시 지원 우선순위를 정한다. |
 
 ## 시작 화면
 
@@ -81,7 +81,7 @@ git config --global user.name
 git config --global user.email
 ```
 
-비어 있으면 나중에 설정한다. 수업 중 공개 화면에서 개인 이메일 노출이 불편한 학생은 GitHub noreply 이메일을 사용할 수 있다고 안내한다.
+비어 있으면 나중에 설정한다. 수업 중 공개 화면에서 개인 이메일 노출이 불편하다면 GitHub noreply 이메일을 사용할 수 있다.
 
 ### VS Code 확인
 
@@ -112,11 +112,9 @@ flowchart LR
   C --> F["Docker/Kubernetes/AWS CLI<br/>플랫폼 조작"]
 ```
 
-강사 멘트:
-
-- “VS Code에서 파일을 고치고, 터미널에서 실행하고, 브라우저에서 결과를 봅니다.”
-- “Git은 내가 지나온 길을 남깁니다.”
-- “Cloud Native 수업에서는 터미널이 거의 모든 플랫폼의 공통 리모컨처럼 쓰입니다.”
+- VS Code에서 파일을 고치고, 터미널에서 실행하고, 브라우저에서 결과를 봅니다.
+- Git은 내가 지나온 길을 남깁니다.
+- Cloud Native 수업에서는 터미널이 거의 모든 플랫폼의 공통 리모컨처럼 쓰입니다.
 
 ## 계정과 민감정보 규칙
 
@@ -136,7 +134,7 @@ flowchart LR
 
 ## 활동 - 설치 점검표
 
-학생들이 아래 표를 개인 노트에 복사해 체크한다.
+함께 아래 표를 개인 노트에 복사해 체크한다.
 
 | 항목 | 상태 | 확인 방법 | 메모 |
 |---|---|---|---|
@@ -148,7 +146,7 @@ flowchart LR
 | Docker Hub 계정 | OK / 문제 있음 | 로그인 가능 여부 | |
 | AWS 계정 | OK / 나중에 / 문제 있음 | 로그인 가능 여부 | |
 
-강사는 문제 있는 항목을 손들기로 빠르게 수집한다.
+문제 있는 항목을 손들기로 빠르게 수집한다.
 
 ## 흔한 문제와 대응
 
@@ -160,22 +158,9 @@ flowchart LR
 | localhost 접속 실패 | 서버가 실행 중이 아님 | 현재는 정상일 수 있음을 설명 |
 | 터미널이 낯섦 | 경험 부족 | 명령을 복사하기 전에 의미를 한 줄로 설명 |
 
-## 이미지 브리프 - 스틱맨 장면
+## 수업 이미지
 
-### 장면: 작업대 점검
-
-- 이미지 파일: [assets/stickman-dev-workbench.png](assets/stickman-dev-workbench.png)
-- 장면: 학생이 노트북 위에 VS Code, terminal, Git, browser 아이콘 카드를 올려두고 하나씩 체크한다.
-- 인물: 체크리스트를 보는 학생, 옆에서 도와주는 팀원
-- 기술 오브젝트: 파일 카드, 명령 창, Git 히스토리 선, 브라우저 창
-- 감정: 설치 경쟁이 아니라 작업대 정리
-- 반드시 보여줄 것: 도구별 역할이 분리되어 있음
-- 피할 것: 실제 계정 정보, 작은 UI 텍스트
-- Prompt:
-
-```text
-Simple black-and-white stickman illustration on a clean white background. A student checks a clean workbench with cards for code editor, terminal, git history, and browser. A teammate helps compare the checklist. Minimal line art, classroom-friendly, no brand logos, no account details, no dense UI.
-```
+![개발 도구 작업대를 점검하는 모습](assets/stickman-dev-workbench.png)
 
 ## 마무리 질문
 
@@ -183,4 +168,4 @@ Simple black-and-white stickman illustration on a clean white background. A stud
 
 ## 다음 교시 연결
 
-“다음 시간에는 Docker Desktop과 WSL을 확인합니다. 여기서부터는 단순 앱 실행을 넘어 컨테이너 실행 환경을 준비합니다.”
+다음 시간에는 Docker Desktop과 WSL을 확인합니다. 여기서부터는 단순 앱 실행을 넘어 컨테이너 실행 환경을 준비합니다.

@@ -4,22 +4,22 @@
 
 이 시간의 목표는 Docker Desktop이 설치되어 있고, 터미널에서 Docker 엔진과 통신할 수 있는지 확인하는 것이다. Windows 학습자는 WSL 2와 Docker Desktop의 연결 상태도 함께 본다.
 
-이 세션의 끝에서 학생들은 다음을 할 수 있어야 한다.
+이 세션의 끝에서 우리는 다음을 할 수 있어야 한다.
 
-- Docker Desktop과 Docker CLI의 차이를 설명한다.
+- Docker Desktop과 Docker CLI의 차이를 정리한다.
 - `docker version`과 `docker run hello-world`로 설치 상태를 확인한다.
 - Windows에서 WSL 2가 Docker 실습에 왜 중요한지 이해한다.
 
-## 진행 흐름
+## 오늘의 흐름
 
 | 시간 | 단계 | 진행 |
 |---|---|---|
 | 15:00-15:06 | 5교시 연결 | 터미널이 Docker와 대화하는 구조를 소개한다. |
-| 15:06-15:16 | Docker가 등장한 배경 | VM, 환경 차이, 컨테이너 대중화 흐름을 설명한다. |
+| 15:06-15:16 | Docker가 등장한 배경 | VM, 환경 차이, 컨테이너 대중화 흐름을 정리한다. |
 | 15:16-15:28 | Docker Desktop 확인 | 앱 실행, 엔진 상태, 버전 확인을 진행한다. |
-| 15:28-15:38 | hello-world 실행 | 첫 컨테이너 실행과 출력 의미를 설명한다. |
+| 15:28-15:38 | hello-world 실행 | 첫 컨테이너 실행과 출력 의미를 정리한다. |
 | 15:38-15:46 | Windows WSL 점검 | WSL 2 상태와 Docker Desktop integration을 확인한다. |
-| 15:46-15:50 | 문제 목록 정리 | 막힌 학생을 유형별로 묶어 쉬는 시간 지원 계획을 잡는다. |
+| 15:46-15:50 | 문제 목록 정리 | 막힌 항목을 유형별로 묶어 다음 조치를 정한다. |
 
 ## 시작 질문
 
@@ -45,11 +45,9 @@ flowchart LR
   C --> E["Container<br/>hello-world"]
 ```
 
-강사 멘트:
-
-- “터미널에서 치는 `docker`는 요청을 보내는 쪽입니다.”
-- “실제로 컨테이너를 만드는 쪽은 Docker Engine입니다.”
-- “Docker Desktop은 로컬에서 그 엔진을 쉽게 켜고 관리하게 해주는 앱입니다.”
+- 터미널에서 치는 `docker`는 요청을 보내는 쪽입니다.
+- 실제로 컨테이너를 만드는 쪽은 Docker Engine입니다.
+- Docker Desktop은 로컬에서 그 엔진을 쉽게 켜고 관리하게 해주는 앱입니다.
 
 ## Docker Desktop 확인
 
@@ -90,9 +88,7 @@ docker run hello-world
 - 컨테이너가 실행되고 메시지를 출력한 뒤 종료된다.
 - 계속 떠 있는 서버 컨테이너가 아니라 “실행 후 끝나는” 예제다.
 
-강사 멘트:
-
-“여기서 중요한 것은 hello-world 문구가 아닙니다. Docker 명령이 엔진에 요청했고, 엔진이 이미지를 찾고, 없으면 받아오고, 컨테이너를 만들고, 실행했다는 흐름입니다.”
+여기서 중요한 것은 hello-world 문구가 아닙니다. Docker 명령이 엔진에 요청했고, 엔진이 이미지를 찾고, 없으면 받아오고, 컨테이너를 만들고, 실행했다는 흐름입니다.
 
 ## Windows 학습자 - WSL 상태 점검
 
@@ -127,11 +123,11 @@ Ubuntu 안에서 `docker` 명령이 동작하면 이후 Linux 기반 실습을 �
 | Docker daemon 연결 실패 | Docker Desktop 엔진이 아직 시작되지 않음 | 앱 실행 후 상태가 준비될 때까지 대기 |
 | WSL 2 관련 에러 | Windows 기능 또는 가상화 설정 문제 | WSL 상태 확인, 필요 시 별도 설치 지원 |
 | `hello-world` pull 실패 | 네트워크, 프록시, Docker Hub 접근 문제 | 인터넷 연결과 Docker Desktop 로그인/설정 확인 |
-| 권한 에러 | Linux 사용자 권한 또는 Docker socket 문제 | 수업 환경별로 강사와 함께 확인 |
+| 권한 에러 | Linux 사용자 권한 또는 Docker socket 문제 | 수업 환경별로 수업에서 함께 확인 |
 
 ## 활동 - 증상 분류하기
 
-학생들이 자기 상태를 아래 중 하나로 분류한다.
+함께 자기 상태를 아래 중 하나로 분류한다.
 
 | 코드 | 상태 |
 |---|---|
@@ -141,34 +137,21 @@ Ubuntu 안에서 `docker` 명령이 동작하면 이후 Linux 기반 실습을 �
 | D | Windows WSL 상태가 불명확함 |
 | E | 네트워크 또는 계정 문제로 이미지 다운로드 실패 |
 
-강사는 A 학생을 주변 지원자로 세우고, B-E 유형을 묶어 해결한다.
+A 상태는 준비 완료로 보고, B-E 유형은 원인별로 나누어 해결한다.
 
-## 이미지 브리프 - 스틱맨 장면
+## 수업 이미지
 
-### 장면: 첫 컨테이너 확인
-
-- 이미지 파일: [assets/stickman-docker-wsl-check.png](assets/stickman-docker-wsl-check.png)
-- 장면: 학생들이 터미널에서 hello-world 컨테이너를 실행하고, 작은 컨테이너 상자가 메시지를 들고 나온다.
-- 인물: 성공한 학생, 엔진 상태를 확인하는 학생, Windows/WSL 경로를 보는 학생
-- 기술 오브젝트: Docker Desktop 창, CLI 화살표, 엔진 박스, hello-world 컨테이너
-- 감정: 첫 실행의 성취감과 문제 유형을 차분히 분류하는 분위기
-- 반드시 보여줄 것: CLI, Engine, Container가 분리된 구조
-- 피할 것: 특정 Docker 로고를 크게 쓰는 구성, 복잡한 설치 화면
-- Prompt:
-
-```text
-Simple black-and-white stickman illustration on a clean white background. Students run a terminal command that sends an arrow to a Docker engine box, which starts a tiny hello-world container holding a success message. One Windows student checks a WSL path on the side. Minimal line art, classroom-friendly, no brand logos, no dense UI.
-```
+![Docker CLI, Engine, Container, WSL 상태를 확인하는 모습](assets/stickman-docker-wsl-check.png)
 
 ## 마무리 질문
 
 > `docker version`에서 Client와 Server를 나누어 보는 이유는 무엇일까?
 
-예상 답안:
+정리 예시:
 
 - Client는 명령을 보내는 쪽이고 Server는 컨테이너를 실제로 관리하는 엔진이다.
 - Client만 있어도 엔진 연결이 안 되면 컨테이너를 실행할 수 없다.
 
 ## 다음 교시 연결
 
-“Docker까지 확인했으니, 다음 시간에는 AI 도구 사용 현황을 조사하고 CLI 기반 coding agent를 소개합니다. AI도 Docker처럼 도구 자체보다 어디에 놓고 어떻게 검증할지가 중요합니다.”
+Docker까지 확인했으니, 다음 시간에는 AI 도구 사용 현황을 조사하고 CLI 기반 coding agent를 소개합니다. AI도 Docker처럼 도구 자체보다 어디에 놓고 어떻게 검증할지가 중요합니다.
