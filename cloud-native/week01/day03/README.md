@@ -46,6 +46,35 @@
 
 실습 폴더에는 작은 서비스 구조, 설정 파일, access log, error log가 들어 있다. 일부 설정은 의도적으로 빠져 있고, 일부 명령은 일부러 깨져 있다.
 
+## 실습 터미널 기준
+
+오늘 자료의 명령은 Linux 계열 터미널 기준이다.
+
+| 환경 | 권장 터미널 |
+|---|---|
+| Windows | WSL Ubuntu 터미널 또는 Git Bash |
+| macOS | Terminal 또는 iTerm |
+| Linux | 기본 Terminal |
+
+PowerShell에서도 비슷한 일을 할 수 있지만, `ls`, `cat`, `grep`, `find`의 동작과 출력이 조금 다를 수 있다. Docker와 Kubernetes 수업에서는 Linux 기준 명령을 자주 쓰므로, Windows 학습자는 가능하면 WSL Ubuntu에서 실습한다.
+
+## 시작 위치 확인
+
+자료에서 “저장소 루트”라고 하면 이 저장소의 가장 위 폴더를 뜻한다. 보통 `cloud-native` 폴더가 바로 보이는 위치다.
+
+```bash
+pwd
+ls
+```
+
+`ls` 결과에 `cloud-native`가 보이면 아래 명령으로 Day3 실습 폴더에 들어갈 수 있다.
+
+```bash
+cd cloud-native/week01/day03/playground
+```
+
+만약 `No such file or directory`가 나오면 명령이 틀렸다고 바로 판단하지 말고, 현재 위치가 저장소 루트인지 먼저 확인한다.
+
 기본 시작:
 
 ```bash
@@ -61,6 +90,17 @@ find . -maxdepth 3 -type f
 - error log에서 설정 누락 원인을 찾는다.
 - 깨진 명령 8개를 고치고 원인을 분류한다.
 - 짧은 incident note를 작성한다.
+
+## 오늘 나오는 핵심 용어
+
+| 용어 | 쉬운 뜻 |
+|---|---|
+| access log | 사용자의 요청이 들어온 기록 |
+| error log | 실패나 예외 상황이 남은 기록 |
+| `404` | 요청한 경로를 찾지 못함 |
+| `500` | 서버가 요청 처리 중 실패함 |
+| `DATABASE_URL` | 앱이 데이터베이스에 연결할 때 쓰는 설정 이름 |
+| incident note | 장애나 실패 상황을 짧고 재현 가능하게 정리한 기록 |
 
 ## Cloud Native 연결
 
