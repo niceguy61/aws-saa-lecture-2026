@@ -17,14 +17,14 @@
 | 시간 | 교시 | 인덱스 |
 |---|---|---|
 | 09:00-09:50 | 1교시 | [아이스 브레이킹: 자기소개, 기대치 공유, 간단 과정 소개](01-ice-breaking.md) |
-| 10:00-10:50 | 2교시 | 과정 OT: 수업 방식, 질문 규칙, 팀 활동, 평가/미션 방식 |
-| 11:00-11:50 | 3교시 | 1-3주차 오버뷰: 컴퓨팅 기초, Docker, Kubernetes Core |
-| 12:00-12:50 | 4교시 | 4-6주차 오버뷰: Kubernetes 운영, AWS, Observability, Capstone, 오후 설치 준비 |
+| 10:00-10:50 | 2교시 | [과정 OT: 수업 방식, 질문 규칙, 팀 활동, 평가/미션 방식](02-course-orientation.md) |
+| 11:00-11:50 | 3교시 | [1-3주차 오버뷰: 컴퓨팅 기초, Docker, Kubernetes Core](03-week1-3-overview.md) |
+| 12:00-12:50 | 4교시 | [4-6주차 오버뷰: Kubernetes 운영, AWS, Observability, Capstone, 오후 설치 준비](04-week4-6-overview.md) |
 | 13:00-14:00 | 점심 | 점심시간 |
-| 14:00-14:50 | 5교시 | 개발 도구 점검: VS Code, 터미널, Git, 브라우저, 계정 상태 확인 |
-| 15:00-15:50 | 6교시 | Docker Desktop 설치와 확인, Windows 학습자는 WSL 상태 점검 |
-| 16:00-16:50 | 7교시 | AI 도구 사용 현황 조사와 CLI 기반 coding agent 소개 |
-| 17:00-17:50 | 8교시 | Coding agent 예시 시연, 설치 상태 체크, 2일차 준비 |
+| 14:00-14:50 | 5교시 | [개발 도구 점검: VS Code, 터미널, Git, 브라우저, 계정 상태 확인](05-dev-tool-check.md) |
+| 15:00-15:50 | 6교시 | [Docker Desktop 설치와 확인, Windows 학습자는 WSL 상태 점검](06-docker-desktop-wsl.md) |
+| 16:00-16:50 | 7교시 | [AI 도구 사용 현황 조사와 CLI 기반 coding agent 소개](07-ai-tools-coding-agent.md) |
+| 17:00-17:50 | 8교시 | [Coding agent 예시 시연, 설치 상태 체크, 2일차 준비](08-coding-agent-demo-checkout.md) |
 
 ## 랩/미션/데모
 
