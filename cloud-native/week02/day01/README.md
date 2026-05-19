@@ -6,7 +6,7 @@
 
 ## 오늘의 대표 이미지
 
-![Docker가 해결하려는 실행 환경 차이](assets/stickman-docker-env-mismatch.png)
+![Docker가 해결하려는 실행 환경 차이](assets/docker-env-mismatch-scene.png)
 
 ![Image, Container, Runtime 구조](assets/architecture-image-container-runtime.png)
 

@@ -12,7 +12,7 @@ Docker는 "앱을 실행하는 방법"을 사람의 기억이 아니라 이미�
 
 ## 수업 이미지
 
-![Docker가 해결하려는 실행 환경 차이](assets/stickman-docker-env-mismatch.png)
+![Docker가 해결하려는 실행 환경 차이](assets/docker-env-mismatch-scene.png)
 
 ## "내 노트북에서는 되는데요"의 정체
 
