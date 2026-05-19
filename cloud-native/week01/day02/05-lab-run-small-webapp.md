@@ -48,11 +48,7 @@ Python 3가 설치되어 있지 않다면 먼저 [Python 설치와 확인](00-py
 
 ## 1단계 - 폴더 이동
 
-저장소 루트에서 아래 명령을 실행한다.
-
-```bash
-cd cloud-native/week01/day02/app
-```
+먼저 저장소 루트에 있는지 확인한다. 저장소 루트는 이 수업 자료 전체가 들어 있는 가장 위쪽 폴더다. 보통 이 위치에는 `README.md`, `cloud-native/`, `scripts/` 같은 항목이 보인다.
 
 현재 위치를 확인한다.
 
@@ -60,7 +56,29 @@ cd cloud-native/week01/day02/app
 pwd
 ```
 
-Windows PowerShell에서는 `pwd`도 사용할 수 있다.
+현재 폴더의 파일 목록을 본다.
+
+```bash
+ls
+```
+
+Windows PowerShell에서는 아래 명령도 사용할 수 있다.
+
+```powershell
+dir
+```
+
+`cloud-native` 폴더가 보이면 저장소 루트일 가능성이 높다. 그 위치에서 아래 명령을 실행한다.
+
+```bash
+cd cloud-native/week01/day02/app
+```
+
+이동 후 현재 위치를 다시 확인한다.
+
+```bash
+pwd
+```
 
 파일이 보이는지 확인한다.
 
