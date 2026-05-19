@@ -1,0 +1,5 @@
+service=shop-web
+role=web
+port=3000
+routes=/,/products,/orders
+calls=orders-api

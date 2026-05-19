@@ -1,0 +1,4 @@
+2026-03-02T10:17:10Z ERROR config missing required key DATABASE_URL
+2026-03-02T10:17:10Z ERROR request failed path=/api/orders reason=database configuration unavailable
+2026-03-02T10:17:16Z ERROR config missing required key DATABASE_URL
+2026-03-02T10:19:11Z ERROR request failed path=/api/orders reason=database configuration unavailable

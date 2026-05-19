@@ -1,0 +1,5 @@
+service=orders-api
+role=api
+port=8000
+routes=/health,/api/products,/api/orders
+depends_on=DATABASE_URL
