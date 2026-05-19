@@ -37,3 +37,4 @@ Use this skill to produce classroom-ready Cloud Native DevOps materials.
 - Connect every topic to deployment, scaling, networking, security, operations, reliability, or cost.
 - Keep AWS material cloud-native and practical, centered on deployment and operations scenarios.
 - From week 2 onward, raise depth to university STEM / junior engineer level, expand hands-on labs, verify lab commands, include technology evolution or industry trend context, and embed infographic-style architecture PNGs in addition to stickman images. Do not treat plain box-and-arrow SVG-style diagrams exported as PNG as finished visuals.
+- For student-facing images, write titles and essential explanatory labels in Korean. Use English only for product names, commands, ports, protocols, and other technical identifiers.

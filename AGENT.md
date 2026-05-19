@@ -72,6 +72,7 @@ Previous AWS materials are archived under `archive/` and are not the active base
 - Schedule fit: Each day README must include the 09:00-18:00 block index.
 - Visual fit: Each major concept should have either a Mermaid diagram or stickman scenario image prompt.
 - Week 2+ visual fit: Student-facing materials must embed at least one infographic-style architecture PNG per day, separate from stickman images. Avoid exporting plain box-and-arrow diagrams as PNG and calling them finished visuals.
+- Visual text language: Titles and essential explanatory labels inside student-facing images must be Korean. Keep only product names, commands, ports, and protocol identifiers in English when technically clearer.
 - Learning design: Use See, Explain, Do, Diagnose, Reflect as the default teaching loop.
 - Accessibility: Write for non-CS university students first, then provide optional deep-dive materials for advanced learners.
 
