@@ -31,6 +31,12 @@ Previous AWS materials are archived under `archive/` and are not the active base
   - One hands-on lab, playful mission, instructor demo, or curated media activity
   - Security, networking, and observability implications when relevant
   - A short instructor delivery note
+- From week 2 onward:
+  - Raise the expected learner level to university STEM majors and early junior engineers.
+  - Increase material depth and volume to roughly twice the week 1 baseline.
+  - Include hands-on labs as a primary learning surface, not a short add-on.
+  - Verify hands-on labs with runnable commands, expected output, troubleshooting, and cleanup.
+  - Include each service or technology's evolution, industry trend, or operational backstory when it helps students stay engaged.
 
 ## Active Course Domains
 
@@ -59,6 +65,7 @@ Previous AWS materials are archived under `archive/` and are not the active base
 - Practicality: Labs must be runnable on a realistic student machine or clearly state environment requirements.
 - Safety: Labs must avoid real production credentials, unmanaged cloud spend, and destructive shared-cluster actions.
 - Completeness: Labs must include expected output, verification commands, troubleshooting notes, and cleanup.
+- Hands-on verification: Week 2+ lab steps must be checked for command order, prerequisites, expected state, failure modes, and cleanup.
 - Cloud native fit: Each topic must connect to deployment, scaling, networking, security, or operations.
 - Teaching fit: Each session must include instructor prompts and common learner failure modes.
 - Schedule fit: Each day README must include the 09:00-18:00 block index.

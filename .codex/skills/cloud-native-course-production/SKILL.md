@@ -36,3 +36,4 @@ Use this skill to produce classroom-ready Cloud Native DevOps materials.
 - Include cleanup for every created resource.
 - Connect every topic to deployment, scaling, networking, security, operations, reliability, or cost.
 - Keep AWS material cloud-native and practical, centered on deployment and operations scenarios.
+- From week 2 onward, raise depth to university STEM / junior engineer level, expand hands-on labs, verify lab commands, and include technology evolution or industry trend context.
